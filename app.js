@@ -333,6 +333,17 @@ function loadData() {
     try {
       const records = JSON.parse(stored);
       if (Array.isArray(records) && records.length > 0) {
+        let migrated = false;
+        records.forEach(item => {
+          if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000) {
+            item.cost = 0;
+            item.totalAmount = 0;
+            item.companyAmount = 0;
+            item.personalAmount = 0;
+            if (item.faultRatio === '당사 70% : 고객 30%') item.faultRatio = '과실 미산정';
+            migrated = true;
+          }
+        });
         state.incidents = records;
         state.incidents.forEach(item => {
           if (!item.dept) item.dept = inferDeptFromIncident(item);
@@ -909,10 +920,10 @@ function renderCostAnalysisData() {
     return `
       <tr onclick="navigateToDetailFromCost('${escapeHtml(item.id)}')">
         <td class="id-cell">${escapeHtml(item.id)}</td>
-        <td style="color:#cbd5e1; font-size:0.82rem;">${escapeHtml(item.date)}</td>
+        <td style="color:#475569; font-size:0.82rem;">${escapeHtml(item.date)}</td>
         <td>
-          <span style="font-weight:600; color:#fff;">${escapeHtml(item.resort)}</span>
-          <span style="color:#94a3b8; font-size:0.75rem; margin-left:0.25rem;">(${escapeHtml(item.locationDetail)})</span>
+          <span style="font-weight:600; color:#1e293b;">${escapeHtml(item.resort)}</span>
+          <span style="color:#64748b; font-size:0.75rem; margin-left:0.25rem;">(${escapeHtml(item.locationDetail)})</span>
         </td>
         <td>
           <span class="badge badge-category">${escapeHtml(item.category)}</span>
@@ -1204,12 +1215,12 @@ function renderPendingIncidents() {
         </td>
         <td class="id-cell" onclick="navigateToDetailFromSubModal('${escapeHtml(item.id)}')">${escapeHtml(item.id)}</td>
         <td>
-          <div style="font-weight:600; color:#fff;">${escapeHtml(item.resort)}</div>
-          <div style="font-size:0.75rem; color:#94a3b8;">${escapeHtml(item.date)}</div>
+          <div style="font-weight:600; color:#1e293b;">${escapeHtml(item.resort)}</div>
+          <div style="font-size:0.75rem; color:#64748b;">${escapeHtml(item.date)}</div>
         </td>
         <td>
-          <div style="font-weight:600; color:#cbd5e1;" class="title-cell" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</div>
-          <div style="font-size:0.75rem; color:#64748b;" class="title-cell" title="${escapeHtml(item.description)}">${escapeHtml(item.description)}</div>
+          <div style="font-weight:600; color:#1e293b;" class="title-cell" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</div>
+          <div style="font-size:0.75rem; color:#475569;" class="title-cell" title="${escapeHtml(item.description)}">${escapeHtml(item.description)}</div>
         </td>
         <td>
           <span class="badge badge-status-progress">${escapeHtml(item.status)}</span>
@@ -1493,20 +1504,20 @@ function renderMedicalAnalysis() {
     return `
       <tr onclick="navigateToDetailFromSubModal('${escapeHtml(item.id)}')">
         <td class="id-cell">${escapeHtml(item.id)}</td>
-        <td style="color:#94a3b8; font-size:0.78rem;">${escapeHtml(item.date)}</td>
+        <td style="color:#64748b; font-size:0.78rem;">${escapeHtml(item.date)}</td>
         <td>
-          <div style="font-weight:600; color:#fff;">${escapeHtml(item.resort)}</div>
-          <div style="font-size:0.75rem; color:#94a3b8;">${escapeHtml(item.locationDetail || item.zone)}</div>
+          <div style="font-weight:600; color:#1e293b;">${escapeHtml(item.resort)}</div>
+          <div style="font-size:0.75rem; color:#64748b;">${escapeHtml(item.locationDetail || item.zone)}</div>
         </td>
         <td>
-          <span style="color:#a5b4fc; font-weight:600;">${escapeHtml(item.victimType || '고객')}</span>
-          <span style="font-size:0.78rem; color:#cbd5e1; margin-left:0.25rem;">(${escapeHtml(item.victimName || '익명')})</span>
+          <span style="color:#2563eb; font-weight:600;">${escapeHtml(item.victimType || '고객')}</span>
+          <span style="font-size:0.78rem; color:#475569; margin-left:0.25rem;">(${escapeHtml(item.victimName || '익명')})</span>
         </td>
         <td>
           <span class="badge ${sevClass}">${escapeHtml(item.severity)}</span>
         </td>
         <td>
-          <div style="font-size:0.82rem; color:#e2e8f0;" class="title-cell" title="${escapeHtml(item.actionTaken)}">
+          <div style="font-size:0.82rem; color:#334155;" class="title-cell" title="${escapeHtml(item.actionTaken)}">
             ${escapeHtml(item.actionTaken || '-')}
           </div>
         </td>
@@ -2278,8 +2289,10 @@ function renderKPIs() {
       totalCostEl.innerText = `${(totalCompanyCost / 100000000).toFixed(1)}억원`;
     } else if (totalCompanyCost >= 10000) {
       totalCostEl.innerText = `${Math.round(totalCompanyCost / 10000).toLocaleString()}만원`;
-    } else {
+    } else if (totalCompanyCost > 0) {
       totalCostEl.innerText = `${totalCompanyCost.toLocaleString()}원`;
+    } else {
+      totalCostEl.innerText = "0원";
     }
   }
 }
@@ -2884,10 +2897,28 @@ window.openIncidentDetail = function(id) {
   document.getElementById("dtl-manager").innerText = item.manager || "-";
 
   const companyPaid = parseNumericCost(item.companyAmount !== undefined ? item.companyAmount : item.cost);
-  document.getElementById("dtl-fault-ratio").innerText = item.faultRatio || "과실 미산정";
-  document.getElementById("dtl-total-amount").innerText = formatCurrency(item.totalAmount);
-  document.getElementById("dtl-company-amount").innerText = formatCurrency(companyPaid);
-  document.getElementById("dtl-personal-amount").innerText = formatCurrency(item.personalAmount);
+  const totalAmt = parseNumericCost(item.totalAmount);
+  const personalAmt = parseNumericCost(item.personalAmount);
+  const hasValidFault = item.faultRatio && item.faultRatio !== "과실 미산정" && item.faultRatio !== "-" && item.faultRatio.trim() !== "";
+  const hasCostData = (companyPaid > 0 || totalAmt > 0 || personalAmt > 0 || hasValidFault);
+
+  const compGrid = document.getElementById("dtl-compensation-grid");
+  const compEmpty = document.getElementById("dtl-compensation-empty");
+
+  if (hasCostData) {
+    if (compGrid) compGrid.style.display = "grid";
+    if (compEmpty) compEmpty.style.display = "none";
+    document.getElementById("dtl-fault-ratio").innerText = item.faultRatio || "과실 미산정";
+    document.getElementById("dtl-total-amount").innerText = totalAmt > 0 ? formatCurrency(totalAmt) : "0원";
+    document.getElementById("dtl-company-amount").innerText = companyPaid > 0 ? formatCurrency(companyPaid) : "0원";
+    document.getElementById("dtl-personal-amount").innerText = personalAmt > 0 ? formatCurrency(personalAmt) : "0원";
+  } else {
+    if (compGrid) compGrid.style.display = "none";
+    if (compEmpty) {
+      compEmpty.style.display = "flex";
+      compEmpty.innerText = "등록된 비용/보상 내역 없음";
+    }
+  }
 
   const statusSelect = document.getElementById("dtl-status-select");
   if (statusSelect) {

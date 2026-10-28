@@ -291,7 +291,7 @@
       <div class="kpi-card kpi-card-clickable" id="kpi-card-cost" title="클릭 시 기간별 당사 지급 보험/보상 비용 상세 분석 모달이 열립니다">
         <div class="kpi-info">
           <h4>당사 지급 / 보상 비용</h4>
-          <div class="kpi-value" id="kpi-total-cost">0만원</div>
+          <div class="kpi-value" id="kpi-total-cost">0원</div>
           <div class="kpi-click-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
@@ -945,9 +945,9 @@
         </div>
 
         <div style="margin-top: 1rem;">
-          <h4 style="font-size:0.9rem; font-weight:700; color:#fff; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
+          <h4 style="font-size:0.9rem; font-weight:700; color:#1e293b; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
             🚑 병원 진료 및 의료 처치 건 상세 목록
-            <span id="med-table-count" style="font-size:0.75rem; color:#f87171; background:rgba(248,113,113,0.15); padding:0.15rem 0.5rem; border-radius:9999px;">0건</span>
+            <span id="med-table-count" style="font-size:0.75rem; color:#dc2626; background:#fee2e2; padding:0.15rem 0.5rem; border-radius:9999px;">0건</span>
           </h4>
           <div class="sub-table-container">
             <table class="sub-modal-table">
@@ -1028,11 +1028,11 @@
 
         <!-- C. 상세 지급 내역 테이블 (0원 초과 건들만) -->
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.4rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 0.4rem;">
             📋 지급 발생 건별 상세 내역
-            <span id="cost-table-count-badge" style="font-size:0.75rem; color:#38bdf8; background:rgba(56,189,248,0.15); padding:0.15rem 0.5rem; border-radius:9999px;">0건</span>
+            <span id="cost-table-count-badge" style="font-size:0.75rem; color:#0369a1; background:#e0f2fe; padding:0.15rem 0.5rem; border-radius:9999px;">0건</span>
           </h4>
-          <span style="font-size: 0.78rem; color: #94a3b8;">행 클릭 시 해당 사고 상세 모달로 바로 이동합니다</span>
+          <span style="font-size: 0.78rem; color: #64748b;">행 클릭 시 해당 사고 상세 모달로 바로 이동합니다</span>
         </div>
 
         <div class="cost-table-container">
@@ -1077,9 +1077,9 @@
         <!-- View Mode -->
         <div id="detail-view-mode">
           <!-- Status Switcher Bar -->
-          <div style="background: rgba(12,18,34,0.6); padding: 0.75rem 1rem; border-radius: 8px; display:flex; justify-content:space-between; align-items:center; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 1.15rem;">
-            <span style="font-size: 0.85rem; font-weight: 600; color: #94a3b8;">조치 상태 변경:</span>
-            <select id="dtl-status-select" class="custom-select" style="padding: 0.4rem 1.8rem 0.4rem 0.8rem; font-size: 0.82rem;">
+          <div class="modal-status-bar">
+            <span class="modal-status-label">조치 상태 변경:</span>
+            <select id="dtl-status-select" class="modal-status-select">
               <option value="조치완료">✅ 조치완료</option>
               <option value="조사/진행중">⏳ 조사/진행중</option>
               <option value="보험/보상진행">⚖️ 보험/보상진행</option>
@@ -1138,9 +1138,9 @@
           <div class="compensation-card" style="margin-bottom: 1rem;">
             <div class="compensation-card-header">
               <h4>⚖️ 보험 및 보상 / 비용 처리 내역</h4>
-              <span style="font-size: 0.75rem; color: #94a3b8;">손해 사정 및 과실 배분</span>
+              <span style="font-size: 0.75rem; color: #64748b;">손해 사정 및 과실 배분</span>
             </div>
-            <div class="compensation-grid">
+            <div class="compensation-grid" id="dtl-compensation-grid">
               <div class="comp-item">
                 <span class="comp-label">과실 비율</span>
                 <span class="comp-value fault" id="dtl-fault-ratio">-</span>
@@ -1157,6 +1157,9 @@
                 <span class="comp-label">본인 부담금</span>
                 <span class="comp-value personal" id="dtl-personal-amount">0원</span>
               </div>
+            </div>
+            <div id="dtl-compensation-empty" class="compensation-empty-box" style="display: none;">
+              등록된 비용/보상 내역 없음
             </div>
           </div>
 
@@ -1175,16 +1178,16 @@
 
         <!-- Edit Mode -->
         <div id="detail-edit-mode" style="display: none;">
-          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.15rem; display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.88rem; font-weight: 700; color: #38bdf8;">✏️ 사고 기록 정보 수정 중</span>
-            <span style="font-size: 0.78rem; color: #94a3b8;">변경 후 하단의 [저장]을 눌러주세요.</span>
+          <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.15rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.88rem; font-weight: 700; color: #1d4ed8;">✏️ 사고 기록 정보 수정 중</span>
+            <span style="font-size: 0.78rem; color: #475569;">변경 후 하단의 [수정 내용 저장]을 눌러주세요.</span>
           </div>
 
           <form id="incident-edit-form">
             <div class="form-grid">
               <div class="form-group">
                 <label for="edit-id">문서번호</label>
-                <input type="text" id="edit-id" class="form-input" readonly style="opacity: 0.75; cursor: not-allowed; background: rgba(0,0,0,0.3);">
+                <input type="text" id="edit-id" class="form-input" readonly>
               </div>
 
               <div class="form-group">
