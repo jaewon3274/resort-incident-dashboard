@@ -24,7 +24,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-10-19",
     "timeline": [
       {
@@ -58,7 +58,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-10-19",
     "timeline": [
       {
@@ -92,7 +92,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-10-19",
     "timeline": [
       {
@@ -126,7 +126,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-10-18",
     "timeline": [
       {
@@ -160,7 +160,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-10-10",
     "timeline": [
       {
@@ -228,7 +228,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "식음팀",
     "reportDate": "2026-09-25",
     "timeline": [
       {
@@ -262,7 +262,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-25",
     "timeline": [
       {
@@ -296,7 +296,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-25",
     "timeline": [
       {
@@ -364,7 +364,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-22",
     "timeline": [
       {
@@ -398,7 +398,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-22",
     "timeline": [
       {
@@ -466,7 +466,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-21",
     "timeline": [
       {
@@ -534,7 +534,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "성문안팀",
     "reportDate": "2026-09-18",
     "timeline": [
       {
@@ -568,7 +568,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-16",
     "timeline": [
       {
@@ -602,7 +602,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-09-15",
     "timeline": [
       {
@@ -636,7 +636,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-13",
     "timeline": [
       {
@@ -670,7 +670,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-09-11",
     "timeline": [
       {
@@ -806,7 +806,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-08-27",
     "timeline": [
       {
@@ -874,7 +874,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-08-25",
     "timeline": [
       {
@@ -908,7 +908,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-08-23",
     "timeline": [
       {
@@ -976,7 +976,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2026-08-21",
     "timeline": [
       {
@@ -1010,7 +1010,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2026-08-21",
     "timeline": [
       {
@@ -1044,7 +1044,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-08-20",
     "timeline": [
       {
@@ -1078,7 +1078,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2026-08-18",
     "timeline": [
       {
@@ -1146,7 +1146,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "객실팀",
     "reportDate": "2026-08-15",
     "timeline": [
       {
@@ -1316,7 +1316,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-07-23",
     "timeline": [
       {
@@ -1486,7 +1486,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-07-11",
     "timeline": [
       {
@@ -1520,7 +1520,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "객실팀",
     "reportDate": "2026-07-11",
     "timeline": [
       {
@@ -1554,7 +1554,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "성문안팀",
     "reportDate": "2026-07-11",
     "timeline": [
       {
@@ -1622,7 +1622,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-07-06",
     "timeline": [
       {
@@ -1690,7 +1690,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-07-04",
     "timeline": [
       {
@@ -1724,7 +1724,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2026-06-17",
     "timeline": [
       {
@@ -1758,7 +1758,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-06-15",
     "timeline": [
       {
@@ -1792,7 +1792,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-06-15",
     "timeline": [
       {
@@ -1826,7 +1826,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-06-10",
     "timeline": [
       {
@@ -1860,7 +1860,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-06-10",
     "timeline": [
       {
@@ -1894,7 +1894,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-06-04",
     "timeline": [
       {
@@ -1928,7 +1928,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-06-03",
     "timeline": [
       {
@@ -1962,7 +1962,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2026-05-26",
     "timeline": [
       {
@@ -1996,7 +1996,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "식음팀",
     "reportDate": "2026-05-26",
     "timeline": [
       {
@@ -2030,7 +2030,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-05-26",
     "timeline": [
       {
@@ -2064,7 +2064,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2026-05-18",
     "timeline": [
       {
@@ -2098,7 +2098,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-05-18",
     "timeline": [
       {
@@ -2132,7 +2132,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-05-18",
     "timeline": [
       {
@@ -2166,7 +2166,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-05-18",
     "timeline": [
       {
@@ -2200,7 +2200,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-05-17",
     "timeline": [
       {
@@ -2234,7 +2234,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-05-11",
     "timeline": [
       {
@@ -2268,7 +2268,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2026-05-10",
     "timeline": [
       {
@@ -2336,7 +2336,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-05-06",
     "timeline": [
       {
@@ -2370,7 +2370,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2026-04-28",
     "timeline": [
       {
@@ -2404,7 +2404,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "조경관리팀",
-    "dept": "조경관리팀",
+    "dept": "시설팀",
     "reportDate": "2026-04-25",
     "timeline": [
       {
@@ -2472,7 +2472,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "성문안팀",
     "reportDate": "2026-04-21",
     "timeline": [
       {
@@ -2506,7 +2506,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-04-17",
     "timeline": [
       {
@@ -2642,7 +2642,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-04-02",
     "timeline": [
       {
@@ -2676,7 +2676,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-03-23",
     "timeline": [
       {
@@ -2744,7 +2744,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "조경관리팀",
-    "dept": "조경관리팀",
+    "dept": "힐스팀",
     "reportDate": "2026-03-19",
     "timeline": [
       {
@@ -2778,7 +2778,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-03-18",
     "timeline": [
       {
@@ -2812,7 +2812,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "성문안팀",
     "reportDate": "2026-03-10",
     "timeline": [
       {
@@ -2846,7 +2846,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2026-03-05",
     "timeline": [
       {
@@ -2880,7 +2880,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2026-02-23",
     "timeline": [
       {
@@ -2914,7 +2914,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2026-02-23",
     "timeline": [
       {
@@ -3084,7 +3084,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2026-02-09",
     "timeline": [
       {
@@ -3152,7 +3152,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "식음팀",
     "reportDate": "2026-02-01",
     "timeline": [
       {
@@ -3594,7 +3594,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-12-01",
     "timeline": [
       {
@@ -3628,7 +3628,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-30",
     "timeline": [
       {
@@ -3662,7 +3662,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-28",
     "timeline": [
       {
@@ -3696,7 +3696,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-27",
     "timeline": [
       {
@@ -3730,7 +3730,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-11-26",
     "timeline": [
       {
@@ -3764,7 +3764,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-25",
     "timeline": [
       {
@@ -3798,7 +3798,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2025-11-25",
     "timeline": [
       {
@@ -3832,7 +3832,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-21",
     "timeline": [
       {
@@ -3866,7 +3866,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-11-18",
     "timeline": [
       {
@@ -3900,7 +3900,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-11-18",
     "timeline": [
       {
@@ -3968,7 +3968,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-12",
     "timeline": [
       {
@@ -4070,7 +4070,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-11-04",
     "timeline": [
       {
@@ -4104,7 +4104,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2025-11-03",
     "timeline": [
       {
@@ -4138,7 +4138,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-03",
     "timeline": [
       {
@@ -4172,7 +4172,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-11-03",
     "timeline": [
       {
@@ -4206,7 +4206,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-11-01",
     "timeline": [
       {
@@ -4240,7 +4240,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-11-01",
     "timeline": [
       {
@@ -4274,7 +4274,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-10-30",
     "timeline": [
       {
@@ -4308,7 +4308,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-10-29",
     "timeline": [
       {
@@ -4342,7 +4342,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-10-24",
     "timeline": [
       {
@@ -4376,7 +4376,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2025-10-24",
     "timeline": [
       {
@@ -4444,7 +4444,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-10-18",
     "timeline": [
       {
@@ -4478,7 +4478,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-10-16",
     "timeline": [
       {
@@ -4512,7 +4512,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-10-10",
     "timeline": [
       {
@@ -4546,7 +4546,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-09-27",
     "timeline": [
       {
@@ -4648,7 +4648,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-09-22",
     "timeline": [
       {
@@ -4682,7 +4682,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "힐스/월송리 사업소",
-    "dept": "힐스/월송리 사업소",
+    "dept": "레저팀",
     "reportDate": "2025-09-17",
     "timeline": [
       {
@@ -4716,7 +4716,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-09-17",
     "timeline": [
       {
@@ -4750,7 +4750,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-09-10",
     "timeline": [
       {
@@ -4784,7 +4784,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-09-05",
     "timeline": [
       {
@@ -4852,7 +4852,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-08-30",
     "timeline": [
       {
@@ -4920,7 +4920,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "조경지원팀",
-    "dept": "조경지원팀",
+    "dept": "시설팀",
     "reportDate": "2025-08-29",
     "timeline": [
       {
@@ -5022,7 +5022,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "골프운영(공통)",
     "reportDate": "2025-08-27",
     "timeline": [
       {
@@ -5056,7 +5056,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2025-08-24",
     "timeline": [
       {
@@ -5158,7 +5158,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-08-21",
     "timeline": [
       {
@@ -5260,7 +5260,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "지관사업소",
-    "dept": "지관사업소",
+    "dept": "식음팀",
     "reportDate": "2025-08-14",
     "timeline": [
       {
@@ -5294,7 +5294,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "객실팀",
     "reportDate": "2025-08-11",
     "timeline": [
       {
@@ -5328,7 +5328,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-08-09",
     "timeline": [
       {
@@ -5362,7 +5362,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-08-09",
     "timeline": [
       {
@@ -5396,7 +5396,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-08-08",
     "timeline": [
       {
@@ -5464,7 +5464,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2025-07-30",
     "timeline": [
       {
@@ -5668,7 +5668,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "힐스/월송리 사업소",
-    "dept": "힐스/월송리 사업소",
+    "dept": "시설팀",
     "reportDate": "2025-07-24",
     "timeline": [
       {
@@ -5702,7 +5702,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2025-07-23",
     "timeline": [
       {
@@ -5770,7 +5770,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-07-18",
     "timeline": [
       {
@@ -5838,7 +5838,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-07-13",
     "timeline": [
       {
@@ -5872,7 +5872,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-07-12",
     "timeline": [
       {
@@ -5906,7 +5906,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-07-12",
     "timeline": [
       {
@@ -5940,7 +5940,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "힐스/월송리 사업소",
-    "dept": "힐스/월송리 사업소",
+    "dept": "월송리팀",
     "reportDate": "2025-07-11",
     "timeline": [
       {
@@ -6042,7 +6042,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-07-04",
     "timeline": [
       {
@@ -6076,7 +6076,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-07-04",
     "timeline": [
       {
@@ -6110,7 +6110,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-07-01",
     "timeline": [
       {
@@ -6144,7 +6144,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-06-30",
     "timeline": [
       {
@@ -6178,7 +6178,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-06-28",
     "timeline": [
       {
@@ -6212,7 +6212,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2025-06-27",
     "timeline": [
       {
@@ -6280,7 +6280,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-06-25",
     "timeline": [
       {
@@ -6314,7 +6314,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2025-06-22",
     "timeline": [
       {
@@ -6382,7 +6382,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-06-14",
     "timeline": [
       {
@@ -6416,7 +6416,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "기타",
-    "dept": "기타",
+    "dept": "성문안팀",
     "reportDate": "2025-06-10",
     "timeline": [
       {
@@ -6450,7 +6450,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-06-08",
     "timeline": [
       {
@@ -6484,7 +6484,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-06-07",
     "timeline": [
       {
@@ -6518,7 +6518,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-06-06",
     "timeline": [
       {
@@ -6552,7 +6552,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2025-06-05",
     "timeline": [
       {
@@ -6586,7 +6586,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-05-31",
     "timeline": [
       {
@@ -6620,7 +6620,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-05-31",
     "timeline": [
       {
@@ -6654,7 +6654,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-05-27",
     "timeline": [
       {
@@ -6688,7 +6688,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2025-05-24",
     "timeline": [
       {
@@ -6722,7 +6722,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "기타",
-    "dept": "기타",
+    "dept": "밸리팀",
     "reportDate": "2025-05-22",
     "timeline": [
       {
@@ -6756,7 +6756,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2025-05-20",
     "timeline": [
       {
@@ -6790,7 +6790,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2025-05-19",
     "timeline": [
       {
@@ -6824,7 +6824,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-05-19",
     "timeline": [
       {
@@ -6858,7 +6858,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-05-17",
     "timeline": [
       {
@@ -6960,7 +6960,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-05-13",
     "timeline": [
       {
@@ -7062,7 +7062,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-05-08",
     "timeline": [
       {
@@ -7096,7 +7096,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-05-06",
     "timeline": [
       {
@@ -7130,7 +7130,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-05-06",
     "timeline": [
       {
@@ -7164,7 +7164,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-05-05",
     "timeline": [
       {
@@ -7198,7 +7198,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-04-30",
     "timeline": [
       {
@@ -7232,7 +7232,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-04-30",
     "timeline": [
       {
@@ -7266,7 +7266,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-04-28",
     "timeline": [
       {
@@ -7300,7 +7300,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-04-23",
     "timeline": [
       {
@@ -7334,7 +7334,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-04-21",
     "timeline": [
       {
@@ -7368,7 +7368,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-04-21",
     "timeline": [
       {
@@ -7402,7 +7402,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2025-04-18",
     "timeline": [
       {
@@ -7436,7 +7436,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-04-16",
     "timeline": [
       {
@@ -7470,7 +7470,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "시설팀",
-    "dept": "시설팀",
+    "dept": "식음팀",
     "reportDate": "2025-04-16",
     "timeline": [
       {
@@ -7504,7 +7504,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "코스관리팀",
-    "dept": "코스관리팀",
+    "dept": "밸리팀",
     "reportDate": "2025-04-14",
     "timeline": [
       {
@@ -7606,7 +7606,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2025-04-03",
     "timeline": [
       {
@@ -7742,7 +7742,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2025-03-24",
     "timeline": [
       {
@@ -7776,7 +7776,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2025-03-24",
     "timeline": [
       {
@@ -7810,7 +7810,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "밸리팀",
     "reportDate": "2025-03-17",
     "timeline": [
       {
@@ -7878,7 +7878,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "객실팀",
     "reportDate": "2025-02-27",
     "timeline": [
       {
@@ -7980,7 +7980,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "식음팀",
     "reportDate": "2025-02-22",
     "timeline": [
       {
@@ -8048,7 +8048,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "레저팀",
     "reportDate": "2025-02-10",
     "timeline": [
       {
@@ -8286,7 +8286,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "힐스/월송리 사업소",
-    "dept": "힐스/월송리 사업소",
+    "dept": "월송리팀",
     "reportDate": "2025-01-22",
     "timeline": [
       {
@@ -8524,7 +8524,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-12-10",
     "timeline": [
       {
@@ -8592,7 +8592,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-11-22",
     "timeline": [
       {
@@ -8626,7 +8626,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-11-18",
     "timeline": [
       {
@@ -8660,7 +8660,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-11-14",
     "timeline": [
       {
@@ -8694,7 +8694,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2024-11-13",
     "timeline": [
       {
@@ -8728,7 +8728,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2024-11-12",
     "timeline": [
       {
@@ -8796,7 +8796,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-11-03",
     "timeline": [
       {
@@ -8830,7 +8830,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-11-01",
     "timeline": [
       {
@@ -8864,7 +8864,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-10-30",
     "timeline": [
       {
@@ -8898,7 +8898,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-10-29",
     "timeline": [
       {
@@ -8966,7 +8966,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-10-27",
     "timeline": [
       {
@@ -9000,7 +9000,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-10-26",
     "timeline": [
       {
@@ -9034,7 +9034,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-10-26",
     "timeline": [
       {
@@ -9204,7 +9204,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-10-13",
     "timeline": [
       {
@@ -9272,7 +9272,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "시설팀",
-    "dept": "시설팀",
+    "dept": "식음팀",
     "reportDate": "2024-10-10",
     "timeline": [
       {
@@ -9306,7 +9306,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-10-06",
     "timeline": [
       {
@@ -9374,7 +9374,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-10-04",
     "timeline": [
       {
@@ -9408,7 +9408,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024.10.03",
     "timeline": [
       {
@@ -9476,7 +9476,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024.10.03",
     "timeline": [
       {
@@ -9510,7 +9510,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-10-02",
     "timeline": [
       {
@@ -9544,7 +9544,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-10-02",
     "timeline": [
       {
@@ -9578,7 +9578,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "식음팀",
     "reportDate": "2024-09-29",
     "timeline": [
       {
@@ -9612,7 +9612,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-09-29",
     "timeline": [
       {
@@ -9646,7 +9646,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2024-09-27",
     "timeline": [
       {
@@ -9680,7 +9680,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2024-09-18",
     "timeline": [
       {
@@ -9782,7 +9782,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "성문안팀",
     "reportDate": "2024-09-14",
     "timeline": [
       {
@@ -9850,7 +9850,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-09-09",
     "timeline": [
       {
@@ -9918,7 +9918,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-09-06",
     "timeline": [
       {
@@ -9952,7 +9952,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-09-03",
     "timeline": [
       {
@@ -10054,7 +10054,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-08-28",
     "timeline": [
       {
@@ -10224,7 +10224,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-08-19",
     "timeline": [
       {
@@ -10394,7 +10394,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-08-10",
     "timeline": [
       {
@@ -10428,7 +10428,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-08-05",
     "timeline": [
       {
@@ -10496,7 +10496,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-08-05",
     "timeline": [
       {
@@ -10564,7 +10564,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-07-31",
     "timeline": [
       {
@@ -10632,7 +10632,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-07-27",
     "timeline": [
       {
@@ -10734,7 +10734,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-07-25",
     "timeline": [
       {
@@ -10836,7 +10836,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-07-16",
     "timeline": [
       {
@@ -10870,7 +10870,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-07-16",
     "timeline": [
       {
@@ -10938,7 +10938,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2024-07-15",
     "timeline": [
       {
@@ -11040,7 +11040,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2024-07-03",
     "timeline": [
       {
@@ -11142,7 +11142,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2024-06-24",
     "timeline": [
       {
@@ -11176,7 +11176,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2024-06-23",
     "timeline": [
       {
@@ -11210,7 +11210,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-06-17",
     "timeline": [
       {
@@ -11244,7 +11244,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-06-17",
     "timeline": [
       {
@@ -11278,7 +11278,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-06-15",
     "timeline": [
       {
@@ -11312,7 +11312,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-06-14",
     "timeline": [
       {
@@ -11380,7 +11380,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "식음팀",
     "reportDate": "2024-06-12",
     "timeline": [
       {
@@ -11414,7 +11414,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-06-10",
     "timeline": [
       {
@@ -11448,7 +11448,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024.06.10",
     "timeline": [
       {
@@ -11482,7 +11482,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "객실팀",
     "reportDate": "2024-06-08",
     "timeline": [
       {
@@ -11516,7 +11516,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-06-07",
     "timeline": [
       {
@@ -11550,7 +11550,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-06-01",
     "timeline": [
       {
@@ -11584,7 +11584,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-06-01",
     "timeline": [
       {
@@ -11652,7 +11652,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024.05.23",
     "timeline": [
       {
@@ -11686,7 +11686,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-05-21",
     "timeline": [
       {
@@ -11754,7 +11754,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024.05.16",
     "timeline": [
       {
@@ -11788,7 +11788,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024-05-05",
     "timeline": [
       {
@@ -11822,7 +11822,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-05-04",
     "timeline": [
       {
@@ -11856,7 +11856,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-05-04",
     "timeline": [
       {
@@ -11890,7 +11890,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024.05.03",
     "timeline": [
       {
@@ -11924,7 +11924,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-05-03",
     "timeline": [
       {
@@ -11958,7 +11958,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-05-02",
     "timeline": [
       {
@@ -12060,7 +12060,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-04-25",
     "timeline": [
       {
@@ -12094,7 +12094,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024.04.25",
     "timeline": [
       {
@@ -12128,7 +12128,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024.04.24",
     "timeline": [
       {
@@ -12162,7 +12162,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "레저팀",
     "reportDate": "2024.04.22",
     "timeline": [
       {
@@ -12196,7 +12196,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024.04.18",
     "timeline": [
       {
@@ -12230,7 +12230,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024.04.13",
     "timeline": [
       {
@@ -12264,7 +12264,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024.04.06",
     "timeline": [
       {
@@ -12298,7 +12298,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2024.04.02",
     "timeline": [
       {
@@ -12332,7 +12332,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-03-30",
     "timeline": [
       {
@@ -12366,7 +12366,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "시설팀",
-    "dept": "시설팀",
+    "dept": "식음팀",
     "reportDate": "2024.03.27",
     "timeline": [
       {
@@ -12400,7 +12400,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024.03.26",
     "timeline": [
       {
@@ -12434,7 +12434,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-03-20",
     "timeline": [
       {
@@ -12468,7 +12468,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "시설팀",
     "reportDate": "2024-03-19",
     "timeline": [
       {
@@ -12502,7 +12502,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-03-14",
     "timeline": [
       {
@@ -12536,7 +12536,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-03-13",
     "timeline": [
       {
@@ -12570,7 +12570,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2024-03-13",
     "timeline": [
       {
@@ -12604,7 +12604,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2024-03-13",
     "timeline": [
       {
@@ -12638,7 +12638,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "KSD",
-    "dept": "KSD",
+    "dept": "월송리팀",
     "reportDate": "2024-02-27",
     "timeline": [
       {
@@ -12774,7 +12774,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2024-02-18",
     "timeline": [
       {
@@ -12876,7 +12876,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "성문안팀",
     "reportDate": "2024-02-01",
     "timeline": [
       {
@@ -12910,7 +12910,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "식음팀",
     "reportDate": "2024-01-24",
     "timeline": [
       {
@@ -12944,7 +12944,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2024-01-22",
     "timeline": [
       {
@@ -12978,7 +12978,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2024-01-20",
     "timeline": [
       {
@@ -13012,7 +13012,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2024-01-14",
     "timeline": [
       {
@@ -13148,7 +13148,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2024-01-02",
     "timeline": [
       {
@@ -13318,7 +13318,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2023-11-30",
     "timeline": [
       {
@@ -13386,7 +13386,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-11-28",
     "timeline": [
       {
@@ -13454,7 +13454,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "객실팀",
     "reportDate": "2023-11-28",
     "timeline": [
       {
@@ -13488,7 +13488,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-11-21",
     "timeline": [
       {
@@ -13522,7 +13522,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-11-21",
     "timeline": [
       {
@@ -13556,7 +13556,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-11-11",
     "timeline": [
       {
@@ -13624,7 +13624,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-11-09",
     "timeline": [
       {
@@ -13658,7 +13658,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2023-11-08",
     "timeline": [
       {
@@ -13692,7 +13692,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "객실팀",
     "reportDate": "2023-11-04",
     "timeline": [
       {
@@ -13760,7 +13760,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-10-31",
     "timeline": [
       {
@@ -13794,7 +13794,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-10-23",
     "timeline": [
       {
@@ -13828,7 +13828,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "기타",
-    "dept": "기타",
+    "dept": "밸리팀",
     "reportDate": "2023-10-21",
     "timeline": [
       {
@@ -13862,7 +13862,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-10-19",
     "timeline": [
       {
@@ -13896,7 +13896,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "성문안팀",
     "reportDate": "2023-10-18",
     "timeline": [
       {
@@ -13998,7 +13998,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-10-14",
     "timeline": [
       {
@@ -14100,7 +14100,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-10-12",
     "timeline": [
       {
@@ -14202,7 +14202,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-10-08",
     "timeline": [
       {
@@ -14236,7 +14236,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-09-28",
     "timeline": [
       {
@@ -14304,7 +14304,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-09-24",
     "timeline": [
       {
@@ -14474,7 +14474,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-09-10",
     "timeline": [
       {
@@ -14576,7 +14576,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-09-07",
     "timeline": [
       {
@@ -14610,7 +14610,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "레저팀",
     "reportDate": "2023-09-06",
     "timeline": [
       {
@@ -14644,7 +14644,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-09-04",
     "timeline": [
       {
@@ -14712,7 +14712,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-09-03",
     "timeline": [
       {
@@ -14780,7 +14780,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-09-02",
     "timeline": [
       {
@@ -14814,7 +14814,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-09-01",
     "timeline": [
       {
@@ -14882,7 +14882,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-29",
     "timeline": [
       {
@@ -14950,7 +14950,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-27",
     "timeline": [
       {
@@ -14984,7 +14984,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-25",
     "timeline": [
       {
@@ -15086,7 +15086,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2023-08-22",
     "timeline": [
       {
@@ -15120,7 +15120,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-21",
     "timeline": [
       {
@@ -15154,7 +15154,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-08-21",
     "timeline": [
       {
@@ -15256,7 +15256,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-08-15",
     "timeline": [
       {
@@ -15324,7 +15324,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-13",
     "timeline": [
       {
@@ -15358,7 +15358,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2023-08-12",
     "timeline": [
       {
@@ -15426,7 +15426,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-08-09",
     "timeline": [
       {
@@ -15494,7 +15494,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-06",
     "timeline": [
       {
@@ -15528,7 +15528,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-04",
     "timeline": [
       {
@@ -15562,7 +15562,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-08-04",
     "timeline": [
       {
@@ -15630,7 +15630,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-07-24",
     "timeline": [
       {
@@ -15766,7 +15766,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-07-21",
     "timeline": [
       {
@@ -15800,7 +15800,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-07-20",
     "timeline": [
       {
@@ -15834,7 +15834,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "산림경영팀",
-    "dept": "산림경영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-07-17",
     "timeline": [
       {
@@ -15868,7 +15868,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-07-15",
     "timeline": [
       {
@@ -15936,7 +15936,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-07-08",
     "timeline": [
       {
@@ -15970,7 +15970,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-07-07",
     "timeline": [
       {
@@ -16004,7 +16004,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-07-05",
     "timeline": [
       {
@@ -16106,7 +16106,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-06-22",
     "timeline": [
       {
@@ -16140,7 +16140,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-06-21",
     "timeline": [
       {
@@ -16174,7 +16174,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-06-20",
     "timeline": [
       {
@@ -16208,7 +16208,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-06-15",
     "timeline": [
       {
@@ -16276,7 +16276,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-06-12",
     "timeline": [
       {
@@ -16310,7 +16310,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-06-12",
     "timeline": [
       {
@@ -16344,7 +16344,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-06-12",
     "timeline": [
       {
@@ -16378,7 +16378,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "레저팀",
     "reportDate": "2023-06-11",
     "timeline": [
       {
@@ -16480,7 +16480,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-06-01",
     "timeline": [
       {
@@ -16514,7 +16514,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-06-01",
     "timeline": [
       {
@@ -16548,7 +16548,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-05-25",
     "timeline": [
       {
@@ -16582,7 +16582,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-05-23",
     "timeline": [
       {
@@ -16616,7 +16616,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-05-22",
     "timeline": [
       {
@@ -16650,7 +16650,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "객실팀",
     "reportDate": "2023-05-20",
     "timeline": [
       {
@@ -16684,7 +16684,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "객실팀",
     "reportDate": "2023-05-20",
     "timeline": [
       {
@@ -16718,7 +16718,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-05-19",
     "timeline": [
       {
@@ -16752,7 +16752,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2023-05-15",
     "timeline": [
       {
@@ -16786,7 +16786,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-05-14",
     "timeline": [
       {
@@ -16820,7 +16820,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-05-13",
     "timeline": [
       {
@@ -16854,7 +16854,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023.05.13",
     "timeline": [
       {
@@ -17024,7 +17024,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023.05.03",
     "timeline": [
       {
@@ -17058,7 +17058,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-05-02",
     "timeline": [
       {
@@ -17160,7 +17160,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "힐스팀",
     "reportDate": "2023-04-28",
     "timeline": [
       {
@@ -17194,7 +17194,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "KSD",
-    "dept": "KSD",
+    "dept": "월송리팀",
     "reportDate": "2023.04.27",
     "timeline": [
       {
@@ -17228,7 +17228,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "기타",
-    "dept": "기타",
+    "dept": "식음팀",
     "reportDate": "2023-04-26",
     "timeline": [
       {
@@ -17262,7 +17262,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-04-26",
     "timeline": [
       {
@@ -17330,7 +17330,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-04-24",
     "timeline": [
       {
@@ -17364,7 +17364,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-04-24",
     "timeline": [
       {
@@ -17398,7 +17398,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "식음팀",
     "reportDate": "2023-04-23",
     "timeline": [
       {
@@ -17432,7 +17432,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "월송리팀",
     "reportDate": "2023-04-21",
     "timeline": [
       {
@@ -17466,7 +17466,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "객실팀",
     "reportDate": "2023-04-16",
     "timeline": [
       {
@@ -17534,7 +17534,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-04-14",
     "timeline": [
       {
@@ -17636,7 +17636,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-04-05",
     "timeline": [
       {
@@ -17670,7 +17670,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-04-05",
     "timeline": [
       {
@@ -17704,7 +17704,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-04-04",
     "timeline": [
       {
@@ -17738,7 +17738,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-04-03",
     "timeline": [
       {
@@ -17840,7 +17840,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-03-19",
     "timeline": [
       {
@@ -17874,7 +17874,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-03-19",
     "timeline": [
       {
@@ -17908,7 +17908,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "시설팀",
     "reportDate": "2023-03-18",
     "timeline": [
       {
@@ -17942,7 +17942,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-03-12",
     "timeline": [
       {
@@ -17976,7 +17976,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023-03-06",
     "timeline": [
       {
@@ -18010,7 +18010,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "성문안팀",
-    "dept": "성문안팀",
+    "dept": "식음팀",
     "reportDate": "2023-03-05",
     "timeline": [
       {
@@ -18418,7 +18418,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "대정골프",
-    "dept": "대정골프",
+    "dept": "월송리팀",
     "reportDate": "2023-02-06",
     "timeline": [
       {
@@ -18656,7 +18656,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "경기운영팀",
-    "dept": "경기운영팀",
+    "dept": "밸리팀",
     "reportDate": "2023.01.19",
     "timeline": [
       {
@@ -18724,7 +18724,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "밸리팀",
-    "dept": "밸리팀",
+    "dept": "시설팀",
     "reportDate": "2023-01-18",
     "timeline": [
       {
@@ -18758,7 +18758,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2023-01-16",
     "timeline": [
       {
@@ -18894,7 +18894,7 @@ const INITIAL_INCIDENTS = [
     "companyAmount": 0,
     "personalAmount": 0,
     "manager": "객실팀",
-    "dept": "객실팀",
+    "dept": "시설팀",
     "reportDate": "2023-01-15",
     "timeline": [
       {
@@ -19007,7 +19007,7 @@ const IncidentStorage = {
         if (Array.isArray(records) && records.length > 0) {
           let migrated = false;
           records.forEach(item => {
-            if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000) {
+            if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000 || item.cost > 0 || item.companyAmount > 0) {
               item.cost = 0;
               item.totalAmount = 0;
               item.companyAmount = 0;

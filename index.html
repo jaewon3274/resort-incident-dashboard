@@ -291,7 +291,7 @@
       <div class="kpi-card kpi-card-clickable" id="kpi-card-cost" title="클릭 시 기간별 당사 지급 보험/보상 비용 상세 분석 모달이 열립니다">
         <div class="kpi-info">
           <h4>당사 지급 / 보상 비용</h4>
-          <div class="kpi-value" id="kpi-total-cost">0원</div>
+          <div class="kpi-value" id="kpi-total-cost">0원 <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(0건)</span></div>
           <div class="kpi-click-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
@@ -651,13 +651,13 @@
           <div class="ck-body">
             <div class="ck-col ck-col-a">
               <span class="ck-tag tag-a">A 기준</span>
-              <strong id="ck-val-cost-a" class="ck-val">0만원</strong>
+              <strong id="ck-val-cost-a" class="ck-val">0원</strong>
               <span class="ck-sub">지급 총액</span>
             </div>
             <div class="ck-divider"></div>
             <div class="ck-col ck-col-b">
               <span class="ck-tag tag-b">B 대상</span>
-              <strong id="ck-val-cost-b" class="ck-val">0만원</strong>
+              <strong id="ck-val-cost-b" class="ck-val">0원</strong>
               <span class="ck-sub">지급 총액</span>
             </div>
           </div>
@@ -743,13 +743,12 @@
           <table class="incident-table cmp-data-table">
             <thead>
               <tr>
-                <th style="width: 50px; text-align: center;">No.</th>
-                <th>구분 / 분류</th>
-                <th>항목명</th>
-                <th style="text-align: right;">A 기준 건수</th>
-                <th style="text-align: right;">B 대상 건수</th>
-                <th style="text-align: right;">증감 건수</th>
-                <th style="text-align: right; width: 130px;">증감률 (%)</th>
+                <th scope="col" style="width: 20%;">사업장</th>
+                <th scope="col" style="width: 22%;">사고유형</th>
+                <th scope="col" style="text-align: right; width: 14%;">A 기준 건수</th>
+                <th scope="col" style="text-align: right; width: 14%;">B 대상 건수</th>
+                <th scope="col" style="text-align: right; width: 15%;">증감 건수</th>
+                <th scope="col" style="text-align: right; width: 15%;">증감률 (%)</th>
               </tr>
             </thead>
             <tbody id="cmp-breakdown-tbody">
@@ -787,7 +786,7 @@
           <div class="modal-stat-card">
             <div class="modal-stat-card-title" style="display:flex; justify-content:space-between; align-items:center;">
               <span>📈 사업장별 월별 발생 패턴</span>
-              <select id="trendResortSelect" class="cost-select" style="min-width: 140px; padding: 0.3rem 1.8rem 0.3rem 0.6rem; font-size: 0.78rem;">
+              <select id="trendResortSelect" class="cost-select" style="min-width: 140px; padding: 0.35rem 1.8rem 0.35rem 0.65rem; font-size: 0.8rem; background-color: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; font-weight: 600;">
                 <option value="all">전체 사업장</option>
               </select>
             </div>
@@ -1000,7 +999,7 @@
 
             <!-- 직접 지정 필터 (시작일 ~ 종료일) -->
             <div class="cost-date-range">
-              <span class="cost-filter-label" style="color: #94a3b8;">직접 기간 지정:</span>
+              <span class="cost-filter-label" style="color: #475569; font-weight: 600;">직접 기간 지정:</span>
               <input type="date" id="cost-date-from" class="cost-date-input" aria-label="시작일">
               <span>~</span>
               <input type="date" id="cost-date-to" class="cost-date-input" aria-label="종료일">
@@ -1054,7 +1053,7 @@
       </div>
 
       <div class="modal-footer">
-        <span style="font-size: 0.8rem; color: #94a3b8;">* 엑셀에서 불러온 실데이터 및 로컬 데이터의 당사 지급액 기준 실시간 합산</span>
+        <span class="modal-footer-notice">* 엑셀에서 불러온 실데이터 및 로컬 데이터의 당사 지급액 기준 실시간 합산</span>
         <button class="btn btn-secondary" id="btn-cost-footer-close">닫기</button>
       </div>
     </div>
@@ -1203,14 +1202,20 @@
               <div class="form-group">
                 <label for="edit-dept">담당 팀/부서 <span class="required">*</span></label>
                 <select id="edit-dept" class="form-select" required>
-                  <option value="밸리팀">밸리팀</option>
-                  <option value="성문안팀">성문안팀</option>
-                  <option value="레저팀">레저팀</option>
-                  <option value="시설팀">시설팀</option>
-                  <option value="객실팀">객실팀</option>
-                  <option value="안전관리팀">안전관리팀</option>
-                  <option value="식음팀">식음팀</option>
-                  <option value="경기운영팀">경기운영팀</option>
+                  <optgroup label="⛳ 4대 골프CC 전담팀">
+                    <option value="밸리팀">밸리팀 (오크밸리CC)</option>
+                    <option value="힐스팀">힐스팀 (오크힐스CC)</option>
+                    <option value="성문안팀">성문안팀 (성문안CC)</option>
+                    <option value="월송리팀">월송리팀 (월송리CC)</option>
+                    <option value="골프운영(공통)">골프운영(공통)</option>
+                  </optgroup>
+                  <optgroup label="🏨 리조트 부대시설/운영팀">
+                    <option value="객실팀">객실팀</option>
+                    <option value="시설팀">시설팀</option>
+                    <option value="레저팀">레저팀</option>
+                    <option value="식음팀">식음팀</option>
+                    <option value="안전관리팀">안전관리팀</option>
+                  </optgroup>
                 </select>
               </div>
 
@@ -1399,14 +1404,20 @@
             <div class="form-group">
               <label for="reg-dept">담당 팀/부서 <span class="required">*</span></label>
               <select id="reg-dept" class="form-select" required>
-                <option value="밸리팀">밸리팀</option>
-                <option value="성문안팀">성문안팀</option>
-                <option value="레저팀">레저팀</option>
-                <option value="시설팀">시설팀</option>
-                <option value="객실팀">객실팀</option>
-                <option value="안전관리팀">안전관리팀</option>
-                <option value="식음팀">식음팀</option>
-                <option value="경기운영팀">경기운영팀</option>
+                <optgroup label="⛳ 4대 골프CC 전담팀">
+                  <option value="밸리팀">밸리팀 (오크밸리CC)</option>
+                  <option value="힐스팀">힐스팀 (오크힐스CC)</option>
+                  <option value="성문안팀">성문안팀 (성문안CC)</option>
+                  <option value="월송리팀">월송리팀 (월송리CC)</option>
+                  <option value="골프운영(공통)">골프운영(공통)</option>
+                </optgroup>
+                <optgroup label="🏨 리조트 부대시설/운영팀">
+                  <option value="객실팀">객실팀</option>
+                  <option value="시설팀">시설팀</option>
+                  <option value="레저팀">레저팀</option>
+                  <option value="식음팀">식음팀</option>
+                  <option value="안전관리팀">안전관리팀</option>
+                </optgroup>
               </select>
             </div>
 

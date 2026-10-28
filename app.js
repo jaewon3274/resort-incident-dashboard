@@ -152,10 +152,10 @@ function populateReportData() {
   if (medicalEl) medicalEl.textContent = `${medical.toLocaleString()}건`;
 
   const costEl = document.getElementById("rk-total-cost");
-  if (costEl) costEl.textContent = `${Math.round(totalCost / 10000).toLocaleString()}만원`;
+  if (costEl) costEl.textContent = totalCost > 0 ? `${Math.round(totalCost / 10000).toLocaleString()}만원` : "0원";
 
   const avgCostEl = document.getElementById("rk-avg-cost");
-  if (avgCostEl) avgCostEl.textContent = `건당 평균 ${Math.round(avgCost / 10000).toLocaleString()}만원`;
+  if (avgCostEl) avgCostEl.textContent = avgCost > 0 ? `건당 평균 ${Math.round(avgCost / 10000).toLocaleString()}만원` : "건당 평균 0원";
 
   // 3. Category TOP 5
   const catMap = {};
@@ -335,7 +335,7 @@ function loadData() {
       if (Array.isArray(records) && records.length > 0) {
         let migrated = false;
         records.forEach(item => {
-          if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000) {
+          if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000 || item.cost > 0 || item.companyAmount > 0) {
             item.cost = 0;
             item.totalAmount = 0;
             item.companyAmount = 0;
@@ -343,15 +343,20 @@ function loadData() {
             if (item.faultRatio === '당사 70% : 고객 30%') item.faultRatio = '과실 미산정';
             migrated = true;
           }
+          // 4대 CC 전담팀 매핑 및 콘도/부대시설 데이터 완전 격리 마이그레이션
+          const correctDept = inferDeptFromIncident(item);
+          if (item.dept !== correctDept) {
+            item.dept = correctDept;
+            migrated = true;
+          }
         });
         state.incidents = records;
-        state.incidents.forEach(item => {
-          if (!item.dept) item.dept = inferDeptFromIncident(item);
-        });
         sortIncidentsList(state.incidents, "id", "desc");
-        try {
-          localStorage.setItem("resort_incidents_data", JSON.stringify(state.incidents));
-        } catch (_) {}
+        if (migrated) {
+          try {
+            localStorage.setItem("resort_incidents_data", JSON.stringify(state.incidents));
+          } catch (_) {}
+        }
         console.log(`[Dashboard] 로컬스토리지에서 총 ${state.incidents.length}건의 데이터를 최신순 정렬하여 로드했습니다.`);
         return;
       }
@@ -367,7 +372,7 @@ function loadData() {
 
   state.incidents = JSON.parse(JSON.stringify(defaultList));
   state.incidents.forEach(item => {
-    if (!item.dept) item.dept = inferDeptFromIncident(item);
+    item.dept = inferDeptFromIncident(item);
   });
   sortIncidentsList(state.incidents, "id", "desc");
 
@@ -841,34 +846,42 @@ function renderCostYearSelect() {
 function renderCostAnalysisData() {
   const { year, from, to } = state.costModal;
 
-  // 1. Filter records where company paid amount > 0
-  const costItems = state.incidents.filter(item => {
-    const paidAmount = parseNumericCost(item.companyAmount !== undefined ? item.companyAmount : item.cost);
-    if (paidAmount <= 0) return false;
+  // Filter incidents in period
+  const filteredInPeriod = state.incidents.filter(item => {
+    const p = parseIncidentDate(item);
+    if (!p) return false;
 
-    // Filter by year: 해당 연도(YYYY.01.01 ~ YYYY.12.31)에 속한 당사 지급 건만 필터링
+    // Filter by year: 해당 연도(YYYY.01.01 ~ YYYY.12.31)에 속한 건 필터링
     if (year !== "all" && year !== "custom") {
-      const itemYear = getIncidentYear(item);
-      if (itemYear !== year) return false;
+      if (String(p.getFullYear()) !== String(year)) return false;
     }
 
     // Filter by custom date range
     if (from || to) {
-      const stdDate = extractStandardDate(item.occurDate || item.date) || extractStandardDate(item.reportDate);
-      if (stdDate) {
-        if (from && stdDate < from) return false;
-        if (to && stdDate > to) return false;
+      const t = p.getTime();
+      if (from) {
+        const pFrom = parseIncidentDate(from);
+        const fromTime = pFrom
+          ? new Date(pFrom.getFullYear(), pFrom.getMonth(), pFrom.getDate(), 0, 0, 0, 0).getTime()
+          : new Date(`${from}T00:00:00`).getTime();
+        if (!isNaN(fromTime) && t < fromTime) return false;
+      }
+      if (to) {
+        const pTo = parseIncidentDate(to);
+        const toTime = pTo
+          ? new Date(pTo.getFullYear(), pTo.getMonth(), pTo.getDate(), 23, 59, 59, 999).getTime()
+          : new Date(`${to}T23:59:59.999`).getTime();
+        if (!isNaN(toTime) && t > toTime) return false;
       }
     }
 
     return true;
   });
 
-  // Sort by paid amount descending or date descending
-  costItems.sort((a, b) => {
-    const costA = parseNumericCost(a.companyAmount !== undefined ? a.companyAmount : a.cost);
-    const costB = parseNumericCost(b.companyAmount !== undefined ? b.companyAmount : b.cost);
-    return costB - costA;
+  // Filter records where company paid amount > 0
+  const costItems = filteredInPeriod.filter(item => {
+    const paidAmount = parseNumericCost(item.companyAmount !== undefined ? item.companyAmount : item.cost);
+    return paidAmount > 0;
   });
 
   // Calculate totals
@@ -894,42 +907,46 @@ function renderCostAnalysisData() {
   const badgeCountEl = document.getElementById("cost-table-count-badge");
 
   if (periodLabelEl) periodLabelEl.innerText = periodText;
-  if (totalAmountEl) totalAmountEl.innerText = formatCurrency(totalAmount);
+  if (totalAmountEl) totalAmountEl.innerText = totalAmount > 0 ? formatCurrency(totalAmount) : "0원";
   if (countEl) countEl.innerText = `총 ${count.toLocaleString()}건`;
-  if (avgEl) avgEl.innerText = formatCurrency(avgCost);
+  if (avgEl) avgEl.innerText = count > 0 ? formatCurrency(avgCost) : "0원";
   if (badgeCountEl) badgeCountEl.innerText = `${count.toLocaleString()}건`;
 
-  // Render Table
+  // Render Table: 실데이터에 비용이 없는 경우 해당 기간의 사고 목록을 렌더링하고 '당사 지급 금액' 열에 '0원'으로 정확히 표기
   const tableBody = document.getElementById("cost-table-body");
   if (!tableBody) return;
 
-  if (count === 0) {
+  const displayItems = costItems.length > 0 ? costItems : filteredInPeriod;
+
+  if (displayItems.length === 0) {
     tableBody.innerHTML = `
       <tr>
         <td colspan="5" style="text-align: center; padding: 2.5rem 1rem; color: #94a3b8;">
           <div style="font-size: 1.8rem; margin-bottom: 0.35rem;">💳</div>
-          <div>선택한 기간 동안 당사 지급/보상 금액이 발생한 기록이 없습니다.</div>
+          <div>선택한 기간에 등록된 사고 데이터가 없습니다.</div>
         </td>
       </tr>
     `;
     return;
   }
 
-  tableBody.innerHTML = costItems.map(item => {
+  tableBody.innerHTML = displayItems.map(item => {
     const paid = parseNumericCost(item.companyAmount !== undefined ? item.companyAmount : item.cost);
+    const paidText = paid > 0 ? formatCurrency(paid) : "0원";
+    const cellStyle = paid > 0 ? "font-weight: 700; color: #2563eb;" : "font-weight: 600; color: #64748b;";
     return `
       <tr onclick="navigateToDetailFromCost('${escapeHtml(item.id)}')">
         <td class="id-cell">${escapeHtml(item.id)}</td>
         <td style="color:#475569; font-size:0.82rem;">${escapeHtml(item.date)}</td>
         <td>
           <span style="font-weight:600; color:#1e293b;">${escapeHtml(item.resort)}</span>
-          <span style="color:#64748b; font-size:0.75rem; margin-left:0.25rem;">(${escapeHtml(item.locationDetail)})</span>
+          <span style="color:#64748b; font-size:0.75rem; margin-left:0.25rem;">(${escapeHtml(item.locationDetail || '-')})</span>
         </td>
         <td>
           <span class="badge badge-category">${escapeHtml(item.category)}</span>
         </td>
-        <td class="cost-amount-cell">
-          ${formatCurrency(paid)}
+        <td class="cost-amount-cell" style="text-align: right; ${cellStyle}">
+          ${paidText}
         </td>
       </tr>
     `;
@@ -1016,8 +1033,8 @@ function renderTrendAnalysis() {
           }
         },
         scales: {
-          x: { grid: { display: false }, ticks: { color: "#94a3b8" } },
-          y: { beginAtZero: true, grid: { color: "#e2e8f0" }, ticks: { color: "#475569", stepSize: 1 } }
+          x: { grid: { display: false }, ticks: { color: "#334155", font: { weight: 600, size: 12 } } },
+          y: { beginAtZero: true, grid: { color: "#cbd5e1" }, ticks: { color: "#334155", font: { weight: 600 }, stepSize: 1 } }
         }
       }
     });
@@ -1069,7 +1086,7 @@ function renderTrendAnalysis() {
       <div class="top-rank-item">
         <span class="top-rank-badge rank-${idx + 1}">${idx + 1}</span>
         <span class="top-rank-name">${escapeHtml(name)}</span>
-        <span class="top-rank-count" style="color:#fbbf24;">${cnt}건 <span class="top-rank-pct">(${((cnt / totalCount) * 100).toFixed(1)}%)</span></span>
+        <span class="top-rank-count" style="color: #b45309; font-weight: 700;">${cnt}건 <span class="top-rank-pct">(${((cnt / totalCount) * 100).toFixed(1)}%)</span></span>
       </div>
     `).join("");
   }
@@ -1083,11 +1100,10 @@ function renderTrendMonthlyChart(selectedResort = "all") {
 
   const monthCounts = Array(12).fill(0);
   targetIncidents.forEach(item => {
-    const stdDate = extractStandardDate(item.occurDate || item.date) || extractStandardDate(item.reportDate);
-    if (stdDate) {
-      const parts = stdDate.split("-");
-      const m = parseInt(parts[1], 10);
-      if (m >= 1 && m <= 12) monthCounts[m - 1]++;
+    const p = parseIncidentDate(item);
+    if (p) {
+      const m = p.getMonth();
+      if (m >= 0 && m < 12) monthCounts[m]++;
     }
   });
 
@@ -1123,8 +1139,8 @@ function renderTrendMonthlyChart(selectedResort = "all") {
           }
         },
         scales: {
-          x: { grid: { display: false }, ticks: { color: "#94a3b8", font: { size: 10 } } },
-          y: { beginAtZero: true, grid: { color: "#e2e8f0" }, ticks: { color: "#475569", stepSize: 1 } }
+          x: { grid: { display: false }, ticks: { color: "#334155", font: { size: 11, weight: 600 } } },
+          y: { beginAtZero: true, grid: { color: "#cbd5e1" }, ticks: { color: "#334155", font: { weight: 600 }, stepSize: 1 } }
         }
       }
     });
@@ -1144,7 +1160,7 @@ function openPendingIncidentsModal() {
 }
 
 function renderPendingIncidents() {
-  const now = new Date("2026-10-26T12:00:00");
+  const now = getSystemReferenceDate();
   const pendingItems = (state.incidents || []).filter(item => item.status !== "조치완료");
 
   let urgentCount = 0;
@@ -1153,12 +1169,9 @@ function renderPendingIncidents() {
 
   const itemsWithDays = pendingItems.map(item => {
     let diffDays = 0;
-    const stdDate = extractStandardDate(item.occurDate || item.date) || extractStandardDate(item.reportDate);
-    if (stdDate) {
-      const d = new Date(stdDate);
-      if (!isNaN(d.getTime())) {
-        diffDays = Math.max(0, Math.floor((now - d) / (1000 * 60 * 60 * 24)));
-      }
+    const p = parseIncidentDate(item);
+    if (p) {
+      diffDays = Math.max(0, Math.floor((now.getTime() - p.getTime()) / (1000 * 60 * 60 * 24)));
     }
 
     if (diffDays >= 7) urgentCount++;
@@ -1302,17 +1315,105 @@ function populatePreventiveFilters() {
 }
 
 function inferDeptFromIncident(item) {
-  if (item.dept) return item.dept;
-  const text = ((item.manager || "") + " " + (item.resort || "") + " " + (item.zone || "") + " " + (item.category || "") + " " + (item.locationDetail || "")).toLowerCase();
-  if (text.includes("성문안")) return "성문안팀";
-  if (text.includes("골프") || text.includes("타구") || text.includes("캐디") || text.includes("카트")) return "경기운영팀";
-  if (text.includes("사우나") || text.includes("수영") || text.includes("워터") || text.includes("스키") || text.includes("레저")) return "레저팀";
-  if (text.includes("식음") || text.includes("f&b") || text.includes("레스토랑") || text.includes("주방")) return "식음팀";
-  if (text.includes("객실") || text.includes("콘도") || text.includes("하우스키핑") || text.includes("프런트")) return "객실팀";
-  if (text.includes("시설") || text.includes("영선") || text.includes("설비") || text.includes("전기") || text.includes("타일") || text.includes("수리")) return "시설팀";
-  if (text.includes("안전") || text.includes("의무") || text.includes("간호") || text.includes("소방")) return "안전관리팀";
-  if (text.includes("밸리") || text.includes("빌리지")) return "밸리팀";
-  return "밸리팀";
+  if (!item) return "기타";
+  const origDept = (item.dept || "").trim();
+  const resort = (item.resort || "").trim();
+  const loc = (item.locationDetail || "").trim();
+  const zone = (item.zone || "").trim();
+  const title = (item.title || "").trim();
+  const desc = (item.description || "").trim();
+  const cat = (item.category || "").trim();
+  const fullText = `${origDept} ${resort} ${loc} ${zone} ${title} ${desc} ${cat}`.toLowerCase();
+
+  // 1. 순수 골프장 코스 플레이 여부 판별 (특정 홀 1H~18H, 페어웨이, 티박스, 그린, 벙커, 러프, 카트도로, 캐디, 골프카트 등)
+  const isGolfCourseSpecific = /파인\s*\d*h|체리\s*\d*h|메이플\s*\d*h|오크\s*\d*h|힐\s*\d*h|브릿지\s*\d*h|루나\s*\d*h|솔라\s*\d*h|인\s*\d*h|아웃\s*\d*h|\b\d+h\b|페어웨이|티잉|티박스|그린|벙커|러프|해저드|크리크|카트도로|캐디|골프카트/i.test(fullText);
+
+  // 2. 콘도, 객실, 빌리지, 타워, 숙박, 사우나, 식음, 레저, 부대시설 판별
+  // [규칙 1 & 3]: 콘도, 객실, 빌리지, 타워, 숙박시설, 사우나, F&B 등 리조트 부대시설 사고는 4대 골프CC팀(밸리/힐스/성문안/월송리)에 절대 배정 불가!
+  const isCondoRoomVillage = (
+    /콘도|객실|호실|빌리지|d콘도|골프빌리지|타워[a-d]?|숙박|프런트|하우스키핑|스위트|베개|침대|욕실|발코니|테라스|객실키|침구/i.test(fullText) ||
+    /빌리지|콘도|객실/i.test(resort) ||
+    /빌리지|콘도|객실/i.test(loc)
+  );
+
+  const isSaunaLeisure = (
+    /사우나|스파|아쿠아|수영장|자쿠지|노천탕|락커|락카|냉탕|온탕|열탕|샤워실/i.test(fullText) ||
+    /스키장|스키|눈썰매|슬로프|리프트|렌탈/i.test(fullText) ||
+    /레저팀|스키장/.test(resort) ||
+    /레저팀/.test(origDept)
+  );
+
+  const isFnb = (
+    /식음|f&b|레스토랑|카페|주방|조식|뷔페|식당|다이닝|바비큐|베이커리|피오레토|파크키친/i.test(fullText) ||
+    /식음팀/.test(origDept)
+  );
+
+  // 일반 주차장 (단, 순수 골프 코스 특정 홀 플레이 사고 제외)
+  const isParking = /주차장|지하주차장|지상주차장|야외주차장|옥외주차장|타워주차장|주차타워|전기차 주차장/i.test(fullText);
+
+  // 파크로쉬 (정선 호텔/리조트 - 순수 골프CC와 무관)
+  const isParkRoche = /파크로쉬/i.test(resort) || /파크로쉬/i.test(fullText);
+
+  // [부대시설 완전 격리]
+  if (isCondoRoomVillage || isSaunaLeisure || isFnb || isParkRoche || (isParking && !isGolfCourseSpecific)) {
+    if (isSaunaLeisure) return "레저팀";
+    if (isFnb) return "식음팀";
+    if (/안전|의무|간호|소방|구급/i.test(fullText)) return "안전관리팀";
+    if (
+      /시설|영선|설비|전기|누수|타일|수리|승강기|엘리베이터|에어컨|난방|배관|보일러|단지내|군도변|도로/i.test(fullText) ||
+      (isParking && !/객실|호실|스위트/.test(fullText))
+    ) {
+      return "시설팀";
+    }
+    // 기본 콘도/객실/빌리지 사고는 객실팀 귀속
+    return "객실팀";
+  }
+
+  // 3. 순수 4대 골프CC 전담팀 매핑
+  // [규칙 2]: 원본 부서가 '경기운영', '경기운영팀', '경기팀', '대정골프', '코스관리팀' 이거나 골프 사고인 경우
+  const isGolfRelated = (
+    /경기운영|경기팀|대정골프|코스관리|골프/.test(origDept) ||
+    /골프/.test(zone) ||
+    /타구|카트|캐디|골프/.test(cat) ||
+    /밸리팀|힐스팀|성문안팀|월송리팀|밸리cc/.test(resort) ||
+    isGolfCourseSpecific
+  );
+
+  if (isGolfRelated) {
+    // 1) 성문안팀: '성문안', '인/아웃코스(성문안)' 관련 골프 사고
+    if (/성문안|인코스|아웃코스|\b인\d*h\b|\b아웃\d*h\b/i.test(fullText) || /성문안/.test(resort)) {
+      return "성문안팀";
+    }
+    // 2) 월송리팀: '월송리', '월송', '루나/솔라' 관련 골프 사고
+    if (/월송리|월송|루나|솔라|\b루나\d*h\b|\b솔라\d*h\b/i.test(fullText) || /월송리/.test(resort)) {
+      return "월송리팀";
+    }
+    // 3) 힐스팀: '힐스', '오크힐스', '브릿지', '힐' 코스 관련 골프 사고
+    if (/오크힐스|힐스|브릿지|\b힐\d*h\b|힐\s*코스/i.test(fullText) || /힐스/.test(resort)) {
+      return "힐스팀";
+    }
+    // 4) 밸리팀: '오크밸리', '파인', '체리', '메이플', '오크' 코스 관련 골프 사고 (단, '오크힐스' 제외)
+    if (
+      /오크밸리|밸리cc|밸리팀|파인|체리|메이플|\b오크\d*h\b|오크\s*코스/i.test(fullText) ||
+      (/오크/i.test(fullText) && !/오크힐스|힐스/i.test(fullText)) ||
+      /밸리/.test(resort)
+    ) {
+      return "밸리팀";
+    }
+    // 5) 코스 식별이 불가능한 일반 경기 사고인 경우: '골프운영(공통)'
+    return "골프운영(공통)";
+  }
+
+  // 4. 기존 유효 리조트/지원 부서 유지 (시설팀, 안전관리팀, 조경 등)
+  if (origDept && !/경기운영/.test(origDept)) {
+    return origDept;
+  }
+
+  return "시설팀";
+}
+
+if (typeof window !== "undefined") {
+  window.inferDeptFromIncident = inferDeptFromIncident;
 }
 
 function renderPreventiveCards() {
@@ -1935,30 +2036,138 @@ function parseNumericCost(val) {
   return isNaN(parsed) ? 0 : parsed;
 }
 
-// Safe Date Extractors
+// ==========================================================================
+// 전역 날짜 정규화 및 파싱 엔진 (Global Incident Date Normalization Engine)
+// ==========================================================================
+
+function normalizeDateString(rawStr) {
+  if (!rawStr) return "";
+  let s = String(rawStr).trim();
+  // 1. "202311.07" 오타 패턴 -> "2023.11.07"
+  s = s.replace(/\b(19\d{2}|20\d{2})(\d{2})[./-](\d{1,2})\b/g, "$1.$2.$3");
+  // 2. "20231107" 8자리 연속 숫자 -> "2023.11.07"
+  s = s.replace(/\b(19\d{2}|20\d{2})(\d{2})(\d{2})\b/g, "$1.$2.$3");
+  return s;
+}
+
+/**
+ * 전역 단일 기준 발생일시 파싱 헬퍼 함수
+ * 원본의 다양한 비정형 형식(2025.11.14, 2026.03.02, 2023.12.30~2023.12.31, 2025.04.10 12:50경, 2024-01-15 등)을
+ * 단일 기준으로 안전하게 파싱하여 new Date(year, month - 1, day) 객체 또는 { startDate, endDate } 범위를 반환합니다.
+ * @param {string|object} input - 날짜 문자열 또는 사고 객체(item)
+ * @param {object} [options] - { range: true } 설정 시 { startDate, endDate, raw } 반환
+ * @returns {Date|{startDate: Date, endDate: Date, raw: string}|null}
+ */
+function parseIncidentDate(input, options = {}) {
+  if (!input) return null;
+
+  // 사고 객체가 직접 전달된 경우 date -> occurDate -> reportDate 순으로 추출
+  const raw = typeof input === "object" && !(input instanceof Date)
+    ? String(input.date || input.occurDate || input.reportDate || "")
+    : String(input);
+
+  const str = normalizeDateString(raw);
+  if (!str) return null;
+
+  // 문자열에서 유효한 연·월·일 패턴 ((\d{4})[.-](\d{1,2})[.-](\d{1,2})) 추출
+  const datePattern = /(\d{4})[./-](\d{1,2})[./-](\d{1,2})/g;
+  const matches = [...str.matchAll(datePattern)];
+
+  // 유효한 연월일 패턴이 아예 없는 비정상 데이터는 null 반환
+  if (!matches || matches.length === 0) return null;
+
+  const firstMatch = matches[0];
+  const startY = parseInt(firstMatch[1], 10);
+  const startM = parseInt(firstMatch[2], 10);
+  const startD = parseInt(firstMatch[3], 10);
+
+  // 연월일 기본 유효성 검사 (1~12월, 1~31일)
+  if (startM < 1 || startM > 12 || startD < 1 || startD > 31) return null;
+
+  // 시간/분 패턴 추출 (예: "12:50경", "20:23")
+  let startH = 0;
+  let startMin = 0;
+  const timeMatch = str.slice(firstMatch.index + firstMatch[0].length).match(/\s+(\d{1,2}):(\d{1,2})/);
+  if (timeMatch) {
+    const h = parseInt(timeMatch[1], 10);
+    const m = parseInt(timeMatch[2], 10);
+    if (h >= 0 && h < 24 && m >= 0 && m < 60) {
+      startH = h;
+      startMin = m;
+    }
+  }
+
+  const startDate = new Date(startY, startM - 1, startD, startH, startMin, 0, 0);
+  if (isNaN(startDate.getTime())) return null;
+
+  // 기간형 표기인 경우 종료일자 추출 (예: "2023.12.30~2023.12.31")
+  let endDate;
+  if (matches.length > 1) {
+    const secondMatch = matches[1];
+    const endY = parseInt(secondMatch[1], 10);
+    const endM = parseInt(secondMatch[2], 10);
+    const endD = parseInt(secondMatch[3], 10);
+    endDate = new Date(endY, endM - 1, endD, 23, 59, 59, 999);
+  } else {
+    endDate = new Date(startY, startM - 1, startD, 23, 59, 59, 999);
+  }
+
+  if (options && options.range === true) {
+    return { startDate, endDate, raw: str };
+  }
+
+  // Date 객체에 startDate, endDate 및 년/월/일 프로퍼티를 함께 확장 탑재하여 범용성 극대화
+  startDate.startDate = startDate;
+  startDate.endDate = endDate;
+  startDate.year = startY;
+  startDate.month = startM;
+  startDate.day = startD;
+
+  return startDate;
+}
+
+// 기간형 범위 추출 전용 헬퍼
+function parseIncidentDateRange(input) {
+  return parseIncidentDate(input, { range: true });
+}
+
+function getSystemReferenceDate() {
+  const current = new Date();
+  if (current.getFullYear() >= 2026) {
+    return current;
+  }
+  return new Date("2026-10-28T18:00:00");
+}
+
 function extractYear(dateStr) {
   if (!dateStr) return null;
-  const match = String(dateStr).match(/(19\d{2}|20\d{2})/);
-  return match ? match[1] : null;
+  const p = parseIncidentDate(dateStr);
+  return p ? String(p.getFullYear()) : null;
 }
 
 function extractStandardDate(dateStr) {
   if (!dateStr) return null;
-  const match = String(dateStr).match(/(19\d{2}|20\d{2})\s*[./-]\s*(\d{1,2})\s*[./-]\s*(\d{1,2})/);
-  if (match) {
-    const y = match[1];
-    const m = match[2].padStart(2, "0");
-    const d = match[3].padStart(2, "0");
-    return `${y}-${m}-${d}`;
-  }
-  return null;
+  const p = parseIncidentDate(dateStr);
+  if (!p) return null;
+  const y = p.getFullYear();
+  const m = String(p.getMonth() + 1).padStart(2, "0");
+  const d = String(p.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
-// Extract Year from Incident Object (occurDate, date, reportDate)
 function getIncidentYear(item) {
   if (!item) return null;
-  return extractYear(item.occurDate || item.date) || extractYear(item.reportDate) || null;
+  const p = parseIncidentDate(item);
+  return p ? String(p.getFullYear()) : null;
 }
+
+window.parseIncidentDate = parseIncidentDate;
+window.parseIncidentDateRange = parseIncidentDateRange;
+window.getSystemReferenceDate = getSystemReferenceDate;
+window.normalizeDateString = normalizeDateString;
+window.extractYear = extractYear;
+window.extractStandardDate = extractStandardDate;
+window.getIncidentYear = getIncidentYear;
 
 // Dynamically Populate Filter Dropdowns
 function populateFilterDropdowns() {
@@ -1982,17 +2191,51 @@ function populateFilterDropdowns() {
     }
   }
 
-  // 신설: 팀/부서 드롭다운 옵션 동적 추출
+  // 4대 골프CC 전담팀 및 리조트 부서 체계화 드롭다운 옵션 생성
   if (deptSelect) {
     const currentDept = state.filters.dept;
-    const defaultDepts = ["밸리팀", "성문안팀", "레저팀", "시설팀", "객실팀", "안전관리팀", "식음팀", "경기운영팀"];
-    const extractedDepts = state.incidents.map(i => i.dept || inferDeptFromIncident(i)).filter(Boolean);
-    const uniqueDepts = [...new Set([...defaultDepts, ...extractedDepts])].sort();
+    const allDepts = [...new Set(state.incidents.map(i => i.dept || inferDeptFromIncident(i)).filter(Boolean))];
+    
+    const golfCCDefs = [
+      { id: "밸리팀", label: "밸리팀 (오크밸리CC)" },
+      { id: "힐스팀", label: "힐스팀 (오크힐스CC)" },
+      { id: "성문안팀", label: "성문안팀 (성문안CC)" },
+      { id: "월송리팀", label: "월송리팀 (월송리CC)" },
+      { id: "골프운영(공통)", label: "골프운영(공통)" }
+    ];
+    const resortDeptDefs = [
+      { id: "객실팀", label: "객실팀 (콘도/빌리지/숙박)" },
+      { id: "시설팀", label: "시설팀 (영선/설비/주차장)" },
+      { id: "레저팀", label: "레저팀 (사우나/스키/레저)" },
+      { id: "식음팀", label: "식음팀 (F&B/레스토랑/카페)" },
+      { id: "안전관리팀", label: "안전관리팀" }
+    ];
 
-    deptSelect.innerHTML = `<option value="all">전체 팀/부서 (${uniqueDepts.length}개팀)</option>` +
-      uniqueDepts.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join("");
+    const actualGolf = golfCCDefs.filter(d => allDepts.includes(d.id));
+    const actualResort = resortDeptDefs.filter(d => allDepts.includes(d.id));
+    const knownIds = [...golfCCDefs.map(d => d.id), ...resortDeptDefs.map(d => d.id)];
+    const otherDepts = allDepts.filter(d => !knownIds.includes(d)).sort();
 
-    if (uniqueDepts.includes(currentDept)) {
+    let html = `<option value="all">전체 팀/부서 (${allDepts.length}개 부서)</option>`;
+    if (actualGolf.length > 0) {
+      html += `<optgroup label="⛳ 4대 골프CC 전담팀">` +
+        actualGolf.map(d => `<option value="${escapeHtml(d.id)}">${escapeHtml(d.label)}</option>`).join("") +
+        `</optgroup>`;
+    }
+    if (actualResort.length > 0) {
+      html += `<optgroup label="🏨 리조트 부대시설/운영팀">` +
+        actualResort.map(d => `<option value="${escapeHtml(d.id)}">${escapeHtml(d.label)}</option>`).join("") +
+        `</optgroup>`;
+    }
+    if (otherDepts.length > 0) {
+      html += `<optgroup label="🏢 지원 및 기타 부서">` +
+        otherDepts.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join("") +
+        `</optgroup>`;
+    }
+
+    deptSelect.innerHTML = html;
+
+    if (allDepts.includes(currentDept)) {
       deptSelect.value = currentDept;
     } else {
       deptSelect.value = "all";
@@ -2198,8 +2441,10 @@ window.deleteIncident = function(id) {
 
 // Apply Filters to Data
 function applyFilters() {
-  const { search, resort, dept, category, severity, status, period, zone } = state.filters;
-  const now = new Date("2026-10-26T12:00:00");
+  const { search, resort, dept, category, severity, status, period, zone, startDate, endDate, from, to } = state.filters;
+  const refDate = getSystemReferenceDate();
+  const todayStart = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 0, 0, 0, 0);
+  const todayEnd = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 23, 59, 59, 999);
 
   state.filteredIncidents = state.incidents.filter(item => {
     const itemDept = item.dept || inferDeptFromIncident(item);
@@ -2235,14 +2480,55 @@ function applyFilters() {
       return false;
     }
 
-    if (period !== "all") {
-      const parsedDate = new Date(item.date.replace(/\./g, "-").replace(" ", "T"));
-      if (!isNaN(parsedDate.getTime())) {
-        const diffDays = (now - parsedDate) / (1000 * 60 * 60 * 24);
-        if (period === "7d" && diffDays > 7) return false;
-        if (period === "30d" && diffDays > 30) return false;
-        if (period === "90d" && diffDays > 90) return false;
-        if (period === "year" && parsedDate.getFullYear() !== 2026) return false;
+    // 전역 날짜 파싱 기반 엄격한 기간 필터링
+    if (period && period !== "all") {
+      const parsedDate = parseIncidentDate(item);
+      if (!parsedDate) return false; // 파싱 실패 시 무조건 제외
+
+      const time = parsedDate.getTime();
+
+      if (period === "7d") {
+        const d7Start = new Date(todayStart.getTime() - 6 * 24 * 60 * 60 * 1000);
+        if (time < d7Start.getTime() || time > todayEnd.getTime()) return false;
+      } else if (period === "30d") {
+        const d30Start = new Date(todayStart.getTime() - 29 * 24 * 60 * 60 * 1000);
+        if (time < d30Start.getTime() || time > todayEnd.getTime()) return false;
+      } else if (period === "1m" || period === "month") {
+        const m1Start = new Date(refDate.getFullYear(), refDate.getMonth() - 1, refDate.getDate(), 0, 0, 0, 0);
+        if (time < m1Start.getTime() || time > todayEnd.getTime()) return false;
+      } else if (period === "90d" || period === "3m") {
+        const d90Start = new Date(todayStart.getTime() - 89 * 24 * 60 * 60 * 1000);
+        if (time < d90Start.getTime() || time > todayEnd.getTime()) return false;
+      } else if (period === "year" || period === "2026") {
+        if (parsedDate.getFullYear() !== 2026) return false;
+      } else if (/^\d{4}$/.test(period)) {
+        if (parsedDate.getFullYear() !== parseInt(period, 10)) return false;
+      }
+    }
+
+    // 직접 기간 지정 (startDate ~ endDate 또는 from ~ to)
+    const filterStartStr = startDate || from;
+    const filterEndStr = endDate || to;
+    if (filterStartStr || filterEndStr) {
+      const parsedDate = parseIncidentDate(item);
+      if (!parsedDate) return false;
+
+      const time = parsedDate.getTime();
+
+      if (filterStartStr) {
+        const pStart = parseIncidentDate(filterStartStr);
+        const startTime = pStart
+          ? new Date(pStart.getFullYear(), pStart.getMonth(), pStart.getDate(), 0, 0, 0, 0).getTime()
+          : new Date(`${filterStartStr}T00:00:00`).getTime();
+        if (!isNaN(startTime) && time < startTime) return false;
+      }
+
+      if (filterEndStr) {
+        const pEnd = parseIncidentDate(filterEndStr);
+        const endTime = pEnd
+          ? new Date(pEnd.getFullYear(), pEnd.getMonth(), pEnd.getDate(), 23, 59, 59, 999).getTime()
+          : new Date(`${filterEndStr}T23:59:59.999`).getTime();
+        if (!isNaN(endTime) && time > endTime) return false;
       }
     }
 
@@ -2285,15 +2571,22 @@ function renderKPIs() {
 
   const totalCostEl = document.getElementById("kpi-total-cost");
   if (totalCostEl) {
+    const costCount = data.filter(curr => {
+      const costVal = parseNumericCost(curr.companyAmount !== undefined ? curr.companyAmount : curr.cost);
+      return costVal > 0;
+    }).length;
+
+    let costText = "0원";
     if (totalCompanyCost >= 100000000) {
-      totalCostEl.innerText = `${(totalCompanyCost / 100000000).toFixed(1)}억원`;
+      costText = `${(totalCompanyCost / 100000000).toFixed(1)}억원`;
     } else if (totalCompanyCost >= 10000) {
-      totalCostEl.innerText = `${Math.round(totalCompanyCost / 10000).toLocaleString()}만원`;
+      costText = `${Math.round(totalCompanyCost / 10000).toLocaleString()}만원`;
     } else if (totalCompanyCost > 0) {
-      totalCostEl.innerText = `${totalCompanyCost.toLocaleString()}원`;
+      costText = `${totalCompanyCost.toLocaleString()}원`;
     } else {
-      totalCostEl.innerText = "0원";
+      costText = "0원";
     }
+    totalCostEl.innerHTML = `${costText} <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(${costCount.toLocaleString()}건)</span>`;
   }
 }
 
@@ -2412,15 +2705,15 @@ function renderCharts() {
     });
   }
 
-  // 2. Group by Dept (🏢 팀/부서별 사고 발생 비중 신설 ⭐)
+  // 2. Group by Dept (🏢 팀/부서별 사고 발생 비중)
   const deptCounts = {};
   data.forEach(item => {
-    const dept = item.dept || inferDeptFromIncident(item) || "운영팀";
+    const dept = item.dept || inferDeptFromIncident(item) || "시설팀";
     deptCounts[dept] = (deptCounts[dept] || 0) + 1;
   });
 
   const sortedDepts = Object.entries(deptCounts).sort((a, b) => b[1] - a[1]);
-  const maxDeptDisplay = 6;
+  const maxDeptDisplay = 8; // 4대 골프CC(밸리/힐스/성문안/월송리)와 리조트 부서(레저/시설/객실/식음)가 모두 온전히 분리 표기되도록 8개 확장
   const topDepts = sortedDepts.slice(0, maxDeptDisplay);
   const otherDeptSum = sortedDepts.slice(maxDeptDisplay).reduce((sum, item) => sum + item[1], 0);
 
@@ -2433,14 +2726,16 @@ function renderCharts() {
   }
 
   const deptPalette = [
-    "#38bdf8", // Sky Blue
-    "#f59e0b", // Amber
-    "#10b981", // Emerald
-    "#818cf8", // Indigo
-    "#ec4899", // Pink
-    "#06b6d4", // Cyan
-    "#f87171", // Coral Red
-    "#94a3b8"  // Slate
+    "#0284c7", // 밸리팀 (Sky Blue)
+    "#8b5cf6", // 레저팀 (Purple)
+    "#d97706", // 시설팀 (Warm Amber)
+    "#059669", // 성문안팀 (Forest Emerald)
+    "#4f46e5", // 힐스팀 (Deep Indigo)
+    "#0891b2", // 월송리팀 (Cyan)
+    "#db2777", // 객실팀 (Rose Pink)
+    "#ea580c", // 식음팀 (Vivid Orange)
+    "#0d9488", // 골프운영(공통) (Teal)
+    "#64748b"  // 기타 (Slate)
   ];
 
   const deptCtx = document.getElementById("deptChart")?.getContext("2d");
@@ -2620,16 +2915,10 @@ window.currentSort = currentSort;
 
 function parseIncidentTimestamp(item) {
   if (!item) return 0;
-  const raw = String(item.date || item.occurDate || item.reportDate || "").trim();
-  const m = raw.match(/(\d{4})[^\d]?(\d{1,2})?[^\d]?(\d{1,2})?(?:[^\d]+(\d{1,2}))?(?:[^\d]+(\d{1,2}))?/);
-  if (!m) return 0;
-  const y = parseInt(m[1] || "1970", 10);
-  const mon = parseInt(m[2] || "1", 10) - 1;
-  const d = parseInt(m[3] || "1", 10);
-  const h = parseInt(m[4] || "0", 10);
-  const min = parseInt(m[5] || "0", 10);
-  return new Date(y, mon, d, h, min, 0).getTime() || 0;
+  const p = parseIncidentDate(item);
+  return p ? p.getTime() : 0;
 }
+window.parseIncidentTimestamp = parseIncidentTimestamp;
 
 function compareIncidents(a, b, key = currentSort.key, order = currentSort.order) {
   const normKey = (key === "id" || key === "docNo") ? "docNo" : "occurDate";
@@ -3230,6 +3519,10 @@ function resetAllFilters() {
   state.filters.status = "all";
   state.filters.period = "all";
   state.filters.zone = "all";
+  state.filters.startDate = "";
+  state.filters.endDate = "";
+  state.filters.from = "";
+  state.filters.to = "";
   state.currentPage = 1;
 
   const searchInput = document.getElementById("search-input");
@@ -3351,16 +3644,14 @@ window.resetComparisonFilter = function() {
 
 function extractYearAndMonth(item) {
   if (!item) return { year: 0, month: 0, time: 0 };
-  const raw = String(item.date || item.occurDate || item.reportDate || "").trim();
-  const m = raw.match(/(\d{4})[^\d]?(\d{1,2})?[^\d]?(\d{1,2})?(?:[^\d]+(\d{1,2}))?(?:[^\d]+(\d{1,2}))?/);
-  if (!m) return { year: 0, month: 0, time: 0 };
-  const y = parseInt(m[1] || "1970", 10);
-  const mon = parseInt(m[2] || "1", 10);
-  const d = parseInt(m[3] || "1", 10);
-  const h = parseInt(m[4] || "0", 10);
-  const min = parseInt(m[5] || "0", 10);
-  const time = new Date(y, mon - 1, d, h, min, 0).getTime() || 0;
-  return { year: y, month: mon, time };
+  const p = parseIncidentDate(item);
+  if (!p) return { year: 0, month: 0, time: 0 };
+  return {
+    year: p.getFullYear(),
+    month: p.getMonth() + 1,
+    day: p.getDate(),
+    time: p.getTime()
+  };
 }
 window.extractYearAndMonth = extractYearAndMonth;
 
@@ -3372,7 +3663,10 @@ function getIncidentsForCurrentMode(side) {
     const selYear = document.getElementById(side === "a" ? "cmp-year-a" : "cmp-year-b");
     const targetY = selYear ? parseInt(selYear.value, 10) : (side === "a" ? 2026 : 2025);
     const label = `${targetY}년`;
-    const filtered = all.filter(item => extractYearAndMonth(item).year === targetY);
+    const filtered = all.filter(item => {
+      const p = parseIncidentDate(item);
+      return p && p.getFullYear() === targetY;
+    });
     return { data: filtered, label, mode, year: targetY };
   } else if (mode === "month") {
     const selYear = document.getElementById(side === "a" ? "cmp-month-year-a" : "cmp-month-year-b");
@@ -3381,8 +3675,8 @@ function getIncidentsForCurrentMode(side) {
     const targetM = selMonth ? parseInt(selMonth.value, 10) : 5;
     const label = `${targetY}년 ${targetM}월`;
     const filtered = all.filter(item => {
-      const ym = extractYearAndMonth(item);
-      return ym.year === targetY && ym.month === targetM;
+      const p = parseIncidentDate(item);
+      return p && p.getFullYear() === targetY && (p.getMonth() + 1) === targetM;
     });
     return { data: filtered, label, mode, year: targetY, month: targetM };
   } else if (mode === "custom") {
@@ -3390,11 +3684,21 @@ function getIncidentsForCurrentMode(side) {
     const endEl = document.getElementById(side === "a" ? "cmp-end-a" : "cmp-end-b");
     const startStr = (startEl ? startEl.value : "") || (side === "a" ? "2026-01-01" : "2025-01-01");
     const endStr = (endEl ? endEl.value : "") || (side === "a" ? "2026-10-31" : "2025-10-31");
-    const startTime = new Date(`${startStr}T00:00:00`).getTime() || 0;
-    const endTime = new Date(`${endStr}T23:59:59`).getTime() || Number.MAX_SAFE_INTEGER;
+
+    const pStart = parseIncidentDate(startStr);
+    const pEnd = parseIncidentDate(endStr);
+    const startTime = pStart
+      ? new Date(pStart.getFullYear(), pStart.getMonth(), pStart.getDate(), 0, 0, 0, 0).getTime()
+      : new Date(`${startStr}T00:00:00`).getTime();
+    const endTime = pEnd
+      ? new Date(pEnd.getFullYear(), pEnd.getMonth(), pEnd.getDate(), 23, 59, 59, 999).getTime()
+      : new Date(`${endStr}T23:59:59.999`).getTime();
+
     const label = `${startStr} ~ ${endStr}`;
     const filtered = all.filter(item => {
-      const t = extractYearAndMonth(item).time;
+      const p = parseIncidentDate(item);
+      if (!p) return false;
+      const t = p.getTime();
       return t >= startTime && t <= endTime;
     });
     return { data: filtered, label, mode };
@@ -3453,8 +3757,8 @@ window.executeComparison = function() {
   const valCostBEl = document.getElementById("ck-val-cost-b");
   const badgeCostEl = document.getElementById("ck-badge-cost");
 
-  if (valCostAEl) valCostAEl.textContent = `${Math.round(costA / 10000).toLocaleString()}만원`;
-  if (valCostBEl) valCostBEl.textContent = `${Math.round(costB / 10000).toLocaleString()}만원`;
+  if (valCostAEl) valCostAEl.textContent = costA > 0 ? `${Math.round(costA / 10000).toLocaleString()}만원` : "0원";
+  if (valCostBEl) valCostBEl.textContent = costB > 0 ? `${Math.round(costB / 10000).toLocaleString()}만원` : "0원";
   if (badgeCostEl) {
     if (diffCost < 0) {
       badgeCostEl.className = "ck-diff-badge ck-badge-improved";
@@ -3464,7 +3768,7 @@ window.executeComparison = function() {
       badgeCostEl.textContent = `▲ +${Math.round(diffCost / 10000).toLocaleString()}만원 (+${rateCost}%) 증가`;
     } else {
       badgeCostEl.className = "ck-diff-badge";
-      badgeCostEl.textContent = `- 0만원 (동일)`;
+      badgeCostEl.textContent = `- 0원 (동일)`;
     }
   }
 
@@ -3579,19 +3883,19 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode) {
   const monthlyA = new Array(12).fill(0);
   const monthlyB = new Array(12).fill(0);
 
-  const parseMonthIdx = (dateStr) => {
-    if (!dateStr) return -1;
-    const m = String(dateStr).match(/\d{4}[^\d](\d{1,2})/);
-    return m ? parseInt(m[1], 10) - 1 : -1;
-  };
-
   dataA.forEach(x => {
-    const idx = parseMonthIdx(x.date || x.reportDate);
-    if (idx >= 0 && idx < 12) monthlyA[idx]++;
+    const p = parseIncidentDate(x);
+    if (p) {
+      const idx = p.getMonth();
+      if (idx >= 0 && idx < 12) monthlyA[idx]++;
+    }
   });
   dataB.forEach(x => {
-    const idx = parseMonthIdx(x.date || x.reportDate);
-    if (idx >= 0 && idx < 12) monthlyB[idx]++;
+    const p = parseIncidentDate(x);
+    if (p) {
+      const idx = p.getMonth();
+      if (idx >= 0 && idx < 12) monthlyB[idx]++;
+    }
   });
 
   const ctxMonth = document.getElementById("cmpMonthlyChart");
@@ -3643,67 +3947,76 @@ function renderComparisonTable(dataA, dataB) {
   const tbody = document.getElementById("cmp-breakdown-tbody");
   if (!tbody) return;
 
-  const catMapA = {};
-  const catMapB = {};
-  dataA.forEach(x => { const c = x.category || "기타"; catMapA[c] = (catMapA[c] || 0) + 1; });
-  dataB.forEach(x => { const c = x.category || "기타"; catMapB[c] = (catMapB[c] || 0) + 1; });
+  const pairMapA = {};
+  const pairMapB = {};
 
-  const allCats = Array.from(new Set([...Object.keys(catMapA), ...Object.keys(catMapB)]));
-  allCats.sort((a, b) => ((catMapA[b] || 0) + (catMapB[b] || 0)) - ((catMapA[a] || 0) + (catMapB[a] || 0)));
-
-  let rowIdx = 1;
-  const rows = [];
-
-  allCats.slice(0, 8).forEach(cat => {
-    const a = catMapA[cat] || 0;
-    const b = catMapB[cat] || 0;
-    const diff = a - b;
-    const rate = b > 0 ? ((diff / b) * 100).toFixed(1) : (a > 0 ? "+100.0" : "0.0");
-    const diffClass = diff < 0 ? "diff-cell-improved" : (diff > 0 ? "diff-cell-worsened" : "");
-    const diffText = diff > 0 ? `+${diff}건` : `${diff}건`;
-    const rateText = diff > 0 ? `+${rate}%` : `${rate}%`;
-
-    rows.push(`
-      <tr>
-        <td style="text-align: center; color: #64748b;">${rowIdx++}</td>
-        <td><span class="badge badge-category">사고 유형</span></td>
-        <td><strong>${escapeHtml(cat)}</strong></td>
-        <td style="text-align: right; font-weight: 700; color: #2563eb;">${a}건</td>
-        <td style="text-align: right; font-weight: 700; color: #d97706;">${b}건</td>
-        <td style="text-align: right;" class="${diffClass}">${diffText}</td>
-        <td style="text-align: right; font-weight: 700;" class="${diffClass}">${rateText}</td>
-      </tr>
-    `);
+  dataA.forEach(x => {
+    const r = x.resort || "기타";
+    const c = x.category || "기타";
+    const key = `${r}___${c}`;
+    pairMapA[key] = (pairMapA[key] || 0) + 1;
   });
 
-  const resortMapA = {};
-  const resortMapB = {};
-  dataA.forEach(x => { const r = x.resort || "기타"; resortMapA[r] = (resortMapA[r] || 0) + 1; });
-  dataB.forEach(x => { const r = x.resort || "기타"; resortMapB[r] = (resortMapB[r] || 0) + 1; });
+  dataB.forEach(x => {
+    const r = x.resort || "기타";
+    const c = x.category || "기타";
+    const key = `${r}___${c}`;
+    pairMapB[key] = (pairMapB[key] || 0) + 1;
+  });
 
-  const allResorts = Array.from(new Set([...Object.keys(resortMapA), ...Object.keys(resortMapB)]));
-  allResorts.sort((a, b) => ((resortMapA[b] || 0) + (resortMapB[b] || 0)) - ((resortMapA[a] || 0) + (resortMapB[a] || 0)));
+  const allKeys = Array.from(new Set([...Object.keys(pairMapA), ...Object.keys(pairMapB)]));
+  allKeys.sort((k1, k2) => {
+    const sum1 = (pairMapA[k1] || 0) + (pairMapB[k1] || 0);
+    const sum2 = (pairMapA[k2] || 0) + (pairMapB[k2] || 0);
+    if (sum2 !== sum1) return sum2 - sum1;
+    return k1.localeCompare(k2);
+  });
 
-  allResorts.slice(0, 5).forEach(res => {
-    const a = resortMapA[res] || 0;
-    const b = resortMapB[res] || 0;
-    const diff = a - b;
-    const rate = b > 0 ? ((diff / b) * 100).toFixed(1) : (a > 0 ? "+100.0" : "0.0");
-    const diffClass = diff < 0 ? "diff-cell-improved" : (diff > 0 ? "diff-cell-worsened" : "");
-    const diffText = diff > 0 ? `+${diff}건` : `${diff}건`;
-    const rateText = diff > 0 ? `+${rate}%` : `${rate}%`;
-
-    rows.push(`
+  if (allKeys.length === 0) {
+    tbody.innerHTML = `
       <tr>
-        <td style="text-align: center; color: #64748b;">${rowIdx++}</td>
-        <td><span class="badge badge-status-investigating">사업장</span></td>
-        <td><strong>${escapeHtml(res)}</strong></td>
-        <td style="text-align: right; font-weight: 700; color: #2563eb;">${a}건</td>
-        <td style="text-align: right; font-weight: 700; color: #d97706;">${b}건</td>
-        <td style="text-align: right;" class="${diffClass}">${diffText}</td>
+        <td colspan="6" style="text-align: center; color: #64748b; padding: 2rem;">선택된 기간에 해당하는 사고 데이터가 없습니다.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  const rows = allKeys.map(key => {
+    const [resort, category] = key.split("___");
+    const a = pairMapA[key] || 0;
+    const b = pairMapB[key] || 0;
+    const diff = a - b;
+    let rate = "0.0";
+    if (b > 0) {
+      rate = ((diff / b) * 100).toFixed(1);
+    } else if (a > 0) {
+      rate = "+100.0";
+    }
+
+    let diffClass = "diff-cell-neutral";
+    let diffText = "0건";
+    let rateText = "0.0%";
+
+    if (diff < 0) {
+      diffClass = "diff-cell-improved";
+      diffText = `${diff}건`;
+      rateText = `${rate}%`;
+    } else if (diff > 0) {
+      diffClass = "diff-cell-worsened";
+      diffText = `+${diff}건`;
+      rateText = `+${rate}%`;
+    }
+
+    return `
+      <tr>
+        <td style="font-weight: 600; color: #0f172a;">${escapeHtml(resort)}</td>
+        <td><span class="badge badge-category">${escapeHtml(category)}</span></td>
+        <td style="text-align: right; font-weight: 700; color: #2563eb;">${a.toLocaleString()}건</td>
+        <td style="text-align: right; font-weight: 700; color: #d97706;">${b.toLocaleString()}건</td>
+        <td style="text-align: right; font-weight: 700;" class="${diffClass}">${diffText}</td>
         <td style="text-align: right; font-weight: 700;" class="${diffClass}">${rateText}</td>
       </tr>
-    `);
+    `;
   });
 
   tbody.innerHTML = rows.join("");

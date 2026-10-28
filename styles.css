@@ -3076,17 +3076,55 @@ body.auth-locked .main-wrapper {
 }
 
 .cmp-data-table .diff-cell-improved {
-  color: #059669;
+  color: #16a34a !important;
   font-weight: 700;
 }
 
 .cmp-data-table .diff-cell-worsened {
-  color: #dc2626;
+  color: #dc2626 !important;
   font-weight: 700;
 }
 
+.cmp-data-table .diff-cell-neutral {
+  color: #64748b;
+  font-weight: 600;
+}
 
-@media print 전면 개편)
+/* ==========================================================================
+   모달창 폼 컨트롤 가독성 및 시인성 보장 스타일
+   ========================================================================== */
+.modal-overlay select,
+.modal-overlay option,
+.modal-overlay input[type="date"],
+.modal-overlay input[type="text"],
+.modal-overlay input[type="number"],
+.modal-overlay textarea,
+.cost-select,
+.cost-select option,
+.cost-date-input,
+#trendResortSelect,
+#trendResortSelect option,
+#dtl-status-select,
+#dtl-status-select option,
+.modal-status-select,
+.modal-status-select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: var(--radius-sm, 6px);
+}
+
+.modal-footer-notice {
+  font-family: var(--font-family, 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #64748b;
+  display: inline-block;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   A4 Summary Report Print Styles (전면 개편)
    ========================================================================== */
 @media print {
   /* 브라우저 기본 여백 초기화 및 A4 세로 규격 강제 */
