@@ -3043,20 +3043,65 @@ body.auth-locked .main-wrapper {
 }
 
 .cmp-table-header {
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
 }
 
-.cmp-table-header h3 {
+.cmp-table-title-group h3 {
   font-size: 1.15rem;
   font-weight: 800;
   color: #0f172a;
   margin: 0 0 0.25rem 0;
 }
 
-.cmp-table-header p {
+.cmp-table-title-group .chart-sub {
   font-size: 0.85rem;
   color: #64748b;
   margin: 0;
+}
+
+.cmp-table-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.cmp-table-toolbar .toolbar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cmp-table-toolbar .toolbar-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.yoy-table-select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  padding: 0.35rem 0.65rem !important;
+  height: 32px !important;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.yoy-table-select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
 }
 
 .cmp-table-responsive {
@@ -3095,22 +3140,43 @@ body.auth-locked .main-wrapper {
   color: #1e293b !important;
 }
 
-.cmp-data-table .diff-cell-improved {
-  color: #2563eb !important;
+/* 대조표 증감 건수 및 증감률 뱃지 UI */
+.cmp-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
   font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
-.cmp-data-table .diff-cell-worsened {
+/* 증가(+): 연한 빨간색 라운드 뱃지 (배경 #fef2f2, 글자 #dc2626) */
+.cmp-badge-worsened {
+  background-color: #fef2f2 !important;
   color: #dc2626 !important;
-  font-weight: 700;
+  border: 1px solid #fecaca !important;
 }
 
-.cmp-data-table .diff-cell-neutral {
+/* 감소(-): 연한 파란색 라운드 뱃지 (배경 #eff6ff, 글자 #2563eb) */
+.cmp-badge-improved {
+  background-color: #eff6ff !important;
+  color: #2563eb !important;
+  border: 1px solid #bfdbfe !important;
+}
+
+/* 변동없음(0): 은은한 회색 (글자 #64748b) */
+.cmp-badge-neutral {
+  background-color: #f8fafc !important;
   color: #64748b !important;
-  font-weight: 600;
+  border: 1px solid #e2e8f0 !important;
 }
 
 /* 사고 유형 선택 필터 드롭다운 시인성 보장 */
+#yoyGlobalTypeFilter,
+#yoyGlobalTypeFilter option,
 #yoyIncidentTypeFilter,
 #yoyIncidentTypeFilter option,
 .yoy-incident-type-filter {

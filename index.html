@@ -609,8 +609,8 @@
             <span class="period-role-badge">필터 조건</span>
           </div>
           <div class="period-select-wrap">
-            <label for="yoyIncidentTypeFilter">유형:</label>
-            <select id="yoyIncidentTypeFilter" class="custom-select cmp-select yoy-incident-type-filter" onchange="executeComparison()">
+            <label for="yoyGlobalTypeFilter">유형:</label>
+            <select id="yoyGlobalTypeFilter" class="custom-select cmp-select yoy-incident-type-filter" onchange="executeComparison()">
               <option value="all">전체 사고 유형</option>
             </select>
           </div>
@@ -751,8 +751,27 @@
       <!-- 3. Detailed Comparison Breakdown Table -->
       <div class="cmp-table-card">
         <div class="cmp-table-header">
-          <h3>📋 세부 항목별 증감 대조표 (사고유형 및 사업장별)</h3>
-          <span class="chart-sub">A기간과 B기간의 항목별 발생 건수, 차이(증감), 증감률(%) 상세 분석</span>
+          <div class="cmp-table-title-group">
+            <h3>📋 세부 항목별 증감 대조표 (사업장 × 사고유형)</h3>
+            <span class="chart-sub">A기간과 B기간의 항목별 발생 건수, 차이(증감), 증감률(%) 상세 분석</span>
+          </div>
+          <!-- 대조표 상단 인라인 제어 툴바 (사업장 필터 & 정렬 도구) -->
+          <div class="cmp-table-toolbar">
+            <div class="toolbar-item">
+              <label for="yoyTableBizSelect" class="toolbar-label">사업장:</label>
+              <select id="yoyTableBizSelect" class="custom-select yoy-table-select" onchange="renderComparisonTable()">
+                <option value="all">전체 사업장</option>
+              </select>
+            </div>
+            <div class="toolbar-item">
+              <label for="yoyTableSortSelect" class="toolbar-label">정렬:</label>
+              <select id="yoyTableSortSelect" class="custom-select yoy-table-select" onchange="renderComparisonTable()">
+                <option value="risk_desc">위험 증가폭 큰 순 (+증가순 / 빨간색 우선)</option>
+                <option value="b_desc">B대상 발생 건수 많은 순</option>
+                <option value="biz_asc">사업장별 가나다순</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="table-container">
           <table class="incident-table cmp-data-table">
