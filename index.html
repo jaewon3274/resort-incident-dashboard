@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPARK리조트 안전사고 모니터링 시스템</title>
+  <meta name="description" content="리조트 내 발생 사고를 건별, 유형별, 구역별로 간편하게 조회하고 분석하는 통합 안전 관리 대시보드">
+  
+  <!-- SheetJS (xlsx) CDN for client-side Excel parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- Chart.js CDN for responsive modern charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- 사내 보안 로그인 게이트웨이 (접속 권한 제어) -->
+  <div id="login-gateway-overlay" class="login-gateway-overlay" style="display: none;">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo-wrap">
+          <img src="assets/logo.png" alt="IPARK리조트 로고" class="login-brand-logo">
+        </div>
+        <h2>IPARK리조트 안전관리시스템</h2>
+        <p class="login-sub">임직원 전용 보안 인증 게이트웨이</p>
+      </div>
+      <form id="login-form" class="login-form" onsubmit="event.preventDefault(); handleLogin();">
+        <div class="login-field">
+          <label for="login-id">아이디</label>
+          <div class="login-input-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="text" id="login-id" placeholder="아이디 입력 (safety)" autocomplete="username" required>
+          </div>
+        </div>
+        <div class="login-field">
+          <label for="login-pw">비밀번호</label>
+          <div class="login-input-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="login-pw" placeholder="비밀번호 입력" autocomplete="current-password" required>
+          </div>
+        </div>
+        <div id="login-error-msg" class="login-error-msg" style="display: none;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>아이디 또는 비밀번호가 일치하지 않습니다.</span>
+        </div>
+        <button type="submit" id="btn-do-login" class="btn-login-submit">
+          <span>보안 로그인</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </form>
+      <div class="login-footer-info">
+        <span>🔒 본 시스템은 IPARK리조트 내부 업무 전용 시스템으로, 인가되지 않은 접근을 엄격히 금합니다.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Header Navigation Bar -->
+  <header class="header-nav">
+    <div class="brand-area" id="brand-home-btn" role="button" tabindex="0" title="클릭 시 메인 화면 및 모든 필터 초기화">
+      <div class="ipark-logo-container">
+        <img src="assets/logo.png" alt="IPARK리조트 로고" class="header-brand-logo">
+      </div>
+      <div class="brand-divider"></div>
+      <div class="brand-text">
+        <div class="brand-title-wrap">
+          <h1>리조트 안전사고 모니터링 시스템</h1>
+          <span class="brand-badge">SAFETY HUB</span>
+        </div>
+        <span class="brand-sub">IPARK RESORT SAFETY & INCIDENT HUB</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="btn-reset-data" class="btn btn-secondary" title="샘플 데이터 초기화">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+        샘플 초기화
+      </button>
+
+      <!-- 엑셀 불러오기 버튼 및 숨김 input -->
+      <button id="btn-import-excel" class="btn btn-secondary" title="실무 엑셀(.xlsx, .xls) 파일 대량 불러오기">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        📥 엑셀 불러오기
+      </button>
+      <input type="file" id="excel-file-input" accept=".xlsx, .xls" style="display: none;">
+
+      <!-- 엑셀 내보내기 버튼 -->
+      <button id="btn-export-csv" class="btn btn-secondary" title="현재 조회 결과 엑셀(CSV) 다운로드">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        엑셀 내보내기
+      </button>
+
+      <!-- 신규: 🖨️ A4 1장 요약 보고서 인쇄 버튼 -->
+      <button id="btn-print-summary" class="btn btn-secondary" title="경영진 보고용 A4 1장 안전사고 요약 보고서 미리보기 및 인쇄">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        🖨️ 보고서 인쇄
+      </button>
+
+      <button id="btn-open-register" class="btn btn-primary" title="새로운 사고 접수 및 등록">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        신규 사고 등록
+      </button>
+
+      <!-- 신규: 로그아웃 버튼 -->
+      <button id="btn-logout" class="btn btn-logout" title="시스템 로그아웃 (인증 세션 종료)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+        로그아웃
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation View Tabs (싱글 페이지 탭 전환) -->
+  <nav class="view-tabs-nav" aria-label="메인 뷰 전환 탭">
+    <div class="view-tabs-container">
+      <button type="button" class="view-tab-btn active" id="tab-btn-monitoring" onclick="switchViewTab('monitoring')">
+        <span class="tab-icon">📊</span>
+        <span class="tab-label">사고 현황 모니터링</span>
+      </button>
+      <button type="button" class="view-tab-btn" id="tab-btn-comparison" onclick="switchViewTab('comparison')">
+        <span class="tab-icon">⚖️</span>
+        <span class="tab-label">다년도·기간 비교 분석</span>
+        <span class="tab-badge">YoY Comparison</span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- 2. Main Container -->
+  <main class="main-wrapper view-pane" id="view-monitoring">
+
+    <!-- Search & Filter Controls -->
+    <section class="filter-panel" aria-label="필터 및 검색 제어판">
+      <div class="filter-row">
+        <!-- Live Fulltext Search -->
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="search-input" placeholder="문서번호, 제목, 장소, 경위, 담당자 검색..." aria-label="사고 검색">
+        </div>
+
+        <!-- Filter Selectors (동적 옵션 지원) -->
+        <div class="filter-selectors">
+          <select id="filter-resort" class="custom-select" aria-label="사업장 선택" title="사업장/구역 필터">
+            <option value="all">전체 사업장 (모든 리조트)</option>
+          </select>
+
+          <!-- 신설: 팀/부서 콤보박스 -->
+          <select id="filter-dept" class="custom-select" aria-label="팀/부서 선택" title="팀/부서 필터">
+            <option value="all">전체 팀/부서</option>
+          </select>
+
+          <select id="filter-category" class="custom-select" aria-label="사고 유형 선택" title="사고 유형 필터">
+            <option value="all">전체 사고 유형</option>
+          </select>
+
+          <!-- 신설: 피해 구분 콤보박스 -->
+          <select id="filter-severity" class="custom-select" aria-label="피해 구분 선택" title="피해 구분 필터">
+            <option value="all">전체 피해 구분</option>
+            <option value="경미">경미 (현장처치)</option>
+            <option value="중등">중등 (병원진료)</option>
+            <option value="중대">중대 (입원/후송)</option>
+            <option value="단순 대물">단순 대물/기타</option>
+          </select>
+
+          <select id="filter-status" class="custom-select" aria-label="처리 상태 선택" title="처리 상태 필터">
+            <option value="all">전체 처리 상태</option>
+            <option value="조치완료">조치완료</option>
+            <option value="조사/진행중">조사/진행중</option>
+            <option value="보험/보상진행">보험/보상진행</option>
+            <option value="접수대기">접수대기</option>
+          </select>
+
+          <!-- Quick Period Tags -->
+          <div class="quick-period-tags" role="group" aria-label="기간 필터">
+            <button class="period-btn active" data-period="all">전체</button>
+            <button class="period-btn" data-period="7d">최근 7일</button>
+            <button class="period-btn" data-period="30d">최근 30일</button>
+            <button class="period-btn" data-period="90d">최근 3개월</button>
+            <button class="period-btn" data-period="year">2026년</button>
+          </div>
+
+          <!-- 신설: 필터 초기화 버튼 -->
+          <button id="btn-reset-filters" class="btn btn-filter-reset" title="모든 검색어 및 필터 조건을 한 번에 초기화합니다">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+            필터 초기화
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. KPI Summary Metrics Cards -->
+    <section class="kpi-grid" aria-label="핵심 안전 지표">
+      <div class="kpi-card kpi-card-clickable" id="kpi-card-trend" title="클릭 시 연도별 사고 발생 추이 및 통계 브리핑 모달이 열립니다">
+        <div class="kpi-info">
+          <h4>총 사고 발생 건수</h4>
+          <div class="kpi-value" id="kpi-total">0건</div>
+          <div class="kpi-click-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path>
+            </svg>
+            발생 추이 브리핑
+          </div>
+        </div>
+        <div class="kpi-icon">📊</div>
+      </div>
+
+      <div class="kpi-card kpi-card-clickable" id="kpi-card-pending" title="클릭 시 미완료/진행 중 사고 집중 관리 모달이 열립니다">
+        <div class="kpi-info">
+          <h4>조사 및 조치 진행 중</h4>
+          <div class="kpi-value" id="kpi-progress">0건</div>
+          <div class="kpi-click-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            미결 집중 관리
+          </div>
+        </div>
+        <div class="kpi-icon">⏳</div>
+      </div>
+
+      <div class="kpi-card kpi-card-clickable" id="kpi-card-preventive" title="클릭 시 재발 방지 및 시설 개선 대책 모음 모달이 열립니다">
+        <div class="kpi-info">
+          <h4>사고 조치 완료율</h4>
+          <div class="kpi-value" id="kpi-resolved-rate">0%</div>
+          <div class="kpi-click-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            개선 대책 모음
+          </div>
+        </div>
+        <div class="kpi-icon">🛡️</div>
+      </div>
+
+      <div class="kpi-card kpi-card-clickable" id="kpi-card-medical" title="클릭 시 인명 피해 및 의료 후송 현황 분석 모달이 열립니다">
+        <div class="kpi-info">
+          <h4>병원 진료 / 보상 건</h4>
+          <div class="kpi-value" id="kpi-medical">0건</div>
+          <div class="kpi-click-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+            인명/후송 현황
+          </div>
+        </div>
+        <div class="kpi-icon">🏥</div>
+      </div>
+
+      <!-- 1. 인터랙티브 당사 지급/보상 비용 KPI 카드 (클릭 시 전용 모달 오픈) -->
+      <div class="kpi-card kpi-card-clickable" id="kpi-card-cost" title="클릭 시 기간별 당사 지급 보험/보상 비용 상세 분석 모달이 열립니다">
+        <div class="kpi-info">
+          <h4>당사 지급 / 보상 비용</h4>
+          <div class="kpi-value" id="kpi-total-cost">0만원</div>
+          <div class="kpi-click-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            기간별 상세 분석
+          </div>
+        </div>
+        <div class="kpi-icon">💳</div>
+      </div>
+    </section>
+
+    <!-- 4. Interactive Visualization Section (Charts) -->
+    <section class="charts-grid" aria-label="사고 통계 및 유형 분석">
+      <!-- Chart 1: 유형별 발생 비중 -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>📊 유형별 사고 발생 비중</h3>
+            <span class="chart-subtitle">넘어짐, 타구사고, 기물접촉 등 분류별 점유율</span>
+          </div>
+          <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 유형으로 메인 테이블이 즉시 필터링됩니다">👆 조각 클릭 드릴다운</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </article>
+
+      <!-- Chart 2: 팀/부서별 사고 발생 비중 (신설 ⭐) -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>🏢 팀/부서별 사고 발생 비중</h3>
+            <span class="chart-subtitle">밸리팀, 성문안팀, 레저팀, 시설팀 등 부서별 점유율</span>
+          </div>
+          <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 팀으로 메인 테이블이 즉시 필터링됩니다">👆 조각 클릭 드릴다운</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="deptChart"></canvas>
+        </div>
+      </article>
+
+      <!-- Chart 3: 주요 구역/시설별 사고 건수 -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>📍 주요 구역/시설별 사고 건수</h3>
+            <span class="chart-subtitle">골프장, 스파, 객실, 로비 등 장소별 분포</span>
+          </div>
+          <span class="drilldown-hint-badge" title="차트 막대를 클릭하면 해당 구역으로 메인 테이블이 즉시 필터링됩니다">👆 막대 클릭 드릴다운</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="zoneChart"></canvas>
+        </div>
+      </article>
+    </section>
+
+    <!-- 5. Detailed Incident Records Table (건별 조회) -->
+    <section class="table-section" aria-label="사고 목록 테이블">
+      <div class="table-header-bar">
+        <div class="table-header-left">
+          <h3>
+            📝 사고 상세 기록 및 조치 이력
+            <span id="table-count-badge" class="records-count-badge">0건</span>
+          </h3>
+          <p>각 행을 클릭하면 상세 경위, 조치 타임라인, 보험/보상 내역을 확인하거나 수정할 수 있습니다.</p>
+        </div>
+
+        <!-- 테이블 전용 간이 빠른 필터 바 -->
+        <div class="table-quick-filter-bar" aria-label="테이블 간이 빠른 필터">
+          <div class="quick-filter-item">
+            <label for="table-filter-category" class="quick-filter-label">🏷️ 사고유형</label>
+            <select id="table-filter-category" class="custom-select table-quick-select" aria-label="사고유형 빠른 필터">
+              <option value="all">전체 사고유형</option>
+            </select>
+          </div>
+
+          <div class="quick-filter-item">
+            <label for="table-filter-zone" class="quick-filter-label">📍 구역/장소</label>
+            <select id="table-filter-zone" class="custom-select table-quick-select" aria-label="구역/장소 빠른 필터">
+              <option value="all">전체 구역/장소</option>
+            </select>
+          </div>
+
+          <div class="quick-filter-item">
+            <label for="table-filter-severity" class="quick-filter-label">🩹 피해구분</label>
+            <select id="table-filter-severity" class="custom-select table-quick-select" aria-label="피해구분 빠른 필터">
+              <option value="all">전체 피해구분</option>
+              <option value="경미">경미 (현장처치)</option>
+              <option value="중등">중등 (병원진료)</option>
+              <option value="중대">중대 (입원/후송)</option>
+              <option value="단순 대물">단순 대물/기타</option>
+            </select>
+          </div>
+
+          <button id="btn-quick-filter-reset" class="btn btn-quick-reset" title="테이블 빠른 필터 조건 초기화">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+            필터 해제
+          </button>
+        </div>
+      </div>
+
+      <!-- 선택된 필터 조건 뱃지(Tag) 및 활성 상태 바 -->
+      <div id="table-active-filters-bar" class="table-active-filters-bar" style="display: none;">
+        <span class="active-filters-label">적용된 조건:</span>
+        <div id="table-active-chips" class="table-active-chips"></div>
+        <button id="btn-clear-all-chips" class="btn-clear-chips" title="모든 조건 해제">✕ 전체 해제</button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="incident-table" id="incident-table">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center; width: 60px;">No.</th>
+              <th scope="col" class="sortable-th active" id="th-doc-no" title="클릭 시 문서번호 오름차순/내림차순 정렬">
+                문서번호 <span class="sort-icon" id="sort-icon-id">▼</span>
+              </th>
+              <th scope="col" class="sortable-th" id="th-occur-date" title="클릭 시 발생일시 오름차순/내림차순 정렬">
+                발생일시 <span class="sort-icon" id="sort-icon-date">▼</span>
+              </th>
+              <th scope="col">발생구역 / 세부장소</th>
+              <th scope="col">사고유형</th>
+              <th scope="col">사고 제목</th>
+              <th scope="col">피해구분</th>
+              <th scope="col">처리상태</th>
+              <th scope="col">담당자</th>
+              <th scope="col" style="text-align: center; width: 85px;">관리</th>
+            </tr>
+          </thead>
+          <tbody id="incident-table-body">
+            <!-- Dynamic Injection via app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <div class="table-footer-left">
+          <span id="page-info">1 - 10 / 총 0건</span>
+          <div class="page-size-selector">
+            <label for="pageSizeSelect">페이지당 보기:</label>
+            <select id="pageSizeSelect" class="custom-select page-size-select" onchange="handlePageSizeChange(this.value)">
+              <option value="10" selected>10개씩 보기</option>
+              <option value="50">50개씩 보기</option>
+              <option value="100">100개씩 보기</option>
+              <option value="300">300개씩 보기</option>
+              <option value="500">500개씩 보기</option>
+            </select>
+          </div>
+        </div>
+        <div class="pagination" id="pagination-controls">
+          <!-- Dynamic Pagination Buttons -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       신설: 다년도·기간 비교 분석 전용 뷰 (#view-comparison)
+       ========================================================================== -->
+  <div id="view-comparison" class="comparison-wrapper view-pane" style="display: none;">
+    <!-- Comparison Filter Controller Card -->
+    <section class="comparison-filter-card" aria-label="기간 대조 설정">
+      <div class="cmp-filter-header">
+        <div class="cmp-title-wrap">
+          <h2>⚖️ 다년도 및 기간 대조 비교 분석 <span class="cmp-title-badge">YoY Comparison</span></h2>
+          <p>연도별, 특정 월(동절기/성수기)별, 또는 직접 지정한 날짜 구간의 사고 추이와 보상 비용 변동을 정밀 대조합니다.</p>
+        </div>
+        <div class="cmp-mode-selector-wrap">
+          <span class="cmp-mode-label">비교 모드:</span>
+          <div class="cmp-mode-tabs" role="tablist">
+            <button type="button" class="btn-cmp-mode active" id="btn-mode-year" onclick="switchCmpMode('year')">
+              📅 연도별 비교
+            </button>
+            <button type="button" class="btn-cmp-mode" id="btn-mode-month" onclick="switchCmpMode('month')">
+              🗓️ 특정 월(Month) 비교
+            </button>
+            <button type="button" class="btn-cmp-mode" id="btn-mode-custom" onclick="switchCmpMode('custom')">
+              📆 직접 일자(Date Range) 비교
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cmp-filter-body">
+        <!-- Period A Box -->
+        <div class="cmp-period-box period-box-a">
+          <div class="period-box-title">
+            <span class="period-indicator indicator-a">A</span>
+            <strong>기준 기간 (A)</strong>
+            <span class="period-role-badge">분석 기준</span>
+          </div>
+
+          <!-- Mode 1: 연도별 -->
+          <div class="cmp-mode-controls" id="cmp-ctrl-year-a">
+            <div class="period-select-wrap">
+              <label for="cmp-year-a">기준 연도:</label>
+              <select id="cmp-year-a" class="custom-select cmp-select" onchange="executeComparison()">
+                <option value="2026" selected>2026년</option>
+                <option value="2025">2025년</option>
+                <option value="2024">2024년</option>
+                <option value="2023">2023년</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Mode 2: 특정 월별 -->
+          <div class="cmp-mode-controls" id="cmp-ctrl-month-a" style="display: none;">
+            <div class="period-select-wrap">
+              <label for="cmp-month-year-a">연도 & 월:</label>
+              <select id="cmp-month-year-a" class="custom-select cmp-select" style="min-width: 95px;" onchange="executeComparison()">
+                <option value="2026" selected>2026년</option>
+                <option value="2025">2025년</option>
+                <option value="2024">2024년</option>
+                <option value="2023">2023년</option>
+              </select>
+              <select id="cmp-month-a" class="custom-select cmp-select" style="min-width: 80px;" onchange="executeComparison()">
+                <option value="1">1월</option>
+                <option value="2">2월</option>
+                <option value="3">3월</option>
+                <option value="4">4월</option>
+                <option value="5" selected>5월</option>
+                <option value="6">6월</option>
+                <option value="7">7월</option>
+                <option value="8">8월</option>
+                <option value="9">9월</option>
+                <option value="10">10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Mode 3: 직접 일자 지정 -->
+          <div class="cmp-mode-controls" id="cmp-ctrl-custom-a" style="display: none;">
+            <div class="period-dates-wrap">
+              <input type="date" id="cmp-start-a" class="custom-input-date" value="2026-01-01">
+              <span>~</span>
+              <input type="date" id="cmp-end-a" class="custom-input-date" value="2026-10-31">
+            </div>
+          </div>
+        </div>
+
+        <!-- VS Badge -->
+        <div class="cmp-vs-badge">
+          <span>VS</span>
+        </div>
+
+        <!-- Period B Box -->
+        <div class="cmp-period-box period-box-b">
+          <div class="period-box-title">
+            <span class="period-indicator indicator-b">B</span>
+            <strong>비교 대상 기간 (B)</strong>
+            <span class="period-role-badge">대조 대상</span>
+          </div>
+
+          <!-- Mode 1: 연도별 -->
+          <div class="cmp-mode-controls" id="cmp-ctrl-year-b">
+            <div class="period-select-wrap">
+              <label for="cmp-year-b">비교 연도:</label>
+              <select id="cmp-year-b" class="custom-select cmp-select" onchange="executeComparison()">
+                <option value="2026">2026년</option>
+                <option value="2025" selected>2025년</option>
+                <option value="2024">2024년</option>
+                <option value="2023">2023년</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Mode 2: 특정 월별 -->
+          <div class="cmp-mode-controls" id="cmp-ctrl-month-b" style="display: none;">
+            <div class="period-select-wrap">
+              <label for="cmp-month-year-b">연도 & 월:</label>
+              <select id="cmp-month-year-b" class="custom-select cmp-select" style="min-width: 95px;" onchange="executeComparison()">
+                <option value="2026">2026년</option>
+                <option value="2025" selected>2025년</option>
+                <option value="2024">2024년</option>
+                <option value="2023">2023년</option>
+              </select>
+              <select id="cmp-month-b" class="custom-select cmp-select" style="min-width: 80px;" onchange="executeComparison()">
+                <option value="1">1월</option>
+                <option value="2">2월</option>
+                <option value="3">3월</option>
+                <option value="4">4월</option>
+                <option value="5" selected>5월</option>
+                <option value="6">6월</option>
+                <option value="7">7월</option>
+                <option value="8">8월</option>
+                <option value="9">9월</option>
+                <option value="10">10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Mode 3: 직접 일자 지정 -->
+          <div class="cmp-mode-controls" id="cmp-ctrl-custom-b" style="display: none;">
+            <div class="period-dates-wrap">
+              <input type="date" id="cmp-start-b" class="custom-input-date" value="2025-01-01">
+              <span>~</span>
+              <input type="date" id="cmp-end-b" class="custom-input-date" value="2025-10-31">
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="cmp-actions">
+          <button type="button" class="btn btn-primary cmp-btn-run" onclick="executeComparison()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            대조 분석 실행
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="resetComparisonFilter()">
+            조건 초기화
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Results View -->
+    <div id="cmp-results-container" class="cmp-results-container">
+      <!-- 1. Key Metrics 4 Comparative Cards -->
+      <div class="cmp-kpi-grid">
+        <!-- Card 1: 총 사고 발생 건수 -->
+        <div class="cmp-kpi-card">
+          <div class="ck-header">
+            <span class="ck-title">총 사고 발생 건수</span>
+            <span id="ck-badge-count" class="ck-diff-badge">-</span>
+          </div>
+          <div class="ck-body">
+            <div class="ck-col ck-col-a">
+              <span class="ck-tag tag-a">A 기준</span>
+              <strong id="ck-val-count-a" class="ck-val">0건</strong>
+              <span id="ck-label-period-a" class="ck-sub">2026년</span>
+            </div>
+            <div class="ck-divider"></div>
+            <div class="ck-col ck-col-b">
+              <span class="ck-tag tag-b">B 대상</span>
+              <strong id="ck-val-count-b" class="ck-val">0건</strong>
+              <span id="ck-label-period-b" class="ck-sub">2025년</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: 당사 지급 보상 총액 -->
+        <div class="cmp-kpi-card">
+          <div class="ck-header">
+            <span class="ck-title">당사 지급 보상액</span>
+            <span id="ck-badge-cost" class="ck-diff-badge">-</span>
+          </div>
+          <div class="ck-body">
+            <div class="ck-col ck-col-a">
+              <span class="ck-tag tag-a">A 기준</span>
+              <strong id="ck-val-cost-a" class="ck-val">0만원</strong>
+              <span class="ck-sub">지급 총액</span>
+            </div>
+            <div class="ck-divider"></div>
+            <div class="ck-col ck-col-b">
+              <span class="ck-tag tag-b">B 대상</span>
+              <strong id="ck-val-cost-b" class="ck-val">0만원</strong>
+              <span class="ck-sub">지급 총액</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: 인명 피해 (병원 진료/후송) -->
+        <div class="cmp-kpi-card">
+          <div class="ck-header">
+            <span class="ck-title">인명 피해 (병원 진료)</span>
+            <span id="ck-badge-medical" class="ck-diff-badge">-</span>
+          </div>
+          <div class="ck-body">
+            <div class="ck-col ck-col-a">
+              <span class="ck-tag tag-a">A 기준</span>
+              <strong id="ck-val-medical-a" class="ck-val">0건</strong>
+              <span class="ck-sub">진료/후송</span>
+            </div>
+            <div class="ck-divider"></div>
+            <div class="ck-col ck-col-b">
+              <span class="ck-tag tag-b">B 대상</span>
+              <strong id="ck-val-medical-b" class="ck-val">0건</strong>
+              <span class="ck-sub">진료/후송</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: 최다 발생 부서 / 사업장 -->
+        <div class="cmp-kpi-card">
+          <div class="ck-header">
+            <span class="ck-title">최다 발생 부서</span>
+            <span class="ck-info-badge">부서 점유</span>
+          </div>
+          <div class="ck-body">
+            <div class="ck-col ck-col-a">
+              <span class="ck-tag tag-a">A 기준</span>
+              <strong id="ck-val-dept-a" class="ck-val-text">-</strong>
+              <span id="ck-sub-dept-a" class="ck-sub">0건</span>
+            </div>
+            <div class="ck-divider"></div>
+            <div class="ck-col ck-col-b">
+              <span class="ck-tag tag-b">B 대상</span>
+              <strong id="ck-val-dept-b" class="ck-val-text">-</strong>
+              <span id="ck-sub-dept-b" class="ck-sub">0건</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Charts Grid (Grouped Bar Chart & Monthly Trend Comparison) -->
+      <div class="cmp-charts-grid">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <h3>📊 사고 유형별 발생 건수 나란히 비교</h3>
+              <span class="chart-sub">A 기간(블루) vs B 기간(오렌지) 상위 유형별 증감 대조</span>
+            </div>
+          </div>
+          <div class="chart-canvas-wrapper" style="height: 320px;">
+            <canvas id="cmpCategoryChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <h3>📈 월별(1월~12월) 발생 추이 비교</h3>
+              <span class="chart-sub">월별 계절성 및 시기별 안전사고 발생 패턴 대조</span>
+            </div>
+          </div>
+          <div class="chart-canvas-wrapper" style="height: 320px;">
+            <canvas id="cmpMonthlyChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Detailed Comparison Breakdown Table -->
+      <div class="cmp-table-card">
+        <div class="cmp-table-header">
+          <h3>📋 세부 항목별 증감 대조표 (사고유형 및 사업장별)</h3>
+          <span class="chart-sub">A기간과 B기간의 항목별 발생 건수, 차이(증감), 증감률(%) 상세 분석</span>
+        </div>
+        <div class="table-container">
+          <table class="incident-table cmp-data-table">
+            <thead>
+              <tr>
+                <th style="width: 50px; text-align: center;">No.</th>
+                <th>구분 / 분류</th>
+                <th>항목명</th>
+                <th style="text-align: right;">A 기준 건수</th>
+                <th style="text-align: right;">B 대상 건수</th>
+                <th style="text-align: right;">증감 건수</th>
+                <th style="text-align: right; width: 130px;">증감률 (%)</th>
+              </tr>
+            </thead>
+            <tbody id="cmp-breakdown-tbody">
+              <!-- Dynamic Injection -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       6-1. Modal: 📊 사고 발생 추이 및 통계 브리핑 (KPI 1 전용)
+       ========================================================================== -->
+  <div class="modal-overlay" id="trend-analysis-modal" aria-hidden="true">
+    <div class="modal-container sub-analysis-modal" role="dialog" aria-modal="true" aria-labelledby="trend-modal-title">
+      <div class="modal-header">
+        <h3 id="trend-modal-title"><span>📊</span> 사고 발생 추이 및 통계 브리핑</h3>
+        <button class="modal-close-btn" id="btn-close-trend-modal" aria-label="닫기">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-stat-grid-2">
+          <!-- 연도별 발생 건수 비교 차트 -->
+          <div class="modal-stat-card">
+            <div class="modal-stat-card-title">
+              <span>📅 연도별 사고 발생 추이 (2023 ~ 2026)</span>
+            </div>
+            <div style="height: 220px; position: relative;">
+              <canvas id="trendYearChart"></canvas>
+            </div>
+          </div>
+
+          <!-- 사업장별 월별 발생 패턴 차트 -->
+          <div class="modal-stat-card">
+            <div class="modal-stat-card-title" style="display:flex; justify-content:space-between; align-items:center;">
+              <span>📈 사업장별 월별 발생 패턴</span>
+              <select id="trendResortSelect" class="cost-select" style="min-width: 140px; padding: 0.3rem 1.8rem 0.3rem 0.6rem; font-size: 0.78rem;">
+                <option value="all">전체 사업장</option>
+              </select>
+            </div>
+            <div style="height: 220px; position: relative;">
+              <canvas id="trendMonthlyChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-stat-grid-2" style="margin-top: 1rem;">
+          <div class="modal-stat-card">
+            <div class="modal-stat-card-title">🏢 최다 발생 사업장 TOP 3</div>
+            <div id="trend-top-resorts" class="top-ranking-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="modal-stat-card">
+            <div class="modal-stat-card-title">⚠️ 최다 발생 사고유형 TOP 3</div>
+            <div id="trend-top-categories" class="top-ranking-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-trend-footer-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       6-2. Modal: ⏳ 미완료/진행 중 사고 집중 관리 (KPI 2 전용)
+       ========================================================================== -->
+  <div class="modal-overlay" id="pending-incidents-modal" aria-hidden="true">
+    <div class="modal-container sub-analysis-modal" role="dialog" aria-modal="true" aria-labelledby="pending-modal-title">
+      <div class="modal-header">
+        <h3 id="pending-modal-title"><span>⏳</span> 미완료/진행 중 사고 집중 관리</h3>
+        <button class="modal-close-btn" id="btn-close-pending-modal" aria-label="닫기">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="pending-summary-banner">
+          <div>
+            <span class="pending-summary-label">현재 미결(조사/진행 중) 건수</span>
+            <div class="pending-summary-value" id="pending-total-count">0건</div>
+          </div>
+          <div class="pending-badge-pills">
+            <span class="pending-pill urgent" id="pending-urgent-count">🚨 7일 이상 경과: 0건</span>
+            <span class="pending-pill warning" id="pending-warning-count">⚠️ 3~6일 경과: 0건</span>
+            <span class="pending-pill normal" id="pending-normal-count">ℹ️ 2일 이내: 0건</span>
+          </div>
+        </div>
+
+        <div class="sub-table-container">
+          <table class="sub-modal-table">
+            <thead>
+              <tr>
+                <th style="width: 105px;">경과일</th>
+                <th style="width: 130px;">문서번호</th>
+                <th>발생일시 / 사업장</th>
+                <th>사고 제목 / 내용</th>
+                <th style="width: 110px;">현재상태</th>
+                <th style="width: 125px; text-align: center;">신속 조치</th>
+              </tr>
+            </thead>
+            <tbody id="pending-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-pending-footer-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       6-3. Modal: 🛡️ 재발 방지 및 시설 개선 대책 모음 (KPI 3 전용)
+       ========================================================================== -->
+  <div class="modal-overlay" id="preventive-measures-modal" aria-hidden="true">
+    <div class="modal-container sub-analysis-modal" role="dialog" aria-modal="true" aria-labelledby="preventive-modal-title">
+      <div class="modal-header">
+        <h3 id="preventive-modal-title"><span>🛡️</span> 재발 방지 및 시설 개선 대책 모음</h3>
+        <button class="modal-close-btn" id="btn-close-preventive-modal" aria-label="닫기">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="cost-filter-section" style="margin-bottom: 1rem;">
+          <div class="cost-filter-row">
+            <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+              <span class="cost-filter-label">부서별 필터:</span>
+              <select id="preventiveDeptSelect" class="cost-select" style="min-width: 140px;">
+                <option value="all">전체 부서</option>
+              </select>
+              <span class="cost-filter-label" style="margin-left:0.5rem;">사업장:</span>
+              <select id="preventiveResortSelect" class="cost-select" style="min-width: 140px;">
+                <option value="all">전체 사업장</option>
+              </select>
+            </div>
+            <span id="preventive-count-badge" class="records-count-badge" style="font-size:0.8rem;">등록 대책 0건</span>
+          </div>
+        </div>
+
+        <div class="preventive-cards-grid" id="preventive-cards-grid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-preventive-footer-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       6-4. Modal: 🏥 인명 피해 및 의료 후송 현황 분석 (KPI 4 전용)
+       ========================================================================== -->
+  <div class="modal-overlay" id="medical-analysis-modal" aria-hidden="true">
+    <div class="modal-container sub-analysis-modal" role="dialog" aria-modal="true" aria-labelledby="medical-modal-title">
+      <div class="modal-header">
+        <h3 id="medical-modal-title"><span>🏥</span> 인명 피해 및 의료 후송 현황 분석</h3>
+        <button class="modal-close-btn" id="btn-close-medical-modal" aria-label="닫기">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-stat-grid-2">
+          <!-- 도넛 차트: 피해자 대상별 비율 -->
+          <div class="modal-stat-card">
+            <div class="modal-stat-card-title">👥 피해 대상별 비율 (구분2)</div>
+            <div style="height: 200px; position: relative;">
+              <canvas id="medicalVictimChart"></canvas>
+            </div>
+          </div>
+
+          <!-- 부상 심각도별 건수 요약 그리드 -->
+          <div class="modal-stat-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="modal-stat-card-title">🩺 부상 심각도 단계별 건수</div>
+            <div class="severity-stat-grid">
+              <div class="sev-stat-box minor">
+                <span class="sev-name">경미 (현장처치)</span>
+                <span class="sev-val" id="med-sev-minor">0건</span>
+              </div>
+              <div class="sev-stat-box moderate">
+                <span class="sev-name">중등 (병원진료)</span>
+                <span class="sev-val" id="med-sev-mod">0건</span>
+              </div>
+              <div class="sev-stat-box severe">
+                <span class="sev-name">중대 (외부이송/응급)</span>
+                <span class="sev-val" id="med-sev-severe">0건</span>
+              </div>
+              <div class="sev-stat-box property">
+                <span class="sev-name">단순 대물/기타</span>
+                <span class="sev-val" id="med-sev-prop">0건</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <h4 style="font-size:0.9rem; font-weight:700; color:#fff; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
+            🚑 병원 진료 및 의료 처치 건 상세 목록
+            <span id="med-table-count" style="font-size:0.75rem; color:#f87171; background:rgba(248,113,113,0.15); padding:0.15rem 0.5rem; border-radius:9999px;">0건</span>
+          </h4>
+          <div class="sub-table-container">
+            <table class="sub-modal-table">
+              <thead>
+                <tr>
+                  <th style="width: 120px;">문서번호</th>
+                  <th style="width: 120px;">일시</th>
+                  <th>사업장 / 위치</th>
+                  <th>피해자 정보</th>
+                  <th>심각도 / 상태</th>
+                  <th>응급조치 및 병원 치료 내역</th>
+                </tr>
+              </thead>
+              <tbody id="medical-table-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-medical-footer-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       6-5. Modal: 당사 지급 보험/보상 비용 전용 분석 모달 (KPI 5 전용)
+       ========================================================================== -->
+  <div class="modal-overlay" id="cost-analysis-modal" aria-hidden="true">
+    <div class="modal-container cost-modal-container" role="dialog" aria-modal="true" aria-labelledby="cost-modal-title">
+      <div class="modal-header">
+        <h3 id="cost-modal-title">
+          <span>💳</span> 당사 지급 보상·보험 비용 조회
+        </h3>
+        <button class="modal-close-btn" id="btn-close-cost-modal" aria-label="닫기">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- A. 기간 선택 필터 바 -->
+        <div class="cost-filter-section">
+          <div class="cost-filter-row">
+            <!-- 빠른 연도 선택 콤보박스 -->
+            <div class="cost-select-group">
+              <label for="expenseYearSelect" class="cost-filter-label">연도별 빠른 조회:</label>
+              <select id="expenseYearSelect" class="cost-select" aria-label="연도별 빠른 조회">
+                <option value="all">전체 기간</option>
+              </select>
+            </div>
+
+            <!-- 직접 지정 필터 (시작일 ~ 종료일) -->
+            <div class="cost-date-range">
+              <span class="cost-filter-label" style="color: #94a3b8;">직접 기간 지정:</span>
+              <input type="date" id="cost-date-from" class="cost-date-input" aria-label="시작일">
+              <span>~</span>
+              <input type="date" id="cost-date-to" class="cost-date-input" aria-label="종료일">
+              <button type="button" class="btn btn-primary" id="btn-cost-filter-apply" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;">조회</button>
+              <button type="button" class="btn btn-secondary" id="btn-cost-filter-reset" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;">전체 초기화</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- B. 핵심 요약 강조 카드 -->
+        <div class="cost-summary-highlight">
+          <div class="cost-highlight-box">
+            <div class="sub-label" id="cost-summary-period">선택 기간 당사 지급 총액</div>
+            <div class="big-amount" id="cost-summary-total-amount">0원</div>
+          </div>
+          <div class="cost-highlight-box">
+            <div class="sub-label">지급 건수</div>
+            <div class="count-stat" id="cost-summary-count">총 0건</div>
+          </div>
+          <div class="cost-highlight-box">
+            <div class="sub-label">건당 평균 지급액</div>
+            <div class="count-stat" id="cost-summary-avg" style="color: #a78bfa;">0원</div>
+          </div>
+        </div>
+
+        <!-- C. 상세 지급 내역 테이블 (0원 초과 건들만) -->
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.4rem;">
+            📋 지급 발생 건별 상세 내역
+            <span id="cost-table-count-badge" style="font-size:0.75rem; color:#38bdf8; background:rgba(56,189,248,0.15); padding:0.15rem 0.5rem; border-radius:9999px;">0건</span>
+          </h4>
+          <span style="font-size: 0.78rem; color: #94a3b8;">행 클릭 시 해당 사고 상세 모달로 바로 이동합니다</span>
+        </div>
+
+        <div class="cost-table-container">
+          <table class="cost-table">
+            <thead>
+              <tr>
+                <th scope="col">문서번호</th>
+                <th scope="col">발생일시</th>
+                <th scope="col">구분 / 세부장소</th>
+                <th scope="col">사고유형</th>
+                <th scope="col" style="text-align: right;">당사 지급 금액</th>
+              </tr>
+            </thead>
+            <tbody id="cost-table-body">
+              <!-- Dynamically populated via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span style="font-size: 0.8rem; color: #94a3b8;">* 엑셀에서 불러온 실데이터 및 로컬 데이터의 당사 지급액 기준 실시간 합산</span>
+        <button class="btn btn-secondary" id="btn-cost-footer-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Modal: Incident Detail View & Edit (건별 상세 및 수정 모달) -->
+  <div class="modal-overlay" id="detail-modal" aria-hidden="true">
+    <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="dtl-title">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span id="dtl-id" class="id-cell" style="font-size: 1.15rem;" title="문서번호">INC-2026-000</span>
+          <h3 id="dtl-title">사고 제목</h3>
+        </div>
+        <button class="modal-close-btn" id="btn-close-detail" aria-label="닫기">&times;</button>
+      </div>
+
+      <!-- Scrollable Modal Body -->
+      <div class="modal-body">
+        
+        <!-- View Mode -->
+        <div id="detail-view-mode">
+          <!-- Status Switcher Bar -->
+          <div style="background: rgba(12,18,34,0.6); padding: 0.75rem 1rem; border-radius: 8px; display:flex; justify-content:space-between; align-items:center; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 1.15rem;">
+            <span style="font-size: 0.85rem; font-weight: 600; color: #94a3b8;">조치 상태 변경:</span>
+            <select id="dtl-status-select" class="custom-select" style="padding: 0.4rem 1.8rem 0.4rem 0.8rem; font-size: 0.82rem;">
+              <option value="조치완료">✅ 조치완료</option>
+              <option value="조사/진행중">⏳ 조사/진행중</option>
+              <option value="보험/보상진행">⚖️ 보험/보상진행</option>
+              <option value="접수대기">🚨 접수대기</option>
+            </select>
+          </div>
+
+          <!-- Meta Grid -->
+          <div class="detail-meta-grid" style="margin-bottom: 1.15rem;">
+            <div class="meta-item">
+              <label>문서번호</label>
+              <p id="dtl-doc-id" class="id-cell">-</p>
+            </div>
+            <div class="meta-item">
+              <label>발생 일시</label>
+              <p id="dtl-date">-</p>
+            </div>
+            <div class="meta-item">
+              <label>소속 사업장 / 부서</label>
+              <p id="dtl-resort">-</p>
+            </div>
+            <div class="meta-item">
+              <label>발생 구역 및 세부 장소</label>
+              <p id="dtl-location">-</p>
+            </div>
+            <div class="meta-item">
+              <label>사고 유형</label>
+              <p id="dtl-category">-</p>
+            </div>
+            <div class="meta-item">
+              <label>피해자 구분 / 성명</label>
+              <p id="dtl-victim">-</p>
+            </div>
+            <div class="meta-item">
+              <label>피해 심각도</label>
+              <p id="dtl-severity">-</p>
+            </div>
+            <div class="meta-item">
+              <label>담당 부서 / 담당자</label>
+              <p id="dtl-manager">-</p>
+            </div>
+          </div>
+
+          <!-- Detail Sections -->
+          <div class="detail-section" style="margin-bottom: 1rem;">
+            <h4>📖 사고 상세 경위</h4>
+            <div class="detail-box" id="dtl-desc">-</div>
+          </div>
+
+          <div class="detail-section" style="margin-bottom: 1rem;">
+            <h4>🩹 초동 조치 및 치료 내역</h4>
+            <div class="detail-box" id="dtl-action">-</div>
+          </div>
+
+          <!-- Insurance & Compensation Section -->
+          <div class="compensation-card" style="margin-bottom: 1rem;">
+            <div class="compensation-card-header">
+              <h4>⚖️ 보험 및 보상 / 비용 처리 내역</h4>
+              <span style="font-size: 0.75rem; color: #94a3b8;">손해 사정 및 과실 배분</span>
+            </div>
+            <div class="compensation-grid">
+              <div class="comp-item">
+                <span class="comp-label">과실 비율</span>
+                <span class="comp-value fault" id="dtl-fault-ratio">-</span>
+              </div>
+              <div class="comp-item">
+                <span class="comp-label">총 금액</span>
+                <span class="comp-value total" id="dtl-total-amount">0원</span>
+              </div>
+              <div class="comp-item">
+                <span class="comp-label">당사 지급 금액</span>
+                <span class="comp-value company" id="dtl-company-amount">0원</span>
+              </div>
+              <div class="comp-item">
+                <span class="comp-label">본인 부담금</span>
+                <span class="comp-value personal" id="dtl-personal-amount">0원</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-section" style="margin-bottom: 1rem;">
+            <h4>🛡️ 재발 방지 및 시설 개선 대책</h4>
+            <div class="detail-box" id="dtl-preventive" style="border-left: 3px solid #38bdf8;">-</div>
+          </div>
+
+          <div class="detail-section">
+            <h4>⏱️ 대응 타임라인</h4>
+            <div class="timeline-list" id="dtl-timeline">
+              <!-- Injected by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div id="detail-edit-mode" style="display: none;">
+          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.15rem; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.88rem; font-weight: 700; color: #38bdf8;">✏️ 사고 기록 정보 수정 중</span>
+            <span style="font-size: 0.78rem; color: #94a3b8;">변경 후 하단의 [저장]을 눌러주세요.</span>
+          </div>
+
+          <form id="incident-edit-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="edit-id">문서번호</label>
+                <input type="text" id="edit-id" class="form-input" readonly style="opacity: 0.75; cursor: not-allowed; background: rgba(0,0,0,0.3);">
+              </div>
+
+              <div class="form-group">
+                <label for="edit-date">발생 일시 <span class="required">*</span></label>
+                <input type="text" id="edit-date" class="form-input" placeholder="예: 2026.09.21 18:05경" required>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-resort">리조트 사업장 <span class="required">*</span></label>
+                <input type="text" id="edit-resort" class="form-input" list="resort-options" required>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-dept">담당 팀/부서 <span class="required">*</span></label>
+                <select id="edit-dept" class="form-select" required>
+                  <option value="밸리팀">밸리팀</option>
+                  <option value="성문안팀">성문안팀</option>
+                  <option value="레저팀">레저팀</option>
+                  <option value="시설팀">시설팀</option>
+                  <option value="객실팀">객실팀</option>
+                  <option value="안전관리팀">안전관리팀</option>
+                  <option value="식음팀">식음팀</option>
+                  <option value="경기운영팀">경기운영팀</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-zone">발생 구역 <span class="required">*</span></label>
+                <select id="edit-zone" class="form-select" required>
+                  <option value="객실">객실</option>
+                  <option value="사우나/스파">사우나/스파</option>
+                  <option value="수영장/워터플레이">수영장/워터플레이</option>
+                  <option value="골프 코스">골프 코스</option>
+                  <option value="레스토랑/F&B">레스토랑/F&B</option>
+                  <option value="산책로/야외공원">산책로/야외공원</option>
+                  <option value="주차장/도로">주차장/도로</option>
+                  <option value="로비/공용공간">로비/공용공간</option>
+                  <option value="레저/부대시설">레저/부대시설</option>
+                  <option value="기타 부대시설">기타 부대시설</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="edit-location-detail">세부 장소 <span class="required">*</span></label>
+                <input type="text" id="edit-location-detail" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-category">사고 유형 <span class="required">*</span></label>
+                <input type="text" id="edit-category" class="form-input" list="category-options" required>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-severity">피해 심각도 <span class="required">*</span></label>
+                <select id="edit-severity" class="form-select" required>
+                  <option value="경미 (현장처치)">경미 (현장처치)</option>
+                  <option value="중등 (병원진료)">중등 (병원진료)</option>
+                  <option value="중대 (외부이송)">중대 (외부이송)</option>
+                  <option value="단순 대물">단순 대물</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-victim-type">피해 대상 구분</label>
+                <input type="text" id="edit-victim-type" class="form-input" placeholder="고객, 캐디, 투숙객 등">
+              </div>
+
+              <div class="form-group">
+                <label for="edit-victim-name">피해자 인적사항 (성명/연령대)</label>
+                <input type="text" id="edit-victim-name" class="form-input">
+              </div>
+
+              <div class="form-group full-width">
+                <label for="edit-title">사고 제목 요약 <span class="required">*</span></label>
+                <input type="text" id="edit-title" class="form-input" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="edit-desc">상세 경위 (육하원칙) <span class="required">*</span></label>
+                <textarea id="edit-desc" class="form-textarea" required></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="edit-action">초동 조치 및 치료 내역</label>
+                <textarea id="edit-action" class="form-textarea"></textarea>
+              </div>
+
+              <!-- 보험 및 보상 편집 영역 -->
+              <div class="form-section-divider">
+                <div class="form-section-title">
+                  ⚖️ 보험 및 보상 / 비용 처리 내역
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-fault-ratio">과실 비율</label>
+                <input type="text" id="edit-fault-ratio" class="form-input" list="fault-ratio-options">
+              </div>
+
+              <div class="form-group">
+                <label for="edit-total-amount">총 금액 (원)</label>
+                <input type="number" id="edit-total-amount" class="form-input" min="0" step="1000">
+              </div>
+
+              <div class="form-group">
+                <label for="edit-company-amount">당사 지급 금액 (원)</label>
+                <input type="number" id="edit-company-amount" class="form-input" min="0" step="1000">
+              </div>
+
+              <div class="form-group">
+                <label for="edit-personal-amount">본인 부담금 (원)</label>
+                <input type="number" id="edit-personal-amount" class="form-input" min="0" step="1000">
+              </div>
+
+              <div class="form-section-divider">
+                <div class="form-section-title">
+                  🛡️ 예방 대책 및 관리 정보
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="edit-preventive">재발 방지 대책</label>
+                <textarea id="edit-preventive" class="form-textarea"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-status">처리 상태 <span class="required">*</span></label>
+                <select id="edit-status" class="form-select" required>
+                  <option value="조치완료">조치완료</option>
+                  <option value="조사/진행중">조사/진행중</option>
+                  <option value="보험/보상진행">보험/보상진행</option>
+                  <option value="접수대기">접수대기</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-manager">조치 담당자 / 부서</label>
+                <input type="text" id="edit-manager" class="form-input">
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <div id="detail-view-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <div class="modal-footer-left">
+            <button type="button" class="btn btn-danger" id="btn-delete-incident-detail" title="이 사고 기록 완전 삭제">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+              사고 기록 삭제
+            </button>
+          </div>
+          <div class="modal-footer-right">
+            <button type="button" class="btn btn-edit" id="btn-start-edit-detail" title="사고 정보 편집">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              기록 수정
+            </button>
+            <button class="btn btn-secondary" id="btn-detail-footer-close">닫기</button>
+          </div>
+        </div>
+
+        <div id="detail-edit-footer" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
+          <div class="modal-footer-left">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-edit-detail">취소</button>
+          </div>
+          <div class="modal-footer-right">
+            <button type="button" class="btn btn-primary" id="btn-save-edit-detail">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              수정 내용 저장
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 8. Modal: New Incident Registration Form (신규 사고 등록 모달) -->
+  <div class="modal-overlay" id="register-modal" aria-hidden="true">
+    <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="reg-modal-heading">
+      <div class="modal-header">
+        <h3 id="reg-modal-heading">🚨 신규 리조트 사고 접수 및 등록</h3>
+        <button class="modal-close-btn" id="btn-close-register" aria-label="닫기">&times;</button>
+      </div>
+
+      <form id="incident-register-form">
+        <div class="modal-body">
+          <div class="form-grid">
+            
+            <div class="form-group">
+              <label for="reg-resort">리조트 사업장 <span class="required">*</span></label>
+              <input type="text" id="reg-resort" class="form-input" list="resort-options" placeholder="사업장 입력 또는 선택" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-dept">담당 팀/부서 <span class="required">*</span></label>
+              <select id="reg-dept" class="form-select" required>
+                <option value="밸리팀">밸리팀</option>
+                <option value="성문안팀">성문안팀</option>
+                <option value="레저팀">레저팀</option>
+                <option value="시설팀">시설팀</option>
+                <option value="객실팀">객실팀</option>
+                <option value="안전관리팀">안전관리팀</option>
+                <option value="식음팀">식음팀</option>
+                <option value="경기운영팀">경기운영팀</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-date">발생 일시 <span class="required">*</span></label>
+              <input type="datetime-local" id="reg-date" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-zone">발생 구역 <span class="required">*</span></label>
+              <select id="reg-zone" class="form-select" required>
+                <option value="객실">객실</option>
+                <option value="사우나/스파">사우나/스파</option>
+                <option value="수영장/워터플레이">수영장/워터플레이</option>
+                <option value="골프 코스">골프 코스</option>
+                <option value="레스토랑/F&B">레스토랑/F&B</option>
+                <option value="산책로/야외공원">산책로/야외공원</option>
+                <option value="주차장/도로">주차장/도로</option>
+                <option value="로비/공용공간">로비/공용공간</option>
+                <option value="레저/부대시설">레저/부대시설</option>
+                <option value="기타 부대시설">기타 부대시설</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-location-detail">세부 장소 <span class="required">*</span></label>
+              <input type="text" id="reg-location-detail" class="form-input" placeholder="예: 아웃도어 스파, 18H 벙커 등" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-category">사고 유형 <span class="required">*</span></label>
+              <input type="text" id="reg-category" class="form-input" list="category-options" placeholder="예: 넘어짐, 타구사고, 클럽 파손 등" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-severity">피해 심각도 <span class="required">*</span></label>
+              <select id="reg-severity" class="form-select" required>
+                <option value="경미 (현장처치)">경미 (현장처치)</option>
+                <option value="중등 (병원진료)">중등 (병원진료)</option>
+                <option value="중대 (외부이송)">중대 (외부이송)</option>
+                <option value="단순 대물">단순 대물</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-victim-type">피해 대상 구분</label>
+              <input type="text" id="reg-victim-type" class="form-input" placeholder="고객, 캐디, 투숙객 등">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-victim-name">피해자 인적사항 (성명/연령대)</label>
+              <input type="text" id="reg-victim-name" class="form-input" placeholder="예: 홍*동 (40대 남성)">
+            </div>
+
+            <div class="form-group full-width">
+              <label for="reg-title">사고 제목 요약 <span class="required">*</span></label>
+              <input type="text" id="reg-title" class="form-input" placeholder="사고의 핵심 상황을 한눈에 파악할 수 있는 제목" required>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="reg-desc">상세 경위 (육하원칙) <span class="required">*</span></label>
+              <textarea id="reg-desc" class="form-textarea" placeholder="발생 시각, 원인, 주변 상황, 피해 부위 등을 상세히 기재" required></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="reg-action">초동 조치 및 치료 내역</label>
+              <textarea id="reg-action" class="form-textarea" placeholder="현장 응급처치, 의무실/병원 후송, 고객 안내 등"></textarea>
+            </div>
+
+            <!-- 신규 폼: 보험 및 보상/비용 처리 섹션 -->
+            <div class="form-section-divider">
+              <div class="form-section-title">
+                ⚖️ 보험 및 보상 / 비용 처리 내역
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-fault-ratio">과실 비율</label>
+              <input type="text" id="reg-fault-ratio" class="form-input" list="fault-ratio-options" placeholder="예: 당사 40% : 고객 60%">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-total-amount">총 금액 (원)</label>
+              <input type="number" id="reg-total-amount" class="form-input" placeholder="0" min="0" step="1000">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-company-amount">당사 지급 금액 (원)</label>
+              <input type="number" id="reg-company-amount" class="form-input" placeholder="0" min="0" step="1000">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-personal-amount">본인 부담금 (원)</label>
+              <input type="number" id="reg-personal-amount" class="form-input" placeholder="0" min="0" step="1000">
+            </div>
+
+            <div class="form-section-divider">
+              <div class="form-section-title">
+                🛡️ 예방 대책 및 담당자
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="reg-preventive">재발 방지 대책</label>
+              <textarea id="reg-preventive" class="form-textarea" placeholder="시설 점검 계획, 안내 표지판 설치, 운영 절차 개선 방안 등"></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="reg-manager">조치 담당자 / 담당 부서</label>
+              <input type="text" id="reg-manager" class="form-input" placeholder="예: 안전관리팀 김철수">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-register">취소</button>
+          <button type="submit" class="btn btn-primary">사고 접수 등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Datalists for Autocomplete -->
+  <datalist id="resort-options">
+    <option value="파크로쉬"></option>
+    <option value="밸리CC"></option>
+    <option value="밸리빌리지"></option>
+    <option value="성문안팀"></option>
+    <option value="오크밸리 골프빌리지"></option>
+    <option value="오크밸리 스키빌리지"></option>
+    <option value="아이파크 콘도"></option>
+  </datalist>
+
+  <datalist id="category-options">
+    <option value="넘어짐"></option>
+    <option value="미끄러짐/낙상"></option>
+    <option value="타구사고"></option>
+    <option value="클럽 파손"></option>
+    <option value="시설/기물 접촉"></option>
+    <option value="물놀이/아쿠아"></option>
+    <option value="레저/스포츠"></option>
+    <option value="감전/스파크"></option>
+    <option value="식음/화상/위생"></option>
+    <option value="차량/이동수단"></option>
+    <option value="고객간/부주의"></option>
+  </datalist>
+
+  <datalist id="fault-ratio-options">
+    <option value="당사 0% : 고객 100%"></option>
+    <option value="당사 10% : 고객 90%"></option>
+    <option value="당사 20% : 고객 80%"></option>
+    <option value="당사 30% : 고객 70%"></option>
+    <option value="당사 40% : 고객 60%"></option>
+    <option value="당사 50% : 고객 50%"></option>
+    <option value="당사 60% : 고객 40%"></option>
+    <option value="당사 70% : 고객 30%"></option>
+    <option value="당사 100% : 고객 0%"></option>
+    <option value="과실 조사 중"></option>
+  </datalist>
+
+  <!-- ==========================================================================
+       6-6. Modal: 🖨️ A4 1장 안전사고 요약 보고서 인쇄 및 PDF 출력
+       ========================================================================== -->
+  <div class="modal-overlay report-print-modal-overlay" id="print-report-modal" data-modal="reportPrintModal" aria-hidden="true">
+    <div class="modal-container report-modal-container" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+      <div class="modal-header report-modal-header no-print">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <span style="font-size: 1.4rem;">🖨️</span>
+          <div>
+            <h3 id="report-modal-title" style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #0f172a;">
+              안전사고 현황 요약 보고서 (A4 1장 규격)
+            </h3>
+            <span style="font-size: 0.8rem; color: #64748b;">경영진 보고 및 안전보건 회의용 간이 결재 브리핑 문서</span>
+          </div>
+        </div>
+        <div class="report-modal-actions">
+          <button type="button" class="btn btn-primary" id="btn-trigger-print" style="padding: 0.5rem 1rem; font-size: 0.88rem; font-weight: 700;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            인쇄 / PDF 저장
+          </button>
+          <button class="modal-close-btn" id="btn-close-print-modal" aria-label="닫기">&times;</button>
+        </div>
+      </div>
+
+      <div class="report-preview-scroll-wrapper">
+        <!-- A4 Sheet Container (1 Page Bound) -->
+        <div class="a4-report-sheet" id="a4-report-sheet" data-print-area="reportPrintArea">
+          <!-- Top Title & Approval Box -->
+          <div class="report-sheet-header">
+            <div class="report-sheet-brand">
+              <div class="report-brand-badge">IPARK RESORT SAFETY REPORT</div>
+              <h1 class="report-sheet-title">IPARK리조트 안전사고 발생 및 조치 현황 요약</h1>
+            </div>
+            <table class="report-approval-table" aria-label="결재 서명란">
+              <tbody>
+                <tr>
+                  <th rowspan="2" class="approval-header-cell">결<br>재</th>
+                  <th>작 성</th>
+                  <th>검 토</th>
+                  <th>승 인</th>
+                </tr>
+                <tr>
+                  <td class="approval-sign-cell"><span class="approval-sign-slot">(인)</span></td>
+                  <td class="approval-sign-cell"><span class="approval-sign-slot">(인)</span></td>
+                  <td class="approval-sign-cell"><span class="approval-sign-slot">(인)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Document Meta Information -->
+          <div class="report-meta-bar">
+            <div class="meta-item">
+              <span class="meta-label">보고일자:</span>
+              <strong id="report-doc-date" class="meta-val">2026년 10월 28일</strong>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">조회기간:</span>
+              <strong id="report-doc-period" class="meta-val">전체 기간</strong>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">대상사업장:</span>
+              <strong id="report-doc-resort" class="meta-val">전체 사업장</strong>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">작성부서:</span>
+              <strong class="meta-val">안전경영팀 / IPARK리조트</strong>
+            </div>
+          </div>
+
+          <!-- Section 1: 핵심 통계 지표 요약표 -->
+          <div class="report-section">
+            <div class="report-section-title">
+              <span>1. 핵심 안전 지표 요약</span>
+              <span class="report-title-sub">※ 현재 조회/필터 기준 전수 집계</span>
+            </div>
+            <div class="report-kpi-grid">
+              <div class="report-kpi-card">
+                <div class="rk-label">총 사고 발생 건수</div>
+                <div class="rk-value" id="rk-total-count">0건</div>
+                <div class="rk-desc" id="rk-total-desc">전체 등록 누적 건수</div>
+              </div>
+              <div class="report-kpi-card">
+                <div class="rk-label">사고 조치 완료율</div>
+                <div class="rk-value" id="rk-resolved-rate">0%</div>
+                <div class="rk-desc" id="rk-resolved-count">완료 0건 / 진행 0건</div>
+              </div>
+              <div class="report-kpi-card">
+                <div class="rk-label">병원 진료 / 보상 건수</div>
+                <div class="rk-value" id="rk-medical-count">0건</div>
+                <div class="rk-desc">외래진료 및 후송 케어</div>
+              </div>
+              <div class="report-kpi-card">
+                <div class="rk-label">당사 지급 보상 총액</div>
+                <div class="rk-value" id="rk-total-cost">0만원</div>
+                <div class="rk-desc" id="rk-avg-cost">건당 평균 0만원</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: 주요 유형 및 구역별 집계 표 (TOP 5) -->
+          <div class="report-section">
+            <div class="report-section-title">
+              <span>2. 다발 사고 유형 및 발생 구역 분석 (TOP 5)</span>
+            </div>
+            <div class="report-two-tables">
+              <div class="report-table-col">
+                <div class="sub-table-header">최다 발생 사고 유형 TOP 5</div>
+                <table class="report-data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 45px;">순위</th>
+                      <th>사고 유형</th>
+                      <th style="width: 65px; text-align: right;">발생건수</th>
+                      <th style="width: 65px; text-align: right;">점유율</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report-top-categories">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+              <div class="report-table-col">
+                <div class="sub-table-header">최다 발생 구역/장소 TOP 5</div>
+                <table class="report-data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 45px;">순위</th>
+                      <th>발생 구역</th>
+                      <th style="width: 65px; text-align: right;">발생건수</th>
+                      <th style="width: 65px; text-align: right;">점유율</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report-top-zones">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: 주요 특이사고 발생 및 조치 결과 핵심 요약 (최신 3~4건) -->
+          <div class="report-section">
+            <div class="report-section-title">
+              <span>3. 주요 특이 사고 발생 및 조치 대책 (최근 핵심 사례)</span>
+            </div>
+            <table class="report-data-table incident-summary-table">
+              <thead>
+                <tr>
+                  <th style="width: 95px;">발생일시</th>
+                  <th style="width: 130px;">문서번호</th>
+                  <th style="width: 110px;">사업장/구역</th>
+                  <th style="width: 80px;">사고유형</th>
+                  <th>사고 경위 및 초동 조치·재발방지대책</th>
+                  <th style="width: 80px; text-align: right;">보상금액</th>
+                </tr>
+              </thead>
+              <tbody id="report-major-incidents">
+                <!-- Dynamic -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section 4: 종합 관리 의견 및 안전 대책 제언 -->
+          <div class="report-section" style="margin-bottom: 0;">
+            <div class="report-section-title">
+              <span>4. 종합 평가 및 안전관리 추진 방향</span>
+            </div>
+            <div class="report-opinion-box">
+              <p>• <strong>조치 현황:</strong> 당기 접수된 주요 안전사고는 현장 초동 조치 및 고객 케어 프로세스를 통해 전건 신속 조치 완료되었으며, 미결 건에 대한 부서별 밀착 점검을 상시 지속 중임.</p>
+              <p>• <strong>핵심 대책:</strong> 골프 코스 내 타구 사고(군도변 차단망 및 캐디 안전수칙 강화)와 보행로/스파 구역 미끄러짐 방지 패드 보강 등 시설물 선제적 예방 조치를 집중 전개함.</p>
+            </div>
+          </div>
+
+          <!-- Report Footer -->
+          <div class="report-sheet-footer">
+            <div class="rf-left">IPARK RESORT SAFETY MANAGEMENT SYSTEM</div>
+            <div class="rf-right">CONFIDENTIAL & INTERNAL USE ONLY</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Toast Feedback Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Custom Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
