@@ -601,6 +601,21 @@
           </div>
         </div>
 
+        <!-- 신설: 특정 사고 유형 선택 필터 -->
+        <div class="cmp-period-box period-box-category">
+          <div class="period-box-title">
+            <span class="period-indicator indicator-cat">🏷️</span>
+            <strong>사고 유형 선택</strong>
+            <span class="period-role-badge">필터 조건</span>
+          </div>
+          <div class="period-select-wrap">
+            <label for="yoyIncidentTypeFilter">유형:</label>
+            <select id="yoyIncidentTypeFilter" class="custom-select cmp-select yoy-incident-type-filter" onchange="executeComparison()">
+              <option value="all">전체 사고 유형</option>
+            </select>
+          </div>
+        </div>
+
         <!-- Action Buttons -->
         <div class="cmp-actions">
           <button type="button" class="btn btn-primary cmp-btn-run" onclick="executeComparison()">
@@ -743,12 +758,13 @@
           <table class="incident-table cmp-data-table">
             <thead>
               <tr>
+                <th scope="col" style="width: 6%; text-align: center;">No.</th>
                 <th scope="col" style="width: 20%;">사업장</th>
-                <th scope="col" style="width: 22%;">사고유형</th>
-                <th scope="col" style="text-align: right; width: 14%;">A 기준 건수</th>
-                <th scope="col" style="text-align: right; width: 14%;">B 대상 건수</th>
-                <th scope="col" style="text-align: right; width: 15%;">증감 건수</th>
-                <th scope="col" style="text-align: right; width: 15%;">증감률 (%)</th>
+                <th scope="col" style="width: 20%;">사고유형</th>
+                <th scope="col" style="text-align: right; width: 13%;">A 기준 건수</th>
+                <th scope="col" style="text-align: right; width: 13%;">B 대상 건수</th>
+                <th scope="col" style="text-align: right; width: 14%;">증감 건수</th>
+                <th scope="col" style="text-align: right; width: 14%;">증감률 (%)</th>
               </tr>
             </thead>
             <tbody id="cmp-breakdown-tbody">

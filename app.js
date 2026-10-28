@@ -2266,6 +2266,11 @@ function populateFilterDropdowns() {
     tableCatSelect.value = uniqueCategories.includes(currentCategory) ? currentCategory : "all";
   }
 
+  // 다년도 비교 분석용 사고 유형 필터 동기화
+  if (typeof populateYoyIncidentTypeFilter === "function") {
+    populateYoyIncidentTypeFilter();
+  }
+
   // Zone dropdown (테이블 간이 빠른 필터)
   const tableZoneSelect = document.getElementById("table-filter-zone");
   if (tableZoneSelect) {
@@ -3587,6 +3592,7 @@ window.switchViewTab = function(tabName) {
     if (monitoringView) monitoringView.style.display = "none";
     if (comparisonView) comparisonView.style.display = "block";
 
+    populateYoyIncidentTypeFilter();
     setTimeout(() => {
       if (typeof window.executeComparison === "function") window.executeComparison();
     }, 50);
@@ -3638,9 +3644,38 @@ window.resetComparisonFilter = function() {
   const selB = document.getElementById("cmp-year-b");
   if (selA) selA.value = "2026";
   if (selB) selB.value = "2025";
+  const typeFilterEl = document.getElementById("yoyIncidentTypeFilter");
+  if (typeFilterEl) typeFilterEl.value = "all";
   executeComparison();
-  showToast("비교 분석 필터 조건이 2026년 vs 2025년으로 초기화되었습니다.", "info");
+  showToast("비교 분석 필터 조건이 2026년 vs 2025년 (전체 유형)으로 초기화되었습니다.", "info");
 };
+
+// 다년도 비교 분석용 사고 유형 선택 옵션 자동 구성
+function populateYoyIncidentTypeFilter() {
+  const selectEl = document.getElementById("yoyIncidentTypeFilter");
+  if (!selectEl) return;
+  const currentVal = selectEl.value || "all";
+
+  const allIncidents = (state.incidents && state.incidents.length > 0)
+    ? state.incidents
+    : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
+
+  const categories = [...new Set(allIncidents.map(i => (i.category || "").trim()).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, "ko"));
+
+  let html = `<option value="all">전체 사고 유형 (${categories.length}종)</option>`;
+  categories.forEach(cat => {
+    html += `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`;
+  });
+  selectEl.innerHTML = html;
+
+  if (categories.includes(currentVal)) {
+    selectEl.value = currentVal;
+  } else {
+    selectEl.value = "all";
+  }
+}
+window.populateYoyIncidentTypeFilter = populateYoyIncidentTypeFilter;
 
 function extractYearAndMonth(item) {
   if (!item) return { year: 0, month: 0, time: 0 };
@@ -3706,27 +3741,41 @@ function getIncidentsForCurrentMode(side) {
 
   return { data: all, label: "전체", mode };
 }
-window.getIncidentsForCurrentMode = getIncidentsForCurrentMode;
-
-window.executeComparison = function() {
+function executeComparison() {
   const resA = getIncidentsForCurrentMode("a");
   const resB = getIncidentsForCurrentMode("b");
 
-  const dataA = resA.data;
-  const dataB = resB.data;
   const labelA = resA.label;
   const labelB = resB.label;
+
+  // 특정 사고 유형 선택 필터값 가져오기
+  const typeFilterEl = document.getElementById("yoyIncidentTypeFilter");
+  const selectedType = (typeFilterEl?.value || "all").trim();
+
+  let dataA = resA.data;
+  let dataB = resB.data;
+
+  // 선택된 사고 유형으로 필터링 적용
+  if (selectedType && selectedType !== "all") {
+    dataA = dataA.filter(x => (x.category || "").trim() === selectedType);
+    dataB = dataB.filter(x => (x.category || "").trim() === selectedType);
+  }
 
   const labelPeriodAEl = document.getElementById("ck-label-period-a");
   const labelPeriodBEl = document.getElementById("ck-label-period-b");
   if (labelPeriodAEl) labelPeriodAEl.textContent = labelA;
   if (labelPeriodBEl) labelPeriodBEl.textContent = labelB;
 
-  // 1. 총 사고 발생 건수
+  // 1. 총 사고 발생 건수 (선택된 사고 유형 기준 즉시 재계산)
   const countA = dataA.length;
   const countB = dataB.length;
   const diffCount = countA - countB;
-  const rateCount = countB > 0 ? ((diffCount / countB) * 100).toFixed(1) : (countA > 0 ? "+100.0" : "0.0");
+  let rateCount = "0.0";
+  if (countB > 0) {
+    rateCount = ((diffCount / countB) * 100).toFixed(1);
+  } else if (countA > 0) {
+    rateCount = "+100.0";
+  }
 
   const valCountAEl = document.getElementById("ck-val-count-a");
   const valCountBEl = document.getElementById("ck-val-count-b");
@@ -3737,7 +3786,7 @@ window.executeComparison = function() {
   if (badgeCountEl) {
     if (diffCount < 0) {
       badgeCountEl.className = "ck-diff-badge ck-badge-improved";
-      badgeCountEl.textContent = `▼ ${Math.abs(diffCount)}건 (${rateCount}%) 개선`;
+      badgeCountEl.textContent = `▼ ${Math.abs(diffCount)}건 (${rateCount}%) 감소`;
     } else if (diffCount > 0) {
       badgeCountEl.className = "ck-diff-badge ck-badge-worsened";
       badgeCountEl.textContent = `▲ +${diffCount}건 (+${rateCount}%) 증가`;
@@ -3820,25 +3869,44 @@ window.executeComparison = function() {
   if (valDeptBEl) valDeptBEl.textContent = topDeptB;
   if (subDeptBEl) subDeptBEl.textContent = `${topCntB}건 (${countB > 0 ? ((topCntB/countB)*100).toFixed(1) : 0}%)`;
 
-  renderComparisonCharts(dataA, dataB, labelA, labelB, resA.mode);
-  renderComparisonTable(dataA, dataB);
-};
+  renderComparisonCharts(dataA, dataB, labelA, labelB, resA.mode, selectedType);
+  renderComparisonTable(dataA, dataB, selectedType);
+}
+window.getIncidentsForCurrentMode = getIncidentsForCurrentMode;
+window.executeComparison = executeComparison;
 
-function renderComparisonCharts(dataA, dataB, labelA, labelB, mode) {
+function renderComparisonCharts(dataA, dataB, labelA, labelB, mode, selectedType = "all") {
   if (typeof Chart === "undefined") return;
 
-  // 1) Category Grouped Bar Chart
-  const allCats = new Set();
-  dataA.forEach(x => allCats.add(x.category || "기타"));
-  dataB.forEach(x => allCats.add(x.category || "기타"));
+  const isTypeFiltered = selectedType && selectedType !== "all";
 
-  const catMapA = {};
-  const catMapB = {};
-  allCats.forEach(c => { catMapA[c] = 0; catMapB[c] = 0; });
-  dataA.forEach(x => catMapA[x.category || "기타"]++);
-  dataB.forEach(x => catMapB[x.category || "기타"]++);
+  // 1) Grouped Bar Chart: 유형 전체일 때는 상위 사고유형별 비교, 특정 유형 선택 시 사업장별 비교
+  const groupKey = isTypeFiltered ? "resort" : "category";
+  const allKeys = new Set();
+  dataA.forEach(x => allKeys.add((x[groupKey] || "기타").trim()));
+  dataB.forEach(x => allKeys.add((x[groupKey] || "기타").trim()));
 
-  const sortedCats = Array.from(allCats).sort((a, b) => (catMapA[b] + catMapB[b]) - (catMapA[a] + catMapB[a])).slice(0, 7);
+  const mapA = {};
+  const mapB = {};
+  allKeys.forEach(k => { mapA[k] = 0; mapB[k] = 0; });
+  dataA.forEach(x => mapA[(x[groupKey] || "기타").trim()]++);
+  dataB.forEach(x => mapB[(x[groupKey] || "기타").trim()]++);
+
+  const sortedLabels = Array.from(allKeys).sort((a, b) => (mapA[b] + mapB[b]) - (mapA[a] + mapB[a])).slice(0, 7);
+
+  // 차트 카드 헤더 텍스트 동적 동기화
+  const catChartHeader = document.querySelector("#cmpCategoryChart")?.closest(".chart-card")?.querySelector("h3");
+  const catChartSub = document.querySelector("#cmpCategoryChart")?.closest(".chart-card")?.querySelector(".chart-sub");
+  if (catChartHeader) {
+    catChartHeader.textContent = isTypeFiltered
+      ? `📊 [${selectedType}] 사업장별 발생 대조`
+      : `📊 사고 유형별 발생 건수 나란히 비교`;
+  }
+  if (catChartSub) {
+    catChartSub.textContent = isTypeFiltered
+      ? `A 기간(블루) vs B 기간(오렌지) '${selectedType}' 사업장별 증감 대조`
+      : `A 기간(블루) vs B 기간(오렌지) 상위 유형별 증감 대조`;
+  }
 
   const ctxCat = document.getElementById("cmpCategoryChart");
   if (ctxCat) {
@@ -3848,17 +3916,17 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode) {
     state.comparison.chartCategory = new Chart(ctxCat, {
       type: "bar",
       data: {
-        labels: sortedCats,
+        labels: sortedLabels.length > 0 ? sortedLabels : ["데이터 없음"],
         datasets: [
           {
             label: `${labelA} (A)`,
-            data: sortedCats.map(c => catMapA[c]),
+            data: sortedLabels.length > 0 ? sortedLabels.map(c => mapA[c]) : [0],
             backgroundColor: "#2563EB",
             borderRadius: 4
           },
           {
             label: `${labelB} (B)`,
-            data: sortedCats.map(c => catMapB[c]),
+            data: sortedLabels.length > 0 ? sortedLabels.map(c => mapB[c]) : [0],
             backgroundColor: "#F59E0B",
             borderRadius: 4
           }
@@ -3878,7 +3946,7 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode) {
     });
   }
 
-  // 2) Secondary Trend / Pattern Chart
+  // 2) Secondary Trend / Pattern Chart (월별 발생 추이 비교)
   const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
   const monthlyA = new Array(12).fill(0);
   const monthlyB = new Array(12).fill(0);
@@ -3897,6 +3965,19 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode) {
       if (idx >= 0 && idx < 12) monthlyB[idx]++;
     }
   });
+
+  const monthChartHeader = document.querySelector("#cmpMonthlyChart")?.closest(".chart-card")?.querySelector("h3");
+  const monthChartSub = document.querySelector("#cmpMonthlyChart")?.closest(".chart-card")?.querySelector(".chart-sub");
+  if (monthChartHeader) {
+    monthChartHeader.textContent = isTypeFiltered
+      ? `📈 [${selectedType}] 월별 발생 추이 비교`
+      : `📈 월별(1월~12월) 발생 추이 비교`;
+  }
+  if (monthChartSub) {
+    monthChartSub.textContent = isTypeFiltered
+      ? `'${selectedType}' 월별 계절성 및 시기별 발생 패턴 대조`
+      : `월별 계절성 및 시기별 안전사고 발생 패턴 대조`;
+  }
 
   const ctxMonth = document.getElementById("cmpMonthlyChart");
   if (ctxMonth) {
@@ -3943,7 +4024,7 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode) {
   }
 }
 
-function renderComparisonTable(dataA, dataB) {
+function renderComparisonTable(dataA, dataB, selectedType = "all") {
   const tbody = document.getElementById("cmp-breakdown-tbody");
   if (!tbody) return;
 
@@ -3951,41 +4032,58 @@ function renderComparisonTable(dataA, dataB) {
   const pairMapB = {};
 
   dataA.forEach(x => {
-    const r = x.resort || "기타";
-    const c = x.category || "기타";
+    const c = (x.category || "기타").trim();
+    if (selectedType !== "all" && c !== selectedType) return;
+    const r = (x.resort || "기타").trim();
     const key = `${r}___${c}`;
     pairMapA[key] = (pairMapA[key] || 0) + 1;
   });
 
   dataB.forEach(x => {
-    const r = x.resort || "기타";
-    const c = x.category || "기타";
+    const c = (x.category || "기타").trim();
+    if (selectedType !== "all" && c !== selectedType) return;
+    const r = (x.resort || "기타").trim();
     const key = `${r}___${c}`;
     pairMapB[key] = (pairMapB[key] || 0) + 1;
   });
 
   const allKeys = Array.from(new Set([...Object.keys(pairMapA), ...Object.keys(pairMapB)]));
+
+  // 정렬 기준: 1순위 B 대상 건수 내림차순 -> 2순위 증감 절대폭 내림차순 -> 3순위 A 기준 건수 내림차순 -> 4순위 키 오름차순
   allKeys.sort((k1, k2) => {
-    const sum1 = (pairMapA[k1] || 0) + (pairMapB[k1] || 0);
-    const sum2 = (pairMapA[k2] || 0) + (pairMapB[k2] || 0);
-    if (sum2 !== sum1) return sum2 - sum1;
-    return k1.localeCompare(k2);
+    const b1 = pairMapB[k1] || 0;
+    const b2 = pairMapB[k2] || 0;
+    if (b2 !== b1) return b2 - b1;
+
+    const a1 = pairMapA[k1] || 0;
+    const a2 = pairMapA[k2] || 0;
+    const diff1 = Math.abs(a1 - b1);
+    const diff2 = Math.abs(a2 - b2);
+    if (diff2 !== diff1) return diff2 - diff1;
+
+    if (a2 !== a1) return a2 - a1;
+    return k1.localeCompare(k2, "ko");
   });
 
   if (allKeys.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="6" style="text-align: center; color: #64748b; padding: 2rem;">선택된 기간에 해당하는 사고 데이터가 없습니다.</td>
+        <td colspan="7" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
+          <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔍</div>
+          <div style="font-weight: 600; color: #334155;">선택한 기간 및 사고 유형에 해당하는 비교 데이터가 없습니다.</div>
+          <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">비교 기간 또는 사고 유형 조건을 변경해 보세요.</div>
+        </td>
       </tr>
     `;
     return;
   }
 
-  const rows = allKeys.map(key => {
+  const rows = allKeys.map((key, index) => {
     const [resort, category] = key.split("___");
     const a = pairMapA[key] || 0;
     const b = pairMapB[key] || 0;
     const diff = a - b;
+
     let rate = "0.0";
     if (b > 0) {
       rate = ((diff / b) * 100).toFixed(1);
@@ -3998,19 +4096,24 @@ function renderComparisonTable(dataA, dataB) {
     let rateText = "0.0%";
 
     if (diff < 0) {
+      // 사고 감소 (개선) -> 파란색 강조
       diffClass = "diff-cell-improved";
       diffText = `${diff}건`;
       rateText = `${rate}%`;
     } else if (diff > 0) {
+      // 사고 증가 (악화) -> 빨간색 강조
       diffClass = "diff-cell-worsened";
       diffText = `+${diff}건`;
-      rateText = `+${rate}%`;
+      rateText = (b === 0) ? "+100.0% (신규)" : `+${rate}%`;
     }
 
     return `
       <tr>
-        <td style="font-weight: 600; color: #0f172a;">${escapeHtml(resort)}</td>
-        <td><span class="badge badge-category">${escapeHtml(category)}</span></td>
+        <td style="text-align: center; color: #64748b; font-weight: 600;">${index + 1}</td>
+        <td class="resort-cell" style="font-weight: 600; color: #0f172a;">${escapeHtml(resort)}</td>
+        <td class="cat-cell">
+          <span class="badge badge-category" style="font-weight: 600; color: #1e293b; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 4px;">${escapeHtml(category)}</span>
+        </td>
         <td style="text-align: right; font-weight: 700; color: #2563eb;">${a.toLocaleString()}건</td>
         <td style="text-align: right; font-weight: 700; color: #d97706;">${b.toLocaleString()}건</td>
         <td style="text-align: right; font-weight: 700;" class="${diffClass}">${diffText}</td>
