@@ -3188,6 +3188,172 @@ body.auth-locked .main-wrapper {
 }
 
 /* ==========================================================================
+   대조표 드릴다운 모달 및 인터랙션 스타일
+   ========================================================================== */
+/* 대조표 행 클릭 인터랙션 */
+.cmp-data-table tbody tr.cmp-clickable-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.cmp-data-table tbody tr.cmp-clickable-row:hover {
+  background-color: #f1f5f9 !important;
+}
+
+.cmp-data-table tbody tr.cmp-clickable-row:hover .resort-cell {
+  color: #2563eb !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 사고 상세 모달 내 [← 목록으로] 뒤로가기 버튼 */
+.btn-back-to-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.btn-back-to-list:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.btn-back-header {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.78rem;
+  height: 28px;
+}
+
+/* 다년도 대조표 드릴다운 모달 스타일 */
+.yoy-drilldown-modal-container {
+  max-width: 1040px;
+  width: 95%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.yoy-drilldown-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.25rem;
+}
+
+.yoy-drilldown-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.15rem;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #64748b;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-bottom: -0.25rem;
+}
+
+.yoy-drilldown-tab:hover {
+  color: #0f172a;
+  background: #f8fafc;
+  border-radius: 6px 6px 0 0;
+}
+
+.yoy-drilldown-tab.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  font-weight: 800;
+}
+
+.yoy-drilldown-tab .tab-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.yoy-drilldown-tab .indicator-a {
+  background-color: #2563eb;
+}
+
+.yoy-drilldown-tab .indicator-b {
+  background-color: #d97706;
+}
+
+.drilldown-guide-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.8rem;
+  color: #475569;
+  margin-bottom: 0.85rem;
+}
+
+.yoy-drilldown-table-wrap {
+  max-height: 52vh;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.yoy-drilldown-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.yoy-drilldown-table th {
+  position: sticky;
+  top: 0;
+  background: #f8fafc;
+  z-index: 2;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.yoy-drilldown-table td {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.82rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+}
+
+.yoy-drilldown-table tbody tr.drilldown-incident-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.yoy-drilldown-table tbody tr.drilldown-incident-row:hover {
+  background-color: #f1f5f9 !important;
+}
+
+.yoy-drilldown-table tbody tr.drilldown-incident-row:hover .id-cell {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
    모달창 폼 컨트롤 가독성 및 시인성 보장 스타일
    ========================================================================== */
 .modal-overlay select,

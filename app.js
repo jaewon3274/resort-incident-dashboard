@@ -299,6 +299,9 @@ if (typeof window !== "undefined") {
   window.state = state;
 }
 
+// Navigation History for Detail Modal Back-Navigation
+let detailModalOrigin = null;
+
 // Initialize on DOM Ready
 document.addEventListener("DOMContentLoaded", () => {
   checkAuthStatus();
@@ -675,12 +678,30 @@ function setupEventListeners() {
   const closeDetail = () => {
     if (detailModal) detailModal.classList.remove("active");
     state.currentDetailId = null;
+    detailModalOrigin = null;
     switchDetailMode(false);
     document.body.classList.remove("modal-open");
   };
 
   if (closeDetailBtn) closeDetailBtn.addEventListener("click", closeDetail);
   if (closeDetailFooterBtn) closeDetailFooterBtn.addEventListener("click", closeDetail);
+
+  // 사고 상세 모달 [← 목록으로] 뒤로가기 버튼 연동
+  const backToListHeaderBtn = document.getElementById("btn-back-to-list-header");
+  const backToListFooterBtn = document.getElementById("btn-back-to-list-footer");
+  if (backToListHeaderBtn) backToListHeaderBtn.addEventListener("click", () => handleDetailBackToList());
+  if (backToListFooterBtn) backToListFooterBtn.addEventListener("click", () => handleDetailBackToList());
+
+  // 다년도 대조표 드릴다운 모달 닫기 버튼 연동
+  const yoyDrillModal = document.getElementById("yoyDrilldownModal");
+  const closeYoyDrillBtn = document.getElementById("btn-close-yoy-drilldown");
+  const closeYoyDrillFooterBtn = document.getElementById("btn-drilldown-footer-close");
+  const closeYoyDrill = () => {
+    if (yoyDrillModal) yoyDrillModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+  };
+  if (closeYoyDrillBtn) closeYoyDrillBtn.addEventListener("click", closeYoyDrill);
+  if (closeYoyDrillFooterBtn) closeYoyDrillFooterBtn.addEventListener("click", closeYoyDrill);
 
   if (deleteDetailBtn) {
     deleteDetailBtn.addEventListener("click", () => {
@@ -710,6 +731,7 @@ function setupEventListeners() {
   window.addEventListener("click", (e) => {
     if (e.target === registerModal) closeRegister();
     if (e.target === detailModal) closeDetail();
+    if (e.target === yoyDrillModal) closeYoyDrill();
   });
 
   if (registerForm) {
@@ -955,22 +977,79 @@ function renderCostAnalysisData() {
 
 // Navigate from Cost Modal to Incident Detail Modal
 window.navigateToDetailFromCost = function(id) {
+  detailModalOrigin = { fromModalId: "cost-analysis-modal" };
   const costModal = document.getElementById("cost-analysis-modal");
   if (costModal) costModal.classList.remove("active");
 
   setTimeout(() => {
     openIncidentDetail(id);
-  }, 100);
+  }, 50);
 };
 
 // Universal Navigation from any Sub-Modal to Incident Detail Modal
 window.navigateToDetailFromSubModal = function(id) {
+  const activeModal = document.querySelector(".modal-overlay.active");
+  const modalId = activeModal ? activeModal.id : null;
+  detailModalOrigin = modalId ? { fromModalId: modalId } : null;
+
   const openModals = document.querySelectorAll(".modal-overlay.active");
   openModals.forEach(m => m.classList.remove("active"));
 
   setTimeout(() => {
     openIncidentDetail(id);
-  }, 100);
+  }, 50);
+};
+
+// Navigate from YoY Drilldown Modal to Incident Detail Modal
+window.navigateToDetailFromDrilldown = function(id) {
+  const tableWrap = document.getElementById("yoy-drilldown-table-wrap");
+  const scrollTop = tableWrap ? tableWrap.scrollTop : 0;
+  detailModalOrigin = {
+    fromModalId: "yoyDrilldownModal",
+    resort: state.yoyDrilldown?.resort,
+    category: state.yoyDrilldown?.category,
+    tab: state.yoyDrilldown?.activeTab || "a",
+    scrollTop: scrollTop
+  };
+
+  const drillModal = document.getElementById("yoyDrilldownModal");
+  if (drillModal) drillModal.classList.remove("active");
+
+  setTimeout(() => {
+    openIncidentDetail(id);
+  }, 50);
+};
+
+// Universal Back to List Handler for Incident Detail Modal
+window.handleDetailBackToList = function() {
+  const detailModal = document.getElementById("detail-modal");
+  if (detailModal) detailModal.classList.remove("active");
+  state.currentDetailId = null;
+  switchDetailMode(false);
+  document.body.classList.remove("modal-open");
+
+  if (!detailModalOrigin || !detailModalOrigin.fromModalId) {
+    // 메인 대시보드에서 직접 진입한 경우: 자연스럽게 닫기 처리
+    detailModalOrigin = null;
+    return;
+  }
+
+  const { fromModalId, resort, category, tab, scrollTop } = detailModalOrigin;
+  detailModalOrigin = null;
+
+  setTimeout(() => {
+    if (fromModalId === "yoyDrilldownModal") {
+      if (typeof window.openYoyDrilldown === "function") {
+        window.openYoyDrilldown(resort, category, tab, scrollTop);
+      }
+    } else {
+      const prevModal = document.getElementById(fromModalId);
+      if (prevModal) {
+        prevModal.classList.add("active");
+        document.body.classList.add("modal-open");
+      }
+    }
+  }, 50);
 };
 
 // ==========================================================================
@@ -3172,7 +3251,10 @@ window.goToPage = function(page) {
 };
 
 // Open Incident Detail Modal
-window.openIncidentDetail = function(id) {
+function openIncidentDetail(id, originContext) {
+  if (originContext !== undefined) {
+    detailModalOrigin = originContext;
+  }
   const item = state.incidents.find(i => i.id === id);
   if (!item) return;
 
@@ -3249,7 +3331,8 @@ window.openIncidentDetail = function(id) {
 
   modal.classList.add("active");
   document.body.classList.add("modal-open");
-};
+}
+window.openIncidentDetail = openIncidentDetail;
 
 // Handle New Incident Form Submission
 function handleRegisterSubmit(e) {
@@ -4216,7 +4299,7 @@ function renderComparisonTable(dataA, dataB, selectedType) {
     }
 
     return `
-      <tr>
+      <tr class="cmp-clickable-row" onclick="openYoyDrilldown('${escapeHtml(resort)}', '${escapeHtml(category)}')" title="클릭하여 '${escapeHtml(resort)} - ${escapeHtml(category)}' 세부 사고 목록 조회">
         <td style="text-align: center; color: #64748b; font-weight: 600;">${index + 1}</td>
         <td class="resort-cell" style="font-weight: 600; color: #0f172a;">${escapeHtml(resort)}</td>
         <td class="cat-cell">
@@ -4233,3 +4316,147 @@ function renderComparisonTable(dataA, dataB, selectedType) {
   tbody.innerHTML = rows.join("");
 }
 window.renderComparisonTable = renderComparisonTable;
+
+// ==========================================================================
+// 6-6. 다년도 대조표 드릴다운 상세 사고 내역 팝업 모달
+// ==========================================================================
+function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTop = 0) {
+  const r = (resort || "").trim();
+  const c = (category || "").trim();
+
+  // 최신 A기간 및 B기간 데이터 추출
+  const dataA = (state.comparison && state.comparison.lastDataA)
+    ? state.comparison.lastDataA
+    : (typeof getIncidentsForCurrentMode === "function" ? getIncidentsForCurrentMode("a").data : []);
+  const dataB = (state.comparison && state.comparison.lastDataB)
+    ? state.comparison.lastDataB
+    : (typeof getIncidentsForCurrentMode === "function" ? getIncidentsForCurrentMode("b").data : []);
+
+  const listA = dataA.filter(x => (x.resort || "").trim() === r && (x.category || "").trim() === c);
+  const listB = dataB.filter(x => (x.resort || "").trim() === r && (x.category || "").trim() === c);
+
+  const activeTab = preferredTab || (listA.length > 0 ? "a" : (listB.length > 0 ? "b" : "a"));
+
+  state.yoyDrilldown = {
+    resort: r,
+    category: c,
+    listA,
+    listB,
+    activeTab
+  };
+
+  const totalCount = listA.length + listB.length;
+  const titleEl = document.getElementById("yoy-drilldown-title");
+  const subEl = document.getElementById("yoy-drilldown-sub");
+  if (titleEl) {
+    titleEl.textContent = `[${r}] - [${c}] 세부 사고 내역 (총 ${totalCount.toLocaleString()}건)`;
+  }
+
+  const labelA = document.getElementById("ck-label-period-a")?.textContent || "A기간";
+  const labelB = document.getElementById("ck-label-period-b")?.textContent || "B기간";
+  if (subEl) {
+    subEl.textContent = `${labelA}(A) ${listA.length}건 / ${labelB}(B) ${listB.length}건 상세 대조`;
+  }
+
+  const tabLabelAEl = document.getElementById("drill-tab-label-a");
+  const tabLabelBEl = document.getElementById("drill-tab-label-b");
+  if (tabLabelAEl) tabLabelAEl.textContent = `${labelA} 사고 목록 (${listA.length}건)`;
+  if (tabLabelBEl) tabLabelBEl.textContent = `${labelB} 사고 목록 (${listB.length}건)`;
+
+  const btnA = document.getElementById("btn-drill-tab-a");
+  const btnB = document.getElementById("btn-drill-tab-b");
+  if (btnA) btnA.classList.toggle("active", activeTab === "a");
+  if (btnB) btnB.classList.toggle("active", activeTab === "b");
+
+  renderYoyDrilldownTable();
+
+  const modal = document.getElementById("yoyDrilldownModal");
+  if (modal) {
+    modal.classList.add("active");
+    document.body.classList.add("modal-open");
+  }
+
+  if (restoreScrollTop > 0) {
+    setTimeout(() => {
+      const wrap = document.getElementById("yoy-drilldown-table-wrap");
+      if (wrap) wrap.scrollTop = restoreScrollTop;
+    }, 50);
+  }
+}
+window.openYoyDrilldown = openYoyDrilldown;
+
+function switchYoyDrillTab(tab) {
+  if (!state.yoyDrilldown) return;
+  state.yoyDrilldown.activeTab = tab;
+
+  const btnA = document.getElementById("btn-drill-tab-a");
+  const btnB = document.getElementById("btn-drill-tab-b");
+  if (btnA) btnA.classList.toggle("active", tab === "a");
+  if (btnB) btnB.classList.toggle("active", tab === "b");
+
+  renderYoyDrilldownTable();
+}
+window.switchYoyDrillTab = switchYoyDrillTab;
+
+function renderYoyDrilldownTable() {
+  const tbody = document.getElementById("yoy-drilldown-tbody");
+  if (!tbody || !state.yoyDrilldown) return;
+
+  const { listA, listB, activeTab } = state.yoyDrilldown;
+  const currentList = activeTab === "a" ? listA : listB;
+
+  if (!currentList || currentList.length === 0) {
+    const periodName = activeTab === "a"
+      ? (document.getElementById("ck-label-period-a")?.textContent || "A기간")
+      : (document.getElementById("ck-label-period-b")?.textContent || "B기간");
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
+          <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📂</div>
+          <div style="font-weight: 600; color: #334155;">해당 ${escapeHtml(periodName)}에 등록된 세부 사고 건이 없습니다.</div>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = currentList.map(item => {
+    const id = item.id || "-";
+    const date = item.date || "-";
+    const loc = [item.zone, item.locationDetail].filter(Boolean).join(" - ") || "-";
+    const desc = item.description || item.title || "사고 개요 없음";
+    const status = item.status || "접수대기";
+    const severity = item.severity || "경미";
+
+    // Status badge class
+    let statusClass = "badge-status-pending";
+    if (status.includes("완료")) statusClass = "badge-status-completed";
+    else if (status.includes("진행")) statusClass = "badge-status-progress";
+    else if (status.includes("보험") || status.includes("보상")) statusClass = "badge-status-insurance";
+
+    // Severity badge class
+    let sevClass = "badge-sev-minor";
+    if (severity.includes("중대")) sevClass = "badge-sev-critical";
+    else if (severity.includes("병원") || severity.includes("중등")) sevClass = "badge-sev-moderate";
+
+    return `
+      <tr class="drilldown-incident-row" onclick="navigateToDetailFromDrilldown('${escapeHtml(id)}')" title="클릭하여 '${escapeHtml(id)}' 상세 내역 보기">
+        <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(id)}</td>
+        <td style="font-size: 0.82rem; color: #475569; white-space: nowrap;">${escapeHtml(date)}</td>
+        <td style="font-size: 0.82rem; color: #334155; font-weight: 600;">${escapeHtml(loc)}</td>
+        <td style="line-height: 1.35; font-size: 0.82rem; color: #0f172a;">
+          <div style="max-height: 2.7em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+            ${escapeHtml(desc)}
+          </div>
+        </td>
+        <td style="text-align: center;">
+          <span class="badge ${statusClass}">${escapeHtml(status)}</span>
+        </td>
+        <td style="text-align: center;">
+          <span class="badge ${sevClass}">${escapeHtml(severity)}</span>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+window.renderYoyDrilldownTable = renderYoyDrilldownTable;

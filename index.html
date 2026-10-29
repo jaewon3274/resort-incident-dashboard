@@ -1094,11 +1094,83 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+       6-6. Modal: 🔍 다년도 대조표 세부 사고 내역 드릴다운 모달
+       ========================================================================== -->
+  <div class="modal-overlay" id="yoyDrilldownModal" aria-hidden="true">
+    <div class="modal-container yoy-drilldown-modal-container" role="dialog" aria-modal="true" aria-labelledby="yoy-drilldown-title">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.3rem;">📋</span>
+          <div>
+            <h3 id="yoy-drilldown-title" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #0f172a;">
+              [사업장명] - [사고유형] 세부 사고 내역
+            </h3>
+            <span id="yoy-drilldown-sub" style="font-size: 0.82rem; color: #64748b; font-weight: 500;">
+              비교 대상 기간 발생 건 상세 대조
+            </span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="btn-close-yoy-drilldown" aria-label="닫기">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem 1.5rem;">
+        <!-- 상단 탭: A기간 사고 목록 (O건) / B기간 사고 목록 (O건) -->
+        <div class="yoy-drilldown-tabs">
+          <button type="button" class="yoy-drilldown-tab active" id="btn-drill-tab-a" onclick="switchYoyDrillTab('a')">
+            <span class="tab-indicator indicator-a"></span>
+            <span id="drill-tab-label-a">A기간 사고 목록 (0건)</span>
+          </button>
+          <button type="button" class="yoy-drilldown-tab" id="btn-drill-tab-b" onclick="switchYoyDrillTab('b')">
+            <span class="tab-indicator indicator-b"></span>
+            <span id="drill-tab-label-b">B기간 사고 목록 (0건)</span>
+          </button>
+        </div>
+
+        <!-- 안내 문구 바 -->
+        <div class="drilldown-guide-bar">
+          <span class="guide-icon">💡</span>
+          <span>원하는 사고 항목을 클릭하면 <strong>사고 상세 내역 조회 및 조치 상태 수정</strong>이 가능합니다.</span>
+        </div>
+
+        <!-- 세부 목록 테이블 -->
+        <div class="table-container yoy-drilldown-table-wrap" id="yoy-drilldown-table-wrap">
+          <table class="incident-table yoy-drilldown-table">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 14%;">문서번호</th>
+                <th scope="col" style="width: 15%;">발생일시</th>
+                <th scope="col" style="width: 18%;">세부장소</th>
+                <th scope="col" style="width: 31%;">사고개요 (경위 요약)</th>
+                <th scope="col" style="width: 11%; text-align: center;">처리상태</th>
+                <th scope="col" style="width: 11%; text-align: center;">피해정도</th>
+              </tr>
+            </thead>
+            <tbody id="yoy-drilldown-tbody">
+              <!-- Dynamically populated via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: flex-end; padding: 1rem 1.5rem;">
+        <button type="button" class="btn btn-secondary" id="btn-drilldown-footer-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 7. Modal: Incident Detail View & Edit (건별 상세 및 수정 모달) -->
   <div class="modal-overlay" id="detail-modal" aria-hidden="true">
     <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="dtl-title">
       <div class="modal-header">
         <div style="display:flex; align-items:center; gap:0.6rem;">
+          <button type="button" class="btn-back-to-list btn-back-header" id="btn-back-to-list-header" onclick="handleDetailBackToList()" title="이전 목록으로 돌아가기">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>목록으로</span>
+          </button>
           <span id="dtl-id" class="id-cell" style="font-size: 1.15rem;" title="문서번호">INC-2026-000</span>
           <h3 id="dtl-title">사고 제목</h3>
         </div>
@@ -1387,7 +1459,14 @@
               사고 기록 삭제
             </button>
           </div>
-          <div class="modal-footer-right">
+          <div class="modal-footer-right" style="display: flex; align-items: center; gap: 0.5rem;">
+            <button type="button" class="btn-back-to-list" id="btn-back-to-list-footer" onclick="handleDetailBackToList()" title="이전 목록으로 돌아가기">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              <span>목록으로</span>
+            </button>
             <button type="button" class="btn btn-edit" id="btn-start-edit-detail" title="사고 정보 편집">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 20h9"></path>
