@@ -268,6 +268,7 @@ const state = {
     resort: "all",
     dept: "all",
     category: "all",
+    victimType: "all",
     severity: "all",
     status: "all",
     period: "all",
@@ -281,6 +282,10 @@ const state = {
   },
   currentDetailId: null,
   isEditMode: false,
+  editAttachments: [],
+  regAttachments: [],
+  yoyDrillVictimFilter: "all",
+  kpiDrillVictimFilter: "all",
   costModal: {
     year: "all",
     from: "",
@@ -298,6 +303,304 @@ const state = {
 if (typeof window !== "undefined") {
   window.state = state;
 }
+
+/**
+ * 피해자 세부 분류 (캐디 / 임직원 / 고객 / 기타)
+ * - 임직원(직원): 보라색 뱃지 (bg-purple-50 text-purple-700 border-purple-200)
+ * - 캐디: 주황색 뱃지 (bg-amber-50 text-amber-700 border-amber-200)
+ * - 고객: 연파랑 뱃지 (bg-blue-50 text-blue-700 border-blue-200)
+ * @param {Object} item 사고 객체
+ * @returns {{ category: string, label: string, badgeClass: string }}
+ */
+function classifyVictim(item) {
+  if (!item) {
+    return {
+      category: "customer",
+      label: "고객",
+      badgeClass: "badge-victim-customer bg-blue-50 text-blue-700 border-blue-200"
+    };
+  }
+
+  const vType = String(item.victimType || "").trim();
+  const vName = String(item.victimName || "").trim();
+  const fullContext = (vType + " " + vName + " " + (item.note || "") + " " + (item.summary || "") + " " + (item.locationDetail || "")).toLowerCase();
+
+  // 1. 캐디 우선 판별
+  if (vType.includes("캐디") || fullContext.includes("캐디")) {
+    return {
+      category: "caddy",
+      label: "캐디",
+      badgeClass: "badge-victim-caddy bg-amber-50 text-amber-700 border-amber-200"
+    };
+  }
+
+  // 2. 임직원 (직원, 근로자, 일용직, 실습생, 협력사) 판별
+  const empKeywords = ["직원", "임직원", "근로자", "일용직", "실습생", "협력사", "진행원", "조리원", "미화"];
+  if (empKeywords.some(kw => vType.includes(kw) || fullContext.includes(kw))) {
+    return {
+      category: "employee",
+      label: "임직원",
+      badgeClass: "badge-victim-employee bg-purple-50 text-purple-700 border-purple-200"
+    };
+  }
+
+  // 3. 고객 판별
+  if (vType.includes("고객") || vType.includes("투숙") || vType.includes("회원") || vType.includes("내장객") || fullContext.includes("고객")) {
+    return {
+      category: "customer",
+      label: "고객",
+      badgeClass: "badge-victim-customer bg-blue-50 text-blue-700 border-blue-200"
+    };
+  }
+
+  // 4. 기타/기본값: 원본 vType이 있으면 표시, 없으면 고객으로 기본 처리
+  if (vType && vType !== "-" && vType !== "미상") {
+    return {
+      category: "customer",
+      label: vType,
+      badgeClass: "badge-victim-other bg-slate-50 text-slate-700 border-slate-200"
+    };
+  }
+
+  return {
+    category: "customer",
+    label: "고객",
+    badgeClass: "badge-victim-customer bg-blue-50 text-blue-700 border-blue-200"
+  };
+}
+window.classifyVictim = classifyVictim;
+
+/**
+ * 파일 크기 사람이 읽기 쉬운 포맷으로 변환 (Bytes -> KB, MB)
+ */
+function formatFileSize(bytes) {
+  if (!bytes || bytes === 0) return "0 B";
+  const k = 1024;
+  const sizes = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+}
+window.formatFileSize = formatFileSize;
+
+/**
+ * 파일 확장자 기반 MIME 타입 판별
+ */
+function getFileTypeFromName(fileName) {
+  const ext = (fileName || "").split(".").pop().toLowerCase();
+  if (["jpg", "jpeg"].includes(ext)) return "image/jpeg";
+  if (ext === "png") return "image/png";
+  if (ext === "gif") return "image/gif";
+  if (ext === "pdf") return "application/pdf";
+  if (ext === "hwp") return "application/x-hwp";
+  if (ext === "hwpx") return "application/hwp+zip";
+  if (["xls", "xlsx"].includes(ext)) return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+  if (["doc", "docx"].includes(ext)) return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  return "application/octet-stream";
+}
+window.getFileTypeFromName = getFileTypeFromName;
+
+/**
+ * 파일 확장자별 아이콘 반환
+ */
+function getFileIcon(fileName) {
+  const ext = (fileName || "").split(".").pop().toLowerCase();
+  if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext)) return "🖼️";
+  if (ext === "pdf") return "📕";
+  if (["hwp", "hwpx"].includes(ext)) return "📝";
+  if (["xls", "xlsx", "csv"].includes(ext)) return "📊";
+  if (["doc", "docx"].includes(ext)) return "📄";
+  return "📁";
+}
+window.getFileIcon = getFileIcon;
+
+/**
+ * 첨부파일 선택 처리 (다중 파일 FileReader DataURL 변환)
+ */
+function handleFileSelect(event, mode) {
+  const files = Array.from(event.target.files || []);
+  if (files.length === 0) return;
+
+  const readers = files.map(file => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        resolve({
+          id: "att-" + Date.now() + "-" + Math.random().toString(36).substr(2, 6),
+          name: file.name,
+          size: file.size,
+          type: file.type || getFileTypeFromName(file.name),
+          data: e.target.result
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  Promise.all(readers).then(newAttachments => {
+    if (mode === "edit") {
+      state.editAttachments = [...(state.editAttachments || []), ...newAttachments];
+      renderAttachmentList("edit");
+    } else {
+      state.regAttachments = [...(state.regAttachments || []), ...newAttachments];
+      renderAttachmentList("reg");
+    }
+  });
+
+  event.target.value = "";
+}
+window.handleFileSelect = handleFileSelect;
+
+/**
+ * 첨부파일 목록에서 개별 파일 삭제
+ */
+function removeAttachment(attId, mode) {
+  if (mode === "edit") {
+    state.editAttachments = (state.editAttachments || []).filter(a => a.id !== attId);
+    renderAttachmentList("edit");
+  } else {
+    state.regAttachments = (state.regAttachments || []).filter(a => a.id !== attId);
+    renderAttachmentList("reg");
+  }
+}
+window.removeAttachment = removeAttachment;
+
+/**
+ * 등록/수정 모달 내 첨부파일 목록 렌더링
+ */
+function renderAttachmentList(mode) {
+  const containerId = mode === "edit" ? "edit-attachment-list" : "reg-attachment-list";
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const list = mode === "edit" ? (state.editAttachments || []) : (state.regAttachments || []);
+  if (list.length === 0) {
+    container.innerHTML = "";
+    return;
+  }
+
+  container.innerHTML = list.map(att => `
+    <div class="attachment-edit-row">
+      <div class="attachment-edit-left">
+        <span style="font-size: 1.15rem;">${getFileIcon(att.name)}</span>
+        <span class="attachment-file-name" title="${escapeHtml(att.name)}">${escapeHtml(att.name)}</span>
+        <span class="attachment-file-size">(${formatFileSize(att.size)})</span>
+      </div>
+      <button type="button" class="btn-attachment-del" onclick="removeAttachment('${att.id}', '${mode}')" title="파일 첨부 삭제">
+        삭제
+      </button>
+    </div>
+  `).join("");
+}
+window.renderAttachmentList = renderAttachmentList;
+
+/**
+ * 첨부파일 미리보기 모달 열기
+ * - PDF 및 이미지: 인라인 미리보기
+ * - HWP, XLSX 등 브라우저 미지원 포맷: 안내 팝업 및 다운로드 버튼 표기
+ */
+function openFilePreview(attachment) {
+  if (!attachment) return;
+
+  const modal = document.getElementById("filePreviewModal");
+  const titleEl = document.getElementById("previewModalTitle");
+  const subEl = document.getElementById("previewModalSub");
+  const iconEl = document.getElementById("previewModalIcon");
+  const bodyEl = document.getElementById("filePreviewBody");
+  const dlBtn = document.getElementById("btn-preview-download");
+  const dlLabel = document.getElementById("preview-download-label");
+
+  if (!modal || !bodyEl) return;
+
+  const fileName = attachment.name || "첨부파일";
+  const ext = fileName.split(".").pop().toLowerCase();
+  const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(ext) || (attachment.type && attachment.type.startsWith("image/"));
+  const isPdf = ext === "pdf" || (attachment.type && attachment.type.includes("pdf"));
+
+  if (titleEl) titleEl.textContent = fileName;
+  if (subEl) subEl.textContent = `${formatFileSize(attachment.size)} • ${ext.toUpperCase()} 파일`;
+  if (iconEl) iconEl.textContent = getFileIcon(fileName);
+
+  if (dlBtn) {
+    dlBtn.href = attachment.data || "#";
+    dlBtn.download = fileName;
+  }
+  if (dlLabel) {
+    dlLabel.textContent = `'${fileName}' 원본 다운로드`;
+  }
+
+  if (isImage) {
+    bodyEl.innerHTML = `
+      <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: auto; padding: 1rem;">
+        <img src="${attachment.data}" alt="${escapeHtml(fileName)}" style="max-width: 100%; max-height: 68vh; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.12);">
+      </div>
+    `;
+  } else if (isPdf) {
+    bodyEl.innerHTML = `
+      <iframe src="${attachment.data}" style="width: 100%; height: 68vh; border: none; border-radius: 8px;" title="${escapeHtml(fileName)}"></iframe>
+    `;
+  } else {
+    bodyEl.innerHTML = `
+      <div style="text-align: center; padding: 3rem 1.5rem; max-width: 480px; margin: auto;">
+        <div style="font-size: 3.5rem; margin-bottom: 1rem;">📦</div>
+        <h4 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin-bottom: 0.6rem;">
+          브라우저 직접 미리보기 미지원 형식
+        </h4>
+        <p style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin-bottom: 1.5rem;">
+          해당 파일(<strong>${escapeHtml(ext.toUpperCase())}</strong>)은 보안 및 전용 뷰어 사양에 따라 브라우저 인라인 미리보기를 직접 지원하지 않습니다.<br>
+          아래의 [다운로드] 버튼을 눌러 원본 파일명으로 내려받아 확인해 주세요.
+        </p>
+        <a href="${attachment.data}" download="${escapeHtml(fileName)}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; font-size: 0.9rem; text-decoration: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          ${escapeHtml(fileName)} 바로 다운로드
+        </a>
+      </div>
+    `;
+  }
+
+  modal.classList.add("active");
+  document.body.classList.add("modal-open");
+}
+window.openFilePreview = openFilePreview;
+
+function openFilePreviewById(attId) {
+  // 1. 현재 상세 모달의 사고 객체 검색
+  const incident = state.incidents.find(i => i.id === state.currentDetailId);
+  if (incident && incident.attachments) {
+    const att = incident.attachments.find(a => a.id === attId);
+    if (att) {
+      openFilePreview(att);
+      return;
+    }
+  }
+  // 2. 수정 중인 첨부파일 목록 검색
+  const editAtt = (state.editAttachments || []).find(a => a.id === attId);
+  if (editAtt) {
+    openFilePreview(editAtt);
+    return;
+  }
+  // 3. 등록 중인 첨부파일 목록 검색
+  const regAtt = (state.regAttachments || []).find(a => a.id === attId);
+  if (regAtt) {
+    openFilePreview(regAtt);
+    return;
+  }
+}
+window.openFilePreviewById = openFilePreviewById;
+
+function closeFilePreview() {
+  const modal = document.getElementById("filePreviewModal");
+  if (modal) modal.classList.remove("active");
+
+  const detailModal = document.getElementById("detail-modal");
+  if (!detailModal || !detailModal.classList.contains("active")) {
+    document.body.classList.remove("modal-open");
+  }
+}
+window.closeFilePreview = closeFilePreview;
 
 // Navigation History for Detail Modal Back-Navigation
 let detailModalOrigin = null;
@@ -516,6 +819,18 @@ function setupEventListeners() {
     });
   }
 
+  // 신설: 피해자 세부 분류 필터 이벤트 (상단 메인)
+  const victimTypeFilter = document.getElementById("filter-victim-type");
+  if (victimTypeFilter) {
+    victimTypeFilter.addEventListener("change", (e) => {
+      state.filters.victimType = e.target.value;
+      const tableVictim = document.getElementById("table-filter-victim-type");
+      if (tableVictim && tableVictim.value !== e.target.value) tableVictim.value = e.target.value;
+      state.currentPage = 1;
+      applyFilters();
+    });
+  }
+
   // 신설: 피해 구분 필터 이벤트 (상단 메인)
   const severityFilter = document.getElementById("filter-severity");
   if (severityFilter) {
@@ -535,6 +850,18 @@ function setupEventListeners() {
       state.filters.category = e.target.value;
       const mainCat = document.getElementById("filter-category");
       if (mainCat && mainCat.value !== e.target.value) mainCat.value = e.target.value;
+      state.currentPage = 1;
+      applyFilters();
+    });
+  }
+
+  // 신설: 테이블 간이 피해자 필터 이벤트
+  const tableVictimFilter = document.getElementById("table-filter-victim-type");
+  if (tableVictimFilter) {
+    tableVictimFilter.addEventListener("change", (e) => {
+      state.filters.victimType = e.target.value;
+      const mainVictim = document.getElementById("filter-victim-type");
+      if (mainVictim && mainVictim.value !== e.target.value) mainVictim.value = e.target.value;
       state.currentPage = 1;
       applyFilters();
     });
@@ -564,11 +891,14 @@ function setupEventListeners() {
   if (quickResetBtn) {
     quickResetBtn.addEventListener("click", () => {
       state.filters.category = "all";
+      state.filters.victimType = "all";
       state.filters.zone = "all";
       state.filters.severity = "all";
 
       const tableCat = document.getElementById("table-filter-category");
       if (tableCat) tableCat.value = "all";
+      const tableVictim = document.getElementById("table-filter-victim-type");
+      if (tableVictim) tableVictim.value = "all";
       const tableZone = document.getElementById("table-filter-zone");
       if (tableZone) tableZone.value = "all";
       const tableSev = document.getElementById("table-filter-severity");
@@ -576,6 +906,8 @@ function setupEventListeners() {
 
       const mainCat = document.getElementById("filter-category");
       if (mainCat) mainCat.value = "all";
+      const mainVictim = document.getElementById("filter-victim-type");
+      if (mainVictim) mainVictim.value = "all";
       const mainSev = document.getElementById("filter-severity");
       if (mainSev) mainSev.value = "all";
 
@@ -664,6 +996,14 @@ function setupEventListeners() {
       const dateInput = document.getElementById("reg-date");
       if (dateInput) dateInput.value = localDatetime;
 
+      // 신설: 등록 첨부파일 및 산재 행정 필드 초기화
+      state.regAttachments = [];
+      renderAttachmentList("reg");
+      const regRepStatus = document.getElementById("reg-report-status");
+      if (regRepStatus) regRepStatus.value = "해당없음";
+      const regNotes = document.getElementById("reg-special-notes");
+      if (regNotes) regNotes.value = "";
+
       registerModal.classList.add("active");
       document.body.classList.add("modal-open");
     });
@@ -672,6 +1012,8 @@ function setupEventListeners() {
   const closeRegister = () => {
     if (registerModal) registerModal.classList.remove("active");
     if (registerForm) registerForm.reset();
+    state.regAttachments = [];
+    renderAttachmentList("reg");
     document.body.classList.remove("modal-open");
   };
 
@@ -2391,6 +2733,16 @@ function populateFilterDropdowns() {
   if (tableSevSelect) {
     tableSevSelect.value = state.filters.severity || "all";
   }
+
+  // 신설: 피해자 대상 구분 dropdowns (메인 상단 + 테이블 간이 빠른 필터)
+  const victimSelect = document.getElementById("filter-victim-type");
+  if (victimSelect) {
+    victimSelect.value = state.filters.victimType || "all";
+  }
+  const tableVictimSelect = document.getElementById("table-filter-victim-type");
+  if (tableVictimSelect) {
+    tableVictimSelect.value = state.filters.victimType || "all";
+  }
 }
 
 // Switch between View Mode and Edit Mode in Detail Modal
@@ -2442,6 +2794,15 @@ function populateEditForm(id) {
   document.getElementById("edit-preventive").value = item.preventiveMeasure || "";
   document.getElementById("edit-status").value = item.status;
   document.getElementById("edit-manager").value = item.manager || "";
+
+  // 신설: 산재 행정 특이사항 및 첨부파일 연동
+  const editReportStatusEl = document.getElementById("edit-report-status");
+  if (editReportStatusEl) editReportStatusEl.value = item.reportStatus || "해당없음";
+  const editSpecialNotesEl = document.getElementById("edit-special-notes");
+  if (editSpecialNotesEl) editSpecialNotesEl.value = item.specialNotes || "";
+
+  state.editAttachments = Array.isArray(item.attachments) ? JSON.parse(JSON.stringify(item.attachments)) : [];
+  renderAttachmentList("edit");
 }
 
 // Handle Save Edit Action
@@ -2475,6 +2836,11 @@ function handleSaveEdit() {
   const status = document.getElementById("edit-status").value;
   const manager = document.getElementById("edit-manager").value.trim();
 
+  // 신설: 산재조사표 제출 여부 및 특이사항, 첨부파일
+  const reportStatus = document.getElementById("edit-report-status") ? document.getElementById("edit-report-status").value : (item.reportStatus || "해당없음");
+  const specialNotes = document.getElementById("edit-special-notes") ? document.getElementById("edit-special-notes").value.trim() : "";
+  const attachments = state.editAttachments || [];
+
   if (!title || !description) {
     alert("제목과 상세 경위는 필수 입력 항목입니다.");
     return;
@@ -2484,7 +2850,7 @@ function handleSaveEdit() {
   const nowStr = new Date().toISOString().slice(0, 16).replace("T", " ");
   updatedTimeline.push({
     time: nowStr,
-    note: `관리자 정보 수정 반영 (상태: ${status}, 지급액: ${companyAmount.toLocaleString()}원)`
+    note: `관리자 정보 수정 반영 (상태: ${status}, 지급액: ${companyAmount.toLocaleString()}원, 첨부파일 ${attachments.length}건)`
   });
 
   const updatedFields = {
@@ -2508,6 +2874,9 @@ function handleSaveEdit() {
     preventiveMeasure,
     status,
     manager,
+    reportStatus,
+    specialNotes,
+    attachments,
     timeline: updatedTimeline
   };
 
@@ -2548,7 +2917,7 @@ window.deleteIncident = function(id) {
 
 // Apply Filters to Data
 function applyFilters() {
-  const { search, resort, dept, category, severity, status, period, zone, startDate, endDate, from, to } = state.filters;
+  const { search, resort, dept, category, victimType, severity, status, period, zone, startDate, endDate, from, to } = state.filters;
   const refDate = getSystemReferenceDate();
   const todayStart = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 0, 0, 0, 0);
   const todayEnd = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 23, 59, 59, 999);
@@ -2571,6 +2940,14 @@ function applyFilters() {
 
     if (category !== "all" && item.category !== category) {
       return false;
+    }
+
+    // 신설: 피해자 세부 분류 필터링 (임직원 / 캐디 / 고객)
+    if (victimType && victimType !== "all") {
+      const vInfo = classifyVictim(item);
+      if (vInfo.category !== victimType) {
+        return false;
+      }
     }
 
     if (zone && zone !== "all" && item.zone !== zone) {
@@ -3228,32 +3605,35 @@ function renderTable() {
     if (item.severity && (item.severity.includes("병원") || item.severity.includes("중등"))) severityClass = "badge-severity-moderate";
     if (item.severity && (item.severity.includes("중상") || item.severity.includes("중대"))) severityClass = "badge-severity-major";
 
+    const vInfo = classifyVictim(item);
+    const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
+
     return `
       <tr onclick="openIncidentDetail('${item.id}')">
-        <td class="no-cell">${globalIndex}</td>
-        <td class="id-cell">${escapeHtml(item.id)}</td>
-        <td class="date-cell">${escapeHtml(item.date)}</td>
-        <td class="location-cell">
-          <span class="location-primary">${escapeHtml(item.zone)}</span>
-          <span class="location-sub">${escapeHtml(item.resort)} - ${escapeHtml(item.locationDetail)}</span>
+        <td class="no-cell" style="text-align: center;">${globalIndex}</td>
+        <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(item.id)}</td>
+        <td class="date-cell" style="font-size: 0.83rem; color: #475569; white-space: nowrap;">${escapeHtml(item.date)}</td>
+        <td class="dept-cell" style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">
+          ${escapeHtml(item.resort || "")}${deptDisplay}
+        </td>
+        <td style="text-align: center;">
+          <span class="badge ${vInfo.badgeClass}">${escapeHtml(vInfo.label)}</span>
+        </td>
+        <td class="location-cell" style="font-size: 0.83rem; color: #334155;">
+          <span class="location-primary" style="font-weight: 600;">${escapeHtml(item.zone || "")}</span>
+          <span class="location-sub" style="color: #64748b; font-size: 0.78rem;">${escapeHtml(item.locationDetail || "")}</span>
         </td>
         <td>
-          <span class="badge badge-category">${escapeHtml(item.category)}</span>
+          <span class="badge badge-category" style="font-size: 0.75rem;">${escapeHtml(item.category || "기타")}</span>
         </td>
-        <td class="title-cell" title="${escapeHtml(item.title)}">
-          ${escapeHtml(item.title)}
+        <td class="title-cell" title="${escapeHtml(item.title || "")}" style="font-weight: 600; color: #0f172a;">
+          ${escapeHtml(item.title || "-")}
         </td>
-        <td>
-          <span class="badge ${severityClass}">${escapeHtml(item.severity)}</span>
-        </td>
-        <td>
+        <td style="text-align: center;">
           <span class="badge ${statusClass}">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;"></span>
             ${escapeHtml(item.status)}
           </span>
-        </td>
-        <td style="color: #475569; font-size: 0.84rem;">
-          ${escapeHtml(item.manager || "-")}
         </td>
         <td style="text-align: center;">
           <button type="button" class="btn-table-del" title="사고 삭제" onclick="event.stopPropagation(); deleteIncident('${item.id}')">
@@ -3378,6 +3758,59 @@ function openIncidentDetail(id, originContext) {
   document.getElementById("dtl-action").innerText = item.actionTaken || "조치 내역 없음";
   document.getElementById("dtl-preventive").innerText = item.preventiveMeasure || "예방 대책 기록 없음";
 
+  // 신설: 특이사항 및 산업재해조사표 행정 상태 연동
+  const reportStatus = item.reportStatus || "해당없음";
+  const reportBadgeEl = document.getElementById("dtl-report-status-badge");
+  if (reportBadgeEl) {
+    reportBadgeEl.textContent = `산재조사표: ${reportStatus}`;
+    reportBadgeEl.className = "badge";
+    if (reportStatus === "제출완료") reportBadgeEl.classList.add("badge-report-complete");
+    else if (reportStatus === "제출예정") reportBadgeEl.classList.add("badge-report-planned");
+    else if (reportStatus === "미제출") reportBadgeEl.classList.add("badge-report-unsubmitted");
+    else reportBadgeEl.classList.add("badge-report-none");
+  }
+
+  const specialNotesEl = document.getElementById("dtl-special-notes");
+  if (specialNotesEl) {
+    specialNotesEl.innerText = item.specialNotes || "등록된 특이사항 및 산재 행정 내역이 없습니다.";
+  }
+
+  // 신설: 첨부파일 및 증빙 자료 목록 연동
+  const attCountEl = document.getElementById("dtl-attachment-count");
+  const attListEl = document.getElementById("dtl-attachment-list");
+  const attachments = Array.isArray(item.attachments) ? item.attachments : [];
+  if (attCountEl) attCountEl.textContent = `${attachments.length}건`;
+
+  if (attListEl) {
+    if (attachments.length === 0) {
+      attListEl.innerHTML = `
+        <div style="color: #64748b; font-size: 0.84rem; padding: 0.75rem 0.5rem; background: #f8fafc; border-radius: 6px; border: 1px dashed #cbd5e1; text-align: center;">
+          📎 등록된 첨부파일 또는 증빙 자료가 없습니다.
+        </div>
+      `;
+    } else {
+      attListEl.innerHTML = attachments.map(att => `
+        <div class="attachment-item-card">
+          <div class="attachment-item-left">
+            <span class="attachment-item-icon">${getFileIcon(att.name)}</span>
+            <div style="overflow: hidden;">
+              <div class="attachment-item-name" title="${escapeHtml(att.name)}">${escapeHtml(att.name)}</div>
+              <div class="attachment-item-meta">${formatFileSize(att.size)} • ${escapeHtml(att.name.split('.').pop().toUpperCase())}</div>
+            </div>
+          </div>
+          <div class="attachment-actions">
+            <button type="button" class="btn-att-preview" onclick="openFilePreviewById('${att.id}')" title="미리보기">
+              👁️ 미리보기
+            </button>
+            <a href="${att.data}" download="${escapeHtml(att.name)}" class="btn-att-download" title="원본 파일 다운로드">
+              💾 다운로드
+            </a>
+          </div>
+        </div>
+      `).join("");
+    }
+  }
+
   const timelineEl = document.getElementById("dtl-timeline");
   if (timelineEl) {
     if (item.timeline && item.timeline.length > 0) {
@@ -3423,6 +3856,11 @@ function handleRegisterSubmit(e) {
   const preventiveMeasure = document.getElementById("reg-preventive").value.trim();
   const manager = document.getElementById("reg-manager").value.trim();
 
+  // 신설: 산재조사표 제출 여부, 특이사항, 첨부파일
+  const reportStatus = document.getElementById("reg-report-status") ? document.getElementById("reg-report-status").value : "해당없음";
+  const specialNotes = document.getElementById("reg-special-notes") ? document.getElementById("reg-special-notes").value.trim() : "";
+  const attachments = state.regAttachments || [];
+
   const formattedDate = dateRaw.replace("T", " ");
 
   const randomNum = Math.floor(100 + Math.random() * 900);
@@ -3450,6 +3888,9 @@ function handleRegisterSubmit(e) {
     companyAmount,
     personalAmount,
     manager: manager || "안전관리팀",
+    reportStatus,
+    specialNotes,
+    attachments,
     timeline: [
       { time: formattedDate, note: "신규 사고 발생 접수 및 등록" },
       { time: formattedDate, note: `초동 조치: ${actionTaken || '현장 확인'}` }
@@ -3458,6 +3899,9 @@ function handleRegisterSubmit(e) {
 
   IncidentStorage.add(newIncident);
   state.incidents = IncidentStorage.getAll();
+
+  state.regAttachments = [];
+  renderAttachmentList("reg");
 
   document.getElementById("register-modal").classList.remove("active");
   document.getElementById("incident-register-form").reset();
@@ -3588,11 +4032,15 @@ function renderActiveFilterChips() {
   const chipsList = document.getElementById("table-active-chips");
   if (!container || !chipsList) return;
 
-  const { search, resort, dept, category, zone, severity, status, period } = state.filters;
+  const { search, resort, dept, category, victimType, zone, severity, status, period } = state.filters;
   const chips = [];
 
   if (category && category !== "all") {
     chips.push({ key: "category", label: `유형: ${category}` });
+  }
+  if (victimType && victimType !== "all") {
+    const victimMap = { employee: "대상: 임직원", caddy: "대상: 캐디", customer: "대상: 고객" };
+    chips.push({ key: "victim-type", label: victimMap[victimType] || `대상: ${victimType}` });
   }
   if (zone && zone !== "all") {
     chips.push({ key: "zone", label: `구역: ${zone}` });
@@ -3634,6 +4082,9 @@ function renderActiveFilterChips() {
   const tableCat = document.getElementById("table-filter-category");
   if (tableCat) tableCat.classList.toggle("is-active", Boolean(category && category !== "all"));
 
+  const tableVictim = document.getElementById("table-filter-victim-type");
+  if (tableVictim) tableVictim.classList.toggle("is-active", Boolean(victimType && victimType !== "all"));
+
   const tableZone = document.getElementById("table-filter-zone");
   if (tableZone) tableZone.classList.toggle("is-active", Boolean(zone && zone !== "all"));
 
@@ -3652,6 +4103,12 @@ window.clearQuickFilter = function(key) {
     document.querySelectorAll(".period-btn").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.period === "all");
     });
+  } else if (key === "victim-type" || key === "victimType") {
+    state.filters.victimType = "all";
+    const topSelect = document.getElementById("filter-victim-type");
+    if (topSelect) topSelect.value = "all";
+    const tableSelect = document.getElementById("table-filter-victim-type");
+    if (tableSelect) tableSelect.value = "all";
   } else {
     state.filters[key] = "all";
     const topSelect = document.getElementById(`filter-${key}`);
@@ -3669,6 +4126,7 @@ function resetAllFilters() {
   state.filters.resort = "all";
   state.filters.dept = "all";
   state.filters.category = "all";
+  state.filters.victimType = "all";
   state.filters.severity = "all";
   state.filters.status = "all";
   state.filters.period = "all";
@@ -3691,6 +4149,9 @@ function resetAllFilters() {
   const categoryFilter = document.getElementById("filter-category");
   if (categoryFilter) categoryFilter.value = "all";
 
+  const victimFilter = document.getElementById("filter-victim-type");
+  if (victimFilter) victimFilter.value = "all";
+
   const severityFilter = document.getElementById("filter-severity");
   if (severityFilter) severityFilter.value = "all";
 
@@ -3700,6 +4161,8 @@ function resetAllFilters() {
   // Table quick filters reset
   const tableCat = document.getElementById("table-filter-category");
   if (tableCat) tableCat.value = "all";
+  const tableVictim = document.getElementById("table-filter-victim-type");
+  if (tableVictim) tableVictim.value = "all";
   const tableZone = document.getElementById("table-filter-zone");
   if (tableZone) tableZone.value = "all";
   const tableSev = document.getElementById("table-filter-severity");
@@ -4678,6 +5141,11 @@ function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTo
   if (btnA) btnA.classList.toggle("active", activeTab === "a");
   if (btnB) btnB.classList.toggle("active", activeTab === "b");
 
+  // 신설: 피해자 필터 초기화
+  state.yoyDrillVictimFilter = "all";
+  const victimSel = document.getElementById("yoy-drill-filter-victim");
+  if (victimSel) victimSel.value = "all";
+
   renderYoyDrilldownTable();
 
   const modal = document.getElementById("yoyDrilldownModal");
@@ -4694,6 +5162,12 @@ function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTo
   }
 }
 window.openYoyDrilldown = openYoyDrilldown;
+
+function filterYoyDrilldownByVictim(val) {
+  state.yoyDrillVictimFilter = val || "all";
+  renderYoyDrilldownTable();
+}
+window.filterYoyDrilldownByVictim = filterYoyDrilldownByVictim;
 
 function switchYoyDrillTab(tab) {
   if (!state.yoyDrilldown) return;
@@ -4713,7 +5187,11 @@ function renderYoyDrilldownTable() {
   if (!tbody || !state.yoyDrilldown) return;
 
   const { listA, listB, activeTab } = state.yoyDrilldown;
-  const currentList = activeTab === "a" ? listA : listB;
+  let currentList = activeTab === "a" ? listA : listB;
+
+  if (state.yoyDrillVictimFilter && state.yoyDrillVictimFilter !== "all") {
+    currentList = (currentList || []).filter(item => classifyVictim(item).category === state.yoyDrillVictimFilter);
+  }
 
   if (!currentList || currentList.length === 0) {
     const periodName = activeTab === "a"
@@ -4721,22 +5199,23 @@ function renderYoyDrilldownTable() {
       : (document.getElementById("ck-label-period-b")?.textContent || "B기간");
     tbody.innerHTML = `
       <tr>
-        <td colspan="6" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
+        <td colspan="10" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
           <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📂</div>
-          <div style="font-weight: 600; color: #334155;">해당 ${escapeHtml(periodName)}에 등록된 세부 사고 건이 없습니다.</div>
+          <div style="font-weight: 600; color: #334155;">해당 조건(${escapeHtml(periodName)})에 등록된 세부 사고 건이 없습니다.</div>
         </td>
       </tr>
     `;
     return;
   }
 
-  tbody.innerHTML = currentList.map(item => {
+  tbody.innerHTML = currentList.map((item, idx) => {
     const id = item.id || "-";
     const date = item.date || "-";
-    const loc = [item.zone, item.locationDetail].filter(Boolean).join(" - ") || "-";
-    const desc = item.description || item.title || "사고 개요 없음";
+    const loc = item.locationDetail || item.zone || "-";
+    const title = item.title || item.description || "사고 개요 없음";
     const status = item.status || "접수대기";
-    const severity = item.severity || "경미";
+    const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
+    const vInfo = classifyVictim(item);
 
     // Status badge class
     let statusClass = "badge-status-pending";
@@ -4744,26 +5223,31 @@ function renderYoyDrilldownTable() {
     else if (status.includes("진행")) statusClass = "badge-status-progress";
     else if (status.includes("보험") || status.includes("보상")) statusClass = "badge-status-insurance";
 
-    // Severity badge class
-    let sevClass = "badge-sev-minor";
-    if (severity.includes("중대")) sevClass = "badge-sev-critical";
-    else if (severity.includes("병원") || severity.includes("중등")) sevClass = "badge-sev-moderate";
-
     return `
       <tr class="drilldown-incident-row" onclick="navigateToDetailFromDrilldown('${escapeHtml(id)}')" title="클릭하여 '${escapeHtml(id)}' 상세 내역 보기">
+        <td style="text-align: center; color: #64748b; font-size: 0.8rem;">${idx + 1}</td>
         <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(id)}</td>
         <td style="font-size: 0.82rem; color: #475569; white-space: nowrap;">${escapeHtml(date)}</td>
-        <td style="font-size: 0.82rem; color: #334155; font-weight: 600;">${escapeHtml(loc)}</td>
-        <td style="line-height: 1.35; font-size: 0.82rem; color: #0f172a;">
-          <div style="max-height: 2.7em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-            ${escapeHtml(desc)}
+        <td style="font-size: 0.83rem; color: #0f172a; font-weight: 600;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
+        <td style="text-align: center;">
+          <span class="badge ${vInfo.badgeClass}">${escapeHtml(vInfo.label)}</span>
+        </td>
+        <td style="font-size: 0.82rem; color: #334155;">${escapeHtml(loc)}</td>
+        <td>
+          <span class="badge badge-category" style="font-size: 0.74rem;">${escapeHtml(item.category || "기타")}</span>
+        </td>
+        <td class="title-cell" title="${escapeHtml(title)}">
+          <div style="max-height: 2.6em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.35; font-size: 0.83rem; font-weight: 600;">
+            ${escapeHtml(title)}
           </div>
         </td>
         <td style="text-align: center;">
-          <span class="badge ${statusClass}">${escapeHtml(status)}</span>
+          <span class="badge ${statusClass}" style="font-size: 0.74rem;">${escapeHtml(status)}</span>
         </td>
         <td style="text-align: center;">
-          <span class="badge ${sevClass}">${escapeHtml(severity)}</span>
+          <button type="button" class="btn btn-secondary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="event.stopPropagation(); navigateToDetailFromDrilldown('${escapeHtml(id)}')">
+            조회
+          </button>
         </td>
       </tr>
     `;
@@ -4774,6 +5258,12 @@ window.renderYoyDrilldownTable = renderYoyDrilldownTable;
 // ==========================================================================
 // 6-8. 핵심 4대 KPI 카드 드릴다운 상세 사고 내역 모달
 // ==========================================================================
+function filterKpiDrilldownByVictim(val) {
+  state.kpiDrillVictimFilter = val || "all";
+  renderKpiDrilldownTable();
+}
+window.filterKpiDrilldownByVictim = filterKpiDrilldownByVictim;
+
 function openKpiDrilldown(type) {
   const all = (state.incidents && state.incidents.length > 0)
     ? state.incidents
@@ -4790,7 +5280,7 @@ function openKpiDrilldown(type) {
       return p && p.getFullYear() === 2026;
     });
     icon = "📅";
-    title = `[2026년 당해 사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    title = `[2026년 당해 사고] 세부 내역`;
     sub = `2026년에 발생한 안전사고 전체 목록`;
   } else if (type === "employee2026") {
     const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자"];
@@ -4802,7 +5292,7 @@ function openKpiDrilldown(type) {
       return empKeywords.some(kw => vType.includes(kw) || note.includes(kw));
     });
     icon = "⛑️";
-    title = `[2026년 직원 안전사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    title = `[2026년 직원 안전사고] 세부 내역`;
     sub = `2026년 발생한 임직원·캐디·진행원 산재 및 안전사고 목록`;
   } else if (type === "golfCC") {
     const ccResorts = ["밸리팀", "힐스팀", "성문안팀", "월송리팀"];
@@ -4815,13 +5305,13 @@ function openKpiDrilldown(type) {
       return false;
     });
     icon = "⛳";
-    title = `[골프장(4대 CC) 사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    title = `[골프장(4대 CC) 사고] 세부 내역`;
     sub = `밸리팀 · 힐스팀 · 성문안팀 · 월송리팀 골프 코스 안전사고 목록`;
   } else {
     // 전체 누적 사고
     filtered = all;
     icon = "📊";
-    title = `[전체 누적 사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    title = `[전체 누적 사고] 세부 내역`;
     sub = `등록된 모든 연도 안전사고 전체 내역`;
   }
 
@@ -4832,58 +5322,20 @@ function openKpiDrilldown(type) {
     return db - da;
   });
 
+  state.kpiDrilldownList = filtered;
+  state.kpiDrillVictimFilter = "all";
+  const victimSel = document.getElementById("kpi-drill-filter-victim");
+  if (victimSel) victimSel.value = "all";
+
   const titleEl = document.getElementById("kpi-drilldown-title");
   const subEl = document.getElementById("kpi-drilldown-sub");
   const iconEl = document.getElementById("kpi-drilldown-icon");
-  const footerInfoEl = document.getElementById("kpi-drilldown-footer-info");
 
-  if (titleEl) titleEl.textContent = title;
+  if (titleEl) titleEl.textContent = `${title} (총 ${filtered.length.toLocaleString()}건)`;
   if (subEl) subEl.textContent = sub;
   if (iconEl) iconEl.textContent = icon;
-  if (footerInfoEl) footerInfoEl.textContent = `총 ${filtered.length.toLocaleString()}건 조회됨`;
 
-  const tbody = document.getElementById("kpi-drilldown-tbody");
-  if (tbody) {
-    if (filtered.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="6" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
-            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📂</div>
-            <div style="font-weight: 600; color: #334155;">조건에 해당하는 사고 건이 없습니다.</div>
-          </td>
-        </tr>
-      `;
-    } else {
-      tbody.innerHTML = filtered.map(item => {
-        let statusClass = "badge-status-resolved";
-        if (item.status === "조사/진행중") statusClass = "badge-status-investigating";
-        if (item.status === "보험/보상진행") statusClass = "badge-status-insurance";
-        if (item.status === "접수대기") statusClass = "badge-status-pending";
-
-        const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
-        const desc = item.title || item.locationDetail || "사고 개요 없음";
-
-        return `
-          <tr class="drilldown-incident-row" onclick="navigateToDetailFromKpiDrilldown('${escapeHtml(item.id)}')" title="클릭하여 사고 상세 정보 조회 및 수정">
-            <td class="id-cell" style="font-weight: 700; color: #2563eb; font-family: monospace;">${escapeHtml(item.id)}</td>
-            <td style="color: #475569; font-weight: 500; font-size: 0.84rem; white-space: nowrap;">${escapeHtml(item.date)}</td>
-            <td style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
-            <td>
-              <span class="badge badge-category" style="font-size: 0.76rem; font-weight: 600;">${escapeHtml(item.category || "기타")}</span>
-            </td>
-            <td class="overview-cell" style="font-size: 0.84rem; color: #1e293b;" title="${escapeHtml(desc)}">
-              <div style="max-height: 2.8em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.35;">
-                ${escapeHtml(desc)}
-              </div>
-            </td>
-            <td style="text-align: center;">
-              <span class="badge ${statusClass}" style="font-size: 0.75rem;">${escapeHtml(item.status || "접수대기")}</span>
-            </td>
-          </tr>
-        `;
-      }).join("");
-    }
-  }
+  renderKpiDrilldownTable();
 
   const modal = document.getElementById("kpi-drilldown-modal");
   if (modal) {
@@ -4892,6 +5344,72 @@ function openKpiDrilldown(type) {
   }
 }
 window.openKpiDrilldown = openKpiDrilldown;
+
+function renderKpiDrilldownTable() {
+  const tbody = document.getElementById("kpi-drilldown-tbody");
+  if (!tbody) return;
+
+  let list = state.kpiDrilldownList || [];
+  if (state.kpiDrillVictimFilter && state.kpiDrillVictimFilter !== "all") {
+    list = list.filter(item => classifyVictim(item).category === state.kpiDrillVictimFilter);
+  }
+
+  const footerInfoEl = document.getElementById("kpi-drilldown-footer-info");
+  if (footerInfoEl) footerInfoEl.textContent = `총 ${list.length.toLocaleString()}건 조회됨`;
+
+  if (list.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="10" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
+          <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📂</div>
+          <div style="font-weight: 600; color: #334155;">조건에 해당하는 사고 건이 없습니다.</div>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = list.map((item, idx) => {
+    let statusClass = "badge-status-resolved";
+    if (item.status === "조사/진행중") statusClass = "badge-status-investigating";
+    if (item.status === "보험/보상진행") statusClass = "badge-status-insurance";
+    if (item.status === "접수대기") statusClass = "badge-status-pending";
+
+    const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
+    const desc = item.title || item.locationDetail || "사고 개요 없음";
+    const vInfo = classifyVictim(item);
+
+    return `
+      <tr class="drilldown-incident-row" onclick="navigateToDetailFromKpiDrilldown('${escapeHtml(item.id)}')" title="클릭하여 사고 상세 정보 조회 및 수정">
+        <td style="text-align: center; color: #64748b; font-size: 0.8rem;">${idx + 1}</td>
+        <td class="id-cell" style="font-weight: 700; color: #2563eb; font-family: monospace;">${escapeHtml(item.id)}</td>
+        <td style="color: #475569; font-weight: 500; font-size: 0.83rem; white-space: nowrap;">${escapeHtml(item.date)}</td>
+        <td style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
+        <td style="text-align: center;">
+          <span class="badge ${vInfo.badgeClass}">${escapeHtml(vInfo.label)}</span>
+        </td>
+        <td style="font-size: 0.82rem; color: #334155;">${escapeHtml(item.locationDetail || item.zone || "-")}</td>
+        <td>
+          <span class="badge badge-category" style="font-size: 0.74rem; font-weight: 600;">${escapeHtml(item.category || "기타")}</span>
+        </td>
+        <td class="overview-cell" style="font-size: 0.84rem; color: #1e293b;" title="${escapeHtml(desc)}">
+          <div style="max-height: 2.6em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.35; font-weight: 600;">
+            ${escapeHtml(desc)}
+          </div>
+        </td>
+        <td style="text-align: center;">
+          <span class="badge ${statusClass}" style="font-size: 0.74rem;">${escapeHtml(item.status || "접수대기")}</span>
+        </td>
+        <td style="text-align: center;">
+          <button type="button" class="btn btn-secondary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="event.stopPropagation(); navigateToDetailFromKpiDrilldown('${escapeHtml(item.id)}')">
+            조회
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+window.renderKpiDrilldownTable = renderKpiDrilldownTable;
 
 function navigateToDetailFromKpiDrilldown(id) {
   const tableWrap = document.getElementById("kpi-drilldown-table-wrap");

@@ -3777,3 +3777,308 @@ body.auth-locked .main-wrapper {
     print-color-adjust: exact !important;
   }
 }
+
+/* ==========================================================================
+   신설: 피해자 구분 뱃지 (캐디 / 임직원 / 고객) 및 유틸리티 클래스
+   ========================================================================== */
+.badge-victim-employee,
+.bg-purple-50 {
+  background-color: #faf5ff !important;
+}
+.text-purple-700 {
+  color: #7e22ce !important;
+}
+.border-purple-200 {
+  border: 1px solid #e9d5ff !important;
+}
+
+.badge-victim-caddy,
+.bg-amber-50 {
+  background-color: #fffbeb !important;
+}
+.text-amber-700 {
+  color: #b45309 !important;
+}
+.border-amber-200 {
+  border: 1px solid #fde68a !important;
+}
+
+.badge-victim-customer,
+.bg-blue-50 {
+  background-color: #eff6ff !important;
+}
+.text-blue-700 {
+  color: #1d4ed8 !important;
+}
+.border-blue-200 {
+  border: 1px solid #bfdbfe !important;
+}
+
+.badge-victim-other,
+.bg-slate-50 {
+  background-color: #f8fafc !important;
+}
+.text-slate-700 {
+  color: #334155 !important;
+}
+.border-slate-200 {
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* 뱃지 전용 공통 스타일 보강 */
+.badge-victim-employee,
+.badge-victim-caddy,
+.badge-victim-customer,
+.badge-victim-other {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   신설: 산업재해조사표 및 행정 상태 뱃지
+   ========================================================================== */
+.badge-report-complete {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+.badge-report-planned {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.badge-report-unsubmitted {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.badge-report-none {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+/* ==========================================================================
+   신설: 첨부파일 드롭존, 목록 카드 및 파일 미리보기 모달 스타일
+   ========================================================================== */
+.file-upload-dropzone {
+  display: block;
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.file-upload-dropzone:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+.file-upload-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: #475569;
+}
+.file-upload-inner svg {
+  color: #3b82f6;
+  margin-bottom: 0.25rem;
+}
+.file-upload-prompt {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+.file-upload-hint {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+.visually-hidden-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.attachment-chip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.attachment-edit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.84rem;
+}
+.attachment-edit-left {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  overflow: hidden;
+}
+.attachment-file-name {
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+}
+.attachment-file-size {
+  font-size: 0.75rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+.btn-attachment-del {
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #dc2626;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-attachment-del:hover {
+  background: #fca5a5;
+  color: #991b1b;
+}
+
+/* Detail View Attachment Cards */
+.attachment-list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.attachment-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.95rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.attachment-item-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.attachment-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  overflow: hidden;
+}
+.attachment-item-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.attachment-item-name {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+.attachment-item-meta {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.1rem;
+}
+.attachment-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+.btn-att-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.32rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-att-preview:hover {
+  background: #dbeafe;
+}
+.btn-att-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.32rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0f172a;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.btn-att-download:hover {
+  background: #e2e8f0;
+}
+
+/* File Preview Modal Container */
+.file-preview-modal-container {
+  width: 90%;
+  max-width: 840px;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+

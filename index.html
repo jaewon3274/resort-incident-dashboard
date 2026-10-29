@@ -187,6 +187,14 @@
             <option value="all">전체 팀/부서</option>
           </select>
 
+          <!-- 신설: 피해자 세부 분류 콤보박스 -->
+          <select id="filter-victim-type" class="custom-select" aria-label="피해자 세부 분류 선택" title="피해자 세부 분류 필터">
+            <option value="all">전체 피해자 대상</option>
+            <option value="employee">임직원 (직원·근로자)</option>
+            <option value="caddy">캐디</option>
+            <option value="customer">고객</option>
+          </select>
+
           <select id="filter-category" class="custom-select" aria-label="사고 유형 선택" title="사고 유형 필터">
             <option value="all">전체 사고 유형</option>
           </select>
@@ -344,6 +352,16 @@
           </div>
 
           <div class="quick-filter-item">
+            <label for="table-filter-victim-type" class="quick-filter-label">👥 피해자 대상</label>
+            <select id="table-filter-victim-type" class="custom-select table-quick-select" aria-label="피해자 대상 빠른 필터">
+              <option value="all">전체 대상</option>
+              <option value="employee">임직원 (직원)</option>
+              <option value="caddy">캐디</option>
+              <option value="customer">고객</option>
+            </select>
+          </div>
+
+          <div class="quick-filter-item">
             <label for="table-filter-severity" class="quick-filter-label">🩹 피해구분</label>
             <select id="table-filter-severity" class="custom-select table-quick-select" aria-label="피해구분 빠른 필터">
               <option value="all">전체 피해구분</option>
@@ -375,20 +393,20 @@
         <table class="incident-table" id="incident-table">
           <thead>
             <tr>
-              <th scope="col" style="text-align: center; width: 60px;">No.</th>
-              <th scope="col" class="sortable-th active" id="th-doc-no" title="클릭 시 문서번호 오름차순/내림차순 정렬">
+              <th scope="col" style="text-align: center; width: 50px;">No.</th>
+              <th scope="col" class="sortable-th active" id="th-doc-no" title="클릭 시 문서번호 오름차순/내림차순 정렬" style="width: 140px;">
                 문서번호 <span class="sort-icon" id="sort-icon-id">▼</span>
               </th>
-              <th scope="col" class="sortable-th" id="th-occur-date" title="클릭 시 발생일시 오름차순/내림차순 정렬">
+              <th scope="col" class="sortable-th" id="th-occur-date" title="클릭 시 발생일시 오름차순/내림차순 정렬" style="width: 135px;">
                 발생일시 <span class="sort-icon" id="sort-icon-date">▼</span>
               </th>
-              <th scope="col">발생구역 / 세부장소</th>
-              <th scope="col">사고유형</th>
-              <th scope="col">사고 제목</th>
-              <th scope="col">피해구분</th>
-              <th scope="col">처리상태</th>
-              <th scope="col">담당자</th>
-              <th scope="col" style="text-align: center; width: 85px;">관리</th>
+              <th scope="col" style="width: 140px;">사업장/부서</th>
+              <th scope="col" style="width: 100px; text-align: center;">피해자 구분</th>
+              <th scope="col" style="width: 160px;">세부장소</th>
+              <th scope="col" style="width: 105px;">사고유형</th>
+              <th scope="col">사고제목</th>
+              <th scope="col" style="width: 105px; text-align: center;">처리상태</th>
+              <th scope="col" style="text-align: center; width: 75px;">관리</th>
             </tr>
           </thead>
           <tbody id="incident-table-body">
@@ -1094,21 +1112,34 @@
 
       <div class="modal-body" style="padding: 1.25rem 1.5rem;">
         <!-- 상단 탭: A기간 사고 목록 (O건) / B기간 사고 목록 (O건) -->
-        <div class="yoy-drilldown-tabs">
-          <button type="button" class="yoy-drilldown-tab active" id="btn-drill-tab-a" onclick="switchYoyDrillTab('a')">
-            <span class="tab-indicator indicator-a"></span>
-            <span id="drill-tab-label-a">A기간 사고 목록 (0건)</span>
-          </button>
-          <button type="button" class="yoy-drilldown-tab" id="btn-drill-tab-b" onclick="switchYoyDrillTab('b')">
-            <span class="tab-indicator indicator-b"></span>
-            <span id="drill-tab-label-b">B기간 사고 목록 (0건)</span>
-          </button>
+        <!-- 상단 탭 및 피해자 세부 분류 필터 바 -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div class="yoy-drilldown-tabs" style="margin-bottom: 0;">
+            <button type="button" class="yoy-drilldown-tab active" id="btn-drill-tab-a" onclick="switchYoyDrillTab('a')">
+              <span class="tab-indicator indicator-a"></span>
+              <span id="drill-tab-label-a">A기간 사고 목록 (0건)</span>
+            </button>
+            <button type="button" class="yoy-drilldown-tab" id="btn-drill-tab-b" onclick="switchYoyDrillTab('b')">
+              <span class="tab-indicator indicator-b"></span>
+              <span id="drill-tab-label-b">B기간 사고 목록 (0건)</span>
+            </button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <label for="yoy-drill-filter-victim" style="font-size: 0.82rem; font-weight: 600; color: #475569;">👥 대상 구분:</label>
+            <select id="yoy-drill-filter-victim" class="custom-select" style="font-size: 0.82rem; padding: 0.3rem 0.6rem; height: auto;" onchange="filterYoyDrilldownByVictim(this.value)">
+              <option value="all">전체 대상</option>
+              <option value="employee">임직원 (직원)</option>
+              <option value="caddy">캐디</option>
+              <option value="customer">고객</option>
+            </select>
+          </div>
         </div>
 
         <!-- 안내 문구 바 -->
         <div class="drilldown-guide-bar">
           <span class="guide-icon">💡</span>
-          <span>원하는 사고 항목을 클릭하면 <strong>사고 상세 내역 조회 및 조치 상태 수정</strong>이 가능합니다.</span>
+          <span>원하는 사고 항목을 클릭하거나 [조회]를 누르면 <strong>사고 상세 내역 조회 및 조치 상태 수정</strong>이 가능합니다.</span>
         </div>
 
         <!-- 세부 목록 테이블 -->
@@ -1116,12 +1147,16 @@
           <table class="incident-table yoy-drilldown-table">
             <thead>
               <tr>
-                <th scope="col" style="width: 14%;">문서번호</th>
-                <th scope="col" style="width: 15%;">발생일시</th>
-                <th scope="col" style="width: 18%;">세부장소</th>
-                <th scope="col" style="width: 31%;">사고개요 (경위 요약)</th>
-                <th scope="col" style="width: 11%; text-align: center;">처리상태</th>
-                <th scope="col" style="width: 11%; text-align: center;">피해정도</th>
+                <th scope="col" style="text-align: center; width: 45px;">No.</th>
+                <th scope="col" style="width: 125px;">문서번호</th>
+                <th scope="col" style="width: 125px;">발생일시</th>
+                <th scope="col" style="width: 130px;">사업장/부서</th>
+                <th scope="col" style="width: 95px; text-align: center;">피해자 구분</th>
+                <th scope="col" style="width: 140px;">세부장소</th>
+                <th scope="col" style="width: 100px;">사고유형</th>
+                <th scope="col">사고제목</th>
+                <th scope="col" style="width: 95px; text-align: center;">처리상태</th>
+                <th scope="col" style="text-align: center; width: 70px;">관리</th>
               </tr>
             </thead>
             <tbody id="yoy-drilldown-tbody">
@@ -1158,10 +1193,22 @@
       </div>
 
       <div class="modal-body" style="padding: 1.25rem 1.5rem;">
-        <!-- 안내 문구 바 -->
-        <div class="drilldown-guide-bar">
-          <span class="guide-icon">💡</span>
-          <span>사고 항목을 클릭하면 <strong>세부 사고 내역 조회 및 상태 변경</strong>이 가능합니다. ('← 목록으로' 뒤로가기 지원)</span>
+        <!-- 상단 필터 및 안내 문구 바 -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div class="drilldown-guide-bar" style="margin-bottom: 0; flex: 1;">
+            <span class="guide-icon">💡</span>
+            <span>사고 항목을 클릭하거나 [조회]를 누르면 <strong>세부 사고 내역 조회 및 상태 변경</strong>이 가능합니다.</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <label for="kpi-drill-filter-victim" style="font-size: 0.82rem; font-weight: 600; color: #475569;">👥 대상 구분:</label>
+            <select id="kpi-drill-filter-victim" class="custom-select" style="font-size: 0.82rem; padding: 0.3rem 0.6rem; height: auto;" onchange="filterKpiDrilldownByVictim(this.value)">
+              <option value="all">전체 대상</option>
+              <option value="employee">임직원 (직원)</option>
+              <option value="caddy">캐디</option>
+              <option value="customer">고객</option>
+            </select>
+          </div>
         </div>
 
         <!-- 세부 목록 테이블 -->
@@ -1169,12 +1216,16 @@
           <table class="incident-table yoy-drilldown-table">
             <thead>
               <tr>
-                <th scope="col" style="width: 15%;">문서번호</th>
-                <th scope="col" style="width: 14%;">발생일시</th>
-                <th scope="col" style="width: 16%;">사업장(부서)</th>
-                <th scope="col" style="width: 13%;">사고유형</th>
-                <th scope="col" style="width: 30%;">사고개요 / 경위 요약</th>
-                <th scope="col" style="width: 12%; text-align: center;">처리상태</th>
+                <th scope="col" style="text-align: center; width: 45px;">No.</th>
+                <th scope="col" style="width: 125px;">문서번호</th>
+                <th scope="col" style="width: 125px;">발생일시</th>
+                <th scope="col" style="width: 130px;">사업장/부서</th>
+                <th scope="col" style="width: 95px; text-align: center;">피해자 구분</th>
+                <th scope="col" style="width: 140px;">세부장소</th>
+                <th scope="col" style="width: 100px;">사고유형</th>
+                <th scope="col">사고제목</th>
+                <th scope="col" style="width: 95px; text-align: center;">처리상태</th>
+                <th scope="col" style="text-align: center; width: 70px;">관리</th>
               </tr>
             </thead>
             <tbody id="kpi-drilldown-tbody">
@@ -1304,6 +1355,28 @@
           <div class="detail-section" style="margin-bottom: 1rem;">
             <h4>🛡️ 재발 방지 및 시설 개선 대책</h4>
             <div class="detail-box" id="dtl-preventive" style="border-left: 3px solid #38bdf8;">-</div>
+          </div>
+
+          <!-- 특이사항 및 산재 행정 관리 섹션 -->
+          <div class="detail-section" style="margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+              <h4 style="margin: 0;">📑 특이사항 및 산재 행정 관리</h4>
+              <span id="dtl-report-status-badge" class="badge badge-report-none">해당없음</span>
+            </div>
+            <div class="detail-box" id="dtl-special-notes" style="border-left: 3px solid #8b5cf6;">
+              -
+            </div>
+          </div>
+
+          <!-- 첨부파일 및 증빙 자료 섹션 -->
+          <div class="detail-section" style="margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+              <h4 style="margin: 0;">📎 첨부파일 및 증빙 자료</h4>
+              <span id="dtl-attachment-count" style="font-size: 0.8rem; color: #64748b; font-weight: 600;">0건</span>
+            </div>
+            <div id="dtl-attachment-list" class="attachment-list-view">
+              <!-- Dynamically populated via app.js -->
+            </div>
           </div>
 
           <div class="detail-section">
@@ -1470,6 +1543,51 @@
               <div class="form-group">
                 <label for="edit-manager">조치 담당자 / 부서</label>
                 <input type="text" id="edit-manager" class="form-input">
+              </div>
+
+              <!-- 특이사항 및 산재 행정 관리 섹션 -->
+              <div class="form-section-divider">
+                <div class="form-section-title">
+                  📑 특이사항 및 산재 행정 관리
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-report-status">산업재해조사표 제출 여부</label>
+                <select id="edit-report-status" class="form-select">
+                  <option value="해당없음">해당없음</option>
+                  <option value="제출예정">제출예정</option>
+                  <option value="제출완료">제출완료</option>
+                  <option value="미제출">미제출</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="edit-special-notes">산재 처리 및 행정 특이사항</label>
+                <textarea id="edit-special-notes" class="form-textarea" placeholder="산업재해조사표 노동청 보고 일자, 산재 승인 여부, 특이사항 입력..."></textarea>
+              </div>
+
+              <!-- 첨부파일 관리 섹션 -->
+              <div class="form-section-divider">
+                <div class="form-section-title">
+                  📎 첨부파일 및 증빙자료 관리
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="edit-file-input" class="file-upload-dropzone">
+                  <div class="file-upload-inner">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span class="file-upload-prompt">클릭하여 파일 첨부 또는 드래그앤드롭</span>
+                    <span class="file-upload-hint">지원 포맷: PDF, PNG, JPG, JPEG, HWP, HWPX, XLSX, DOCX (다중 첨부 가능)</span>
+                  </div>
+                  <input type="file" id="edit-file-input" class="visually-hidden-file-input" multiple accept=".pdf, .png, .jpg, .jpeg, .hwp, .hwpx, .xlsx, .docx" onchange="handleFileSelect(event, 'edit')">
+                </label>
+                <div id="edit-attachment-list" class="attachment-chip-list"></div>
               </div>
             </div>
           </form>
@@ -1674,6 +1792,51 @@
             <div class="form-group full-width">
               <label for="reg-manager">조치 담당자 / 담당 부서</label>
               <input type="text" id="reg-manager" class="form-input" placeholder="예: 안전관리팀 김철수">
+            </div>
+
+            <!-- 특이사항 및 산재 행정 관리 섹션 -->
+            <div class="form-section-divider">
+              <div class="form-section-title">
+                📑 특이사항 및 산재 행정 관리
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-report-status">산업재해조사표 제출 여부</label>
+              <select id="reg-report-status" class="form-select">
+                <option value="해당없음" selected>해당없음</option>
+                <option value="제출예정">제출예정</option>
+                <option value="제출완료">제출완료</option>
+                <option value="미제출">미제출</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="reg-special-notes">산재 처리 및 행정 특이사항</label>
+              <textarea id="reg-special-notes" class="form-textarea" placeholder="산업재해조사표 노동청 보고 일자, 산재 승인 여부, 특이사항 입력..."></textarea>
+            </div>
+
+            <!-- 첨부파일 등록 섹션 -->
+            <div class="form-section-divider">
+              <div class="form-section-title">
+                📎 첨부파일 및 증빙자료 등록
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="reg-file-input" class="file-upload-dropzone">
+                <div class="file-upload-inner">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <span class="file-upload-prompt">클릭하여 파일 첨부 또는 드래그앤드롭</span>
+                  <span class="file-upload-hint">지원 포맷: PDF, PNG, JPG, JPEG, HWP, HWPX, XLSX, DOCX (다중 첨부 가능)</span>
+                </div>
+                <input type="file" id="reg-file-input" class="visually-hidden-file-input" multiple accept=".pdf, .png, .jpg, .jpeg, .hwp, .hwpx, .xlsx, .docx" onchange="handleFileSelect(event, 'reg')">
+              </label>
+              <div id="reg-attachment-list" class="attachment-chip-list"></div>
             </div>
 
           </div>
@@ -1909,6 +2072,42 @@
             <div class="rf-right">CONFIDENTIAL & INTERNAL USE ONLY</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Modal: 📎 첨부파일 미리보기 모달 (#filePreviewModal)
+       ========================================================================== -->
+  <div class="modal-overlay" id="filePreviewModal" aria-hidden="true" style="z-index: 1050;">
+    <div class="modal-container file-preview-modal-container" role="dialog" aria-modal="true" aria-labelledby="previewModalTitle">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem; overflow: hidden;">
+          <span id="previewModalIcon" style="font-size: 1.35rem;">📄</span>
+          <div style="overflow: hidden;">
+            <h3 id="previewModalTitle" style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              파일명 미리보기
+            </h3>
+            <span id="previewModalSub" style="font-size: 0.78rem; color: #64748b;">파일 크기 및 형식</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeFilePreview()" aria-label="닫기">&times;</button>
+      </div>
+
+      <div class="modal-body file-preview-body" id="filePreviewBody" style="padding: 1rem; min-height: 420px; max-height: 75vh; overflow: auto; display: flex; align-items: center; justify-content: center; background: #f8fafc;">
+        <!-- Dynamic Preview Content via app.js -->
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.25rem;">
+        <a id="btn-preview-download" class="btn btn-primary" download="" href="#" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; text-decoration: none;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span id="preview-download-label">원본 파일 다운로드</span>
+        </a>
+        <button type="button" class="btn btn-secondary" onclick="closeFilePreview()">닫기</button>
       </div>
     </div>
   </div>
