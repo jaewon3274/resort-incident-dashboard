@@ -4157,6 +4157,36 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode, selectedType
   }
 }
 
+function formatCmpDiffBadges(a, b) {
+  const diff = a - b;
+  let rate = "0.0";
+  if (b > 0) {
+    rate = ((diff / b) * 100).toFixed(1);
+  } else if (a > 0) {
+    rate = "+100.0";
+  }
+
+  let diffBadgeHtml = "";
+  let rateBadgeHtml = "";
+
+  if (diff > 0) {
+    // 증가(+): 연한 빨간색 라운드 뱃지 (배경 #fef2f2, 글자 #dc2626)
+    const rateText = (b === 0) ? "+100.0% (신규)" : `+${rate}%`;
+    diffBadgeHtml = `<span class="cmp-badge cmp-badge-worsened">+${diff.toLocaleString()}건</span>`;
+    rateBadgeHtml = `<span class="cmp-badge cmp-badge-worsened">${rateText}</span>`;
+  } else if (diff < 0) {
+    // 감소(-): 연한 파란색 라운드 뱃지 (배경 #eff6ff, 글자 #2563eb)
+    diffBadgeHtml = `<span class="cmp-badge cmp-badge-improved">${diff.toLocaleString()}건</span>`;
+    rateBadgeHtml = `<span class="cmp-badge cmp-badge-improved">${rate}%</span>`;
+  } else {
+    // 변동없음(0): 은은한 회색 (글자 #64748b)
+    diffBadgeHtml = `<span class="cmp-badge cmp-badge-neutral">0건</span>`;
+    rateBadgeHtml = `<span class="cmp-badge cmp-badge-neutral">0.0%</span>`;
+  }
+
+  return { diff, rate, diffBadgeHtml, rateBadgeHtml };
+}
+
 function renderComparisonTable(dataA, dataB, selectedType) {
   const tbody = document.getElementById("cmp-breakdown-tbody");
   if (!tbody) return;
@@ -4178,83 +4208,71 @@ function renderComparisonTable(dataA, dataB, selectedType) {
     ? selectedType
     : (typeFilterEl?.value || "all").trim();
 
-  const pairMapA = {};
-  const pairMapB = {};
+  // 1) 사업장 필터 (yoyTableBizSelect)
+  const bizSelectEl = document.getElementById("yoyTableBizSelect");
+  const selectedBiz = (bizSelectEl?.value || "all").trim();
+
+  // 2) 정렬 도구 (yoyTableSortSelect)
+  const sortSelectEl = document.getElementById("yoyTableSortSelect");
+  const sortMode = (sortSelectEl?.value || "risk_desc").trim();
+
+  // 사업장별 그룹화 구조: { [resort]: { categories: { [cat]: { a: 0, b: 0 } }, subtotalA: 0, subtotalB: 0 } }
+  const resortGroups = {};
 
   dataA.forEach(x => {
     const c = (x.category || "기타").trim();
     if (currentTypeFilter !== "all" && c !== currentTypeFilter) return;
     const r = (x.resort || "기타").trim();
-    const key = `${r}___${c}`;
-    pairMapA[key] = (pairMapA[key] || 0) + 1;
+    if (selectedBiz !== "all" && r !== selectedBiz) return;
+
+    if (!resortGroups[r]) {
+      resortGroups[r] = { categories: {}, subtotalA: 0, subtotalB: 0 };
+    }
+    if (!resortGroups[r].categories[c]) {
+      resortGroups[r].categories[c] = { a: 0, b: 0 };
+    }
+    resortGroups[r].categories[c].a++;
+    resortGroups[r].subtotalA++;
   });
 
   dataB.forEach(x => {
     const c = (x.category || "기타").trim();
     if (currentTypeFilter !== "all" && c !== currentTypeFilter) return;
     const r = (x.resort || "기타").trim();
-    const key = `${r}___${c}`;
-    pairMapB[key] = (pairMapB[key] || 0) + 1;
+    if (selectedBiz !== "all" && r !== selectedBiz) return;
+
+    if (!resortGroups[r]) {
+      resortGroups[r] = { categories: {}, subtotalA: 0, subtotalB: 0 };
+    }
+    if (!resortGroups[r].categories[c]) {
+      resortGroups[r].categories[c] = { a: 0, b: 0 };
+    }
+    resortGroups[r].categories[c].b++;
+    resortGroups[r].subtotalB++;
   });
 
-  let allKeys = Array.from(new Set([...Object.keys(pairMapA), ...Object.keys(pairMapB)]));
+  const resorts = Object.keys(resortGroups);
 
-  // 1) 사업장 필터 적용 (yoyTableBizSelect)
-  const bizSelectEl = document.getElementById("yoyTableBizSelect");
-  const selectedBiz = (bizSelectEl?.value || "all").trim();
-  if (selectedBiz !== "all") {
-    allKeys = allKeys.filter(key => {
-      const [resort] = key.split("___");
-      return resort === selectedBiz;
-    });
+  // 전체 기간 A, B 총합산 건수
+  let totalA = 0;
+  let totalB = 0;
+  resorts.forEach(r => {
+    totalA += resortGroups[r].subtotalA;
+    totalB += resortGroups[r].subtotalB;
+  });
+
+  // 3) 대조표 타이틀 우측 요약 카운트 뱃지 즉시 갱신
+  const summaryBadgeEl = document.getElementById("cmp-table-summary-badge");
+  if (summaryBadgeEl) {
+    summaryBadgeEl.innerHTML = `
+      <span class="cmp-summary-a">A 총 ${totalA.toLocaleString()}건</span>
+      <span class="cmp-summary-vs">vs</span>
+      <span class="cmp-summary-b">B 총 ${totalB.toLocaleString()}건</span>
+    `;
   }
 
-  // 2) 정렬 도구 적용 (yoyTableSortSelect)
-  // "risk_desc": 위험 증가폭 큰 순 (+증가순 / 빨간색 우선)
-  // "b_desc": B대상 발생 건수 많은 순
-  // "biz_asc": 사업장별 가나다순
-  const sortSelectEl = document.getElementById("yoyTableSortSelect");
-  const sortMode = (sortSelectEl?.value || "risk_desc").trim();
-
-  allKeys.sort((k1, k2) => {
-    const a1 = pairMapA[k1] || 0;
-    const a2 = pairMapA[k2] || 0;
-    const b1 = pairMapB[k1] || 0;
-    const b2 = pairMapB[k2] || 0;
-    const diff1 = a1 - b1;
-    const diff2 = a2 - b2;
-    const [r1, c1] = k1.split("___");
-    const [r2, c2] = k2.split("___");
-
-    if (sortMode === "risk_desc") {
-      // 위험 증가폭 큰 순 (+증가순 / 빨간색 우선)
-      if (diff2 !== diff1) return diff2 - diff1;
-      if (b2 !== b1) return b2 - b1;
-      if (a2 !== a1) return a2 - a1;
-      return r1.localeCompare(r2, "ko");
-    } else if (sortMode === "b_desc") {
-      // B대상 발생 건수 많은 순
-      if (b2 !== b1) return b2 - b1;
-      const absDiff1 = Math.abs(diff1);
-      const absDiff2 = Math.abs(diff2);
-      if (absDiff2 !== absDiff1) return absDiff2 - absDiff1;
-      if (a2 !== a1) return a2 - a1;
-      return r1.localeCompare(r2, "ko");
-    } else if (sortMode === "biz_asc") {
-      // 사업장별 가나다순
-      const compR = r1.localeCompare(r2, "ko");
-      if (compR !== 0) return compR;
-      const compC = c1.localeCompare(c2, "ko");
-      if (compC !== 0) return compC;
-      return b2 - b1;
-    }
-
-    // 기본 폴백
-    if (diff2 !== diff1) return diff2 - diff1;
-    return b2 - b1;
-  });
-
-  if (allKeys.length === 0) {
+  // 데이터 없음 표시
+  if (resorts.length === 0) {
     tbody.innerHTML = `
       <tr>
         <td colspan="7" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
@@ -4267,50 +4285,128 @@ function renderComparisonTable(dataA, dataB, selectedType) {
     return;
   }
 
-  const rows = allKeys.map((key, index) => {
-    const [resort, category] = key.split("___");
-    const a = pairMapA[key] || 0;
-    const b = pairMapB[key] || 0;
-    const diff = a - b;
+  // 사업장 그룹 정렬
+  resorts.sort((r1, r2) => {
+    const g1 = resortGroups[r1];
+    const g2 = resortGroups[r2];
+    const diff1 = g1.subtotalA - g1.subtotalB;
+    const diff2 = g2.subtotalA - g2.subtotalB;
 
-    let rate = "0.0";
-    if (b > 0) {
-      rate = ((diff / b) * 100).toFixed(1);
-    } else if (a > 0) {
-      rate = "+100.0";
+    if (sortMode === "risk_desc") {
+      // 위험 증가폭 큰 순 (+증가순 / 빨간색 우선)
+      if (diff2 !== diff1) return diff2 - diff1;
+      if (g2.subtotalB !== g1.subtotalB) return g2.subtotalB - g1.subtotalB;
+      if (g2.subtotalA !== g1.subtotalA) return g2.subtotalA - g1.subtotalA;
+      return r1.localeCompare(r2, "ko");
+    } else if (sortMode === "b_desc") {
+      // B대상 발생 건수 많은 순
+      if (g2.subtotalB !== g1.subtotalB) return g2.subtotalB - g1.subtotalB;
+      const absDiff1 = Math.abs(diff1);
+      const absDiff2 = Math.abs(diff2);
+      if (absDiff2 !== absDiff1) return absDiff2 - absDiff1;
+      if (g2.subtotalA !== g1.subtotalA) return g2.subtotalA - g1.subtotalA;
+      return r1.localeCompare(r2, "ko");
+    } else if (sortMode === "biz_asc") {
+      // 사업장별 가나다순
+      return r1.localeCompare(r2, "ko");
     }
 
-    let diffBadgeHtml = "";
-    let rateBadgeHtml = "";
+    if (diff2 !== diff1) return diff2 - diff1;
+    return g2.subtotalB - g1.subtotalB;
+  });
 
-    if (diff > 0) {
-      // 증가(+): 연한 빨간색 라운드 뱃지 (배경 #fef2f2, 글자 #dc2626)
-      const rateText = (b === 0) ? "+100.0% (신규)" : `+${rate}%`;
-      diffBadgeHtml = `<span class="cmp-badge cmp-badge-worsened">+${diff}건</span>`;
-      rateBadgeHtml = `<span class="cmp-badge cmp-badge-worsened">${rateText}</span>`;
-    } else if (diff < 0) {
-      // 감소(-): 연한 파란색 라운드 뱃지 (배경 #eff6ff, 글자 #2563eb)
-      diffBadgeHtml = `<span class="cmp-badge cmp-badge-improved">${diff}건</span>`;
-      rateBadgeHtml = `<span class="cmp-badge cmp-badge-improved">${rate}%</span>`;
-    } else {
-      // 변동없음(0): 은은한 회색 (글자 #64748b)
-      diffBadgeHtml = `<span class="cmp-badge cmp-badge-neutral">0건</span>`;
-      rateBadgeHtml = `<span class="cmp-badge cmp-badge-neutral">0.0%</span>`;
-    }
+  // 1. 테이블 최상단 [전체 합계(Total)] 행 구성
+  const totalBadges = formatCmpDiffBadges(totalA, totalB);
+  const totalTypeDisplay = (currentTypeFilter !== "all" && currentTypeFilter !== "")
+    ? currentTypeFilter
+    : "전체 유형";
 
-    return `
-      <tr class="cmp-clickable-row" onclick="openYoyDrilldown('${escapeHtml(resort)}', '${escapeHtml(category)}')" title="클릭하여 '${escapeHtml(resort)} - ${escapeHtml(category)}' 세부 사고 목록 조회">
-        <td style="text-align: center; color: #64748b; font-weight: 600;">${index + 1}</td>
-        <td class="resort-cell" style="font-weight: 600; color: #0f172a;">${escapeHtml(resort)}</td>
+  const totalRowHtml = `
+    <tr class="cmp-total-row cmp-clickable-row" onclick="openYoyDrilldown('all', '${currentTypeFilter === 'all' ? 'all' : escapeHtml(currentTypeFilter)}')" title="클릭하여 현재 조건의 전체 세부 사고 목록 조회">
+      <td style="text-align: center;"><span class="total-badge">총계</span></td>
+      <td class="resort-cell" style="font-weight: 800; color: #312e81;"><span style="color: #4f46e5; margin-right: 4px;">∑</span>전체 (총계)</td>
+      <td class="cat-cell">
+        <span class="badge" style="font-weight: 700; color: #4338ca; background: #e0e7ff; border: 1px solid #c7d2fe; padding: 3px 8px; border-radius: 4px;">${escapeHtml(totalTypeDisplay)}</span>
+      </td>
+      <td style="text-align: right; font-weight: 800; color: #2563eb; font-size: 0.95rem;">${totalA.toLocaleString()}건</td>
+      <td style="text-align: right; font-weight: 800; color: #d97706; font-size: 0.95rem;">${totalB.toLocaleString()}건</td>
+      <td style="text-align: right;">${totalBadges.diffBadgeHtml}</td>
+      <td style="text-align: right;">${totalBadges.rateBadgeHtml}</td>
+    </tr>
+  `;
+
+  // 2. 세부 항목 행 및 사업장별 [소계(Subtotal)] 행 구성
+  let rowSeq = 1;
+  const rows = [totalRowHtml];
+
+  resorts.forEach(resort => {
+    const group = resortGroups[resort];
+    const catKeys = Object.keys(group.categories);
+
+    // 사업장 내부 세부 유형 정렬
+    catKeys.sort((c1, c2) => {
+      const item1 = group.categories[c1];
+      const item2 = group.categories[c2];
+      const diff1 = item1.a - item1.b;
+      const diff2 = item2.a - item2.b;
+
+      if (sortMode === "risk_desc") {
+        if (diff2 !== diff1) return diff2 - diff1;
+        if (item2.b !== item1.b) return item2.b - item1.b;
+        if (item2.a !== item1.a) return item2.a - item1.a;
+        return c1.localeCompare(c2, "ko");
+      } else if (sortMode === "b_desc") {
+        if (item2.b !== item1.b) return item2.b - item1.b;
+        const absDiff1 = Math.abs(diff1);
+        const absDiff2 = Math.abs(diff2);
+        if (absDiff2 !== absDiff1) return absDiff2 - absDiff1;
+        if (item2.a !== item1.a) return item2.a - item1.a;
+        return c1.localeCompare(c2, "ko");
+      } else if (sortMode === "biz_asc") {
+        const compC = c1.localeCompare(c2, "ko");
+        if (compC !== 0) return compC;
+        return item2.b - item1.b;
+      }
+
+      if (diff2 !== diff1) return diff2 - diff1;
+      return item2.b - item1.b;
+    });
+
+    // 세부 유형 개별 행
+    catKeys.forEach(category => {
+      const item = group.categories[category];
+      const badges = formatCmpDiffBadges(item.a, item.b);
+
+      rows.push(`
+        <tr class="cmp-clickable-row" onclick="openYoyDrilldown('${escapeHtml(resort)}', '${escapeHtml(category)}')" title="클릭하여 '${escapeHtml(resort)} - ${escapeHtml(category)}' 세부 사고 목록 조회">
+          <td style="text-align: center; color: #64748b; font-weight: 600;">${rowSeq++}</td>
+          <td class="resort-cell" style="font-weight: 600; color: #0f172a;">${escapeHtml(resort)}</td>
+          <td class="cat-cell">
+            <span class="badge badge-category" style="font-weight: 600; color: #1e293b; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 4px;">${escapeHtml(category)}</span>
+          </td>
+          <td style="text-align: right; font-weight: 700; color: #2563eb;">${item.a.toLocaleString()}건</td>
+          <td style="text-align: right; font-weight: 700; color: #d97706;">${item.b.toLocaleString()}건</td>
+          <td style="text-align: right;">${badges.diffBadgeHtml}</td>
+          <td style="text-align: right;">${badges.rateBadgeHtml}</td>
+        </tr>
+      `);
+    });
+
+    // 2. 사업장별 [소계] 행 삽입 (해당 사업장의 세부 유형이 끝나는 하단)
+    const subBadges = formatCmpDiffBadges(group.subtotalA, group.subtotalB);
+    rows.push(`
+      <tr class="cmp-subtotal-row cmp-clickable-row" onclick="openYoyDrilldown('${escapeHtml(resort)}', '${currentTypeFilter === 'all' ? 'all' : escapeHtml(currentTypeFilter)}')" title="클릭하여 '${escapeHtml(resort)}' 전체 세부 사고 목록 조회">
+        <td style="text-align: center;"><span class="subtotal-badge">소계</span></td>
+        <td class="resort-cell" style="font-weight: 700; color: #1e293b;">[소계] ${escapeHtml(resort)}</td>
         <td class="cat-cell">
-          <span class="badge badge-category" style="font-weight: 600; color: #1e293b; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 4px;">${escapeHtml(category)}</span>
+          <span class="badge" style="font-weight: 600; color: #475569; background: #e2e8f0; border: 1px solid #cbd5e1; padding: 2px 7px; border-radius: 4px;">소계</span>
         </td>
-        <td style="text-align: right; font-weight: 700; color: #2563eb;">${a.toLocaleString()}건</td>
-        <td style="text-align: right; font-weight: 700; color: #d97706;">${b.toLocaleString()}건</td>
-        <td style="text-align: right;">${diffBadgeHtml}</td>
-        <td style="text-align: right;">${rateBadgeHtml}</td>
+        <td style="text-align: right; font-weight: 700; color: #2563eb;">${group.subtotalA.toLocaleString()}건</td>
+        <td style="text-align: right; font-weight: 700; color: #d97706;">${group.subtotalB.toLocaleString()}건</td>
+        <td style="text-align: right;">${subBadges.diffBadgeHtml}</td>
+        <td style="text-align: right;">${subBadges.rateBadgeHtml}</td>
       </tr>
-    `;
+    `);
   });
 
   tbody.innerHTML = rows.join("");
@@ -4332,8 +4428,15 @@ function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTo
     ? state.comparison.lastDataB
     : (typeof getIncidentsForCurrentMode === "function" ? getIncidentsForCurrentMode("b").data : []);
 
-  const listA = dataA.filter(x => (x.resort || "").trim() === r && (x.category || "").trim() === c);
-  const listB = dataB.filter(x => (x.resort || "").trim() === r && (x.category || "").trim() === c);
+  // 사업장 및 사고유형 필터 유연 적용 ('all', '-', '전체 유형', '소계' 대응)
+  const filterFn = (x) => {
+    if (r !== "all" && r !== "" && (x.resort || "").trim() !== r) return false;
+    if (c !== "all" && c !== "" && c !== "-" && c !== "소계" && c !== "전체 유형" && (x.category || "").trim() !== c) return false;
+    return true;
+  };
+
+  const listA = dataA.filter(filterFn);
+  const listB = dataB.filter(filterFn);
 
   const activeTab = preferredTab || (listA.length > 0 ? "a" : (listB.length > 0 ? "b" : "a"));
 
@@ -4349,7 +4452,9 @@ function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTo
   const titleEl = document.getElementById("yoy-drilldown-title");
   const subEl = document.getElementById("yoy-drilldown-sub");
   if (titleEl) {
-    titleEl.textContent = `[${r}] - [${c}] 세부 사고 내역 (총 ${totalCount.toLocaleString()}건)`;
+    const displayResort = (r === "all" || !r) ? "전체 사업장" : r;
+    const displayCategory = (c === "all" || !c || c === "-" || c === "소계" || c === "전체 유형") ? "전체 사고유형" : c;
+    titleEl.textContent = `[${displayResort}] - [${displayCategory}] 세부 사고 내역 (총 ${totalCount.toLocaleString()}건)`;
   }
 
   const labelA = document.getElementById("ck-label-period-a")?.textContent || "A기간";
