@@ -234,7 +234,7 @@
       <!-- 1) [카드 1] 총 사고 발생 건수 -->
       <div class="kpi-card cursor-pointer hover:border-slate-400 transition" id="kpi-card-total" title="클릭 시 연도별 사고 발생 추이 및 통계 브리핑 모달이 열립니다">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500">총 사고 발생 건수</span>
+          <span class="text-sm font-semibold text-slate-600">총 사고 발생 건수</span>
           <div class="w-8 h-8 rounded-xl bg-slate-50 text-slate-700 flex items-center justify-center text-sm font-bold">📊</div>
         </div>
         <div class="text-3xl font-extrabold text-slate-900 my-2" id="kpiTotalIncidents">558건</div>
@@ -244,17 +244,16 @@
       <!-- 2) [카드 2] 2026년 직원 안전사고 -->
       <div class="kpi-card cursor-pointer hover:border-amber-400 transition" id="kpiEmployee2026Card" title="클릭 시 2026년 직원 및 근로자 안전사고 목록 모달이 열립니다">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500">2026년 직원 안전사고</span>
+          <span class="text-sm font-semibold text-slate-600">2026년 직원 안전사고</span>
           <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-bold">⛑️</div>
         </div>
         <div class="text-3xl font-extrabold text-amber-600 my-2" id="kpi2026EmployeeCount">0건</div>
-        <div class="text-xs font-medium text-amber-600" id="kpi-sub-employee">👷 산재·임직원 집중 관리</div>
       </div>
 
       <!-- 3) [카드 3] 골프장(4대 CC) 사고 -->
       <div class="kpi-card cursor-pointer hover:border-blue-400 transition" id="kpiGolfCCCard" title="클릭 시 4대 골프CC 전담팀 사고 목록 모달이 열립니다">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500">골프장(4대 CC) 사고</span>
+          <span class="text-sm font-semibold text-slate-600">골프장(4대 CC) 사고</span>
           <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold">⛳</div>
         </div>
         <div class="text-3xl font-extrabold text-blue-600 my-2" id="kpiGolfCCCount">0건</div>
@@ -264,7 +263,7 @@
       <!-- 4) [카드 4] 당사 지급 / 보상 비용 -->
       <div class="kpi-card cursor-pointer hover:border-emerald-400 transition" id="kpi-card-cost" title="클릭 시 기간별 당사 지급 보험/보상 비용 상세 분석 모달이 열립니다">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500">당사 지급 / 보상 비용</span>
+          <span class="text-sm font-semibold text-slate-600">당사 지급 / 보상 비용</span>
           <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-bold">💳</div>
         </div>
         <div class="text-3xl font-extrabold text-slate-900 my-2" id="kpiTotalCost">0원 <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(0건)</span></div>
@@ -499,9 +498,9 @@
           <!-- Mode 3: 직접 일자 지정 -->
           <div class="cmp-mode-controls" id="cmp-ctrl-custom-a" style="display: none;">
             <div class="period-dates-wrap">
-              <input type="date" id="cmp-start-a" class="custom-input-date" value="2026-01-01">
+              <input type="date" id="cmp-start-a" class="custom-input-date" value="2026-01-01" onchange="executeComparison()">
               <span>~</span>
-              <input type="date" id="cmp-end-a" class="custom-input-date" value="2026-10-31">
+              <input type="date" id="cmp-end-a" class="custom-input-date" value="2026-10-31" onchange="executeComparison()">
             </div>
           </div>
         </div>
@@ -562,9 +561,9 @@
           <!-- Mode 3: 직접 일자 지정 -->
           <div class="cmp-mode-controls" id="cmp-ctrl-custom-b" style="display: none;">
             <div class="period-dates-wrap">
-              <input type="date" id="cmp-start-b" class="custom-input-date" value="2025-01-01">
+              <input type="date" id="cmp-start-b" class="custom-input-date" value="2025-01-01" onchange="executeComparison()">
               <span>~</span>
-              <input type="date" id="cmp-end-b" class="custom-input-date" value="2025-10-31">
+              <input type="date" id="cmp-end-b" class="custom-input-date" value="2025-10-31" onchange="executeComparison()">
             </div>
           </div>
         </div>
@@ -735,7 +734,7 @@
             <div class="toolbar-item">
               <label for="yoyTableBizSelect" class="toolbar-label">사업장:</label>
               <select id="yoyTableBizSelect" class="custom-select yoy-table-select" onchange="renderComparisonTable()">
-                <option value="all">전체 사업장</option>
+                <option value="" selected>전체 사업장</option>
               </select>
             </div>
             <div class="toolbar-item">
@@ -745,6 +744,12 @@
                 <option value="b_desc">B대상 발생 건수 많은 순</option>
                 <option value="biz_asc">사업장별 가나다순</option>
               </select>
+            </div>
+            <div class="toolbar-item">
+              <button type="button" class="btn-toggle-all-accordion" id="btn-toggle-all-accordion" onclick="toggleAllComparisonAccordions()" title="모든 사업장의 세부 사고유형 내역을 한 번에 펼치거나 접습니다">
+                <span class="acc-icon" id="accordion-toggle-icon">▶</span>
+                <span id="accordion-toggle-text">전체 펼치기</span>
+              </button>
             </div>
           </div>
         </div>

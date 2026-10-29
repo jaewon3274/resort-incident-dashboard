@@ -641,10 +641,12 @@ body.modal-open {
 .justify-between { justify-content: space-between !important; }
 .justify-center { justify-content: center !important; }
 .text-xs { font-size: 0.75rem !important; }
+.text-sm { font-size: 0.875rem !important; }
 .font-semibold { font-weight: 600 !important; }
 .font-medium { font-weight: 500 !important; }
 .font-bold { font-weight: 700 !important; }
 .text-slate-500 { color: #64748b !important; }
+.text-slate-600 { color: #475569 !important; }
 .text-slate-700 { color: #334155 !important; }
 .text-emerald-600 { color: #059669 !important; }
 .w-8 { width: 2rem !important; }
@@ -3379,6 +3381,88 @@ body.auth-locked .main-wrapper {
   border-radius: 4px;
   font-size: 0.72rem;
   font-weight: 700;
+}
+
+/* 대조표 사업장별 아코디언 행 스타일 */
+.cmp-data-table tbody tr.cmp-resort-group-row {
+  background-color: #f8fafc !important;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  user-select: none;
+}
+
+.cmp-data-table tbody tr.cmp-resort-group-row:hover {
+  background-color: #edf2f7 !important;
+}
+
+.cmp-data-table tbody tr.cmp-resort-group-row td {
+  padding: 0.8rem 1rem !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.acc-toggle-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 0.72rem;
+  color: #2563eb;
+  transition: transform 0.18s ease;
+  margin-right: 4px;
+}
+
+.cmp-child-row {
+  background-color: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.cmp-child-row:hover {
+  background-color: #eff6ff !important;
+}
+
+.cmp-child-row td {
+  padding: 0.65rem 1rem !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  font-size: 0.85rem !important;
+}
+
+.cmp-child-indent {
+  color: #94a3b8;
+  font-family: monospace;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+/* 전체 펼치기 / 접기 버튼 */
+.btn-toggle-all-accordion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  height: 32px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.btn-toggle-all-accordion:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.btn-toggle-all-accordion .acc-icon {
+  font-size: 0.72rem;
+  color: #2563eb;
 }
 
 /* 사고 상세 모달 내 [← 목록으로] 뒤로가기 버튼 */
