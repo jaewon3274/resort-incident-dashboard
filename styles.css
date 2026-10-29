@@ -475,12 +475,24 @@ body.modal-open {
   font-weight: 700;
 }
 
-/* KPI Summary Cards (Clean Modern White SaaS Structure) */
+/* KPI Summary Cards (Clean Modern White SaaS Structure - 4 Columns Grid) */
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
   margin-bottom: 2rem;
+}
+
+@media (max-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .kpi-card,
@@ -579,6 +591,41 @@ body.modal-open {
   justify-content: center;
   font-size: 1.5rem;
   flex-shrink: 0;
+}
+
+.kpi-icon-amber {
+  background: #fff7ed !important;
+  border-color: #fde68a !important;
+}
+
+.kpi-icon-blue {
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+}
+
+.text-amber-600 {
+  color: #d97706 !important;
+}
+
+.text-blue-600 {
+  color: #2563eb !important;
+}
+
+.text-slate-900 {
+  color: #0f172a !important;
+}
+
+.text-3xl {
+  font-size: 1.85rem !important;
+}
+
+.font-extrabold {
+  font-weight: 800 !important;
+}
+
+.my-2 {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 /* Visualization Charts Section */

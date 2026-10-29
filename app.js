@@ -429,23 +429,34 @@ function setupEventListeners() {
     fileInput.addEventListener("change", handleExcelFileSelect);
   }
 
-  // 2. KPI 카드 클릭 시 전용 분석 모달 오픈
-  const trendCard = document.getElementById("kpi-card-trend");
-  if (trendCard) trendCard.addEventListener("click", openTrendAnalysisModal);
+  // 2. 핵심 4대 KPI 카드 클릭 이벤트
+  const totalCard = document.getElementById("kpi-card-total") || document.getElementById("kpi-card-trend");
+  if (totalCard) totalCard.addEventListener("click", openTrendAnalysisModal);
 
-  const pendingCard = document.getElementById("kpi-card-pending");
-  if (pendingCard) pendingCard.addEventListener("click", openPendingIncidentsModal);
+  const card2026 = document.getElementById("kpi-card-2026");
+  if (card2026) card2026.addEventListener("click", () => openKpiDrilldown("year2026"));
 
-  const preventiveCard = document.getElementById("kpi-card-preventive");
-  if (preventiveCard) preventiveCard.addEventListener("click", openPreventiveMeasuresModal);
+  const cardEmployee = document.getElementById("kpi-card-employee");
+  if (cardEmployee) cardEmployee.addEventListener("click", () => openKpiDrilldown("employee2026"));
 
-  const medicalCard = document.getElementById("kpi-card-medical");
-  if (medicalCard) medicalCard.addEventListener("click", openMedicalAnalysisModal);
+  const cardGolf = document.getElementById("kpi-card-golf");
+  if (cardGolf) cardGolf.addEventListener("click", () => openKpiDrilldown("golfCC"));
 
-  const costKpiCard = document.getElementById("kpi-card-cost");
-  if (costKpiCard) {
-    costKpiCard.addEventListener("click", () => {
-      openCostAnalysisModal();
+  // KPI 드릴다운 모달 닫기 이벤트 초기화
+  const closeKpiDrillBtn = document.getElementById("btn-close-kpi-drilldown");
+  const closeKpiDrillFooterBtn = document.getElementById("btn-kpi-drilldown-footer-close");
+  const kpiDrillModal = document.getElementById("kpi-drilldown-modal");
+
+  const closeKpiModalFn = () => {
+    if (kpiDrillModal) kpiDrillModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+  };
+
+  if (closeKpiDrillBtn) closeKpiDrillBtn.addEventListener("click", closeKpiModalFn);
+  if (closeKpiDrillFooterBtn) closeKpiDrillFooterBtn.addEventListener("click", closeKpiModalFn);
+  if (kpiDrillModal) {
+    kpiDrillModal.addEventListener("click", (e) => {
+      if (e.target === kpiDrillModal) closeKpiModalFn();
     });
   }
 
@@ -1047,6 +1058,12 @@ window.handleDetailBackToList = function() {
       if (prevModal) {
         prevModal.classList.add("active");
         document.body.classList.add("modal-open");
+        if (fromModalId === "kpi-drilldown-modal" && scrollTop > 0) {
+          setTimeout(() => {
+            const wrap = document.getElementById("kpi-drilldown-table-wrap");
+            if (wrap) wrap.scrollTop = scrollTop;
+          }, 30);
+        }
       }
     }
   }, 50);
@@ -2636,45 +2653,63 @@ function renderAll() {
   renderTable();
 }
 
-// Render KPIs
+// Render KPIs: 핵심 4대 관리 지표 체계
 function renderKPIs() {
-  const data = state.filteredIncidents;
-  const total = data.length;
+  const all = (state.incidents && state.incidents.length > 0)
+    ? state.incidents
+    : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
+  const totalAll = all.length;
 
-  const resolved = data.filter(i => i.status === "조치완료").length;
-  const inProgress = data.filter(i => i.status !== "조치완료").length;
-  const medical = data.filter(i => (i.severity && (i.severity.includes("병원") || i.severity.includes("중등") || i.severity.includes("중대")))).length;
-  const resolutionRate = total > 0 ? Math.round((resolved / total) * 100) : 100;
+  // 1) 전체 누적 사고
+  const elTotal = document.getElementById("kpiTotalIncidentCount");
+  if (elTotal) elTotal.innerText = `${totalAll.toLocaleString()}건`;
 
-  const totalCompanyCost = data.reduce((acc, curr) => {
-    const costVal = parseNumericCost(curr.companyAmount !== undefined ? curr.companyAmount : curr.cost);
-    return acc + costVal;
-  }, 0);
+  // 2) 2026년 당해 사고
+  const list2026 = all.filter(x => {
+    const p = parseIncidentDate(x);
+    return p && p.getFullYear() === 2026;
+  });
+  const count2026 = list2026.length;
+  const rate2026 = totalAll > 0 ? ((count2026 / totalAll) * 100).toFixed(1) : "0.0";
+  const elYear = document.getElementById("kpiYearCurrentCount");
+  if (elYear) elYear.innerText = `${count2026.toLocaleString()}건`;
+  const elSub2026 = document.getElementById("kpi-sub-2026");
+  if (elSub2026) elSub2026.innerHTML = `<span>📅 전체 대비 ${rate2026}% 점유</span>`;
 
-  document.getElementById("kpi-total").innerText = `${total.toLocaleString()}건`;
-  document.getElementById("kpi-progress").innerText = `${inProgress.toLocaleString()}건`;
-  document.getElementById("kpi-resolved-rate").innerText = `${resolutionRate}%`;
-  document.getElementById("kpi-medical").innerText = `${medical.toLocaleString()}건`;
+  // 3) 2026년 직원 안전사고
+  const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자"];
+  const listEmp2026 = list2026.filter(x => {
+    const vType = (x.victimType || "").trim();
+    const note = ((x.note || "") + " " + (x.summary || "") + " " + (x.locationDetail || "") + " " + (x.cause || "") + " " + (x.title || "")).toLowerCase();
+    return empKeywords.some(kw => vType.includes(kw) || note.includes(kw));
+  });
+  const countEmp2026 = listEmp2026.length;
+  const rateEmp2026 = count2026 > 0 ? ((countEmp2026 / count2026) * 100).toFixed(1) : "0.0";
+  const elEmp = document.getElementById("kpiEmployee2026Count");
+  if (elEmp) elEmp.innerText = `${countEmp2026.toLocaleString()}건`;
+  const elSubEmp = document.getElementById("kpi-sub-employee");
+  if (elSubEmp) elSubEmp.innerHTML = `<span>👷 산재·임직원 집중 관리 (${rateEmp2026}%)</span>`;
 
-  const totalCostEl = document.getElementById("kpi-total-cost");
-  if (totalCostEl) {
-    const costCount = data.filter(curr => {
-      const costVal = parseNumericCost(curr.companyAmount !== undefined ? curr.companyAmount : curr.cost);
-      return costVal > 0;
-    }).length;
+  // 4) 골프장(4대 CC) 사고
+  const ccResorts = ["밸리팀", "힐스팀", "성문안팀", "월송리팀"];
+  const listGolfCC = all.filter(x => {
+    const r = (x.resort || "").trim();
+    const d = (x.dept || "").trim();
+    const loc = ((x.locationDetail || "") + " " + (x.zone || "")).toLowerCase();
+    if (ccResorts.includes(r) || ccResorts.includes(d)) return true;
+    if (loc.includes("코스") || loc.includes("홀") || loc.includes("그린") || loc.includes("티잉") || loc.includes("카트도로")) return true;
+    return false;
+  });
+  const countGolf = listGolfCC.length;
+  const rateGolf = totalAll > 0 ? ((countGolf / totalAll) * 100).toFixed(1) : "0.0";
+  const elGolf = document.getElementById("kpiGolfCCCount");
+  if (elGolf) elGolf.innerText = `${countGolf.toLocaleString()}건`;
+  const elSubGolf = document.getElementById("kpi-sub-golf");
+  if (elSubGolf) elSubGolf.innerHTML = `<span>⛳ 전체 대비 ${rateGolf}% (4대 CC)</span>`;
 
-    let costText = "0원";
-    if (totalCompanyCost >= 100000000) {
-      costText = `${(totalCompanyCost / 100000000).toFixed(1)}억원`;
-    } else if (totalCompanyCost >= 10000) {
-      costText = `${Math.round(totalCompanyCost / 10000).toLocaleString()}만원`;
-    } else if (totalCompanyCost > 0) {
-      costText = `${totalCompanyCost.toLocaleString()}원`;
-    } else {
-      costText = "0원";
-    }
-    totalCostEl.innerHTML = `${costText} <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(${costCount.toLocaleString()}건)</span>`;
-  }
+  // Legacy fallback elements (if any exist in DOM)
+  const legacyTotal = document.getElementById("kpi-total");
+  if (legacyTotal) legacyTotal.innerText = `${totalAll.toLocaleString()}건`;
 }
 
 // Render Charts with Dynamic Top-N Grouping for 500+ Rows
@@ -4565,3 +4600,142 @@ function renderYoyDrilldownTable() {
   }).join("");
 }
 window.renderYoyDrilldownTable = renderYoyDrilldownTable;
+
+// ==========================================================================
+// 6-8. 핵심 4대 KPI 카드 드릴다운 상세 사고 내역 모달
+// ==========================================================================
+function openKpiDrilldown(type) {
+  const all = (state.incidents && state.incidents.length > 0)
+    ? state.incidents
+    : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
+
+  let filtered = [];
+  let title = "";
+  let sub = "";
+  let icon = "📌";
+
+  if (type === "year2026") {
+    filtered = all.filter(x => {
+      const p = parseIncidentDate(x);
+      return p && p.getFullYear() === 2026;
+    });
+    icon = "📅";
+    title = `[2026년 당해 사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    sub = `2026년에 발생한 안전사고 전체 목록`;
+  } else if (type === "employee2026") {
+    const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자"];
+    filtered = all.filter(x => {
+      const p = parseIncidentDate(x);
+      if (!p || p.getFullYear() !== 2026) return false;
+      const vType = (x.victimType || "").trim();
+      const note = ((x.note || "") + " " + (x.summary || "") + " " + (x.locationDetail || "") + " " + (x.cause || "") + " " + (x.title || "")).toLowerCase();
+      return empKeywords.some(kw => vType.includes(kw) || note.includes(kw));
+    });
+    icon = "⛑️";
+    title = `[2026년 직원 안전사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    sub = `2026년 발생한 임직원·캐디·진행원 산재 및 안전사고 목록`;
+  } else if (type === "golfCC") {
+    const ccResorts = ["밸리팀", "힐스팀", "성문안팀", "월송리팀"];
+    filtered = all.filter(x => {
+      const r = (x.resort || "").trim();
+      const d = (x.dept || "").trim();
+      const loc = ((x.locationDetail || "") + " " + (x.zone || "")).toLowerCase();
+      if (ccResorts.includes(r) || ccResorts.includes(d)) return true;
+      if (loc.includes("코스") || loc.includes("홀") || loc.includes("그린") || loc.includes("티잉") || loc.includes("카트도로")) return true;
+      return false;
+    });
+    icon = "⛳";
+    title = `[골프장(4대 CC) 사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    sub = `밸리팀 · 힐스팀 · 성문안팀 · 월송리팀 골프 코스 안전사고 목록`;
+  } else {
+    // 전체 누적 사고
+    filtered = all;
+    icon = "📊";
+    title = `[전체 누적 사고] 세부 내역 (총 ${filtered.length.toLocaleString()}건)`;
+    sub = `등록된 모든 연도 안전사고 전체 내역`;
+  }
+
+  // 최신순 (날짜 내림차순) 정렬
+  filtered.sort((a, b) => {
+    const da = parseIncidentDate(a)?.getTime() || 0;
+    const db = parseIncidentDate(b)?.getTime() || 0;
+    return db - da;
+  });
+
+  const titleEl = document.getElementById("kpi-drilldown-title");
+  const subEl = document.getElementById("kpi-drilldown-sub");
+  const iconEl = document.getElementById("kpi-drilldown-icon");
+  const footerInfoEl = document.getElementById("kpi-drilldown-footer-info");
+
+  if (titleEl) titleEl.textContent = title;
+  if (subEl) subEl.textContent = sub;
+  if (iconEl) iconEl.textContent = icon;
+  if (footerInfoEl) footerInfoEl.textContent = `총 ${filtered.length.toLocaleString()}건 조회됨`;
+
+  const tbody = document.getElementById("kpi-drilldown-tbody");
+  if (tbody) {
+    if (filtered.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📂</div>
+            <div style="font-weight: 600; color: #334155;">조건에 해당하는 사고 건이 없습니다.</div>
+          </td>
+        </tr>
+      `;
+    } else {
+      tbody.innerHTML = filtered.map(item => {
+        let statusClass = "badge-status-resolved";
+        if (item.status === "조사/진행중") statusClass = "badge-status-investigating";
+        if (item.status === "보험/보상진행") statusClass = "badge-status-insurance";
+        if (item.status === "접수대기") statusClass = "badge-status-pending";
+
+        const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
+        const desc = item.title || item.locationDetail || "사고 개요 없음";
+
+        return `
+          <tr class="drilldown-incident-row" onclick="navigateToDetailFromKpiDrilldown('${escapeHtml(item.id)}')" title="클릭하여 사고 상세 정보 조회 및 수정">
+            <td class="id-cell" style="font-weight: 700; color: #2563eb; font-family: monospace;">${escapeHtml(item.id)}</td>
+            <td style="color: #475569; font-weight: 500; font-size: 0.84rem; white-space: nowrap;">${escapeHtml(item.date)}</td>
+            <td style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
+            <td>
+              <span class="badge badge-category" style="font-size: 0.76rem; font-weight: 600;">${escapeHtml(item.category || "기타")}</span>
+            </td>
+            <td class="overview-cell" style="font-size: 0.84rem; color: #1e293b;" title="${escapeHtml(desc)}">
+              <div style="max-height: 2.8em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.35;">
+                ${escapeHtml(desc)}
+              </div>
+            </td>
+            <td style="text-align: center;">
+              <span class="badge ${statusClass}" style="font-size: 0.75rem;">${escapeHtml(item.status || "접수대기")}</span>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+
+  const modal = document.getElementById("kpi-drilldown-modal");
+  if (modal) {
+    modal.classList.add("active");
+    document.body.classList.add("modal-open");
+  }
+}
+window.openKpiDrilldown = openKpiDrilldown;
+
+function navigateToDetailFromKpiDrilldown(id) {
+  const tableWrap = document.getElementById("kpi-drilldown-table-wrap");
+  const scrollTop = tableWrap ? tableWrap.scrollTop : 0;
+  detailModalOrigin = {
+    fromModalId: "kpi-drilldown-modal",
+    scrollTop: scrollTop
+  };
+
+  const modal = document.getElementById("kpi-drilldown-modal");
+  if (modal) modal.classList.remove("active");
+
+  setTimeout(() => {
+    openIncidentDetail(id, detailModalOrigin);
+  }, 50);
+}
+window.navigateToDetailFromKpiDrilldown = navigateToDetailFromKpiDrilldown;
