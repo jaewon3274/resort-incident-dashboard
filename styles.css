@@ -628,6 +628,39 @@ body.modal-open {
   margin-bottom: 0.5rem !important;
 }
 
+/* KPI Card Modern Utility Classes */
+.kpi-grid .kpi-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+}
+
+.flex { display: flex !important; }
+.items-center { align-items: center !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-center { justify-content: center !important; }
+.text-xs { font-size: 0.75rem !important; }
+.font-semibold { font-weight: 600 !important; }
+.font-medium { font-weight: 500 !important; }
+.font-bold { font-weight: 700 !important; }
+.text-slate-500 { color: #64748b !important; }
+.text-slate-700 { color: #334155 !important; }
+.text-emerald-600 { color: #059669 !important; }
+.w-8 { width: 2rem !important; }
+.h-8 { height: 2rem !important; }
+.rounded-xl { border-radius: 0.75rem !important; }
+.bg-amber-50 { background-color: #fffbeb !important; }
+.bg-blue-50 { background-color: #eff6ff !important; }
+.bg-emerald-50 { background-color: #ecfdf5 !important; }
+.bg-slate-50 { background-color: #f8fafc !important; }
+.cursor-pointer { cursor: pointer !important; }
+.hover\:border-amber-400:hover { border-color: #fbbf24 !important; }
+.hover\:border-blue-400:hover { border-color: #60a5fa !important; }
+.hover\:border-emerald-400:hover { border-color: #34d399 !important; }
+.hover\:border-slate-400:hover { border-color: #94a3b8 !important; }
+.transition { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important; }
+
 /* Visualization Charts Section */
 .charts-grid {
   display: grid;

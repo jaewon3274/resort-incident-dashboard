@@ -430,16 +430,16 @@ function setupEventListeners() {
   }
 
   // 2. 핵심 4대 KPI 카드 클릭 이벤트
-  const totalCard = document.getElementById("kpi-card-total") || document.getElementById("kpi-card-trend");
+  const totalCard = document.getElementById("kpi-card-total") || document.getElementById("kpiTotalIncidentsCard") || document.getElementById("kpi-card-trend");
   if (totalCard) totalCard.addEventListener("click", openTrendAnalysisModal);
 
-  const cardEmployee = document.getElementById("kpi-card-employee");
+  const cardEmployee = document.getElementById("kpiEmployee2026Card") || document.getElementById("kpi-card-employee");
   if (cardEmployee) cardEmployee.addEventListener("click", () => openKpiDrilldown("employee2026"));
 
-  const cardGolf = document.getElementById("kpi-card-golf");
+  const cardGolf = document.getElementById("kpiGolfCCCard") || document.getElementById("kpi-card-golf");
   if (cardGolf) cardGolf.addEventListener("click", () => openKpiDrilldown("golfCC"));
 
-  const cardCost = document.getElementById("kpi-card-cost");
+  const cardCost = document.getElementById("kpi-card-cost") || document.getElementById("kpiCostCard");
   if (cardCost) cardCost.addEventListener("click", openCostAnalysisModal);
 
   const card2026 = document.getElementById("kpi-card-2026");
@@ -2664,7 +2664,7 @@ function renderKPIs() {
   const totalAll = all.length;
 
   // 1) [카드 1] 총 사고 발생 건수 (558건)
-  const elTotal = document.getElementById("kpiTotalIncidentCount") || document.getElementById("kpi-total");
+  const elTotal = document.getElementById("kpiTotalIncidents") || document.getElementById("kpiTotalIncidentCount") || document.getElementById("kpi-total");
   if (elTotal) elTotal.innerText = `${totalAll.toLocaleString()}건`;
 
   // 2) [카드 2] 2026년 직원 안전사고 (2026년 발생 사고 중 피해구분이 '직원/임직원/캐디/근로자'인 건수 집계)
@@ -2682,10 +2682,10 @@ function renderKPIs() {
   });
   const countEmp2026 = listEmp2026.length;
   const rateEmp2026 = count2026 > 0 ? ((countEmp2026 / count2026) * 100).toFixed(1) : "0.0";
-  const elEmp = document.getElementById("kpiEmployee2026Count");
+  const elEmp = document.getElementById("kpi2026EmployeeCount") || document.getElementById("kpiEmployee2026Count");
   if (elEmp) elEmp.innerText = `${countEmp2026.toLocaleString()}건`;
   const elSubEmp = document.getElementById("kpi-sub-employee");
-  if (elSubEmp) elSubEmp.innerHTML = `<span>👷 산재·임직원 집중 관리 (${rateEmp2026}%)</span>`;
+  if (elSubEmp) elSubEmp.innerText = `👷 산재·임직원 집중 관리`;
 
   // 3) [카드 3] 골프장(4대 CC) 사고 (밸리팀, 힐스팀, 성문안팀, 월송리팀 발생 사고 합계 및 점유율(%) 표기)
   const ccResorts = ["밸리팀", "힐스팀", "성문안팀", "월송리팀"];
@@ -2702,7 +2702,7 @@ function renderKPIs() {
   const elGolf = document.getElementById("kpiGolfCCCount");
   if (elGolf) elGolf.innerText = `${countGolf.toLocaleString()}건`;
   const elSubGolf = document.getElementById("kpi-sub-golf");
-  if (elSubGolf) elSubGolf.innerHTML = `<span>⛳ 전체 대비 ${rateGolf}% (4대 CC)</span>`;
+  if (elSubGolf) elSubGolf.innerText = `⛳ 밸리·힐스·성문안·월송리`;
 
   // 4) [카드 4] 당사 지급 / 보상 비용 (임의의 가상 금액 제거, 실비용 실시간 합산 또는 0원 (0건))
   const costItems = all.filter(curr => {
@@ -2714,7 +2714,7 @@ function renderKPIs() {
   }, 0);
   const costCount = costItems.length;
 
-  const totalCostEl = document.getElementById("kpi-total-cost");
+  const totalCostEl = document.getElementById("kpiTotalCost") || document.getElementById("kpi-total-cost");
   if (totalCostEl) {
     let costText = "0원";
     if (totalCompanyCost >= 100000000) {

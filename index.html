@@ -230,55 +230,47 @@
     </section>
 
     <!-- 3. KPI Summary Metrics Cards: 핵심 4대 관리 지표 체계 -->
-    <section class="kpi-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" aria-label="핵심 4대 안전 지표">
+    <div class="kpi-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" aria-label="핵심 4대 안전 지표">
       <!-- 1) [카드 1] 총 사고 발생 건수 -->
-      <div class="kpi-card kpi-card-clickable" id="kpi-card-total" title="클릭 시 연도별 사고 발생 추이 및 통계 브리핑 모달이 열립니다">
-        <div class="kpi-info">
-          <h4>총 사고 발생 건수</h4>
-          <div id="kpiTotalIncidentCount" class="kpi-value text-3xl font-extrabold text-slate-900 my-2">558건</div>
-          <div class="kpi-click-badge" id="kpi-sub-total">
-            <span>📊 발생 추이 브리핑</span>
-          </div>
+      <div class="kpi-card cursor-pointer hover:border-slate-400 transition" id="kpi-card-total" title="클릭 시 연도별 사고 발생 추이 및 통계 브리핑 모달이 열립니다">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500">총 사고 발생 건수</span>
+          <div class="w-8 h-8 rounded-xl bg-slate-50 text-slate-700 flex items-center justify-center text-sm font-bold">📊</div>
         </div>
-        <div class="kpi-icon">📊</div>
+        <div class="text-3xl font-extrabold text-slate-900 my-2" id="kpiTotalIncidents">558건</div>
+        <div class="text-xs font-medium text-slate-500" id="kpi-sub-total">📊 발생 추이 브리핑</div>
       </div>
 
       <!-- 2) [카드 2] 2026년 직원 안전사고 -->
-      <div class="kpi-card kpi-card-clickable" id="kpi-card-employee" title="클릭 시 2026년 직원 및 근로자 안전사고 목록 모달이 열립니다">
-        <div class="kpi-info">
-          <h4>2026년 직원 안전사고</h4>
-          <div id="kpiEmployee2026Count" class="kpi-value text-3xl font-extrabold text-amber-600 my-2">0건</div>
-          <div class="kpi-click-badge" id="kpi-sub-employee">
-            <span>👷 산재·임직원 집중 관리</span>
-          </div>
+      <div class="kpi-card cursor-pointer hover:border-amber-400 transition" id="kpiEmployee2026Card" title="클릭 시 2026년 직원 및 근로자 안전사고 목록 모달이 열립니다">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500">2026년 직원 안전사고</span>
+          <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-bold">⛑️</div>
         </div>
-        <div class="kpi-icon kpi-icon-amber">⛑️</div>
+        <div class="text-3xl font-extrabold text-amber-600 my-2" id="kpi2026EmployeeCount">0건</div>
+        <div class="text-xs font-medium text-amber-600" id="kpi-sub-employee">👷 산재·임직원 집중 관리</div>
       </div>
 
       <!-- 3) [카드 3] 골프장(4대 CC) 사고 -->
-      <div class="kpi-card kpi-card-clickable" id="kpi-card-golf" title="클릭 시 4대 골프CC 전담팀 사고 목록 모달이 열립니다">
-        <div class="kpi-info">
-          <h4>골프장(4대 CC) 사고</h4>
-          <div id="kpiGolfCCCount" class="kpi-value text-3xl font-extrabold text-blue-600 my-2">0건</div>
-          <div class="kpi-click-badge" id="kpi-sub-golf">
-            <span>⛳ 밸리·힐스·성문안·월송리</span>
-          </div>
+      <div class="kpi-card cursor-pointer hover:border-blue-400 transition" id="kpiGolfCCCard" title="클릭 시 4대 골프CC 전담팀 사고 목록 모달이 열립니다">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500">골프장(4대 CC) 사고</span>
+          <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold">⛳</div>
         </div>
-        <div class="kpi-icon kpi-icon-blue">⛳</div>
+        <div class="text-3xl font-extrabold text-blue-600 my-2" id="kpiGolfCCCount">0건</div>
+        <div class="text-xs font-medium text-blue-600" id="kpi-sub-golf">⛳ 밸리·힐스·성문안·월송리</div>
       </div>
 
       <!-- 4) [카드 4] 당사 지급 / 보상 비용 -->
-      <div class="kpi-card kpi-card-clickable" id="kpi-card-cost" title="클릭 시 기간별 당사 지급 보험/보상 비용 상세 분석 모달이 열립니다">
-        <div class="kpi-info">
-          <h4>당사 지급 / 보상 비용</h4>
-          <div id="kpi-total-cost" class="kpi-value text-3xl font-extrabold text-slate-900 my-2">0원 <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(0건)</span></div>
-          <div class="kpi-click-badge" id="kpi-sub-cost">
-            <span>💳 기간별 상세 분석</span>
-          </div>
+      <div class="kpi-card cursor-pointer hover:border-emerald-400 transition" id="kpi-card-cost" title="클릭 시 기간별 당사 지급 보험/보상 비용 상세 분석 모달이 열립니다">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500">당사 지급 / 보상 비용</span>
+          <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-bold">💳</div>
         </div>
-        <div class="kpi-icon">💳</div>
+        <div class="text-3xl font-extrabold text-slate-900 my-2" id="kpiTotalCost">0원 <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(0건)</span></div>
+        <div class="text-xs font-medium text-slate-500" id="kpi-sub-cost">💳 기간별 상세 분석</div>
       </div>
-    </section>
+    </div>
 
     <!-- 4. Interactive Visualization Section (Charts) -->
     <section class="charts-grid" aria-label="사고 통계 및 유형 분석">
