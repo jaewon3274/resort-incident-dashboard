@@ -726,6 +726,10 @@
                 <span class="cmp-summary-vs">vs</span>
                 <span class="cmp-summary-b">B 총 0건</span>
               </span>
+              <button type="button" class="btn-toggle-all-accordion" id="btn-toggle-all-accordion" onclick="toggleAllComparisonAccordions()" title="모든 사업장의 세부 사고유형 내역을 한 번에 펼치거나 접습니다">
+                <span class="acc-icon" id="accordion-toggle-icon">▶</span>
+                <span id="accordion-toggle-text">전체 펼치기</span>
+              </button>
             </div>
             <span class="chart-sub">A기간과 B기간의 항목별 발생 건수, 차이(증감), 증감률(%) 상세 분석</span>
           </div>
@@ -744,12 +748,6 @@
                 <option value="b_desc">B대상 발생 건수 많은 순</option>
                 <option value="biz_asc">사업장별 가나다순</option>
               </select>
-            </div>
-            <div class="toolbar-item">
-              <button type="button" class="btn-toggle-all-accordion" id="btn-toggle-all-accordion" onclick="toggleAllComparisonAccordions()" title="모든 사업장의 세부 사고유형 내역을 한 번에 펼치거나 접습니다">
-                <span class="acc-icon" id="accordion-toggle-icon">▶</span>
-                <span id="accordion-toggle-text">전체 펼치기</span>
-              </button>
             </div>
           </div>
         </div>

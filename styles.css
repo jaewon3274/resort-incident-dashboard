@@ -656,6 +656,9 @@ body.modal-open {
 .bg-blue-50 { background-color: #eff6ff !important; }
 .bg-emerald-50 { background-color: #ecfdf5 !important; }
 .bg-slate-50 { background-color: #f8fafc !important; }
+.bg-slate-50\/60, .bg-slate-50-60 { background-color: rgba(248, 250, 252, 0.65) !important; }
+.pl-6 { padding-left: 1.5rem !important; }
+.hidden { display: none !important; }
 .cursor-pointer { cursor: pointer !important; }
 .hover\:border-amber-400:hover { border-color: #fbbf24 !important; }
 .hover\:border-blue-400:hover { border-color: #60a5fa !important; }
@@ -3389,14 +3392,15 @@ body.auth-locked .main-wrapper {
   cursor: pointer;
   transition: background-color 0.15s ease;
   user-select: none;
+  border-top: 1px solid #e2e8f0 !important;
 }
 
 .cmp-data-table tbody tr.cmp-resort-group-row:hover {
-  background-color: #edf2f7 !important;
+  background-color: #f1f5f9 !important;
 }
 
 .cmp-data-table tbody tr.cmp-resort-group-row td {
-  padding: 0.8rem 1rem !important;
+  padding: 0.85rem 1rem !important;
   font-weight: 700 !important;
   border-bottom: 1px solid #e2e8f0 !important;
   color: #0f172a !important;
@@ -3406,21 +3410,33 @@ body.auth-locked .main-wrapper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
-  font-size: 0.72rem;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
   color: #2563eb;
-  transition: transform 0.18s ease;
-  margin-right: 4px;
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 4px;
+  transition: all 0.18s ease;
+}
+
+.cmp-resort-group-row:hover .acc-toggle-arrow {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-color: #93c5fd;
 }
 
 .cmp-child-row {
-  background-color: #ffffff;
+  background-color: rgba(248, 250, 252, 0.75) !important;
   transition: background-color 0.15s ease;
 }
 
 .cmp-child-row:hover {
-  background-color: #eff6ff !important;
+  background-color: #edf5ff !important;
+}
+
+.cmp-child-row.hidden {
+  display: none !important;
 }
 
 .cmp-child-row td {
@@ -3433,7 +3449,7 @@ body.auth-locked .main-wrapper {
   color: #94a3b8;
   font-family: monospace;
   font-weight: bold;
-  margin-right: 6px;
+  font-size: 0.95rem;
 }
 
 /* 전체 펼치기 / 접기 버튼 */
@@ -3445,10 +3461,10 @@ body.auth-locked .main-wrapper {
   color: #334155;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  height: 32px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  height: 28px;
   cursor: pointer;
   transition: all 0.15s ease;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);

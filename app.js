@@ -4438,7 +4438,6 @@ function renderComparisonTable(dataA, dataB, selectedType) {
   `;
 
   // 2. 세부 항목별 증감 대조표 '사업장별 아코디언(접기/펼치기)' 행 구성
-  let groupSeq = 1;
   const rows = [totalRowHtml];
 
   resorts.forEach(resort => {
@@ -4447,20 +4446,20 @@ function renderComparisonTable(dataA, dataB, selectedType) {
     const isOpen = state.comparison.openResorts && state.comparison.openResorts.has(resort);
     const arrowIcon = isOpen ? "▼" : "▶";
     const subBadges = formatCmpDiffBadges(group.subtotalA, group.subtotalB);
-    const totalResortIncidents = group.subtotalA + group.subtotalB;
+    const safeResort = escapeHtml(resort);
 
-    // 기본 상태: 사업장별 '그룹 요약 행'만 보이게 구성
-    // 예: [▶/▼] 밸리팀 | 총 10건 (A 4건 vs B 6건) | -2건 (-33.3%)
+    // 기본 출력 상태: 각 사업장의 '대표 요약 행(아코디언 헤더)'만 노출
+    // [▶ 아이콘] | 사업장명 (예: 레저팀) | 소계 (5개 유형) | A 합계 (7건) | B 합계 (0건) | 증감 (+7건) | 증감률 (+100%)
     rows.push(`
-      <tr class="cmp-resort-group-row cmp-clickable-row" data-resort="${escapeHtml(resort)}" onclick="toggleComparisonAccordion('${escapeHtml(resort)}')" title="클릭하여 '${escapeHtml(resort)}' 세부 사고유형 펼치기/접기">
-        <td style="text-align: center; color: #475569; font-weight: 700;">${groupSeq++}</td>
+      <tr class="cmp-resort-group-row cmp-clickable-row" data-resort="${safeResort}" onclick="toggleComparisonAccordion('${safeResort}')" title="클릭하여 '${safeResort}' 세부 사고유형 펼치기/접기">
+        <td style="text-align: center; width: 6%;">
+          <span class="acc-toggle-arrow" id="acc-arrow-${safeResort}">${arrowIcon}</span>
+        </td>
         <td class="resort-cell" style="font-weight: 700; color: #0f172a; white-space: nowrap;">
-          <span class="acc-toggle-arrow" id="acc-arrow-${escapeHtml(resort)}">${arrowIcon}</span>
-          <span>${escapeHtml(resort)}</span>
+          <strong>${safeResort}</strong>
         </td>
         <td class="cat-cell">
-          <span class="badge" style="background: #e2e8f0; color: #334155; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-right: 6px; font-size: 0.78rem;">유형 ${catKeys.length}종</span>
-          <span style="color: #64748b; font-size: 0.82rem;">총 ${totalResortIncidents}건 (A ${group.subtotalA}건 vs B ${group.subtotalB}건)</span>
+          <span class="badge" style="background: #e2e8f0; color: #334155; font-weight: 600; padding: 2px 7px; border-radius: 4px; font-size: 0.8rem;">소계 (${catKeys.length}개 유형)</span>
         </td>
         <td style="text-align: right; font-weight: 700; color: #2563eb;">${group.subtotalA.toLocaleString()}건</td>
         <td style="text-align: right; font-weight: 700; color: #d97706;">${group.subtotalB.toLocaleString()}건</td>
@@ -4498,18 +4497,22 @@ function renderComparisonTable(dataA, dataB, selectedType) {
       return item2.b - item1.b;
     });
 
-    // 세부 유형 개별 하위 행 (기본 상태: display: none)
-    const childDisplayStyle = isOpen ? "" : "style=\"display: none;\"";
+    // 각 사업장에 속한 세부 사고유형 행들: 초기 로딩 시 hidden 클래스 및 display: none 처리
+    const isChildHidden = !isOpen;
+    const hiddenClass = isChildHidden ? "hidden" : "";
+    const inlineDisplay = isChildHidden ? 'style="display: none;"' : '';
+
     catKeys.forEach(category => {
       const item = group.categories[category];
       const badges = formatCmpDiffBadges(item.a, item.b);
+      const safeCat = escapeHtml(category);
 
       rows.push(`
-        <tr class="cmp-child-row cmp-clickable-row" data-resort="${escapeHtml(resort)}" ${childDisplayStyle} onclick="openYoyDrilldown('${escapeHtml(resort)}', '${escapeHtml(category)}')" title="클릭하여 '${escapeHtml(resort)} - ${escapeHtml(category)}' 세부 사고 목록 조회">
+        <tr class="cmp-child-row bg-slate-50/60 cmp-clickable-row ${hiddenClass}" data-parent-resort="${safeResort}" ${inlineDisplay} onclick="openYoyDrilldown('${safeResort}', '${safeCat}')" title="클릭하여 '${safeResort} - ${safeCat}' 세부 사고 목록 조회">
           <td style="text-align: center; color: #94a3b8; font-weight: 600;"><span class="cmp-child-indent">↳</span></td>
-          <td class="resort-cell" style="color: #64748b; font-size: 0.82rem; padding-left: 1.5rem !important;">${escapeHtml(resort)}</td>
-          <td class="cat-cell">
-            <span class="badge badge-category" style="font-weight: 600; color: #1e293b; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 4px;">${escapeHtml(category)}</span>
+          <td class="resort-cell pl-6" style="color: #64748b; font-size: 0.82rem;"><span style="color: #94a3b8; margin-right: 4px;">↳</span>${safeResort}</td>
+          <td class="cat-cell pl-6">
+            <span class="badge badge-category" style="font-weight: 600; color: #1e293b; background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 4px;">${safeCat}</span>
           </td>
           <td style="text-align: right; font-weight: 600; color: #2563eb;">${item.a.toLocaleString()}건</td>
           <td style="text-align: right; font-weight: 600; color: #d97706;">${item.b.toLocaleString()}건</td>
@@ -4528,23 +4531,30 @@ window.toggleComparisonAccordion = function(resort) {
   if (!state.comparison) state.comparison = {};
   if (!state.comparison.openResorts) state.comparison.openResorts = new Set();
 
-  const isOpen = state.comparison.openResorts.has(resort);
-  if (isOpen) {
-    state.comparison.openResorts.delete(resort);
-  } else {
+  const childRows = document.querySelectorAll(`tr.cmp-child-row[data-parent-resort="${resort}"]`);
+  if (!childRows || childRows.length === 0) return;
+
+  let isNowOpen = false;
+  childRows.forEach((row, idx) => {
+    const isHidden = row.classList.toggle("hidden");
+    if (isHidden) {
+      row.style.display = "none";
+    } else {
+      row.style.display = "";
+    }
+    if (idx === 0) isNowOpen = !isHidden;
+  });
+
+  if (isNowOpen) {
     state.comparison.openResorts.add(resort);
+  } else {
+    state.comparison.openResorts.delete(resort);
   }
 
   const safeResort = escapeHtml(resort);
-  const childRows = document.querySelectorAll(`tr.cmp-child-row[data-resort="${resort}"]`);
   const arrowEl = document.getElementById(`acc-arrow-${safeResort}`);
-
-  const nowOpen = state.comparison.openResorts.has(resort);
-  childRows.forEach(row => {
-    row.style.display = nowOpen ? "" : "none";
-  });
   if (arrowEl) {
-    arrowEl.textContent = nowOpen ? "▼" : "▶";
+    arrowEl.textContent = isNowOpen ? "▼" : "▶";
   }
 
   updateToggleAllAccordionButtonUI();
@@ -4558,35 +4568,44 @@ window.toggleAllComparisonAccordions = function() {
   const allResorts = Array.from(groupRows).map(r => r.getAttribute("data-resort")).filter(Boolean);
   if (allResorts.length === 0) return;
 
-  const allOpen = allResorts.every(r => state.comparison.openResorts.has(r));
-  if (allOpen) {
-    state.comparison.openResorts.clear();
-  } else {
-    allResorts.forEach(r => state.comparison.openResorts.add(r));
-  }
-
   const childRows = document.querySelectorAll("tr.cmp-child-row");
-  const nowAllOpen = !allOpen;
-  childRows.forEach(row => {
-    row.style.display = nowAllOpen ? "" : "none";
-  });
-  allResorts.forEach(r => {
-    const arrowEl = document.getElementById(`acc-arrow-${escapeHtml(r)}`);
-    if (arrowEl) arrowEl.textContent = nowAllOpen ? "▼" : "▶";
-  });
+  const hasAnyHidden = Array.from(childRows).some(row => row.classList.contains("hidden") || row.style.display === "none");
+
+  if (hasAnyHidden) {
+    // Open all
+    childRows.forEach(row => {
+      row.classList.remove("hidden");
+      row.style.display = "";
+    });
+    allResorts.forEach(r => {
+      state.comparison.openResorts.add(r);
+      const arrowEl = document.getElementById(`acc-arrow-${escapeHtml(r)}`);
+      if (arrowEl) arrowEl.textContent = "▼";
+    });
+  } else {
+    // Close all
+    childRows.forEach(row => {
+      row.classList.add("hidden");
+      row.style.display = "none";
+    });
+    state.comparison.openResorts.clear();
+    allResorts.forEach(r => {
+      const arrowEl = document.getElementById(`acc-arrow-${escapeHtml(r)}`);
+      if (arrowEl) arrowEl.textContent = "▶";
+    });
+  }
 
   updateToggleAllAccordionButtonUI();
 };
 
 function updateToggleAllAccordionButtonUI() {
-  const groupRows = document.querySelectorAll("tr.cmp-resort-group-row");
-  const allResorts = Array.from(groupRows).map(r => r.getAttribute("data-resort")).filter(Boolean);
+  const childRows = document.querySelectorAll("tr.cmp-child-row");
   const btnText = document.getElementById("accordion-toggle-text");
   const btnIcon = document.getElementById("accordion-toggle-icon");
-  if (!btnText || !btnIcon || allResorts.length === 0) return;
+  if (!btnText || !btnIcon || childRows.length === 0) return;
 
-  const allOpen = allResorts.length > 0 && allResorts.every(r => state.comparison?.openResorts?.has(r));
-  if (allOpen) {
+  const hasAnyHidden = Array.from(childRows).some(row => row.classList.contains("hidden") || row.style.display === "none");
+  if (!hasAnyHidden) {
     btnIcon.textContent = "▼";
     btnText.textContent = "전체 접기";
   } else {
