@@ -231,10 +231,10 @@
 
     <!-- 3. KPI Summary Metrics Cards: 핵심 4대 관리 지표 체계 -->
     <section class="kpi-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" aria-label="핵심 4대 안전 지표">
-      <!-- 1) [카드 1] 전체 누적 사고 -->
+      <!-- 1) [카드 1] 총 사고 발생 건수 -->
       <div class="kpi-card kpi-card-clickable" id="kpi-card-total" title="클릭 시 연도별 사고 발생 추이 및 통계 브리핑 모달이 열립니다">
         <div class="kpi-info">
-          <h4>전체 누적 사고</h4>
+          <h4>총 사고 발생 건수</h4>
           <div id="kpiTotalIncidentCount" class="kpi-value text-3xl font-extrabold text-slate-900 my-2">558건</div>
           <div class="kpi-click-badge" id="kpi-sub-total">
             <span>📊 발생 추이 브리핑</span>
@@ -243,19 +243,7 @@
         <div class="kpi-icon">📊</div>
       </div>
 
-      <!-- 2) [카드 2] 2026년 당해 사고 -->
-      <div class="kpi-card kpi-card-clickable" id="kpi-card-2026" title="클릭 시 2026년 당해 사고 세부 목록 모달이 열립니다">
-        <div class="kpi-info">
-          <h4>2026년 당해 사고</h4>
-          <div id="kpiYearCurrentCount" class="kpi-value text-3xl font-extrabold text-slate-900 my-2">0건</div>
-          <div class="kpi-click-badge" id="kpi-sub-2026">
-            <span>📅 올해 발생 현황 모니터링</span>
-          </div>
-        </div>
-        <div class="kpi-icon">📅</div>
-      </div>
-
-      <!-- 3) [카드 3] 2026년 직원 안전사고 -->
+      <!-- 2) [카드 2] 2026년 직원 안전사고 -->
       <div class="kpi-card kpi-card-clickable" id="kpi-card-employee" title="클릭 시 2026년 직원 및 근로자 안전사고 목록 모달이 열립니다">
         <div class="kpi-info">
           <h4>2026년 직원 안전사고</h4>
@@ -267,7 +255,7 @@
         <div class="kpi-icon kpi-icon-amber">⛑️</div>
       </div>
 
-      <!-- 4) [카드 4] 골프장(4대 CC) 사고 -->
+      <!-- 3) [카드 3] 골프장(4대 CC) 사고 -->
       <div class="kpi-card kpi-card-clickable" id="kpi-card-golf" title="클릭 시 4대 골프CC 전담팀 사고 목록 모달이 열립니다">
         <div class="kpi-info">
           <h4>골프장(4대 CC) 사고</h4>
@@ -277,6 +265,18 @@
           </div>
         </div>
         <div class="kpi-icon kpi-icon-blue">⛳</div>
+      </div>
+
+      <!-- 4) [카드 4] 당사 지급 / 보상 비용 -->
+      <div class="kpi-card kpi-card-clickable" id="kpi-card-cost" title="클릭 시 기간별 당사 지급 보험/보상 비용 상세 분석 모달이 열립니다">
+        <div class="kpi-info">
+          <h4>당사 지급 / 보상 비용</h4>
+          <div id="kpi-total-cost" class="kpi-value text-3xl font-extrabold text-slate-900 my-2">0원 <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(0건)</span></div>
+          <div class="kpi-click-badge" id="kpi-sub-cost">
+            <span>💳 기간별 상세 분석</span>
+          </div>
+        </div>
+        <div class="kpi-icon">💳</div>
       </div>
     </section>
 

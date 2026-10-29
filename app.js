@@ -433,14 +433,17 @@ function setupEventListeners() {
   const totalCard = document.getElementById("kpi-card-total") || document.getElementById("kpi-card-trend");
   if (totalCard) totalCard.addEventListener("click", openTrendAnalysisModal);
 
-  const card2026 = document.getElementById("kpi-card-2026");
-  if (card2026) card2026.addEventListener("click", () => openKpiDrilldown("year2026"));
-
   const cardEmployee = document.getElementById("kpi-card-employee");
   if (cardEmployee) cardEmployee.addEventListener("click", () => openKpiDrilldown("employee2026"));
 
   const cardGolf = document.getElementById("kpi-card-golf");
   if (cardGolf) cardGolf.addEventListener("click", () => openKpiDrilldown("golfCC"));
+
+  const cardCost = document.getElementById("kpi-card-cost");
+  if (cardCost) cardCost.addEventListener("click", openCostAnalysisModal);
+
+  const card2026 = document.getElementById("kpi-card-2026");
+  if (card2026) card2026.addEventListener("click", () => openKpiDrilldown("year2026"));
 
   // KPI 드릴다운 모달 닫기 이벤트 초기화
   const closeKpiDrillBtn = document.getElementById("btn-close-kpi-drilldown");
@@ -2660,23 +2663,17 @@ function renderKPIs() {
     : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
   const totalAll = all.length;
 
-  // 1) 전체 누적 사고
-  const elTotal = document.getElementById("kpiTotalIncidentCount");
+  // 1) [카드 1] 총 사고 발생 건수 (558건)
+  const elTotal = document.getElementById("kpiTotalIncidentCount") || document.getElementById("kpi-total");
   if (elTotal) elTotal.innerText = `${totalAll.toLocaleString()}건`;
 
-  // 2) 2026년 당해 사고
+  // 2) [카드 2] 2026년 직원 안전사고 (2026년 발생 사고 중 피해구분이 '직원/임직원/캐디/근로자'인 건수 집계)
   const list2026 = all.filter(x => {
     const p = parseIncidentDate(x);
     return p && p.getFullYear() === 2026;
   });
   const count2026 = list2026.length;
-  const rate2026 = totalAll > 0 ? ((count2026 / totalAll) * 100).toFixed(1) : "0.0";
-  const elYear = document.getElementById("kpiYearCurrentCount");
-  if (elYear) elYear.innerText = `${count2026.toLocaleString()}건`;
-  const elSub2026 = document.getElementById("kpi-sub-2026");
-  if (elSub2026) elSub2026.innerHTML = `<span>📅 전체 대비 ${rate2026}% 점유</span>`;
 
-  // 3) 2026년 직원 안전사고
   const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자"];
   const listEmp2026 = list2026.filter(x => {
     const vType = (x.victimType || "").trim();
@@ -2690,7 +2687,7 @@ function renderKPIs() {
   const elSubEmp = document.getElementById("kpi-sub-employee");
   if (elSubEmp) elSubEmp.innerHTML = `<span>👷 산재·임직원 집중 관리 (${rateEmp2026}%)</span>`;
 
-  // 4) 골프장(4대 CC) 사고
+  // 3) [카드 3] 골프장(4대 CC) 사고 (밸리팀, 힐스팀, 성문안팀, 월송리팀 발생 사고 합계 및 점유율(%) 표기)
   const ccResorts = ["밸리팀", "힐스팀", "성문안팀", "월송리팀"];
   const listGolfCC = all.filter(x => {
     const r = (x.resort || "").trim();
@@ -2707,9 +2704,41 @@ function renderKPIs() {
   const elSubGolf = document.getElementById("kpi-sub-golf");
   if (elSubGolf) elSubGolf.innerHTML = `<span>⛳ 전체 대비 ${rateGolf}% (4대 CC)</span>`;
 
+  // 4) [카드 4] 당사 지급 / 보상 비용 (임의의 가상 금액 제거, 실비용 실시간 합산 또는 0원 (0건))
+  const costItems = all.filter(curr => {
+    const paidAmount = parseNumericCost(curr.companyAmount !== undefined ? curr.companyAmount : curr.cost);
+    return paidAmount > 0;
+  });
+  const totalCompanyCost = costItems.reduce((acc, curr) => {
+    return acc + parseNumericCost(curr.companyAmount !== undefined ? curr.companyAmount : curr.cost);
+  }, 0);
+  const costCount = costItems.length;
+
+  const totalCostEl = document.getElementById("kpi-total-cost");
+  if (totalCostEl) {
+    let costText = "0원";
+    if (totalCompanyCost >= 100000000) {
+      costText = `${(totalCompanyCost / 100000000).toFixed(1)}억원`;
+    } else if (totalCompanyCost >= 10000) {
+      costText = `${Math.round(totalCompanyCost / 10000).toLocaleString()}만원`;
+    } else if (totalCompanyCost > 0) {
+      costText = `${totalCompanyCost.toLocaleString()}원`;
+    } else {
+      costText = "0원";
+    }
+    totalCostEl.innerHTML = `${costText} <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(${costCount.toLocaleString()}건)</span>`;
+  }
+
   // Legacy fallback elements (if any exist in DOM)
   const legacyTotal = document.getElementById("kpi-total");
   if (legacyTotal) legacyTotal.innerText = `${totalAll.toLocaleString()}건`;
+  const elYear = document.getElementById("kpiYearCurrentCount");
+  if (elYear) elYear.innerText = `${count2026.toLocaleString()}건`;
+  const elSub2026 = document.getElementById("kpi-sub-2026");
+  if (elSub2026) {
+    const rate2026 = totalAll > 0 ? ((count2026 / totalAll) * 100).toFixed(1) : "0.0";
+    elSub2026.innerHTML = `<span>📅 전체 대비 ${rate2026}% 점유</span>`;
+  }
 }
 
 // Render Charts with Dynamic Top-N Grouping for 500+ Rows
