@@ -640,15 +640,82 @@ function loadData() {
       const records = JSON.parse(stored);
       if (Array.isArray(records) && records.length > 0) {
         let migrated = false;
+
+        // [긴급 복구] 사고유형 '기타' 오염 원복 및 제목 매핑 교정
+        const initialMap = new Map();
+        const defaultList = (typeof window.initialIncidents !== "undefined" && Array.isArray(window.initialIncidents) && window.initialIncidents.length > 0)
+          ? window.initialIncidents
+          : (typeof INITIAL_INCIDENTS !== "undefined" && Array.isArray(INITIAL_INCIDENTS) ? INITIAL_INCIDENTS : []);
+        defaultList.forEach(orig => initialMap.set(orig.id, orig));
+
+        const gitaCount = records.filter(i => i.category === "기타").length;
+        const isSeverelyPolluted = (gitaCount / records.length) > 0.3 || records.some(i => i.title && i.title.includes("기타 사고") && initialMap.has(i.id) && initialMap.get(i.id).category !== "기타");
+
         records.forEach(item => {
-          if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000 || item.cost > 0 || item.companyAmount > 0) {
-            item.cost = 0;
-            item.totalAmount = 0;
-            item.companyAmount = 0;
-            item.personalAmount = 0;
-            if (item.faultRatio === '당사 70% : 고객 30%') item.faultRatio = '과실 미산정';
-            migrated = true;
+          // 1. data.js 원본 대조 복구
+          const orig = initialMap.get(item.id);
+          if (orig) {
+            if (orig.category !== "기타" && (item.category === "기타" || (item.title && item.title.includes("기타 사고")) || isSeverelyPolluted)) {
+              item.category = orig.category;
+              item.incidentType = orig.incidentType;
+              item.title = orig.title;
+              migrated = true;
+            }
+            if (item.dept !== orig.dept) {
+              item.dept = orig.dept;
+              migrated = true;
+            }
+            // 실무 보험금 동기화
+            if (item.cost !== orig.cost) {
+              item.cost = orig.cost;
+              item.totalAmount = orig.totalAmount;
+              item.companyAmount = orig.companyAmount;
+              item.personalAmount = orig.personalAmount;
+              item.faultRatio = orig.faultRatio;
+              migrated = true;
+            }
+            if (item.victimType !== orig.victimType) {
+              item.victimType = orig.victimType;
+              migrated = true;
+            }
+            if (item.businessUnit !== orig.businessUnit || item.resort !== orig.resort) {
+              item.businessUnit = orig.businessUnit;
+              item.resort = orig.resort;
+              migrated = true;
+            }
+            if (item.location !== orig.location || item.locationDetail !== orig.locationDetail) {
+              item.location = orig.location;
+              item.locationDetail = orig.locationDetail;
+              migrated = true;
+            }
+            if (item.notes !== orig.notes) {
+              item.notes = orig.notes;
+              item.specialNotes = orig.notes;
+              migrated = true;
+            }
+          } else {
+            // 2. 신규 항목의 경우 지능형 키워드 fallback
+            const resolvedCat = resolveIncidentCategory(item.category, `${item.description || ""} ${item.title || ""} ${item.locationDetail || ""}`);
+            if (resolvedCat !== item.category) {
+              item.category = resolvedCat;
+              item.incidentType = resolvedCat;
+              const locPrefix = item.locationDetail && item.locationDetail !== "공용 구역"
+                ? `[${item.locationDetail}]`
+                : (item.resort ? `[${item.resort}]` : "");
+              item.title = `${locPrefix} ${resolvedCat} 사고`.trim();
+              migrated = true;
+            }
+            // 가상 목업 금액 제거
+            if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000) {
+              item.cost = 0;
+              item.totalAmount = 0;
+              item.companyAmount = 0;
+              item.personalAmount = 0;
+              if (item.faultRatio === '당사 70% : 고객 30%') item.faultRatio = '과실 미산정';
+              migrated = true;
+            }
           }
+
           // 4대 CC 전담팀 매핑 및 콘도/부대시설 데이터 완전 격리 마이그레이션
           const correctDept = inferDeptFromIncident(item);
           if (item.dept !== correctDept) {
@@ -661,6 +728,7 @@ function loadData() {
         if (migrated) {
           try {
             localStorage.setItem("resort_incidents_data", JSON.stringify(state.incidents));
+            console.log(`[Dashboard] 오염된 로컬스토리지 데이터를 원본(${records.length}건)으로 복원 및 동기화 완료했습니다.`);
           } catch (_) {}
         }
         console.log(`[Dashboard] 로컬스토리지에서 총 ${state.incidents.length}건의 데이터를 최신순 정렬하여 로드했습니다.`);
