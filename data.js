@@ -55,7 +55,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 2,
@@ -106,7 +108,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 3,
@@ -157,7 +161,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 4,
@@ -208,7 +214,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 5,
@@ -259,7 +267,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 6,
@@ -310,7 +320,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 7,
@@ -361,7 +373,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 8,
@@ -412,7 +426,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 9,
@@ -463,7 +479,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 10,
@@ -514,7 +532,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 11,
@@ -565,7 +585,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 12,
@@ -616,7 +638,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 13,
@@ -667,7 +691,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 14,
@@ -718,7 +744,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 15,
@@ -769,7 +797,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 16,
@@ -820,7 +850,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 17,
@@ -871,7 +903,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 18,
@@ -922,7 +956,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 19,
@@ -973,7 +1009,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 20,
@@ -1024,7 +1062,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "아이파크콘도",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 21,
@@ -1075,7 +1115,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 22,
@@ -1126,7 +1168,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 23,
@@ -1177,7 +1221,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 24,
@@ -1228,7 +1274,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 25,
@@ -1279,7 +1327,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 26,
@@ -1330,7 +1380,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 27,
@@ -1381,7 +1433,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 28,
@@ -1432,7 +1486,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 29,
@@ -1483,7 +1539,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 30,
@@ -1534,7 +1592,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 31,
@@ -1585,7 +1645,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 32,
@@ -1636,7 +1698,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "인사사고",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 33,
@@ -1687,7 +1751,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 34,
@@ -1738,7 +1804,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 35,
@@ -1789,7 +1857,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 36,
@@ -1840,7 +1910,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(카트)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 37,
@@ -1891,7 +1963,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 38,
@@ -1942,7 +2016,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "지관사업소",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 39,
@@ -1993,7 +2069,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 40,
@@ -2044,7 +2122,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 41,
@@ -2095,7 +2175,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 42,
@@ -2146,7 +2228,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 43,
@@ -2197,7 +2281,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 44,
@@ -2248,7 +2334,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 45,
@@ -2299,7 +2387,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 46,
@@ -2350,7 +2440,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 47,
@@ -2401,7 +2493,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 48,
@@ -2452,7 +2546,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 49,
@@ -2503,7 +2599,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(강은아)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 50,
@@ -2554,7 +2652,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(임종훈)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 51,
@@ -2605,7 +2705,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "캐디(김태희)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 52,
@@ -2656,7 +2758,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 53,
@@ -2707,7 +2811,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 54,
@@ -2758,7 +2864,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 55,
@@ -2809,7 +2917,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 56,
@@ -2860,7 +2970,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 57,
@@ -2911,7 +3023,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 58,
@@ -2962,7 +3076,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 59,
@@ -3013,7 +3129,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 60,
@@ -3064,7 +3182,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 61,
@@ -3115,7 +3235,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 62,
@@ -3166,7 +3288,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 63,
@@ -3217,7 +3341,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 64,
@@ -3268,7 +3394,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 65,
@@ -3319,7 +3447,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 66,
@@ -3370,7 +3500,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 67,
@@ -3421,7 +3553,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 68,
@@ -3472,7 +3606,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 69,
@@ -3523,7 +3659,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 70,
@@ -3574,7 +3712,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고 (골프백)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 71,
@@ -3625,7 +3765,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 72,
@@ -3676,7 +3818,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 73,
@@ -3727,7 +3871,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(서영순)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 74,
@@ -3778,7 +3924,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 75,
@@ -3829,7 +3977,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 76,
@@ -3880,7 +4030,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 77,
@@ -3931,7 +4083,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 78,
@@ -3982,7 +4136,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 79,
@@ -4033,7 +4189,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 80,
@@ -4084,7 +4242,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 81,
@@ -4135,7 +4295,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 82,
@@ -4186,7 +4348,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 83,
@@ -4237,7 +4401,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 84,
@@ -4288,7 +4454,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 85,
@@ -4339,7 +4507,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 86,
@@ -4390,7 +4560,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(오원경)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 87,
@@ -4441,7 +4613,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 88,
@@ -4492,7 +4666,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 89,
@@ -4543,7 +4719,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 90,
@@ -4594,7 +4772,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 91,
@@ -4645,7 +4825,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 92,
@@ -4696,7 +4878,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 93,
@@ -4747,7 +4931,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리팀",
     "구분2": "캐디(최준형)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 94,
@@ -4798,7 +4984,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 95,
@@ -4849,7 +5037,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 96,
@@ -4900,7 +5090,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 97,
@@ -4951,7 +5143,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 98,
@@ -5002,7 +5196,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 99,
@@ -5053,7 +5249,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 100,
@@ -5104,7 +5302,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 101,
@@ -5155,7 +5355,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 102,
@@ -5206,7 +5408,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "실습생",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 103,
@@ -5257,7 +5461,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 104,
@@ -5308,7 +5514,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 105,
@@ -5359,7 +5567,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 106,
@@ -5410,7 +5620,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 107,
@@ -5461,7 +5673,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 108,
@@ -5512,7 +5726,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(이다훈)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 109,
@@ -5563,7 +5779,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 110,
@@ -5614,7 +5832,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 111,
@@ -5665,7 +5885,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(엄민희)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 112,
@@ -5716,7 +5938,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 113,
@@ -5767,7 +5991,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(최성룡)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 114,
@@ -5818,7 +6044,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 115,
@@ -5869,7 +6097,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 116,
@@ -5920,7 +6150,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(홍혁근)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 117,
@@ -5971,7 +6203,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 118,
@@ -6022,7 +6256,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 119,
@@ -6073,7 +6309,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 120,
@@ -6124,7 +6362,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 121,
@@ -6175,7 +6415,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 122,
@@ -6226,7 +6468,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(오현정)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 123,
@@ -6277,7 +6521,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 124,
@@ -6328,7 +6574,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 125,
@@ -6379,7 +6627,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 126,
@@ -6430,7 +6680,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 127,
@@ -6481,7 +6733,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "낙상사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 128,
@@ -6532,7 +6786,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 129,
@@ -6583,7 +6839,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 130,
@@ -6634,7 +6892,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 131,
@@ -6685,7 +6945,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 132,
@@ -6736,7 +6998,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 133,
@@ -6787,7 +7051,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 134,
@@ -6838,7 +7104,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "캐디(이채연)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 135,
@@ -6889,7 +7157,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "캐디(강민정)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 136,
@@ -6940,7 +7210,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 137,
@@ -6991,7 +7263,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 138,
@@ -7042,7 +7316,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 139,
@@ -7093,7 +7369,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 140,
@@ -7144,7 +7422,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(서대훈)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 141,
@@ -7195,7 +7475,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 142,
@@ -7246,7 +7528,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 143,
@@ -7297,7 +7581,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(김동혁)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 144,
@@ -7348,7 +7634,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 145,
@@ -7399,7 +7687,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "캐디(김가람)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 146,
@@ -7450,7 +7740,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 147,
@@ -7501,7 +7793,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 148,
@@ -7552,7 +7846,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 149,
@@ -7603,7 +7899,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 150,
@@ -7654,7 +7952,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 151,
@@ -7705,7 +8005,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 152,
@@ -7756,7 +8058,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 153,
@@ -7807,7 +8111,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 154,
@@ -7858,7 +8164,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 155,
@@ -7909,7 +8217,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 156,
@@ -7960,7 +8270,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(허신영)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 157,
@@ -8011,7 +8323,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 158,
@@ -8062,7 +8376,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "기타",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 159,
@@ -8113,7 +8429,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 160,
@@ -8164,7 +8482,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 161,
@@ -8215,7 +8535,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 162,
@@ -8266,7 +8588,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 163,
@@ -8317,7 +8641,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 164,
@@ -8368,7 +8694,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 165,
@@ -8419,7 +8747,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 166,
@@ -8470,7 +8800,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 167,
@@ -8521,7 +8853,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화상",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 168,
@@ -8572,7 +8906,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 169,
@@ -8623,7 +8959,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 170,
@@ -8674,7 +9012,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 171,
@@ -8725,7 +9065,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 172,
@@ -8776,7 +9118,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고 (차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 173,
@@ -8827,7 +9171,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 174,
@@ -8878,7 +9224,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "떨어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 175,
@@ -8929,7 +9277,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고 (차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 176,
@@ -8980,7 +9330,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "시설물",
     "구분1": "아이파크콘도",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 177,
@@ -9031,7 +9383,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 178,
@@ -9082,7 +9436,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 179,
@@ -9133,7 +9489,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 180,
@@ -9184,7 +9542,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 181,
@@ -9235,7 +9595,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 182,
@@ -9286,7 +9648,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "물체에 맞음",
     "구분1": "객실",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 183,
@@ -9337,7 +9701,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 184,
@@ -9388,7 +9754,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화재",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 185,
@@ -9439,7 +9807,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 186,
@@ -9490,7 +9860,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "찔림",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 187,
@@ -9541,7 +9913,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 188,
@@ -9592,7 +9966,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "아이파크콘도",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 189,
@@ -9643,7 +10019,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(주아현)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 190,
@@ -9694,7 +10072,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 191,
@@ -9745,7 +10125,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 192,
@@ -9796,7 +10178,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(정진선)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 193,
@@ -9847,7 +10231,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 194,
@@ -9898,7 +10284,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 195,
@@ -9949,7 +10337,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 196,
@@ -10000,7 +10390,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 197,
@@ -10051,7 +10443,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 198,
@@ -10102,7 +10496,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 199,
@@ -10153,7 +10549,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 200,
@@ -10204,7 +10602,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 201,
@@ -10255,7 +10655,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 202,
@@ -10306,7 +10708,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 203,
@@ -10357,7 +10761,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 204,
@@ -10408,7 +10814,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 205,
@@ -10459,7 +10867,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 206,
@@ -10510,7 +10920,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 207,
@@ -10561,7 +10973,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "캐디(김태현)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 208,
@@ -10612,7 +11026,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 209,
@@ -10663,7 +11079,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 210,
@@ -10714,7 +11132,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 211,
@@ -10765,7 +11185,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 212,
@@ -10816,7 +11238,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(양소윤)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 213,
@@ -10867,7 +11291,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 214,
@@ -10918,7 +11344,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 215,
@@ -10969,7 +11397,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 216,
@@ -11020,7 +11450,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "캐디(선수정)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 217,
@@ -11071,7 +11503,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 218,
@@ -11122,7 +11556,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 219,
@@ -11173,7 +11609,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스비리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 220,
@@ -11224,7 +11662,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 221,
@@ -11275,7 +11715,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 222,
@@ -11326,7 +11768,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "빠짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 223,
@@ -11377,7 +11821,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 224,
@@ -11428,7 +11874,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 225,
@@ -11479,7 +11927,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 226,
@@ -11530,7 +11980,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(박준식)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 227,
@@ -11581,7 +12033,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 228,
@@ -11632,7 +12086,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 229,
@@ -11683,7 +12139,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(이한율)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 230,
@@ -11734,7 +12192,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 231,
@@ -11785,7 +12245,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 232,
@@ -11836,7 +12298,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 233,
@@ -11887,7 +12351,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 234,
@@ -11938,7 +12404,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 235,
@@ -11989,7 +12457,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(손준형)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 236,
@@ -12040,7 +12510,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 237,
@@ -12091,7 +12563,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 238,
@@ -12142,7 +12616,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "물체에 맞음",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 239,
@@ -12193,7 +12669,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 240,
@@ -12244,7 +12722,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 241,
@@ -12295,7 +12775,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 242,
@@ -12346,7 +12828,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌레 물림",
     "구분1": "기숙사",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 243,
@@ -12397,7 +12881,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 244,
@@ -12448,7 +12934,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 245,
@@ -12499,7 +12987,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 246,
@@ -12550,7 +13040,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 247,
@@ -12601,7 +13093,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 248,
@@ -12652,7 +13146,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고 (골프백)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 249,
@@ -12703,7 +13199,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 250,
@@ -12754,7 +13252,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 251,
@@ -12805,7 +13305,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 252,
@@ -12856,7 +13358,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 253,
@@ -12907,7 +13411,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(이상민)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 254,
@@ -12958,7 +13464,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 255,
@@ -13009,7 +13517,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 256,
@@ -13060,7 +13570,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 257,
@@ -13111,7 +13623,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 258,
@@ -13162,7 +13676,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 259,
@@ -13213,7 +13729,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 260,
@@ -13264,7 +13782,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 261,
@@ -13315,7 +13835,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(김별)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 262,
@@ -13366,7 +13888,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "근골격계 질환",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 263,
@@ -13417,7 +13941,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 264,
@@ -13468,7 +13994,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 265,
@@ -13519,7 +14047,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 266,
@@ -13570,7 +14100,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 267,
@@ -13621,7 +14153,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 268,
@@ -13672,7 +14206,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 269,
@@ -13723,7 +14259,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "캐디(김재이)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 270,
@@ -13774,7 +14312,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 271,
@@ -13825,7 +14365,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 272,
@@ -13876,7 +14418,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 273,
@@ -13927,7 +14471,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(심지수)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 274,
@@ -13978,7 +14524,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 275,
@@ -14029,7 +14577,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 276,
@@ -14080,7 +14630,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 277,
@@ -14131,7 +14683,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 278,
@@ -14182,7 +14736,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 279,
@@ -14233,7 +14789,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 280,
@@ -14284,7 +14842,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 281,
@@ -14335,7 +14895,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 282,
@@ -14386,7 +14948,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 283,
@@ -14437,7 +15001,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 284,
@@ -14488,7 +15054,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 285,
@@ -14539,7 +15107,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 286,
@@ -14590,7 +15160,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 287,
@@ -14641,7 +15213,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 500000
+    "보험금": 500000,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 288,
@@ -14692,7 +15266,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 289,
@@ -14743,7 +15319,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 290,
@@ -14794,7 +15372,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "사망",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 291,
@@ -14845,7 +15425,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 292,
@@ -14896,7 +15478,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 293,
@@ -14947,7 +15531,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 294,
@@ -14998,7 +15584,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(심지수)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 295,
@@ -15049,7 +15637,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 296,
@@ -15100,7 +15690,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 297,
@@ -15151,7 +15743,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 298,
@@ -15202,7 +15796,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 299,
@@ -15253,7 +15849,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 300,
@@ -15304,7 +15902,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 301,
@@ -15355,7 +15955,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 302,
@@ -15406,7 +16008,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 303,
@@ -15457,7 +16061,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(김채민)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 304,
@@ -15508,7 +16114,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "찔림",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 305,
@@ -15559,7 +16167,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 306,
@@ -15610,7 +16220,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 307,
@@ -15661,7 +16273,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 308,
@@ -15712,7 +16326,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 309,
@@ -15763,7 +16379,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(강대훈)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 310,
@@ -15814,7 +16432,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 311,
@@ -15865,7 +16485,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 312,
@@ -15916,7 +16538,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 313,
@@ -15967,7 +16591,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "단지내",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 314,
@@ -16018,7 +16644,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 315,
@@ -16069,7 +16697,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 316,
@@ -16120,7 +16750,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 317,
@@ -16171,7 +16803,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 318,
@@ -16222,7 +16856,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 319,
@@ -16273,7 +16909,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 320,
@@ -16324,7 +16962,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 321,
@@ -16375,7 +17015,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 322,
@@ -16426,7 +17068,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 323,
@@ -16477,7 +17121,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 324,
@@ -16528,7 +17174,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 325,
@@ -16579,7 +17227,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 326,
@@ -16630,7 +17280,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 327,
@@ -16681,7 +17333,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 328,
@@ -16732,7 +17386,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 329,
@@ -16783,7 +17439,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 330,
@@ -16834,7 +17492,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 331,
@@ -16885,7 +17545,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(이규담)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 332,
@@ -16936,7 +17598,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 333,
@@ -16987,7 +17651,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 334,
@@ -17038,7 +17704,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 335,
@@ -17089,7 +17757,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "물체에 맞음",
     "구분1": "힐스팀",
     "구분2": "캐디(안지영)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 336,
@@ -17140,7 +17810,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "캐디(김지현)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 337,
@@ -17191,7 +17863,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 338,
@@ -17242,7 +17916,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "단지내",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 339,
@@ -17293,7 +17969,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 340,
@@ -17344,7 +18022,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(주아현)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 341,
@@ -17395,7 +18075,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "캐디(김영아)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 342,
@@ -17446,7 +18128,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 343,
@@ -17497,7 +18181,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 344,
@@ -17548,7 +18234,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(정시은)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 345,
@@ -17599,7 +18287,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 346,
@@ -17650,7 +18340,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 347,
@@ -17701,7 +18393,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고 (골프백)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 348,
@@ -17752,7 +18446,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 349,
@@ -17803,7 +18499,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 350,
@@ -17854,7 +18552,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 351,
@@ -17905,7 +18605,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 352,
@@ -17956,7 +18658,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 353,
@@ -18007,7 +18711,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 354,
@@ -18058,7 +18764,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(김미란)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 355,
@@ -18109,7 +18817,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(박민서)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 356,
@@ -18160,7 +18870,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "캐디(우효림)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 357,
@@ -18211,7 +18923,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 358,
@@ -18262,7 +18976,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 359,
@@ -18313,7 +19029,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 360,
@@ -18364,7 +19082,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 361,
@@ -18415,7 +19135,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "협력사",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 362,
@@ -18466,7 +19188,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 363,
@@ -18517,7 +19241,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 364,
@@ -18568,7 +19294,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 365,
@@ -18619,7 +19347,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 366,
@@ -18670,7 +19400,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고 (차량피해)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 367,
@@ -18721,7 +19453,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 368,
@@ -18772,7 +19506,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(손범진)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 369,
@@ -18823,7 +19559,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 370,
@@ -18874,7 +19612,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 371,
@@ -18925,7 +19665,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 372,
@@ -18976,7 +19718,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 373,
@@ -19027,7 +19771,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 374,
@@ -19078,7 +19824,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "캐디(전아율)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 375,
@@ -19129,7 +19877,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 376,
@@ -19180,7 +19930,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고 (차량피해)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 377,
@@ -19231,7 +19983,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 378,
@@ -19282,7 +20036,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 379,
@@ -19333,7 +20089,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 380,
@@ -19384,7 +20142,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 381,
@@ -19435,7 +20195,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 382,
@@ -19486,7 +20248,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 383,
@@ -19537,7 +20301,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 384,
@@ -19588,7 +20354,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 385,
@@ -19639,7 +20407,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 386,
@@ -19690,7 +20460,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 387,
@@ -19741,7 +20513,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(김덕훈)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 388,
@@ -19792,7 +20566,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 389,
@@ -19843,7 +20619,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 390,
@@ -19894,7 +20672,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 391,
@@ -19945,7 +20725,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 392,
@@ -19996,7 +20778,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 393,
@@ -20047,7 +20831,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "감전",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 394,
@@ -20098,7 +20884,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 395,
@@ -20149,7 +20937,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 396,
@@ -20200,7 +20990,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 397,
@@ -20251,7 +21043,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 398,
@@ -20302,7 +21096,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 399,
@@ -20353,7 +21149,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 400,
@@ -20404,7 +21202,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 401,
@@ -20455,7 +21255,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 402,
@@ -20506,7 +21308,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 403,
@@ -20557,7 +21361,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 404,
@@ -20608,7 +21414,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "지관사업소",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 405,
@@ -20659,7 +21467,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "떨어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 406,
@@ -20710,7 +21520,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 407,
@@ -20761,7 +21573,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 408,
@@ -20812,7 +21626,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 409,
@@ -20863,7 +21679,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 410,
@@ -20914,7 +21732,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 411,
@@ -20965,7 +21785,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "군도변",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 412,
@@ -21016,7 +21838,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "군도변",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 413,
@@ -21067,7 +21891,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 414,
@@ -21118,7 +21944,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 415,
@@ -21169,7 +21997,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 416,
@@ -21220,7 +22050,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 417,
@@ -21271,7 +22103,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 418,
@@ -21322,7 +22156,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 419,
@@ -21373,7 +22209,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 420,
@@ -21424,7 +22262,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스/월송리 사업소",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 421,
@@ -21475,7 +22315,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 422,
@@ -21526,7 +22368,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 423,
@@ -21577,7 +22421,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 424,
@@ -21628,7 +22474,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 425,
@@ -21679,7 +22527,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 426,
@@ -21730,7 +22580,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 427,
@@ -21781,7 +22633,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 428,
@@ -21832,7 +22686,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 429,
@@ -21883,7 +22739,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "떨어짐",
     "구분1": "잠실진주",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 430,
@@ -21934,7 +22792,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 431,
@@ -21985,7 +22845,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 432,
@@ -22036,7 +22898,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 433,
@@ -22087,7 +22951,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 434,
@@ -22138,7 +23004,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 435,
@@ -22189,7 +23057,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 436,
@@ -22240,7 +23110,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 437,
@@ -22291,7 +23163,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 438,
@@ -22342,7 +23216,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 439,
@@ -22393,7 +23269,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 440,
@@ -22444,7 +23322,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 441,
@@ -22495,7 +23375,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 442,
@@ -22546,7 +23428,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 443,
@@ -22597,7 +23481,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 444,
@@ -22648,7 +23534,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 445,
@@ -22699,7 +23587,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(손재양)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 446,
@@ -22750,7 +23640,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 447,
@@ -22801,7 +23693,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 448,
@@ -22852,7 +23746,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 449,
@@ -22903,7 +23799,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "근골격계 질환",
     "구분1": "힐스팀",
     "구분2": "캐디(정시은)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 450,
@@ -22954,7 +23852,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 451,
@@ -23005,7 +23905,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 452,
@@ -23056,7 +23958,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 453,
@@ -23107,7 +24011,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 454,
@@ -23158,7 +24064,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "스키장",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 455,
@@ -23209,7 +24117,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "스키장",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 456,
@@ -23260,7 +24170,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 457,
@@ -23311,7 +24223,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 458,
@@ -23362,7 +24276,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 459,
@@ -23413,7 +24329,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 460,
@@ -23464,7 +24382,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 461,
@@ -23515,7 +24435,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 462,
@@ -23566,7 +24488,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 463,
@@ -23617,7 +24541,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 464,
@@ -23668,7 +24594,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 465,
@@ -23719,7 +24647,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 466,
@@ -23770,7 +24700,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 100000
+    "보험금": 100000,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 467,
@@ -23821,7 +24753,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 468,
@@ -23872,7 +24806,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 469,
@@ -23923,7 +24859,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 470,
@@ -23974,7 +24912,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 471,
@@ -24025,7 +24965,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 472,
@@ -24076,7 +25018,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 473,
@@ -24127,7 +25071,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 474,
@@ -24178,7 +25124,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 475,
@@ -24229,7 +25177,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 476,
@@ -24280,7 +25230,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 477,
@@ -24331,7 +25283,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 478,
@@ -24382,7 +25336,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 479,
@@ -24433,7 +25389,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스팀",
     "구분2": "직원(박덕재)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 480,
@@ -24484,7 +25442,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "낙상사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 481,
@@ -24535,7 +25495,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 482,
@@ -24586,7 +25548,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "월송리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 483,
@@ -24637,7 +25601,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "직원(대정)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 484,
@@ -24688,7 +25654,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 485,
@@ -24739,7 +25707,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 486,
@@ -24790,7 +25760,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 487,
@@ -24841,7 +25813,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "성문안팀",
     "구분2": "직원(대정)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 488,
@@ -24892,7 +25866,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 489,
@@ -24943,7 +25919,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스빌리지",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 490,
@@ -24994,7 +25972,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(김수종)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 491,
@@ -25045,7 +26025,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "낙상사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 492,
@@ -25096,7 +26078,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 493,
@@ -25147,7 +26131,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 494,
@@ -25198,7 +26184,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 495,
@@ -25249,7 +26237,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 496,
@@ -25300,7 +26290,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화재",
     "구분1": "월송리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 497,
@@ -25351,7 +26343,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 498,
@@ -25402,7 +26396,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 499,
@@ -25453,7 +26449,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 500,
@@ -25504,7 +26502,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 501,
@@ -25555,7 +26555,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 502,
@@ -25606,7 +26608,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "직원\n(황령흠)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 503,
@@ -25657,7 +26661,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 504,
@@ -25708,7 +26714,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 505,
@@ -25759,7 +26767,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "직원\n(홍기배)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 506,
@@ -25810,7 +26820,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(백인성)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 507,
@@ -25861,7 +26873,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 508,
@@ -25912,7 +26926,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 509,
@@ -25963,7 +26979,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 510,
@@ -26014,7 +27032,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 511,
@@ -26065,7 +27085,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "감전",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 512,
@@ -26116,7 +27138,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 513,
@@ -26167,7 +27191,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬 시설팀",
     "구분2": "직원\n(시설팀)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 514,
@@ -26218,7 +27244,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "장비사고 (샌드프로)",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 515,
@@ -26269,7 +27297,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 516,
@@ -26320,7 +27350,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 517,
@@ -26371,7 +27403,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 518,
@@ -26422,7 +27456,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 519,
@@ -26473,7 +27509,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 520,
@@ -26524,7 +27562,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 521,
@@ -26575,7 +27615,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 522,
@@ -26626,7 +27668,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 523,
@@ -26677,7 +27721,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 524,
@@ -26728,7 +27774,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 525,
@@ -26779,7 +27827,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 526,
@@ -26830,7 +27880,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 527,
@@ -26881,7 +27933,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 528,
@@ -26932,7 +27986,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 529,
@@ -26983,7 +28039,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 530,
@@ -27034,7 +28092,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 531,
@@ -27085,7 +28145,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "CS팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 532,
@@ -27136,7 +28198,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "CS팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 533,
@@ -27187,7 +28251,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 534,
@@ -27238,7 +28304,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 535,
@@ -27289,7 +28357,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스빌리지",
     "구분2": "기타",
-    "보험금": 100000
+    "보험금": 100000,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 536,
@@ -27340,7 +28410,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "빠짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 537,
@@ -27391,7 +28463,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "인사사고",
     "구분1": "김해도시계획시설",
     "구분2": "근로자\n(일용직)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 538,
@@ -27442,7 +28516,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디\n(김광현)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 539,
@@ -27493,7 +28569,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 540,
@@ -27544,7 +28622,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 541,
@@ -27595,7 +28675,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 100000
+    "보험금": 100000,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 542,
@@ -27646,7 +28728,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디\n(이옥규)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 543,
@@ -27697,7 +28781,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "근로자\n(미화)",
-    "보험금": 370000
+    "보험금": 370000,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 544,
@@ -27748,7 +28834,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디\n(김혜영)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 545,
@@ -27799,7 +28887,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 546,
@@ -27850,7 +28940,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "군도변",
     "구분2": "직원\n(대정)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 547,
@@ -27901,7 +28993,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "근골격계 질환",
     "구분1": "성문안팀",
     "구분2": "캐디\n(오은율)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 548,
@@ -27952,7 +29046,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디\n(조수민)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 549,
@@ -28003,7 +29099,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 550,
@@ -28054,7 +29152,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 551,
@@ -28105,7 +29205,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 552,
@@ -28156,7 +29258,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 553,
@@ -28207,7 +29311,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리CC",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 554,
@@ -28258,7 +29364,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리CC",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 555,
@@ -28309,7 +29417,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "감전",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 556,
@@ -28360,7 +29470,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 482000
+    "보험금": 482000,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 557,
@@ -28411,7 +29523,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디\n(윤서은)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 558,
@@ -28462,7 +29576,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 559,
@@ -28513,7 +29629,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디\n(손호준)",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 560,
@@ -28564,7 +29682,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   },
   {
     "id": 561,
@@ -28615,7 +29735,9 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "reportStatus": "해당 없음",
+    "industrialAccidentReport": "해당 없음"
   }
 ];
 

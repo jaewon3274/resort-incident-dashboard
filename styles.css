@@ -1361,6 +1361,9 @@ body.modal-open {
   font-size: 0.88rem;
   font-weight: 700;
   color: #1e293b !important;
+  white-space: nowrap !important;
+  min-width: max-content !important;
+  word-break: keep-all !important;
 }
 .modal-status-select,
 #dtl-status-select {
@@ -4095,4 +4098,35 @@ body.auth-locked .main-wrapper {
 }
 .pr-2 {
   padding-right: 0.5rem !important;
+}
+
+/* [긴급 교정] 모달 내 모든 라벨 및 데이터 텍스트 줄바꿈 방지 */
+.modal-container,
+.modal-container label,
+.modal-container p,
+.modal-container span,
+.modal-container div,
+.modal-container h3,
+.modal-container h4,
+.modal-container .meta-item,
+.modal-container .meta-item label,
+.modal-container .meta-item p,
+.modal-container .detail-box,
+.modal-container .form-group label {
+  word-break: keep-all !important;
+  word-wrap: break-word;
+}
+
+/* [긴급 교정] 메인 테이블 문서번호 열 너비 및 폰트 개선 */
+.incident-table #th-doc-no,
+.incident-table .id-cell,
+.incident-table th#th-doc-no,
+.incident-table td.id-cell {
+  min-width: 155px !important;
+  width: 155px !important;
+  white-space: nowrap !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #2563eb !important;
 }

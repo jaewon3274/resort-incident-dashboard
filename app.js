@@ -131,6 +131,21 @@ function getIncidentCost(item) {
 }
 window.getIncidentCost = getIncidentCost;
 
+// ==========================================================================
+// [신설] 산업재해조사표 제출 상태 배지 생성 헬퍼
+// ==========================================================================
+function getReportStatusBadge(status) {
+  const norm = String(status || '').replace(/\s+/g, '');
+  if (norm === '제출완료') {
+    return `<span class="badge badge-report-complete text-emerald-700 bg-emerald-50 border border-emerald-200" style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; color: #047857; background-color: #ecfdf5; border: 1px solid #a7f3d0;">제출완료</span>`;
+  } else if (norm === '제출예정') {
+    return `<span class="badge badge-report-planned text-amber-700 bg-amber-50 border border-amber-200" style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; color: #b45309; background-color: #fffbeb; border: 1px solid #fde68a;">제출예정</span>`;
+  } else {
+    return `<span class="badge badge-report-none text-slate-600 bg-slate-100" style="font-size: 0.74rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; color: #475569; background-color: #f1f5f9; border: 1px solid #cbd5e1;">해당 없음</span>`;
+  }
+}
+window.getReportStatusBadge = getReportStatusBadge;
+
 function normalizeIncident(item) {
   if (!item || typeof item !== "object") return item;
 
@@ -162,6 +177,17 @@ function normalizeIncident(item) {
   item.cost = costVal;
   item.companyAmount = costVal;
   item['보험금'] = costVal;
+
+  // 산업재해조사표 제출 상태 기본값 및 보정
+  if (!item.reportStatus && !item.industrialAccidentReport) {
+    item.reportStatus = "해당 없음";
+    item.industrialAccidentReport = "해당 없음";
+  } else {
+    let r = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
+    if (r === "해당없음") r = "해당 없음";
+    item.reportStatus = r;
+    item.industrialAccidentReport = r;
+  }
 
   return item;
 }
@@ -3086,7 +3112,11 @@ function populateEditForm(id) {
 
   // 신설: 산재 행정 특이사항 및 첨부파일 연동
   const editReportStatusEl = document.getElementById("edit-report-status");
-  if (editReportStatusEl) editReportStatusEl.value = item.reportStatus || "해당없음";
+  if (editReportStatusEl) {
+    let r = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
+    if (r === "해당없음") r = "해당 없음";
+    editReportStatusEl.value = r;
+  }
   const editSpecialNotesEl = document.getElementById("edit-special-notes");
   if (editSpecialNotesEl) editSpecialNotesEl.value = item.specialNotes || "";
 
@@ -3126,7 +3156,8 @@ function handleSaveEdit() {
   const manager = document.getElementById("edit-manager").value.trim();
 
   // 신설: 산재조사표 제출 여부 및 특이사항, 첨부파일
-  const reportStatus = document.getElementById("edit-report-status") ? document.getElementById("edit-report-status").value : (item.reportStatus || "해당없음");
+  let reportStatus = document.getElementById("edit-report-status") ? document.getElementById("edit-report-status").value : (item.reportStatus || "해당 없음");
+  if (reportStatus === "해당없음") reportStatus = "해당 없음";
   const specialNotes = document.getElementById("edit-special-notes") ? document.getElementById("edit-special-notes").value.trim() : "";
   const attachments = state.editAttachments || [];
 
@@ -3170,6 +3201,8 @@ function handleSaveEdit() {
     status: status,
     manager: manager,
     reportStatus: reportStatus,
+    industrialAccidentReport: reportStatus,
+    industrialAccidentReport: reportStatus,
     notes: specialNotes,
     specialNotes: specialNotes,
     attachments: attachments,
@@ -3939,7 +3972,7 @@ function renderTable() {
   if (total === 0) {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="10" style="text-align: center; padding: 3rem 1rem; color: #64748b;">
+        <td colspan="11" style="text-align: center; padding: 3rem 1rem; color: #64748b;">
           <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🔍</div>
           <div style="font-weight: 600; color: #334155;">조건에 부합하는 사고 기록이 없습니다.</div>
           <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">검색어나 필터 조건을 재설정해 보세요.</div>
@@ -3981,7 +4014,7 @@ function renderTable() {
     return `
       <tr onclick="openIncidentDetail('${escapeHtml(String(item.docNo || item.id))}')">
         <td class="no-cell" style="text-align: center;">${globalIndex}</td>
-        <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(item.docNo || item.documentNumber || item.id || "-")}</td>
+        <td class="id-cell min-w-[155px] whitespace-nowrap font-mono text-[12px]" style="min-width: 155px; width: 155px; white-space: nowrap; font-family: monospace; font-size: 12px; font-weight: 700; color: #2563eb;">${escapeHtml(item.docNo || item.documentNumber || item.id || "-")}</td>
         <td class="date-cell" style="font-size: 0.83rem; color: #475569; white-space: nowrap;">${escapeHtml(item.date)}</td>
         <td class="dept-cell" style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">
           ${escapeHtml(item.resort || "")}${deptDisplay}
@@ -3998,6 +4031,9 @@ function renderTable() {
         </td>
         <td class="title-cell" title="${escapeHtml(item.title || "")}" style="font-weight: 600; color: #0f172a;">
           ${escapeHtml(item.title || "-")}
+        </td>
+        <td style="text-align: center; white-space: nowrap;">
+          ${getReportStatusBadge(item.reportStatus || item.industrialAccidentReport || "해당 없음")}
         </td>
         <td style="text-align: center;">
           <span class="badge ${statusClass}">
@@ -4077,9 +4113,17 @@ function openIncidentDetail(id, originContext) {
   const modal = document.getElementById("detail-modal");
   if (!modal) return;
 
-  document.getElementById("dtl-id").innerText = item.id;
-  document.getElementById("dtl-doc-id").innerText = item.id;
-  document.getElementById("dtl-title").innerText = item.title;
+  const docNumber = String(item.docNo || item.documentNumber || item.id || "-").trim();
+  const locDetail = String(item.locationDetail || item.place || item.location || "현장").trim();
+  const catType = getIncidentCategory(item);
+  const formattedTitle = `[${docNumber}] [${locDetail}] ${catType} 사고`;
+
+  const dtlIdEl = document.getElementById("dtl-id");
+  if (dtlIdEl) dtlIdEl.innerText = docNumber;
+  const dtlDocIdEl = document.getElementById("dtl-doc-id");
+  if (dtlDocIdEl) dtlDocIdEl.innerText = docNumber;
+  const dtlTitleEl = document.getElementById("dtl-title");
+  if (dtlTitleEl) dtlTitleEl.innerText = formattedTitle;
   document.getElementById("dtl-date").innerText = item.date;
   document.getElementById("dtl-resort").innerText = `${item.resort} ${item.dept ? `(${item.dept})` : ''}`;
   document.getElementById("dtl-location").innerText = `${item.zone} - ${item.locationDetail}`;
@@ -4129,15 +4173,48 @@ function openIncidentDetail(id, originContext) {
   document.getElementById("dtl-preventive").innerText = item.preventiveMeasure || "예방 대책 기록 없음";
 
   // 신설: 특이사항 및 산업재해조사표 행정 상태 연동
-  const reportStatus = item.reportStatus || "해당없음";
+  // 신설: 특이사항 및 산업재해조사표 행정 상태 연동
+  let reportStatus = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
+  if (reportStatus === "해당없음") reportStatus = "해당 없음";
+
   const reportBadgeEl = document.getElementById("dtl-report-status-badge");
   if (reportBadgeEl) {
     reportBadgeEl.textContent = `산재조사표: ${reportStatus}`;
-    reportBadgeEl.className = "badge";
-    if (reportStatus === "제출완료") reportBadgeEl.classList.add("badge-report-complete");
-    else if (reportStatus === "제출예정") reportBadgeEl.classList.add("badge-report-planned");
-    else if (reportStatus === "미제출") reportBadgeEl.classList.add("badge-report-unsubmitted");
-    else reportBadgeEl.classList.add("badge-report-none");
+    reportBadgeEl.className = "badge " + (
+      reportStatus === "제출완료" ? "badge-report-complete" :
+      reportStatus === "제출예정" ? "badge-report-planned" :
+      "badge-report-none"
+    );
+  }
+
+  const dtlReportStatusSelect = document.getElementById("dtl-report-status-select");
+  if (dtlReportStatusSelect) {
+    dtlReportStatusSelect.value = reportStatus;
+    dtlReportStatusSelect.onchange = (e) => {
+      const newReportStatus = e.target.value;
+      IncidentStorage.update(item.id, { reportStatus: newReportStatus, industrialAccidentReport: newReportStatus });
+      item.reportStatus = newReportStatus;
+      item.industrialAccidentReport = newReportStatus;
+      if (reportBadgeEl) {
+        reportBadgeEl.textContent = `산재조사표: ${newReportStatus}`;
+        reportBadgeEl.className = "badge " + (
+          newReportStatus === "제출완료" ? "badge-report-complete" :
+          newReportStatus === "제출예정" ? "badge-report-planned" :
+          "badge-report-none"
+        );
+      }
+      const metaReportEl = document.getElementById("dtl-meta-report-status");
+      if (metaReportEl) {
+        metaReportEl.innerHTML = getReportStatusBadge(newReportStatus);
+      }
+      applyFilters();
+      showToast(`문서 [${docNumber}]의 산재조사표 상태가 '${newReportStatus}'(으)로 변경되었습니다.`, "success");
+    };
+  }
+
+  const metaReportEl = document.getElementById("dtl-meta-report-status");
+  if (metaReportEl) {
+    metaReportEl.innerHTML = getReportStatusBadge(reportStatus);
   }
 
   const specialNotesEl = document.getElementById("dtl-special-notes");
@@ -4227,7 +4304,8 @@ function handleRegisterSubmit(e) {
   const manager = document.getElementById("reg-manager").value.trim();
 
   // 신설: 산재조사표 제출 여부, 특이사항, 첨부파일
-  const reportStatus = document.getElementById("reg-report-status") ? document.getElementById("reg-report-status").value : "해당없음";
+  let reportStatus = document.getElementById("reg-report-status") ? document.getElementById("reg-report-status").value : "해당 없음";
+  if (reportStatus === "해당없음") reportStatus = "해당 없음";
   const specialNotes = document.getElementById("reg-special-notes") ? document.getElementById("reg-special-notes").value.trim() : "";
   const attachments = state.regAttachments || [];
 
@@ -4274,6 +4352,8 @@ function handleRegisterSubmit(e) {
     notes: specialNotes,
     specialNotes: specialNotes,
     reportStatus: reportStatus,
+    industrialAccidentReport: reportStatus,
+    industrialAccidentReport: reportStatus,
     attachments: attachments,
     reportDate: formattedDate.slice(0, 10),
     timeline: [
