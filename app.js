@@ -172,8 +172,9 @@ function generateAutoDocNumber(dateString) {
   const prefix = `${year}-H1892-`;
   let maxSeq = 0;
   (state.incidents || []).forEach(item => {
-    if (item.id && item.id.startsWith(prefix)) {
-      const numPart = parseInt(item.id.replace(prefix, ""), 10);
+    const doc = String(item?.docNo || item?.documentNumber || item?.id || "");
+    if (doc.startsWith(prefix)) {
+      const numPart = parseInt(doc.replace(prefix, ""), 10);
       if (!isNaN(numPart) && numPart > maxSeq) {
         maxSeq = numPart;
       }
@@ -719,17 +720,17 @@ let detailModalOrigin = null;
 
 // Initialize on DOM Ready
 document.addEventListener("DOMContentLoaded", () => {
-  checkAuthStatus();
-  loadData();
-  updateSortHeaderUI();
-  setupEventListeners();
-  setupCostModalEvents();
-  populateFilterDropdowns();
-  applyFilters();
+  try { checkAuthStatus(); } catch (e) { console.error("checkAuthStatus error:", e); }
+  try { loadData(); } catch (e) { console.error("loadData error:", e); }
+  try { updateSortHeaderUI(); } catch (e) { console.error("updateSortHeaderUI error:", e); }
+  try { setupEventListeners(); } catch (e) { console.error("setupEventListeners error:", e); }
+  try { setupCostModalEvents(); } catch (e) { console.error("setupCostModalEvents error:", e); }
+  try { populateFilterDropdowns(); } catch (e) { console.error("populateFilterDropdowns error:", e); }
+  try { applyFilters(); } catch (e) { console.error("applyFilters error:", e); }
 });
 
 // Load Data from LocalStorage (1순위: localStorage 'resort_incidents_data' 영구 데이터)
-const DATA_VERSION = "20261102_v1";
+const DATA_VERSION = "20261102_v3";
 const VERSION_KEY = "resort_data_version";
 
 function loadData() {
@@ -890,7 +891,7 @@ function loadData() {
     normalizeIncident(item);
     item.dept = inferDeptFromIncident(item);
   });
-  sortIncidentsList(state.incidents, "id", "desc");
+  sortIncidentsList(state.incidents, "docNo", "desc");
 
   // 로컬스토리지에 영구 저장
   try {
@@ -3246,13 +3247,14 @@ function applyFilters() {
 
 // Render All Components
 function renderAll() {
-  renderKPIs();
-  renderCharts();
-  renderTable();
+  try { renderKPIs(); } catch (e) { console.error("renderKPIs error:", e); }
+  try { renderCharts(); } catch (e) { console.error("renderCharts error:", e); }
+  try { renderTable(); } catch (e) { console.error("renderTable error:", e); }
 }
 
 // Render KPIs: 핵심 4대 관리 지표 체계 (필터 조건에 따른 동적 연동 탑재)
 function renderKPIs() {
+  try {
   const all = (state.incidents && state.incidents.length > 0)
     ? state.incidents
     : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
@@ -3367,10 +3369,14 @@ function renderKPIs() {
     const rate = totalAll > 0 ? ((currentCount / totalAll) * 100).toFixed(1) : "0.0";
     elSub2026.innerHTML = `<span>📅 전체 대비 ${rate}% 점유</span>`;
   }
+  } catch (errKPI) {
+    console.error("renderKPIs 실행 오류 방어:", errKPI);
+  }
 }
 
 // Render Charts with Dynamic Top-N Grouping for 500+ Rows
 function renderCharts() {
+  try {
   const data = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
     ? state.filteredIncidents
     : (state.incidents || []);
@@ -3674,6 +3680,9 @@ function renderCharts() {
       }
     });
   }
+  } catch (errCharts) {
+    console.error("renderCharts 실행 오류 방어:", errCharts);
+  }
 }
 
 // Update Pagination Controls
@@ -3711,8 +3720,8 @@ function compareIncidents(a, b, key = currentSort.key, order = currentSort.order
 
   if (normKey === "docNo") {
     // 1순위: 문서번호 문자열 자연 비교 (예: 2026-H... vs 2023-H...)
-    const idA = String(a.id || a.docNo || "").trim();
-    const idB = String(b.id || b.docNo || "").trim();
+    const idA = String(a?.docNo || a?.documentNumber || a?.id || "").trim();
+    const idB = String(b?.docNo || b?.documentNumber || b?.id || "").trim();
     let cmp = idA.localeCompare(idB, undefined, { numeric: true, sensitivity: "base" });
     if (cmp === 0) {
       cmp = parseIncidentTimestamp(a) - parseIncidentTimestamp(b);
@@ -3868,9 +3877,9 @@ function renderTable() {
     const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
 
     return `
-      <tr onclick="openIncidentDetail('${item.id}')">
+      <tr onclick="openIncidentDetail('${escapeHtml(String(item.docNo || item.id))}')">
         <td class="no-cell" style="text-align: center;">${globalIndex}</td>
-        <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(item.id)}</td>
+        <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(item.docNo || item.documentNumber || item.id || "-")}</td>
         <td class="date-cell" style="font-size: 0.83rem; color: #475569; white-space: nowrap;">${escapeHtml(item.date)}</td>
         <td class="dept-cell" style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">
           ${escapeHtml(item.resort || "")}${deptDisplay}
@@ -3957,7 +3966,7 @@ function openIncidentDetail(id, originContext) {
   if (originContext !== undefined) {
     detailModalOrigin = originContext;
   }
-  const item = state.incidents.find(i => i.id === id);
+  const item = state.incidents.find(i => String(i.id) === String(id) || String(i.docNo) === String(id) || String(i.documentNumber) === String(id));
   if (!item) return;
 
   state.currentDetailId = item.id;
@@ -4126,9 +4135,14 @@ function handleRegisterSubmit(e) {
   const docNoInput = document.getElementById("newDocNumber");
   const customDocNo = docNoInput ? docNoInput.value.trim() : "";
   const newId = customDocNo || generateAutoDocNumber(dateRaw);
+  const nextNumericId = (state.incidents && state.incidents.length > 0)
+    ? Math.max(...state.incidents.map(x => typeof x.id === "number" ? x.id : 0), 0) + 1
+    : 1;
 
   const newIncident = {
-    id: newId,
+    id: nextNumericId,
+    docNo: newId,
+    documentNumber: newId,
     date: formattedDate,
     category: category,
     type: category,
