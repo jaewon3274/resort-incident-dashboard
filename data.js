@@ -28624,107 +28624,117 @@ const initialIncidents = INITIAL_INCIDENTS;
 // ==========================================================================
 // [로컬스토리지 영구 보존 및 동기화 스토리지 매니저 (IncidentStorage)]
 // ==========================================================================
-const DATA_VERSION = "20261102_vFINAL";
-const VERSION_KEY = "resort_data_version";
-const STORAGE_KEY = "resort_incidents_data";
-const LEGACY_STORAGE_KEY = "resort_incident_records_v2";
+// [로컬스토리지 영구 보존 및 동기화 스토리지 매니저 (IncidentStorage)]
+// ==========================================================================
+// (중복 선언 충돌 방지를 위해 DATA_VERSION 최상단 const 선언 제거 및 즉시실행함수 캡슐화)
+(function() {
+  const DEFAULT_VERSION = "20261102_vFINAL";
+  const VERSION_KEY = "resort_data_version";
+  const STORAGE_KEY = "resort_incidents_data";
+  const LEGACY_STORAGE_KEY = "resort_incident_records_v2";
 
-const IncidentStorage = {
-  getAll() {
-    try {
-      if (typeof localStorage === "undefined") return INITIAL_INCIDENTS;
-      
-      const curVersion = localStorage.getItem(VERSION_KEY);
-      if (curVersion !== DATA_VERSION) {
-        console.warn("[Storage] 데이터 버전 불일치 (" + curVersion + " -> " + DATA_VERSION + "). localStorage.clear() 후 INITIAL_INCIDENTS " + INITIAL_INCIDENTS.length + "건으로 강제 갱신합니다.");
-        try {
-          localStorage.clear();
-        } catch (_) {
-          localStorage.removeItem(STORAGE_KEY);
-          localStorage.removeItem(LEGACY_STORAGE_KEY);
+  function getTargetVersion() {
+    if (typeof window !== "undefined" && window.APP_DATA_VERSION) {
+      return window.APP_DATA_VERSION;
+    }
+    return DEFAULT_VERSION;
+  }
+
+  const IncidentStorage = {
+    getAll() {
+      try {
+        if (typeof localStorage === "undefined") return INITIAL_INCIDENTS;
+        
+        const targetVer = getTargetVersion();
+        const curVersion = localStorage.getItem(VERSION_KEY);
+        if (curVersion !== targetVer) {
+          console.warn("[Storage] 데이터 버전 불일치 (" + curVersion + " -> " + targetVer + "). localStorage.clear() 후 INITIAL_INCIDENTS " + INITIAL_INCIDENTS.length + "건으로 강제 갱신합니다.");
+          try {
+            localStorage.clear();
+          } catch (_) {
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(LEGACY_STORAGE_KEY);
+          }
+          localStorage.setItem(VERSION_KEY, targetVer);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
+          return INITIAL_INCIDENTS;
         }
-        localStorage.setItem(VERSION_KEY, DATA_VERSION);
+
+        let data = localStorage.getItem(STORAGE_KEY);
+        if (!data) {
+          const legacyData = localStorage.getItem(LEGACY_STORAGE_KEY);
+          if (legacyData) {
+            data = legacyData;
+            localStorage.setItem(STORAGE_KEY, legacyData);
+          }
+        }
+        if (data) {
+          const records = JSON.parse(data);
+          if (Array.isArray(records) && records.length > 0) {
+            return records;
+          }
+        }
+        localStorage.setItem(VERSION_KEY, targetVer);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
         return INITIAL_INCIDENTS;
+      } catch (e) {
+        console.error("Storage load error:", e);
+        return INITIAL_INCIDENTS;
       }
+    },
 
-      let data = localStorage.getItem(STORAGE_KEY);
-      if (!data) {
-        const legacyData = localStorage.getItem(LEGACY_STORAGE_KEY);
-        if (legacyData) {
-          data = legacyData;
-          localStorage.setItem(STORAGE_KEY, legacyData);
-        }
+    saveAll(records) {
+      try {
+        if (typeof localStorage === "undefined") return;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+        localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(records));
+      } catch (e) {
+        console.error("Storage save error:", e);
       }
-      if (data) {
-        const records = JSON.parse(data);
-        if (Array.isArray(records) && records.length > 0) {
-          return records;
-        }
-      }
-      localStorage.setItem(VERSION_KEY, DATA_VERSION);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
-      return INITIAL_INCIDENTS;
-    } catch (e) {
-      console.error("Storage load error:", e);
-      return INITIAL_INCIDENTS;
-    }
-  },
+    },
 
-  saveAll(records) {
-    try {
-      if (typeof localStorage === "undefined") return;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-      localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(records));
-    } catch (e) {
-      console.error("Storage save error:", e);
-    }
-  },
-
-  add(record) {
-    const list = this.getAll();
-    list.unshift(record);
-    this.saveAll(list);
-    return list;
-  },
-
-  update(id, updatedFields) {
-    const list = this.getAll();
-    const idx = list.findIndex(item => item.id === id || item.docNo === id);
-    if (idx !== -1) {
-      list[idx] = { ...list[idx], ...updatedFields };
+    add(record) {
+      const list = this.getAll();
+      list.unshift(record);
       this.saveAll(list);
-    }
-    return list;
-  },
+      return list;
+    },
 
-  delete(id) {
-    const list = this.getAll().filter(item => item.id !== id && item.docNo !== id);
-    this.saveAll(list);
-    return list;
-  },
+    update(id, updatedFields) {
+      const list = this.getAll();
+      const idx = list.findIndex(item => item.id === id || item.docNo === id);
+      if (idx !== -1) {
+        list[idx] = { ...list[idx], ...updatedFields };
+        this.saveAll(list);
+      }
+      return list;
+    },
 
-  reset() {
-    if (typeof localStorage !== "undefined") {
-      try { localStorage.clear(); } catch (_) {}
-      localStorage.setItem(VERSION_KEY, DATA_VERSION);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
-      localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
+    delete(id) {
+      const list = this.getAll().filter(item => item.id !== id && item.docNo !== id);
+      this.saveAll(list);
+      return list;
+    },
+
+    reset() {
+      if (typeof localStorage !== "undefined") {
+        try { localStorage.clear(); } catch (_) {}
+        const targetVer = getTargetVersion();
+        localStorage.setItem(VERSION_KEY, targetVer);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
+        localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
+      }
+      return INITIAL_INCIDENTS;
     }
-    return INITIAL_INCIDENTS;
+  };
+
+  if (typeof window !== "undefined") {
+    window.INITIAL_INCIDENTS = INITIAL_INCIDENTS;
+    window.initialIncidents = INITIAL_INCIDENTS;
+    window.IncidentStorage = IncidentStorage;
   }
-};
 
-if (typeof window !== "undefined") {
-  window.INITIAL_INCIDENTS = INITIAL_INCIDENTS;
-  window.initialIncidents = INITIAL_INCIDENTS;
-  window.DATA_VERSION = DATA_VERSION;
-  window.VERSION_KEY = VERSION_KEY;
-  window.STORAGE_KEY = STORAGE_KEY;
-  window.LEGACY_STORAGE_KEY = LEGACY_STORAGE_KEY;
-  window.IncidentStorage = IncidentStorage;
-}
-
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = { DATA_VERSION, VERSION_KEY, STORAGE_KEY, INITIAL_INCIDENTS, initialIncidents, IncidentStorage };
-}
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = { INITIAL_INCIDENTS, initialIncidents, IncidentStorage };
+  }
+})();

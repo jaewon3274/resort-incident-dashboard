@@ -1,3 +1,8 @@
+// ==========================================================================
+// 0. Global System & Data Version Definition
+// ==========================================================================
+window.APP_DATA_VERSION = '20261102_vFINAL';
+const DATA_VERSION = window.APP_DATA_VERSION;
 
 // ==========================================================================
 // 1. Authentication Gateway Logic (사내 보안 로그인 게이트웨이)
@@ -792,7 +797,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Load Data from LocalStorage (1순위: localStorage 'resort_incidents_data' 영구 데이터)
-const DATA_VERSION = "20261102_vFINAL";
+// DATA_VERSION은 최상단 window.APP_DATA_VERSION 단일 소스 참조
 const VERSION_KEY = "resort_data_version";
 
 function loadData() {
@@ -803,8 +808,8 @@ function loadData() {
   // [요구사항 3] 데이터 버전 체크 및 오염 캐시 강제 갱신 로직 (DATA_VERSION = '20261030_v2')
   try {
     const curVersion = localStorage.getItem(VERSION_KEY);
-    if (curVersion !== DATA_VERSION) {
-      console.warn(`[Dashboard] 데이터 버전 불일치 (${curVersion} -> ${DATA_VERSION}). localStorage.clear() 후 최신 INITIAL_INCIDENTS(${defaultList.length}건)로 즉시 강제 갱신합니다.`);
+    if (curVersion !== window.APP_DATA_VERSION) {
+      console.warn(`[Dashboard] 데이터 버전 불일치 (${curVersion} -> ${window.APP_DATA_VERSION}). localStorage.clear() 후 최신 INITIAL_INCIDENTS(${defaultList.length}건)로 즉시 강제 갱신합니다.`);
       try {
         localStorage.clear();
       } catch (_) {
@@ -812,7 +817,7 @@ function loadData() {
         localStorage.removeItem("resort_incident_records_v2");
         localStorage.removeItem(VERSION_KEY);
       }
-      localStorage.setItem(VERSION_KEY, DATA_VERSION);
+      localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
       if (defaultList && defaultList.length > 0) {
         localStorage.setItem("resort_incidents_data", JSON.stringify(defaultList));
         state.incidents = JSON.parse(JSON.stringify(defaultList));
@@ -939,7 +944,7 @@ function loadData() {
         sortIncidentsList(state.incidents, "id", "desc");
         if (migrated) {
           try {
-            localStorage.setItem(VERSION_KEY, DATA_VERSION);
+            localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
             localStorage.setItem("resort_incidents_data", JSON.stringify(state.incidents));
             console.log(`[Dashboard] 오염된 로컬스토리지 데이터를 원본(${records.length}건)으로 복원 및 동기화 완료했습니다.`);
           } catch (_) {}
@@ -962,7 +967,7 @@ function loadData() {
 
   // 로컬스토리지에 영구 저장
   try {
-    localStorage.setItem(VERSION_KEY, DATA_VERSION);
+    localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
     localStorage.setItem("resort_incidents_data", JSON.stringify(state.incidents));
     console.log(`[Dashboard] data.js 기본 데이터(${state.incidents.length}건)를 로컬스토리지에 초기 영구 저장했습니다.`);
   } catch (e) {
