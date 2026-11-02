@@ -1,0 +1,165 @@
+{
+  "total": 561,
+  "distribution": [
+    {
+      "category": "넘어짐",
+      "count": 148,
+      "percentage": "26.4%"
+    },
+    {
+      "category": "타구사고",
+      "count": 94,
+      "percentage": "16.8%"
+    },
+    {
+      "category": "타구사고(차량)",
+      "count": 65,
+      "percentage": "11.6%"
+    },
+    {
+      "category": "카트사고",
+      "count": 51,
+      "percentage": "9.1%"
+    },
+    {
+      "category": "차량사고",
+      "count": 43,
+      "percentage": "7.7%"
+    },
+    {
+      "category": "부딪힘",
+      "count": 31,
+      "percentage": "5.5%"
+    },
+    {
+      "category": "기타",
+      "count": 19,
+      "percentage": "3.4%"
+    },
+    {
+      "category": "대물사고(차량피해)",
+      "count": 17,
+      "percentage": "3.0%"
+    },
+    {
+      "category": "열상",
+      "count": 14,
+      "percentage": "2.5%"
+    },
+    {
+      "category": "대물사고",
+      "count": 12,
+      "percentage": "2.1%"
+    },
+    {
+      "category": "클럽 파손",
+      "count": 10,
+      "percentage": "1.8%"
+    },
+    {
+      "category": "베임",
+      "count": 7,
+      "percentage": "1.2%"
+    },
+    {
+      "category": "끼임",
+      "count": 5,
+      "percentage": "0.9%"
+    },
+    {
+      "category": "대물사고(골프백)",
+      "count": 4,
+      "percentage": "0.7%"
+    },
+    {
+      "category": "벌 쏘임",
+      "count": 4,
+      "percentage": "0.7%"
+    },
+    {
+      "category": "대물사고\n(차량피해)",
+      "count": 4,
+      "percentage": "0.7%"
+    },
+    {
+      "category": "대물사고\n(골프백)",
+      "count": 3,
+      "percentage": "0.5%"
+    },
+    {
+      "category": "낙상사고",
+      "count": 3,
+      "percentage": "0.5%"
+    },
+    {
+      "category": "떨어짐",
+      "count": 3,
+      "percentage": "0.5%"
+    },
+    {
+      "category": "물체에 맞음",
+      "count": 3,
+      "percentage": "0.5%"
+    },
+    {
+      "category": "근골격계 질환",
+      "count": 3,
+      "percentage": "0.5%"
+    },
+    {
+      "category": "감전",
+      "count": 3,
+      "percentage": "0.5%"
+    },
+    {
+      "category": "인사사고",
+      "count": 2,
+      "percentage": "0.4%"
+    },
+    {
+      "category": "화상",
+      "count": 2,
+      "percentage": "0.4%"
+    },
+    {
+      "category": "화재",
+      "count": 2,
+      "percentage": "0.4%"
+    },
+    {
+      "category": "찔림",
+      "count": 2,
+      "percentage": "0.4%"
+    },
+    {
+      "category": "빠짐",
+      "count": 2,
+      "percentage": "0.4%"
+    },
+    {
+      "category": "타구사고(카트)",
+      "count": 1,
+      "percentage": "0.2%"
+    },
+    {
+      "category": "시설물",
+      "count": 1,
+      "percentage": "0.2%"
+    },
+    {
+      "category": "벌레 물림",
+      "count": 1,
+      "percentage": "0.2%"
+    },
+    {
+      "category": "사망",
+      "count": 1,
+      "percentage": "0.2%"
+    },
+    {
+      "category": "장비사고\n(샌드프로)",
+      "count": 1,
+      "percentage": "0.2%"
+    }
+  ]
+}

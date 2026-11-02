@@ -78,6 +78,14 @@ window.handleLogout = function() {
 // ==========================================================================
 // [요구사항 2] 사고유형 다중 검사 방어 파싱 헬퍼 함수
 // ==========================================================================
+// [표준 데이터 필드 다중 Fallback 접근 함수]
+function getIncidentDate(item) {
+  if (!item) return "";
+  const val = item.date || item.occurredAt || item.incidentDate || item['발생일시'] || item.occurDate || item.reportDate || "";
+  return String(val).replace(/[\r\n]+/g, " ").trim();
+}
+window.getIncidentDate = getIncidentDate;
+
 function getIncidentCategory(item) {
   if (!item) return "기타";
   const val = item.category || item.type || item.incidentType || item['사고유형1'] || "기타";
@@ -85,15 +93,74 @@ function getIncidentCategory(item) {
 }
 window.getIncidentCategory = getIncidentCategory;
 
-// [요구사항 2] 보상/보험 비용 안전 추출 헬퍼 함수
+function getIncidentDept(item) {
+  if (!item) return "기타";
+  const val = item.dept || item.department || item.businessUnit || item['구분1'] || item['부문/부서'] || "기타";
+  return String(val).replace(/[\r\n]+/g, "").trim() || "기타";
+}
+window.getIncidentDept = getIncidentDept;
+
+function getIncidentLocation(item) {
+  if (!item) return "";
+  const val = item.location || item.place || item.locationDetail || item['위치(세부)'] || "";
+  return String(val).replace(/[\r\n]+/g, " ").trim();
+}
+window.getIncidentLocation = getIncidentLocation;
+
+function getIncidentVictim(item) {
+  if (!item) return "고객";
+  const val = item.victim || item.victimType || item['구분2'] || "고객";
+  return String(val).replace(/[\r\n]+/g, "").trim() || "고객";
+}
+window.getIncidentVictim = getIncidentVictim;
+
 function getIncidentCost(item) {
   if (!item) return 0;
-  const raw = item.companyAmount !== undefined && item.companyAmount !== null && item.companyAmount !== ""
-    ? item.companyAmount
-    : (item.cost !== undefined && item.cost !== null && item.cost !== "" ? item.cost : item['보험금']);
-  return parseNumericCost(raw);
+  const raw = (item.cost !== undefined && item.cost !== null && item.cost !== "")
+    ? item.cost
+    : ((item.companyAmount !== undefined && item.companyAmount !== null && item.companyAmount !== "")
+      ? item.companyAmount
+      : (item['보험금'] !== undefined && item['보험금'] !== null && item['보험금'] !== "" ? item['보험금'] : item.totalAmount));
+  const num = typeof raw === "number" ? raw : Number(String(raw || 0).replace(/[^0-9.-]/g, ""));
+  return isNaN(num) ? 0 : num;
 }
 window.getIncidentCost = getIncidentCost;
+
+function normalizeIncident(item) {
+  if (!item || typeof item !== "object") return item;
+
+  const dateVal = getIncidentDate(item);
+  const catVal = getIncidentCategory(item);
+  const deptVal = getIncidentDept(item);
+  const locVal = getIncidentLocation(item);
+  const victimVal = getIncidentVictim(item);
+  const costVal = getIncidentCost(item);
+  const buVal = item.businessUnit || item.resort || deptVal || "IPARK 리조트";
+
+  item.date = dateVal;
+  item.occurredAt = dateVal;
+  item.category = catVal;
+  item.type = catVal;
+  item.incidentType = catVal;
+  item['사고유형1'] = catVal;
+  item.dept = deptVal;
+  item.department = deptVal;
+  item.businessUnit = buVal;
+  item.resort = item.resort || buVal;
+  item.victim = victimVal;
+  item.victimType = victimVal;
+  item['구분2'] = victimVal;
+  item.location = locVal;
+  item.place = locVal;
+  item.locationDetail = item.locationDetail || locVal;
+  item['위치(세부)'] = locVal;
+  item.cost = costVal;
+  item.companyAmount = costVal;
+  item['보험금'] = costVal;
+
+  return item;
+}
+window.normalizeIncident = normalizeIncident;
 
 // [요구사항 1] 연도-H1892-시퀀스 자동 채번 헬퍼 함수
 function generateAutoDocNumber(dateString) {
@@ -363,9 +430,12 @@ function classifyVictim(item) {
     };
   }
 
-  const vType = String(item.victimType || "").trim();
+  const vType = getIncidentVictim(item);
   const vName = String(item.victimName || "").trim();
-  const fullContext = (vType + " " + vName + " " + (item.note || "") + " " + (item.summary || "") + " " + (item.locationDetail || "")).toLowerCase();
+  const note = String(item.note || item.notes || item.specialNotes || "");
+  const summary = String(item.summary || item.description || "");
+  const locDetail = getIncidentLocation(item);
+  const fullContext = `${vType} ${vName} ${note} ${summary} ${locDetail}`.toLowerCase();
 
   // 1. 캐디 우선 판별
   if (vType.includes("캐디") || fullContext.includes("캐디")) {
@@ -659,7 +729,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Load Data from LocalStorage (1순위: localStorage 'resort_incidents_data' 영구 데이터)
-const DATA_VERSION = "20261030_v2";
+const DATA_VERSION = "20261102_v1";
 const VERSION_KEY = "resort_data_version";
 
 function loadData() {
@@ -718,6 +788,7 @@ function loadData() {
         const isSeverelyPolluted = (gitaCount / records.length) > 0.3 || records.some(i => i.title && i.title.includes("기타 사고") && initialMap.has(i.id) && getIncidentCategory(initialMap.get(i.id)) !== "기타");
 
         records.forEach(item => {
+          normalizeIncident(item);
           // 1. data.js 원본 대조 복구
           const orig = initialMap.get(item.id);
           if (orig) {
@@ -816,6 +887,7 @@ function loadData() {
   // 3. 로컬스토리지에 저장된 데이터가 전혀 없을 때만 data.js의 기본 데이터 로드
   state.incidents = JSON.parse(JSON.stringify(defaultList));
   state.incidents.forEach(item => {
+    normalizeIncident(item);
     item.dept = inferDeptFromIncident(item);
   });
   sortIncidentsList(state.incidents, "id", "desc");
@@ -1890,12 +1962,12 @@ function populatePreventiveFilters() {
 
 function inferDeptFromIncident(item) {
   if (!item) return "기타";
-  const origDept = (item.dept || "").trim();
-  const resort = (item.resort || "").trim();
-  const loc = (item.locationDetail || "").trim();
-  const zone = (item.zone || "").trim();
-  const title = (item.title || "").trim();
-  const desc = (item.description || "").trim();
+  const origDept = getIncidentDept(item);
+  const resort = String(item.resort || item.businessUnit || "").trim();
+  const loc = getIncidentLocation(item);
+  const zone = String(item.zone || "").trim();
+  const title = String(item.title || "").trim();
+  const desc = String(item.description || item.summary || "").trim();
   const cat = getIncidentCategory(item);
   const fullText = `${origDept} ${resort} ${loc} ${zone} ${title} ${desc} ${cat}`.toLowerCase();
 
@@ -2637,9 +2709,9 @@ function normalizeDateString(rawStr) {
 function parseIncidentDate(input, options = {}) {
   if (!input) return null;
 
-  // 사고 객체가 직접 전달된 경우 date -> occurDate -> reportDate 순으로 추출
+  // 사고 객체가 직접 전달된 경우 다중 Fallback으로 날짜 추출
   const raw = typeof input === "object" && !(input instanceof Date)
-    ? String(input.date || input.occurDate || input.reportDate || "")
+    ? String(input.date || input.occurredAt || input.incidentDate || input['발생일시'] || input.occurDate || input.reportDate || "")
     : String(input);
 
   const str = normalizeDateString(raw);
@@ -2754,7 +2826,7 @@ function populateFilterDropdowns() {
 
   if (resortSelect) {
     const currentResort = state.filters.resort;
-    const uniqueResorts = [...new Set(state.incidents.map(i => i.resort).filter(Boolean))].sort();
+    const uniqueResorts = [...new Set(state.incidents.map(i => i.resort || i.businessUnit).filter(Boolean))].sort();
 
     resortSelect.innerHTML = `<option value="all">전체 사업장 (${uniqueResorts.length}개 구역)</option>` +
       uniqueResorts.map(r => `<option value="${escapeHtml(r)}">${escapeHtml(r)}</option>`).join("");
@@ -2770,7 +2842,7 @@ function populateFilterDropdowns() {
   // 4대 골프CC 전담팀 및 리조트 부서 체계화 드롭다운 옵션 생성
   if (deptSelect) {
     const currentDept = state.filters.dept;
-    const allDepts = [...new Set(state.incidents.map(i => i.dept || inferDeptFromIncident(i)).filter(Boolean))];
+    const allDepts = [...new Set(state.incidents.map(i => getIncidentDept(i) || inferDeptFromIncident(i)).filter(Boolean))];
     
     const golfCCDefs = [
       { id: "밸리팀", label: "밸리팀 (오크밸리CC)" },
@@ -3059,29 +3131,31 @@ window.deleteIncident = function(id) {
 
 // Apply Filters to Data
 function applyFilters() {
-  const { search, resort, dept, category, victimType, severity, status, period, zone, startDate, endDate, from, to } = state.filters;
+  const { search, resort, dept, category, victimType, severity, status, period, zone, startDate, endDate, from, to } = state.filters || {};
   const refDate = getSystemReferenceDate();
   const todayStart = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 0, 0, 0, 0);
   const todayEnd = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 23, 59, 59, 999);
 
-  state.filteredIncidents = state.incidents.filter(item => {
-    const itemDept = item.dept || inferDeptFromIncident(item);
+  state.filteredIncidents = (state.incidents || []).filter(item => {
+    const itemDept = getIncidentDept(item);
+    const incidentCategory = getIncidentCategory(item);
+    const itemLoc = getIncidentLocation(item);
+    const itemVictim = getIncidentVictim(item);
 
     if (search) {
-      const targetStr = `${item.id} ${item.title} ${item.locationDetail} ${item.description} ${item.victimName} ${item.manager} ${item.resort} ${itemDept} ${item.faultRatio || ''}`.toLowerCase();
+      const targetStr = `${item?.id || ''} ${item?.title || ''} ${itemLoc} ${item?.description || ''} ${item?.victimName || ''} ${item?.manager || ''} ${item?.resort || item?.businessUnit || ''} ${itemDept} ${item?.faultRatio || ''}`.toLowerCase();
       if (!targetStr.includes(search)) return false;
     }
 
-    if (resort !== "all" && item.resort !== resort) {
+    if (resort && resort !== "all" && item?.resort !== resort && item?.businessUnit !== resort) {
       return false;
     }
 
-    if (dept !== "all" && itemDept !== dept) {
+    if (dept && dept !== "all" && itemDept !== dept) {
       return false;
     }
 
-    const incidentCategory = item.category || item.type || item.incidentType || item['사고유형1'] || '기타';
-    if (category !== "all" && incidentCategory !== category) {
+    if (category && category !== "all" && incidentCategory !== category) {
       return false;
     }
 
@@ -3093,17 +3167,18 @@ function applyFilters() {
       }
     }
 
-    if (zone && zone !== "all" && item.zone !== zone) {
+    const itemZone = item?.zone || inferZoneFromLocation(itemLoc, itemDept, item?.resort) || "기타";
+    if (zone && zone !== "all" && itemZone !== zone) {
       return false;
     }
 
-    if (severity !== "all") {
-      if (!item.severity || (!item.severity.includes(severity) && item.severity !== severity)) {
+    if (severity && severity !== "all") {
+      if (!item?.severity || (!item.severity.includes(severity) && item.severity !== severity)) {
         return false;
       }
     }
 
-    if (status !== "all" && item.status !== status) {
+    if (status && status !== "all" && item?.status !== status) {
       return false;
     }
 
@@ -3223,8 +3298,14 @@ function renderKPIs() {
     const p = parseIncidentDate(x);
     // 전체 목록일 땐 2026년 직원 사고 기본, 특정 기간 필터일 땐 해당 기간 내 직원사고 집계
     if (!isFiltered && (!p || p.getFullYear() !== 2026)) return false;
-    const vType = (x.victimType || "").trim();
-    const note = ((x.note || "") + " " + (x.summary || "") + " " + (x.locationDetail || "") + " " + (x.cause || "") + " " + (x.title || "")).toLowerCase();
+    const vType = getIncidentVictim(x);
+    const note = (
+      String(x?.note || x?.notes || x?.specialNotes || "") + " " +
+      String(x?.summary || x?.description || "") + " " +
+      String(getIncidentLocation(x)) + " " +
+      String(x?.cause || "") + " " +
+      String(x?.title || "")
+    ).toLowerCase();
     return empKeywords.some(kw => vType.includes(kw) || note.includes(kw));
   });
   const countEmp = listEmp.length;
@@ -3239,9 +3320,12 @@ function renderKPIs() {
   // 3) [카드 3] 골프장(4대 CC) 사고 (밸리팀, 힐스팀, 성문안팀, 월송리팀 발생 사고 합계 및 점유율(%) 표기)
   const ccResorts = ["밸리팀", "힐스팀", "성문안팀", "월송리팀"];
   const listGolfCC = targetList.filter(x => {
-    const r = (x.resort || x.businessUnit || "").trim();
-    const d = (x.dept || "").trim();
-    const loc = ((x.locationDetail || x.location || "") + " " + (x.zone || "")).toLowerCase();
+    const r = String(x?.resort || x?.businessUnit || "").trim();
+    const d = getIncidentDept(x);
+    const loc = (
+      String(getIncidentLocation(x)) + " " +
+      String(x?.zone || "")
+    ).toLowerCase();
     if (ccResorts.includes(r) || ccResorts.includes(d)) return true;
     if (loc.includes("코스") || loc.includes("홀") || loc.includes("그린") || loc.includes("티잉") || loc.includes("카트도로")) return true;
     return false;
@@ -3287,12 +3371,19 @@ function renderKPIs() {
 
 // Render Charts with Dynamic Top-N Grouping for 500+ Rows
 function renderCharts() {
-  const data = state.filteredIncidents;
+  const data = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
+
+  if (typeof Chart === "undefined") {
+    console.warn("Chart.js 라이브러리가 로드되지 않았습니다.");
+    return;
+  }
 
   // 1. Group by Category (도넛 차트 집계)
   const categoryCounts = {};
   data.forEach(item => {
-    const incidentCategory = item.category || item.type || item.incidentType || item['사고유형1'] || '기타';
+    const incidentCategory = getIncidentCategory(item);
     categoryCounts[incidentCategory] = (categoryCounts[incidentCategory] || 0) + 1;
   });
 
@@ -3403,7 +3494,7 @@ function renderCharts() {
   // 2. Group by Dept (🏢 팀/부서별 사고 발생 비중)
   const deptCounts = {};
   data.forEach(item => {
-    const dept = item.dept || inferDeptFromIncident(item) || "시설팀";
+    const dept = getIncidentDept(item) || inferDeptFromIncident(item) || "시설팀";
     deptCounts[dept] = (deptCounts[dept] || 0) + 1;
   });
 
@@ -3514,10 +3605,10 @@ function renderCharts() {
     });
   }
 
-  // 3. Group by Zone (Top 7)
+  // 3. Group by Zone (Top 7) (시설별 건수)
   const zoneCounts = {};
   data.forEach(item => {
-    const z = item.zone || "기타";
+    const z = item?.zone || inferZoneFromLocation(getIncidentLocation(item), getIncidentDept(item), item?.resort) || "기타";
     zoneCounts[z] = (zoneCounts[z] || 0) + 1;
   });
 
