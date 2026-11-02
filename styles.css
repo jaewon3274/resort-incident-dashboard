@@ -4082,3 +4082,17 @@ body.auth-locked .main-wrapper {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
 }
 
+
+
+/* ==========================================================================
+   Utility Classes for Modal Vertical Scrolling
+   ========================================================================== */
+.max-h-\[85vh\] {
+  max-height: 85vh !important;
+}
+.overflow-y-auto {
+  overflow-y: auto !important;
+}
+.pr-2 {
+  padding-right: 0.5rem !important;
+}
