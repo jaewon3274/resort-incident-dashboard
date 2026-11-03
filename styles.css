@@ -4169,3 +4169,78 @@ body.auth-locked .main-wrapper {
   word-break: keep-all !important;
   margin: 0 !important;
 }
+
+
+/* ==========================================================================
+   사고 발생 추이 및 통계 브리핑: TOP 3 인터랙티브 카드 & 하단 동적 상세 패널
+   ========================================================================== */
+.trend-top-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 0.5rem;
+}
+.trend-top-item:hover {
+  border-color: #cbd5e1;
+  background-color: #f1f5f9;
+}
+.trend-top-item.is-selected.is-team {
+  border-color: #2563eb !important;
+  background-color: #eff6ff !important;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.12);
+}
+.trend-top-item.is-selected.is-type {
+  border-color: #4f46e5 !important;
+  background-color: #eef2ff !important;
+  box-shadow: 0 1px 3px rgba(79, 70, 229, 0.12);
+}
+.trend-top-rank {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: #f59e0b;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.trend-top-chevron {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #94a3b8;
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+  line-height: 1;
+}
+.trend-top-item.is-selected .trend-top-chevron {
+  transform: rotate(90deg);
+}
+.trend-top-item.is-selected.is-team .trend-top-chevron {
+  color: #2563eb;
+}
+.trend-top-item.is-selected.is-type .trend-top-chevron {
+  color: #4f46e5;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeIn {
+  animation: fadeInDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

@@ -118,6 +118,8 @@ rawRows.forEach((r) => {
     cost: cost,
     companyAmount: cost,
     status: '조치완료',
+    reportStatus: '해당 없음',
+    industrialAccidentReport: '해당 없음',
     description: descStr,
     notes: notesStr,
 

@@ -420,6 +420,7 @@ const state = {
   kpiDrillYearFilter: "all",
   currentKpiDrillType: null,
   currentKpiDrillTitle: "",
+  trendSelectedItem: null,
   currentPage: 1,
   pageSize: 10,
   sort: {
@@ -1824,45 +1825,288 @@ function renderTrendAnalysis() {
 
   renderTrendMonthlyChart(resortSelect ? resortSelect.value : "all");
 
-  // 3. 최다 발생 사고 사업장 TOP 3
-  const resortCounts = {};
-  allIncidents.forEach(item => {
-    const r = item.resort || "기타";
-    resortCounts[r] = (resortCounts[r] || 0) + 1;
-  });
-  const topResorts = Object.entries(resortCounts).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  // 3 & 4. TOP 3 인터랙티브 랭킹 렌더링
+  renderTrendTopRankings();
+  renderTrendDetailPanel();
+}
+
+// ==========================================================================
+// 2-1-B. [KPI 1] 사고 발생 추이 및 통계 브리핑: TOP 3 인터랙티브 선택 & 세부 패널
+// ==========================================================================
+function renderTrendTopRankings() {
+  const allIncidents = state.incidents || [];
   const totalCount = allIncidents.length || 1;
+
+  // 1) 사업장/소속팀 TOP 3 집계
+  const teamCounts = {};
+  allIncidents.forEach(item => {
+    const team = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "기타";
+    teamCounts[team] = (teamCounts[team] || 0) + 1;
+  });
+  const topTeams = Object.entries(teamCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([name, count]) => ({
+      name,
+      count,
+      percentage: ((count / totalCount) * 100).toFixed(1) + "%"
+    }));
 
   const topResortsEl = document.getElementById("trend-top-resorts");
   if (topResortsEl) {
-    topResortsEl.innerHTML = topResorts.map(([name, cnt], idx) => `
-      <div class="top-rank-item">
-        <span class="top-rank-badge rank-${idx + 1}">${idx + 1}</span>
-        <span class="top-rank-name">${escapeHtml(name)}</span>
-        <span class="top-rank-count">${cnt}건 <span class="top-rank-pct">(${((cnt / totalCount) * 100).toFixed(1)}%)</span></span>
-      </div>
-    `).join("");
+    topResortsEl.innerHTML = topTeams.map((team, idx) => {
+      const isSelected = state.trendSelectedItem && 
+                         state.trendSelectedItem.category === 'team' && 
+                         state.trendSelectedItem.name === team.name;
+      return `
+        <div
+          onclick="handleTrendItemSelect('team', '${escapeHtml(team.name)}', ${team.count}, '${team.percentage}')"
+          class="trend-top-item ${isSelected ? 'is-selected is-team' : ''}"
+          title="클릭하여 '${escapeHtml(team.name)}' 세부 구성 비율 및 사고 목록 조회"
+        >
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span class="trend-top-rank">${idx + 1}</span>
+            <span style="font-weight: 600; font-size: 0.875rem; color: #334155;">${escapeHtml(team.name)}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-weight: 700; font-size: 0.875rem; color: #1d4ed8;">${team.count}건</span>
+            <span style="font-size: 0.75rem; color: #94a3b8;">(${team.percentage})</span>
+            <span class="trend-top-chevron">›</span>
+          </div>
+        </div>
+      `;
+    }).join("");
   }
 
-  // 4. 최다 발생 사고유형 TOP 3
-  const categoryCounts = {};
+  // 2) 사고유형 TOP 3 집계
+  const typeCounts = {};
   allIncidents.forEach(item => {
-    const c = getIncidentCategory(item);
-    categoryCounts[c] = (categoryCounts[c] || 0) + 1;
+    const type = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
+    typeCounts[type] = (typeCounts[type] || 0) + 1;
   });
-  const topCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  const topTypes = Object.entries(typeCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([name, count]) => ({
+      name,
+      count,
+      percentage: ((count / totalCount) * 100).toFixed(1) + "%"
+    }));
 
   const topCatEl = document.getElementById("trend-top-categories");
   if (topCatEl) {
-    topCatEl.innerHTML = topCategories.map(([name, cnt], idx) => `
-      <div class="top-rank-item">
-        <span class="top-rank-badge rank-${idx + 1}">${idx + 1}</span>
-        <span class="top-rank-name">${escapeHtml(name)}</span>
-        <span class="top-rank-count" style="color: #b45309; font-weight: 700;">${cnt}건 <span class="top-rank-pct">(${((cnt / totalCount) * 100).toFixed(1)}%)</span></span>
-      </div>
-    `).join("");
+    topCatEl.innerHTML = topTypes.map((type, idx) => {
+      const isSelected = state.trendSelectedItem && 
+                         state.trendSelectedItem.category === 'type' && 
+                         state.trendSelectedItem.name === type.name;
+      return `
+        <div
+          onclick="handleTrendItemSelect('type', '${escapeHtml(type.name)}', ${type.count}, '${type.percentage}')"
+          class="trend-top-item ${isSelected ? 'is-selected is-type' : ''}"
+          title="클릭하여 '${escapeHtml(type.name)}' 세부 구성 비율 및 사고 목록 조회"
+        >
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span class="trend-top-rank">${idx + 1}</span>
+            <span style="font-weight: 600; font-size: 0.875rem; color: #334155;">${escapeHtml(type.name)}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-weight: 700; font-size: 0.875rem; color: #4338ca;">${type.count}건</span>
+            <span style="font-size: 0.75rem; color: #94a3b8;">(${type.percentage})</span>
+            <span class="trend-top-chevron">›</span>
+          </div>
+        </div>
+      `;
+    }).join("");
   }
 }
+window.renderTrendTopRankings = renderTrendTopRankings;
+
+function handleTrendItemSelect(category, name, count, percentage) {
+  if (state.trendSelectedItem && state.trendSelectedItem.category === category && state.trendSelectedItem.name === name) {
+    state.trendSelectedItem = null;
+  } else {
+    state.trendSelectedItem = {
+      category: category,
+      name: name,
+      totalCount: count,
+      percentage: percentage
+    };
+  }
+  renderTrendTopRankings();
+  renderTrendDetailPanel();
+}
+window.handleTrendItemSelect = handleTrendItemSelect;
+
+function renderTrendDetailPanel() {
+  const panel = document.getElementById("trend-detail-panel");
+  if (!panel) return;
+
+  const sel = state.trendSelectedItem;
+  if (!sel) {
+    panel.style.display = "none";
+    panel.innerHTML = "";
+    return;
+  }
+
+  const allIncidents = state.incidents || [];
+  let filtered = [];
+  const breakdownMap = {};
+
+  if (sel.category === "team") {
+    filtered = allIncidents.filter(item => {
+      const d = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "";
+      return d === sel.name;
+    });
+    filtered.forEach(item => {
+      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
+      breakdownMap[t] = (breakdownMap[t] || 0) + 1;
+    });
+  } else {
+    filtered = allIncidents.filter(item => {
+      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "";
+      return t === sel.name;
+    });
+    filtered.forEach(item => {
+      const d = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "기타";
+      breakdownMap[d] = (breakdownMap[d] || 0) + 1;
+    });
+  }
+
+  // 최신순 (날짜 내림차순) 정렬
+  filtered.sort((a, b) => {
+    const da = parseIncidentDate(a)?.getTime() || 0;
+    const db = parseIncidentDate(b)?.getTime() || 0;
+    return db - da;
+  });
+
+  const subBreakdown = Object.entries(breakdownMap)
+    .map(([name, cnt]) => ({
+      name,
+      count: cnt,
+      percent: ((cnt / (filtered.length || 1)) * 100).toFixed(1)
+    }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 4);
+
+  panel.style.display = "block";
+  panel.className = "animate-fadeIn";
+  panel.innerHTML = `
+    <div style="border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.25rem; background: #ffffff; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);">
+      
+      <!-- 세부 구성 비율 헤더 -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid #f1f5f9; gap: 0.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: #2563eb; font-weight: 700; font-size: 1.15rem; line-height: 1;">↳</span>
+          <span style="font-weight: 700; color: #1e293b; font-size: 0.95rem;">
+            [${escapeHtml(sel.name)}] 상세 구성 비율 분석
+          </span>
+          <span style="font-size: 0.75rem; background-color: #f1f5f9; color: #475569; padding: 0.15rem 0.55rem; border-radius: 9999px; font-weight: 600;">
+            총 ${sel.totalCount}건 (${sel.percentage})
+          </span>
+        </div>
+        <button type="button" onclick="handleTrendItemSelect('${sel.category}', '${escapeHtml(sel.name)}')" style="font-size: 0.78rem; color: #94a3b8; background: none; border: 1px solid #e2e8f0; cursor: pointer; padding: 0.25rem 0.65rem; border-radius: 0.375rem; transition: all 0.15s ease;" onmouseover="this.style.color='#1e293b'; this.style.borderColor='#94a3b8'" onmouseout="this.style.color='#94a3b8'; this.style.borderColor='#e2e8f0'">
+          ✕ 닫기
+        </button>
+      </div>
+
+      <!-- 하위 구성비 배지 (어떤 내용으로 구성되어 있는지 요약) -->
+      <div style="background-color: #f8fafc; border-radius: 0.5rem; padding: 0.85rem; border: 1px solid #f1f5f9; margin-top: 0.75rem;">
+        <span style="font-size: 0.76rem; font-weight: 600; color: #64748b; margin-bottom: 0.5rem; display: block;">
+          ${sel.category === 'team' ? '주요 발생 사고유형 비중' : '주요 발생 사업장/팀 비중'}
+        </span>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem;">
+          ${subBreakdown.map(sub => `
+            <div style="background: #ffffff; padding: 0.625rem; border-radius: 0.375rem; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between;">
+              <span style="font-size: 0.75rem; color: #475569; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500;" title="${escapeHtml(sub.name)}">${escapeHtml(sub.name)}</span>
+              <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 0.35rem;">
+                <span style="font-size: 0.875rem; font-weight: 700; color: #1e293b;">${sub.count}건</span>
+                <span style="font-size: 0.75rem; color: #2563eb; font-weight: 600;">${sub.percent}%</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- 실제 사고 건별 리스트 테이블 -->
+      <div style="margin-top: 1rem;">
+        <span style="font-size: 0.76rem; font-weight: 600; color: #64748b; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.5rem;">
+          <span>📄</span> 세부 사고 등록 내역 (최신순 ${filtered.length}건)
+        </span>
+        <div style="max-height: 240px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.75rem;">
+          <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead style="background-color: #f8fafc; position: sticky; top: 0; color: #475569; border-bottom: 1px solid #e2e8f0; z-index: 2;">
+              <tr>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 145px; white-space: nowrap;">문서번호</th>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 125px; white-space: nowrap;">발생일시</th>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 110px;">${sel.category === 'team' ? '사고유형' : '소속팀'}</th>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 130px;">발생장소</th>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600;">사고 경위 요약</th>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 95px; text-align: center; white-space: nowrap;">처리상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filtered.length === 0 ? `
+                <tr>
+                  <td colspan="6" style="padding: 1.5rem; text-align: center; color: #94a3b8;">
+                    해당 조건의 등록된 사고 내역이 없습니다.
+                  </td>
+                </tr>
+              ` : filtered.slice(0, 30).map(row => {
+                const isResolved = row.status === '처리완료' || row.status === '보상완료' || row.status === '조치완료';
+                const badgeStyle = isResolved
+                  ? 'background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;'
+                  : 'background-color: #fffbeb; color: #b45309; border: 1px solid #fde68a;';
+                const statusIcon = isResolved ? '✓' : '⏱️';
+                const docNo = row.docNo || row.documentNumber || row.id || '-';
+                const place = row.locationDetail || row.place || row.location || row.zone || '-';
+                const desc = row.title || row.description || row.summary || '사고 개요 없음';
+                const subCategory = sel.category === 'team' 
+                  ? ((typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || '기타') 
+                  : ((typeof getIncidentDept === "function" ? getIncidentDept(row) : "") || row.dept || row.department || row.resort || '기타');
+
+                return `
+                  <tr onclick="navigateToDetailFromTrendModal('${escapeHtml(row.id)}')" style="cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background-color 0.15s ease;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'" title="클릭하여 사고 상세 정보 조회 및 수정">
+                    <td style="padding: 0.5rem 0.75rem; font-family: monospace; font-size: 11px; font-weight: 700; color: #2563eb; white-space: nowrap;">${escapeHtml(docNo)}</td>
+                    <td style="padding: 0.5rem 0.75rem; color: #64748b; white-space: nowrap;">${escapeHtml(row.date || row.occurredAt || '-')}</td>
+                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #334155;">${escapeHtml(subCategory)}</td>
+                    <td style="padding: 0.5rem 0.75rem; color: #475569;">${escapeHtml(place)}</td>
+                    <td style="padding: 0.5rem 0.75rem; color: #1e293b; font-weight: 500; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeHtml(desc)}">
+                      ${escapeHtml(desc)}
+                    </td>
+                    <td style="padding: 0.5rem 0.75rem; text-align: center; white-space: nowrap;">
+                      <span style="display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.45rem; border-radius: 0.25rem; font-size: 11px; font-weight: 600; ${badgeStyle}">
+                        <span>${statusIcon}</span>
+                        <span>${escapeHtml(row.status || '접수대기')}</span>
+                      </span>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+window.renderTrendDetailPanel = renderTrendDetailPanel;
+
+function navigateToDetailFromTrendModal(id) {
+  const modal = document.getElementById("trend-analysis-modal");
+  const scrollTop = modal ? modal.scrollTop : 0;
+  detailModalOrigin = {
+    fromModalId: "trend-analysis-modal",
+    scrollTop: scrollTop
+  };
+
+  if (modal) modal.classList.remove("active");
+
+  setTimeout(() => {
+    openIncidentDetail(id, detailModalOrigin);
+  }, 50);
+}
+window.navigateToDetailFromTrendModal = navigateToDetailFromTrendModal;
 
 function renderTrendMonthlyChart(selectedResort = "all") {
   const allIncidents = state.incidents || [];
