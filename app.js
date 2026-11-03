@@ -413,8 +413,13 @@ const state = {
     severity: "all",
     status: "all",
     period: "all",
-    zone: "all"
+    zone: "all",
+    reportStatus: "all"
   },
+  kpiDrilldownBaseList: [],
+  kpiDrillYearFilter: "all",
+  currentKpiDrillType: null,
+  currentKpiDrillTitle: "",
   currentPage: 1,
   pageSize: 10,
   sort: {
@@ -1162,6 +1167,16 @@ function setupEventListeners() {
     });
   }
 
+  // [신규] 산재조사표 필터 이벤트 바인딩
+  const reportStatusFilter = document.getElementById("filter-report-status");
+  if (reportStatusFilter) {
+    reportStatusFilter.addEventListener("change", (e) => {
+      state.filters.reportStatus = e.target.value;
+      state.currentPage = 1;
+      applyFilters();
+    });
+  }
+
   // [신규] 테이블 상단 간이 빠른 필터 이벤트 & 상단 메인 필터 양방향 동기화
   const tableCatFilter = document.getElementById("table-filter-category");
   if (tableCatFilter) {
@@ -1213,6 +1228,9 @@ function setupEventListeners() {
       state.filters.victimType = "all";
       state.filters.zone = "all";
       state.filters.severity = "all";
+      state.filters.reportStatus = "all";
+      const tableReport = document.getElementById("filter-report-status");
+      if (tableReport) tableReport.value = "all";
 
       const tableCat = document.getElementById("table-filter-category");
       if (tableCat) tableCat.value = "all";
@@ -3058,6 +3076,11 @@ function populateFilterDropdowns() {
   if (tableVictimSelect) {
     tableVictimSelect.value = state.filters.victimType || "all";
   }
+
+  const reportStatusSelect = document.getElementById("filter-report-status");
+  if (reportStatusSelect) {
+    reportStatusSelect.value = state.filters.reportStatus || "all";
+  }
 }
 
 // Switch between View Mode and Edit Mode in Detail Modal
@@ -3246,7 +3269,7 @@ window.deleteIncident = function(id) {
 
 // Apply Filters to Data
 function applyFilters() {
-  const { search, resort, dept, category, victimType, severity, status, period, zone, startDate, endDate, from, to } = state.filters || {};
+  const { search, resort, dept, category, victimType, severity, status, period, zone, reportStatus, startDate, endDate, from, to } = state.filters || {};
   const refDate = getSystemReferenceDate();
   const todayStart = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 0, 0, 0, 0);
   const todayEnd = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 23, 59, 59, 999);
@@ -3278,6 +3301,15 @@ function applyFilters() {
     if (victimType && victimType !== "all") {
       const vInfo = classifyVictim(item);
       if (vInfo.category !== victimType) {
+        return false;
+      }
+    }
+
+    // [신규] 산재조사표 필터링 (해당 없음 / 제출예정 / 제출완료)
+    if (reportStatus && reportStatus !== "all") {
+      let r = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
+      if (r === "해당없음") r = "해당 없음";
+      if (r !== reportStatus) {
         return false;
       }
     }
@@ -3408,13 +3440,20 @@ function renderKPIs() {
       }
     }
 
-    // 2) [카드 2] 2026년 직원 안전사고 (안전 탐색 Safe Navigation 적용)
+    // 2) [카드 2] 동적 현재 연도(currentYear) 직원 안전사고 (2026 -> 2027 자동 승계)
+    const currentYear = new Date().getFullYear();
+    const elEmpTitle = document.getElementById("kpi-title-employee");
+    if (elEmpTitle) elEmpTitle.textContent = `${currentYear}년 직원 안전사고`;
+
+    const cardEmployee = document.getElementById("kpiEmployee2026Card") || document.getElementById("kpi-card-employee");
+    if (cardEmployee) cardEmployee.title = `클릭 시 ${currentYear}년 직원 및 근로자 안전사고 목록 모달이 열립니다`;
+
     const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자", "실습생", "일용직", "협력사"];
     const listEmp = targetList.filter(x => {
       if (!x) return false;
       const p = parseIncidentDate(x);
-      const is2026 = (x.year === 2026) || (p && p.getFullYear() === 2026) || String(x.date || x.occurredAt || "").includes("2026");
-      if (!isFiltered && !is2026) return false;
+      const isCurrentYear = (x.year === currentYear) || (p && p.getFullYear() === currentYear) || String(x.date || x.occurredAt || "").includes(String(currentYear));
+      if (!isFiltered && !isCurrentYear) return false;
 
       const note = (
         String(x?.notes || x?.note || x?.specialNotes || "") + " " +
@@ -3424,9 +3463,9 @@ function renderKPIs() {
       ).toLowerCase();
 
       return empKeywords.some(kw => 
-        x.victim?.includes(kw) || 
-        x.victimType?.includes(kw) || 
-        x.victimName?.includes(kw) ||
+        (x.victim && x.victim.includes(kw)) || 
+        (x.victimType && x.victimType.includes(kw)) || 
+        (x.victimName && x.victimName.includes(kw)) ||
         (typeof getIncidentVictim === "function" && getIncidentVictim(x)?.includes(kw)) ||
         note.includes(kw)
       );
@@ -3437,7 +3476,7 @@ function renderKPIs() {
     const elSubEmp = document.getElementById("kpi-sub-employee");
     if (elSubEmp) {
       const empRate = currentCount > 0 ? ((countEmp / currentCount) * 100).toFixed(1) : "0.0";
-      elSubEmp.innerText = isFiltered ? `⛑️ 선택 범위 직원/캐디 (${empRate}%)` : `⛑️ 2026년 직원/캐디 집계`;
+      elSubEmp.innerText = isFiltered ? `⛑️ 선택 범위 직원/캐디 (${empRate}%)` : `⛑️ ${currentYear}년 직원/캐디 집계`;
     }
 
     // 3) [카드 3] 골프장(4대 CC) 사고 (밸리, 성문안, 힐스, 월송리 - 안전 탐색 Safe Navigation 적용)
@@ -4497,9 +4536,12 @@ function renderActiveFilterChips() {
   const chipsList = document.getElementById("table-active-chips");
   if (!container || !chipsList) return;
 
-  const { search, resort, dept, category, victimType, zone, severity, status, period } = state.filters;
+  const { search, resort, dept, category, victimType, zone, severity, status, period, reportStatus } = state.filters;
   const chips = [];
 
+  if (reportStatus && reportStatus !== "all") {
+    chips.push({ key: "reportStatus", label: `산재: ${reportStatus}` });
+  }
   if (category && category !== "all") {
     chips.push({ key: "category", label: `유형: ${category}` });
   }
@@ -4555,6 +4597,9 @@ function renderActiveFilterChips() {
 
   const tableSev = document.getElementById("table-filter-severity");
   if (tableSev) tableSev.classList.toggle("is-active", Boolean(severity && severity !== "all"));
+
+  const tableReport = document.getElementById("filter-report-status");
+  if (tableReport) tableReport.classList.toggle("is-active", Boolean(reportStatus && reportStatus !== "all"));
 }
 
 // Global Single Filter Tag Clear Handler
@@ -4568,6 +4613,10 @@ window.clearQuickFilter = function(key) {
     document.querySelectorAll(".period-btn").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.period === "all");
     });
+  } else if (key === "reportStatus" || key === "report-status") {
+    state.filters.reportStatus = "all";
+    const reportFilter = document.getElementById("filter-report-status");
+    if (reportFilter) reportFilter.value = "all";
   } else if (key === "victim-type" || key === "victimType") {
     state.filters.victimType = "all";
     const topSelect = document.getElementById("filter-victim-type");
@@ -4596,6 +4645,7 @@ function resetAllFilters() {
   state.filters.status = "all";
   state.filters.period = "all";
   state.filters.zone = "all";
+  state.filters.reportStatus = "all";
   state.filters.startDate = "";
   state.filters.endDate = "";
   state.filters.from = "";
@@ -5769,7 +5819,56 @@ function filterKpiDrilldownByVictim(val) {
 }
 window.filterKpiDrilldownByVictim = filterKpiDrilldownByVictim;
 
+// [신규] 직원 안전사고 모달 연도 필터 변경 핸들러
+function handleKpiDrilldownYearChange(year) {
+  state.kpiDrillYearFilter = year || "all";
+  updateKpiDrilldownData();
+}
+window.handleKpiDrilldownYearChange = handleKpiDrilldownYearChange;
+
+// [신규] 드릴다운 데이터 실시간 재계산 및 렌더링
+function updateKpiDrilldownData() {
+  let base = [...(state.kpiDrilldownBaseList || [])];
+  const year = state.kpiDrillYearFilter || "all";
+
+  if (year !== "all") {
+    const yNum = parseInt(year, 10);
+    base = base.filter(x => {
+      const p = parseIncidentDate(x);
+      return (x.year === yNum) || (p && p.getFullYear() === yNum) || String(x.date || x.occurredAt || "").includes(String(yNum));
+    });
+  }
+
+  // 최신순 (날짜 내림차순) 정렬
+  base.sort((a, b) => {
+    const da = parseIncidentDate(a)?.getTime() || 0;
+    const db = parseIncidentDate(b)?.getTime() || 0;
+    return db - da;
+  });
+
+  state.kpiDrilldownList = base;
+
+  const titleEl = document.getElementById("kpi-drilldown-title");
+  const subEl = document.getElementById("kpi-drilldown-sub");
+  const iconEl = document.getElementById("kpi-drilldown-icon");
+
+  if (state.currentKpiDrillType === "employee2026" || state.currentKpiDrillType === "employee") {
+    const yearLabel = year === "all" ? "전체 연도" : `${year}년`;
+    if (titleEl) titleEl.textContent = `[${yearLabel} 직원 안전사고] 세부 내역 (총 ${base.length.toLocaleString()}건)`;
+    if (subEl) subEl.textContent = `${yearLabel} 발생한 임직원·캐디·진행원 산재 및 안전사고 목록`;
+    if (iconEl) iconEl.textContent = "⛑️";
+  } else {
+    if (titleEl) titleEl.textContent = `${state.currentKpiDrillTitle || "KPI 세부 사고 내역"} (총 ${base.length.toLocaleString()}건)`;
+  }
+
+  renderKpiDrilldownTable();
+}
+window.updateKpiDrilldownData = updateKpiDrilldownData;
+
 function openKpiDrilldown(type) {
+  const currentYear = new Date().getFullYear();
+  state.currentKpiDrillType = type;
+
   const all = (state.incidents && state.incidents.length > 0)
     ? state.incidents
     : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
@@ -5779,21 +5878,20 @@ function openKpiDrilldown(type) {
   let sub = "";
   let icon = "📌";
 
-  if (type === "year2026") {
-    filtered = all.filter(x => {
-      const p = parseIncidentDate(x);
-      return (x.year === 2026) || (p && p.getFullYear() === 2026) || String(x.date || x.occurredAt || "").includes("2026");
-    });
-    icon = "📅";
-    title = `[2026년 당해 사고] 세부 내역`;
-    sub = `2026년에 발생한 안전사고 전체 목록`;
-  } else if (type === "employee2026") {
+  const yearWrap = document.getElementById("kpi-drill-year-wrap");
+  const yearSelect = document.getElementById("kpi-drill-filter-year");
+
+  if (type === "employee2026" || type === "employee") {
+    if (yearWrap) yearWrap.style.display = "flex";
+
+    const defaultYear = String(currentYear);
+    state.kpiDrillYearFilter = defaultYear;
+    if (yearSelect) yearSelect.value = defaultYear;
+
     const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자", "실습생", "일용직", "협력사"];
-    filtered = all.filter(x => {
+    // 전체 연도 직원 안전사고를 Base 목록으로 캐싱
+    state.kpiDrilldownBaseList = all.filter(x => {
       if (!x) return false;
-      const p = parseIncidentDate(x);
-      const is2026 = (x.year === 2026) || (p && p.getFullYear() === 2026) || String(x.date || x.occurredAt || "").includes("2026");
-      if (!is2026) return false;
       const note = (
         String(x?.notes || x?.note || x?.specialNotes || "") + " " +
         String(x?.description || x?.summary || "") + " " +
@@ -5801,69 +5899,89 @@ function openKpiDrilldown(type) {
         String(x?.title || "")
       ).toLowerCase();
       return empKeywords.some(kw => 
-        x.victim?.includes(kw) || 
-        x.victimType?.includes(kw) || 
-        x.victimName?.includes(kw) ||
+        (x.victim && x.victim.includes(kw)) || 
+        (x.victimType && x.victimType.includes(kw)) || 
+        (x.victimName && x.victimName.includes(kw)) ||
         (typeof getIncidentVictim === "function" && getIncidentVictim(x)?.includes(kw)) ||
         note.includes(kw)
       );
     });
+
     icon = "⛑️";
-    title = `[2026년 직원 안전사고] 세부 내역`;
-    sub = `2026년 발생한 임직원·캐디·진행원 산재 및 안전사고 목록`;
-  } else if (type === "golfCC") {
-    const ccKeywords = ["밸리", "성문안", "힐스", "월송리"];
-    filtered = all.filter(x => {
-      if (!x) return false;
-      const isCC = ccKeywords.some(cc => 
-        x.dept?.includes(cc) || 
-        x.businessUnit?.includes(cc) || 
-        x.department?.includes(cc) || 
-        x.division?.includes(cc) ||
-        x.resort?.includes(cc) || 
-        x.place?.includes(cc) || 
-        x.location?.includes(cc) || 
-        x.locationDetail?.includes(cc) ||
-        x.title?.includes(cc) ||
-        (typeof getIncidentDept === "function" && getIncidentDept(x)?.includes(cc))
-      );
-      if (isCC) return true;
-      const loc = (String(x.place || x.location || x.locationDetail || "") + " " + String(x.zone || "")).toLowerCase();
-      if (loc.includes("코스") || loc.includes("홀") || loc.includes("그린") || loc.includes("티잉") || loc.includes("카트도로")) return true;
-      return false;
-    });
-    icon = "⛳";
-    title = `[골프장(4대 CC) 사고] 세부 내역`;
-    sub = `밸리팀 · 힐스팀 · 성문안팀 · 월송리팀 골프 코스 안전사고 목록`;
+    state.currentKpiDrillIcon = icon;
+    state.currentKpiDrillTitle = `[${currentYear}년 직원 안전사고] 세부 내역`;
+    updateKpiDrilldownData();
+
   } else {
-    // 전체 누적 사고
-    filtered = all;
-    icon = "📊";
-    title = `[전체 누적 사고] 세부 내역`;
-    sub = `등록된 모든 연도 안전사고 전체 내역`;
+    if (yearWrap) yearWrap.style.display = "none";
+    state.kpiDrillYearFilter = "all";
+
+    if (type === "year2026") {
+      filtered = all.filter(x => {
+        const p = parseIncidentDate(x);
+        return (x.year === currentYear) || (p && p.getFullYear() === currentYear) || String(x.date || x.occurredAt || "").includes(String(currentYear));
+      });
+      icon = "📅";
+      title = `[${currentYear}년 당해 사고] 세부 내역`;
+      sub = `${currentYear}년에 발생한 안전사고 전체 목록`;
+    } else if (type === "golfCC") {
+      const ccKeywords = ["밸리", "성문안", "힐스", "월송리"];
+      filtered = all.filter(x => {
+        if (!x) return false;
+        const isCC = ccKeywords.some(cc => 
+          x.dept?.includes(cc) || 
+          x.businessUnit?.includes(cc) || 
+          x.department?.includes(cc) || 
+          x.division?.includes(cc) ||
+          x.resort?.includes(cc) || 
+          x.place?.includes(cc) || 
+          x.location?.includes(cc) || 
+          x.locationDetail?.includes(cc) ||
+          x.title?.includes(cc) ||
+          (typeof getIncidentDept === "function" && getIncidentDept(x)?.includes(cc))
+        );
+        if (isCC) return true;
+        const loc = (String(x.place || x.location || x.locationDetail || "") + " " + String(x.zone || "")).toLowerCase();
+        if (loc.includes("코스") || loc.includes("홀") || loc.includes("그린") || loc.includes("티잉") || loc.includes("카트도로")) return true;
+        return false;
+      });
+      icon = "⛳";
+      title = `[골프장(4대 CC) 사고] 세부 내역`;
+      sub = `밸리팀 · 힐스팀 · 성문안팀 · 월송리팀 골프 코스 안전사고 목록`;
+    } else {
+      // 전체 누적 사고
+      filtered = all;
+      icon = "📊";
+      title = `[전체 누적 사고] 세부 내역`;
+      sub = `등록된 모든 연도 안전사고 전체 내역`;
+    }
+
+    filtered.sort((a, b) => {
+      const da = parseIncidentDate(a)?.getTime() || 0;
+      const db = parseIncidentDate(b)?.getTime() || 0;
+      return db - da;
+    });
+
+    state.kpiDrilldownBaseList = filtered;
+    state.kpiDrilldownList = filtered;
+    state.currentKpiDrillIcon = icon;
+    state.currentKpiDrillTitle = title;
+    state.currentKpiDrillSub = sub;
+
+    const titleEl = document.getElementById("kpi-drilldown-title");
+    const subEl = document.getElementById("kpi-drilldown-sub");
+    const iconEl = document.getElementById("kpi-drilldown-icon");
+
+    if (titleEl) titleEl.textContent = `${title} (총 ${filtered.length.toLocaleString()}건)`;
+    if (subEl) subEl.textContent = sub;
+    if (iconEl) iconEl.textContent = icon;
+
+    renderKpiDrilldownTable();
   }
 
-  // 최신순 (날짜 내림차순) 정렬
-  filtered.sort((a, b) => {
-    const da = parseIncidentDate(a)?.getTime() || 0;
-    const db = parseIncidentDate(b)?.getTime() || 0;
-    return db - da;
-  });
-
-  state.kpiDrilldownList = filtered;
   state.kpiDrillVictimFilter = "all";
   const victimSel = document.getElementById("kpi-drill-filter-victim");
   if (victimSel) victimSel.value = "all";
-
-  const titleEl = document.getElementById("kpi-drilldown-title");
-  const subEl = document.getElementById("kpi-drilldown-sub");
-  const iconEl = document.getElementById("kpi-drilldown-icon");
-
-  if (titleEl) titleEl.textContent = `${title} (총 ${filtered.length.toLocaleString()}건)`;
-  if (subEl) subEl.textContent = sub;
-  if (iconEl) iconEl.textContent = icon;
-
-  renderKpiDrilldownTable();
 
   const modal = document.getElementById("kpi-drilldown-modal");
   if (modal) {
@@ -5888,7 +6006,7 @@ function renderKpiDrilldownTable() {
   if (list.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="10" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
+        <td colspan="11" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
           <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📂</div>
           <div style="font-weight: 600; color: #334155;">조건에 해당하는 사고 건이 없습니다.</div>
         </td>
@@ -5906,12 +6024,14 @@ function renderKpiDrilldownTable() {
     const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
     const desc = item.title || item.locationDetail || "사고 개요 없음";
     const vInfo = classifyVictim(item);
+    const docNoDisplay = item.docNo || item.documentNumber || item.id || "-";
+    const reportBadge = getReportStatusBadge(item.reportStatus || item.industrialAccidentReport || "해당 없음");
 
     return `
       <tr class="drilldown-incident-row" onclick="navigateToDetailFromKpiDrilldown('${escapeHtml(item.id)}')" title="클릭하여 사고 상세 정보 조회 및 수정">
         <td style="text-align: center; color: #64748b; font-size: 0.8rem;">${idx + 1}</td>
-        <td class="id-cell" style="font-weight: 700; color: #2563eb; font-family: monospace;">${escapeHtml(item.id)}</td>
-        <td style="color: #475569; font-weight: 500; font-size: 0.83rem; white-space: nowrap;">${escapeHtml(item.date)}</td>
+        <td class="id-cell font-mono text-[12px] whitespace-nowrap" style="min-width: 145px; width: 145px; white-space: nowrap; font-family: monospace; font-size: 12px; font-weight: 700; color: #2563eb;">${escapeHtml(docNoDisplay)}</td>
+        <td style="color: #475569; font-weight: 500; font-size: 0.83rem; white-space: nowrap;">${escapeHtml(item.date || item.occurredAt || "-")}</td>
         <td style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
         <td style="text-align: center;">
           <span class="badge ${vInfo.badgeClass}">${escapeHtml(vInfo.label)}</span>
@@ -5924,6 +6044,9 @@ function renderKpiDrilldownTable() {
           <div style="max-height: 2.6em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.35; font-weight: 600;">
             ${escapeHtml(desc)}
           </div>
+        </td>
+        <td style="text-align: center; white-space: nowrap;">
+          ${reportBadge}
         </td>
         <td style="text-align: center;">
           <span class="badge ${statusClass}" style="font-size: 0.74rem;">${escapeHtml(item.status || "접수대기")}</span>

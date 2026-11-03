@@ -4130,3 +4130,42 @@ body.auth-locked .main-wrapper {
   font-weight: 700 !important;
   color: #2563eb !important;
 }
+
+
+/* ==========================================================================
+   직원 안전사고 모달 필터 및 Tailwind 호환 유틸리티 클래스
+   ========================================================================== */
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+.whitespace-nowrap {
+  white-space: nowrap !important;
+}
+.text-\[12px\] {
+  font-size: 12px !important;
+}
+.flex {
+  display: flex !important;
+}
+.items-center {
+  align-items: center !important;
+}
+.gap-2 {
+  gap: 0.5rem !important;
+}
+.gap-3 {
+  gap: 0.75rem !important;
+}
+
+#kpi-drill-victim-wrap, #kpi-drill-year-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+#kpi-drill-victim-wrap label, #kpi-drill-year-wrap label {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  margin: 0 !important;
+}
