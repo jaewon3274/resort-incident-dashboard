@@ -29754,6 +29754,8 @@ const initialIncidents = INITIAL_INCIDENTS;
   const VERSION_KEY = "resort_data_version";
   const STORAGE_KEY = "resort_incidents_data";
   const LEGACY_STORAGE_KEY = "resort_incident_records_v2";
+  const MASTER_STORAGE_KEY = "resort_incidents_master";
+  const SYNC_TIME_KEY = "resort_incidents_last_sync";
 
   function getTargetVersion() {
     if (typeof window !== "undefined" && window.APP_DATA_VERSION) {
@@ -29768,6 +29770,22 @@ const initialIncidents = INITIAL_INCIDENTS;
         if (typeof localStorage === "undefined") return INITIAL_INCIDENTS;
         
         const targetVer = getTargetVersion();
+
+        // [최우선] 업로드된 마스터 엑셀(resort_incidents_master)이 존재하면 버전 초기화 없이 보존
+        const masterRaw = localStorage.getItem("resort_incidents_master");
+        if (masterRaw) {
+          try {
+            const masterList = JSON.parse(masterRaw);
+            if (Array.isArray(masterList) && masterList.length > 0) {
+              localStorage.setItem(VERSION_KEY, targetVer);
+              localStorage.setItem(STORAGE_KEY, masterRaw);
+              return masterList;
+            }
+          } catch (e) {
+            console.warn("[Storage] 마스터 엑셀 파싱 오류:", e);
+          }
+        }
+
         const curVersion = localStorage.getItem(VERSION_KEY);
         if (curVersion !== targetVer) {
           console.warn("[Storage] 데이터 버전 불일치 (" + curVersion + " -> " + targetVer + "). localStorage.clear() 후 INITIAL_INCIDENTS " + INITIAL_INCIDENTS.length + "건으로 강제 갱신합니다.");
@@ -29810,6 +29828,9 @@ const initialIncidents = INITIAL_INCIDENTS;
         if (typeof localStorage === "undefined") return;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
         localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(records));
+        if (localStorage.getItem("resort_incidents_master")) {
+          localStorage.setItem("resort_incidents_master", JSON.stringify(records));
+        }
       } catch (e) {
         console.error("Storage save error:", e);
       }
@@ -29841,10 +29862,13 @@ const initialIncidents = INITIAL_INCIDENTS;
     reset() {
       if (typeof localStorage !== "undefined") {
         try { localStorage.clear(); } catch (_) {}
+        try {
+          localStorage.removeItem("resort_incidents_master");
+          localStorage.removeItem("resort_incidents_last_sync");
+        } catch (_) {}
         const targetVer = getTargetVersion();
         localStorage.setItem(VERSION_KEY, targetVer);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
-        localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
       }
       return INITIAL_INCIDENTS;
     }

@@ -1312,7 +1312,11 @@ function setupEventListeners() {
       const count = defaultList.length;
 
       if (confirm(`데이터를 영구 기본 데이터(총 ${count}건)로 초기화하시겠습니까?\n\n※ 로컬스토리지에 저장된 사용자 수정 및 추가 데이터가 기본값으로 복원됩니다.`)) {
+        localStorage.removeItem("resort_incidents_master");
+        localStorage.removeItem("resort_incidents_last_sync");
+        state.lastSyncTime = null;
         state.incidents = IncidentStorage.reset();
+        updateLastSyncTimeDisplay();
         populateFilterDropdowns();
         applyFilters();
         showToast(`기본 데이터(${count}건)로 초기화되었습니다.`, "info");
@@ -2809,53 +2813,8 @@ function handleExcelFileSelect(event) {
         return;
       }
 
-      const count = parsedRecords.length;
-      const confirmMerge = confirm(
-        `엑셀 파일에서 총 ${count.toLocaleString()}건의 사고 기록을 읽어왔습니다.\n\n` +
-        `• [확인]을 누르면: 기존 데이터에 '추가 병합'합니다.\n` +
-        `• [취소]를 누르면: 기존 데이터를 비우고 '새 엑셀 데이터로 완전 대체'합니다.`
-      );
-
-      let finalMerged = [];
-      if (confirmMerge) {
-        const currentList = (state.incidents && state.incidents.length > 0) ? state.incidents : IncidentStorage.getAll();
-        const incomingMap = new Map();
-        parsedRecords.forEach(item => incomingMap.set(item.id, item));
-
-        const retained = currentList.filter(item => !incomingMap.has(item.id));
-        finalMerged = [...parsedRecords, ...retained];
-        showToast(`총 ${count}건의 엑셀 데이터를 기존 데이터에 병합 완료했습니다. (전체 ${finalMerged.length}건)`, "success");
-      } else {
-        finalMerged = parsedRecords;
-        showToast(`기존 데이터를 교체하고 총 ${count}건의 엑셀 데이터를 불러왔습니다.`, "success");
-      }
-
-      // [엑셀 파일 업로드 완료 시]:
-      // 파싱된 전체 데이터를 즉시 localStorage.setItem('resort_incidents_data', JSON.stringify(...))에 영구 저장
-      try {
-        localStorage.setItem("resort_incidents_data", JSON.stringify(finalMerged));
-        localStorage.setItem("resort_incident_records_v2", JSON.stringify(finalMerged));
-      } catch (err) {
-        console.error("엑셀 업로드 데이터 로컬스토리지 영구 저장 실패:", err);
-      }
-      sortIncidentsList(finalMerged, "id", "desc");
-      IncidentStorage.saveAll(finalMerged);
-      state.incidents = finalMerged;
-      state.sort = { column: "id", order: "desc" };
-
-      state.filters.search = "";
-      state.filters.resort = "all";
-      state.filters.category = "all";
-      state.filters.status = "all";
-      state.filters.period = "all";
-      state.currentPage = 1;
-
-      document.querySelectorAll(".period-btn").forEach(b => b.classList.remove("active"));
-      const allPeriodBtn = document.querySelector(".period-btn[data-period='all']");
-      if (allPeriodBtn) allPeriodBtn.classList.add("active");
-
-      populateFilterDropdowns();
-      applyFilters();
+      // 엑셀 파싱 성공 시 마스터 내용으로 완전 교체 핸들러 호출
+      handleExcelUploadSuccess(parsedRecords);
 
     } catch (err) {
       console.error("Excel parse error:", err);
@@ -6322,3 +6281,75 @@ function navigateToDetailFromKpiDrilldown(id) {
   }, 50);
 }
 window.navigateToDetailFromKpiDrilldown = navigateToDetailFromKpiDrilldown;
+
+
+// ==========================================================================
+// 3-B. 엑셀 파싱 완료 후 실행되는 마스터 데이터 동기화 핸들러
+// ==========================================================================
+function handleExcelUploadSuccess(uploadedData) {
+  if (!uploadedData || uploadedData.length === 0) {
+    alert("유효한 사고 데이터가 없습니다.");
+    return;
+  }
+
+  // 1. 기존 데이터 뒤에 붙이지 않고(append X), 마스터 엑셀 내용으로 통째로 교체
+  sortIncidentsList(uploadedData, "id", "desc");
+  state.incidents = uploadedData;
+
+  // 2. 브라우저 로컬 저장소 덮어쓰기
+  try {
+    localStorage.setItem('resort_incidents_master', JSON.stringify(uploadedData));
+    localStorage.setItem('resort_incidents_data', JSON.stringify(uploadedData));
+    localStorage.setItem('resort_incident_records_v2', JSON.stringify(uploadedData));
+  } catch (err) {
+    console.error("마스터 엑셀 로컬스토리지 덮어쓰기 실패:", err);
+  }
+  const storageInst = (typeof IncidentStorage !== 'undefined') ? IncidentStorage : (typeof window !== 'undefined' ? window.IncidentStorage : null);
+  if (storageInst && storageInst.saveAll) {
+    storageInst.saveAll(uploadedData);
+  }
+
+  // 3. 마지막 동기화 일시 및 건수 갱신
+  const syncTime = new Date().toLocaleString();
+  state.lastSyncTime = syncTime;
+  try {
+    localStorage.setItem('resort_incidents_last_sync', syncTime);
+  } catch (_) {}
+
+  // 4. 화면 필터 및 전체 지표/차트 즉시 갱신
+  state.filters.search = "";
+  state.filters.resort = "all";
+  state.filters.dept = "all";
+  state.filters.category = "all";
+  state.filters.victimType = "all";
+  state.filters.severity = "all";
+  state.filters.status = "all";
+  state.filters.period = "all";
+  state.filters.zone = "all";
+  state.filters.reportStatus = "all";
+  state.currentPage = 1;
+  state.sort = { column: "id", order: "desc" };
+
+  document.querySelectorAll(".period-btn").forEach(b => b.classList.remove("active"));
+  const allPeriodBtn = document.querySelector(".period-btn[data-period='all']");
+  if (allPeriodBtn) allPeriodBtn.classList.add("active");
+
+  populateFilterDropdowns();
+  applyFilters();
+  renderKPIs();
+  if (typeof renderAllCharts === "function") renderAllCharts();
+  updateLastSyncTimeDisplay();
+
+  showToast(`마스터 엑셀 동기화 완료: 총 ${uploadedData.length.toLocaleString()}건이 반영되었습니다.`, "success");
+  alert(`마스터 엑셀 동기화 완료: 총 ${uploadedData.length}건이 반영되었습니다.`);
+}
+window.handleExcelUploadSuccess = handleExcelUploadSuccess;
+
+function updateLastSyncTimeDisplay() {
+  const syncTime = state.lastSyncTime || (typeof localStorage !== "undefined" ? localStorage.getItem('resort_incidents_last_sync') : null);
+  const importBtn = document.getElementById("btn-import-excel");
+  if (importBtn && syncTime) {
+    importBtn.title = `실무 엑셀(.xlsx, .xls) 파일 대량 불러오기 (최근 마스터 동기화: ${syncTime})`;
+  }
+}
+window.updateLastSyncTimeDisplay = updateLastSyncTimeDisplay;
