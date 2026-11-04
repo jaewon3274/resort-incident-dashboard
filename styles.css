@@ -3516,9 +3516,9 @@ body.auth-locked .main-wrapper {
 
 /* 다년도 대조표 드릴다운 모달 스타일 */
 .yoy-drilldown-modal-container {
-  max-width: 1040px;
-  width: 95%;
-  max-height: 88vh;
+  max-width: 1440px;
+  width: 96vw;
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
 }
@@ -3596,6 +3596,7 @@ body.auth-locked .main-wrapper {
 
 .yoy-drilldown-table {
   width: 100%;
+  min-width: 1150px;
   border-collapse: collapse;
 }
 
