@@ -939,177 +939,90 @@ function loadData() {
     ? window.initialIncidents
     : (typeof INITIAL_INCIDENTS !== "undefined" && Array.isArray(INITIAL_INCIDENTS) ? INITIAL_INCIDENTS : []);
 
-  // [요구사항 3] 데이터 버전 체크 및 오염 캐시 강제 갱신 로직 (DATA_VERSION = '20261030_v2')
+  let storedRecords = null;
+
+  // 1. 페이지가 로드될 때 무조건 localStorage를 최우선으로 검사
   try {
-    const curVersion = localStorage.getItem(VERSION_KEY);
-    if (curVersion !== window.APP_DATA_VERSION) {
-      console.warn(`[Dashboard] 데이터 버전 불일치 (${curVersion} -> ${window.APP_DATA_VERSION}). localStorage.clear() 후 최신 INITIAL_INCIDENTS(${defaultList.length}건)로 즉시 강제 갱신합니다.`);
+    // 1-1. 'resort_base_template_data' 또는 'resort_incidents_master' 최우선 탐색
+    const masterRaw = localStorage.getItem('resort_base_template_data') || localStorage.getItem('resort_incidents_master');
+    if (masterRaw) {
       try {
-        localStorage.clear();
-      } catch (_) {
-        localStorage.removeItem("resort_incidents_data");
-        localStorage.removeItem("resort_incident_records_v2");
-        localStorage.removeItem(VERSION_KEY);
-      }
-      localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
-      if (defaultList && defaultList.length > 0) {
-        localStorage.setItem("resort_incidents_data", JSON.stringify(defaultList));
-        state.incidents = JSON.parse(JSON.stringify(defaultList));
-        sortIncidentsList(state.incidents, "docNo", "desc");
-        console.log(`[Dashboard] 최신 INITIAL_INCIDENTS ${state.incidents.length}건으로 로컬스토리지 덮어쓰기 완료.`);
-        return;
+        const parsed = JSON.parse(masterRaw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          storedRecords = parsed;
+          console.log(`[Dashboard] localStorage 마스터 데이터 발견: ${storedRecords.length}건을 최우선 로드합니다.`);
+        }
+      } catch (e) {
+        console.warn("마스터 데이터 JSON 파싱 실패:", e);
       }
     }
-  } catch (verErr) {
-    console.warn("로컬스토리지 버전 체크 오류:", verErr);
-  }
 
-  let stored = null;
-  try {
-    // 1. 반드시 localStorage.getItem('resort_incidents_data')가 존재하는지 먼저 확인
-    stored = localStorage.getItem("resort_incidents_data");
-    if (!stored) {
-      // 레거시 키 호환 확인
-      const legacyData = localStorage.getItem("resort_incident_records_v2");
-      if (legacyData) {
-        stored = legacyData;
-        localStorage.setItem("resort_incidents_data", legacyData);
+    // 1-2. 마스터 데이터가 없으면 'resort_incidents_data' 또는 'resort_incident_records_v2' 확인
+    if (!storedRecords) {
+      const dataRaw = localStorage.getItem('resort_incidents_data') || localStorage.getItem('resort_incident_records_v2');
+      if (dataRaw) {
+        try {
+          const parsed = JSON.parse(dataRaw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            storedRecords = parsed;
+            console.log(`[Dashboard] localStorage 작업 데이터 발견: ${storedRecords.length}건을 로드합니다.`);
+          }
+        } catch (e) {
+          console.warn("작업 데이터 JSON 파싱 실패:", e);
+        }
       }
     }
   } catch (err) {
-    console.warn("로컬스토리지 접근 제한:", err);
+    console.warn("로컬스토리지 접근 제한 또는 파싱 오류:", err);
   }
 
-  // 2. 저장된 데이터가 1건이라도 존재하면, data.js의 샘플 데이터를 절대 덮어쓰지 않고 로컬스토리지 데이터를 1순위로 화면에 로드
-  if (stored) {
+  // 2. localStorage에 저장된 데이터가 존재하고 비어있지 않다면:
+  //    data.js의 기본값이나 DATA_VERSION 체크로 덮어쓰지 말고 저장된 데이터를 그대로 로드
+  if (storedRecords && storedRecords.length > 0) {
+    storedRecords.forEach(item => {
+      normalizeIncident(item);
+    });
+
+    state.incidents = storedRecords;
+    sortIncidentsList(state.incidents, "docNo", "desc");
+
+    // 로컬스토리지 키 일괄 동기화 및 버전 보호 처리
     try {
-      const records = JSON.parse(stored);
-      if (Array.isArray(records) && records.length > 0) {
-        let migrated = false;
+      const jsonStr = JSON.stringify(state.incidents);
+      localStorage.setItem('resort_incidents_master', jsonStr);
+      localStorage.setItem('resort_base_template_data', jsonStr);
+      localStorage.setItem('resort_incidents_data', jsonStr);
+      localStorage.setItem('resort_incident_records_v2', jsonStr);
+      localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
+    } catch (_) {}
 
-        // [긴급 복구] 사고유형 '기타' 오염 원복 및 제목 매핑 교정
-        const initialMap = new Map();
-        defaultList.forEach(orig => initialMap.set(orig.id, orig));
-
-        const gitaCount = records.filter(i => getIncidentCategory(i) === "기타").length;
-        const isSeverelyPolluted = (gitaCount / records.length) > 0.3 || records.some(i => i.title && i.title.includes("기타 사고") && initialMap.has(i.id) && getIncidentCategory(initialMap.get(i.id)) !== "기타");
-
-        records.forEach(item => {
-          normalizeIncident(item);
-          // 1. data.js 원본 대조 복구
-          const orig = initialMap.get(item.id);
-          if (orig) {
-            const origCat = getIncidentCategory(orig);
-            const itemCat = getIncidentCategory(item);
-            if (origCat !== "기타" && (itemCat === "기타" || (item.title && item.title.includes("기타 사고")) || isSeverelyPolluted)) {
-              item.category = origCat;
-              item.type = origCat;
-              item.incidentType = origCat;
-              item['사고유형1'] = origCat;
-              item.title = orig.title;
-              migrated = true;
-            }
-            if (item.dept !== orig.dept) {
-              item.dept = orig.dept;
-              migrated = true;
-            }
-            // 실무 보험금 동기화
-            if (item.cost !== orig.cost) {
-              item.cost = orig.cost;
-              item.totalAmount = orig.totalAmount;
-              item.companyAmount = orig.companyAmount;
-              item.personalAmount = orig.personalAmount;
-              item.faultRatio = orig.faultRatio;
-              migrated = true;
-            }
-            if (item.victimType !== orig.victimType) {
-              item.victimType = orig.victimType;
-              migrated = true;
-            }
-            if (item.businessUnit !== orig.businessUnit || item.resort !== orig.resort) {
-              item.businessUnit = orig.businessUnit;
-              item.resort = orig.resort;
-              migrated = true;
-            }
-            if (item.location !== orig.location || item.locationDetail !== orig.locationDetail) {
-              item.location = orig.location;
-              item.locationDetail = orig.locationDetail;
-              migrated = true;
-            }
-            if (item.notes !== orig.notes) {
-              item.notes = orig.notes;
-              item.specialNotes = orig.notes;
-              migrated = true;
-            }
-          } else {
-            // 2. 신규 항목의 경우 지능형 키워드 fallback
-            const curCat = getIncidentCategory(item);
-            const resolvedCat = resolveIncidentCategory(curCat, `${item.description || ""} ${item.title || ""} ${item.locationDetail || ""}`);
-            if (resolvedCat !== curCat) {
-              item.category = resolvedCat;
-              item.type = resolvedCat;
-              item.incidentType = resolvedCat;
-              item['사고유형1'] = resolvedCat;
-              const locPrefix = item.locationDetail && item.locationDetail !== "공용 구역"
-                ? `[${item.locationDetail}]`
-                : (item.resort ? `[${item.resort}]` : "");
-              item.title = `${locPrefix} ${resolvedCat} 사고`.trim();
-              migrated = true;
-            }
-            // 가상 목업 금액 제거
-            if (item.companyAmount === 350000 || item.companyAmount === 1800000 || item.companyAmount === 150000 || item.companyAmount === 4800000) {
-              item.cost = 0;
-              item.totalAmount = 0;
-              item.companyAmount = 0;
-              item.personalAmount = 0;
-              if (item.faultRatio === '당사 70% : 고객 30%') item.faultRatio = '과실 미산정';
-              migrated = true;
-            }
-          }
-
-          // 4대 CC 전담팀 매핑 및 콘도/부대시설 데이터 완전 격리 마이그레이션
-          const correctDept = inferDeptFromIncident(item);
-          if (item.dept !== correctDept) {
-            item.dept = correctDept;
-            migrated = true;
-          }
-        });
-        state.incidents = records;
-        sortIncidentsList(state.incidents, "id", "desc");
-        if (migrated) {
-          try {
-            localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
-            localStorage.setItem("resort_incidents_data", JSON.stringify(state.incidents));
-            console.log(`[Dashboard] 오염된 로컬스토리지 데이터를 원본(${records.length}건)으로 복원 및 동기화 완료했습니다.`);
-          } catch (_) {}
-        }
-        console.log(`[Dashboard] 로컬스토리지에서 총 ${state.incidents.length}건의 데이터를 최신순 정렬하여 로드했습니다.`);
-        return;
-      }
-    } catch (e) {
-      console.error("로컬스토리지 데이터 파싱 실패:", e);
-    }
+    console.log(`[Dashboard] localStorage 보존 데이터 ${state.incidents.length}건 로드 완료 (강력 새로고침 보호).`);
+    return;
   }
 
-  // 3. 로컬스토리지에 저장된 데이터가 전혀 없을 때만 data.js의 기본 데이터 로드
-  state.incidents = JSON.parse(JSON.stringify(defaultList));
-  state.incidents.forEach(item => {
+  // 3. localStorage에 데이터가 전혀 없을 때만 data.js의 기본 데이터를 로드하고 저장
+  console.log(`[Dashboard] localStorage 데이터 없음: data.js 기본 데이터(${defaultList.length}건)를 초기 로드합니다.`);
+  const cloned = JSON.parse(JSON.stringify(defaultList));
+  cloned.forEach(item => {
     normalizeIncident(item);
-    item.dept = inferDeptFromIncident(item);
   });
+
+  state.incidents = cloned;
   sortIncidentsList(state.incidents, "docNo", "desc");
 
-  // 로컬스토리지에 영구 저장
   try {
+    const jsonStr = JSON.stringify(state.incidents);
+    localStorage.setItem('resort_incidents_master', jsonStr);
+    localStorage.setItem('resort_base_template_data', jsonStr);
+    localStorage.setItem('resort_incidents_data', jsonStr);
+    localStorage.setItem('resort_incident_records_v2', jsonStr);
     localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
-    localStorage.setItem("resort_incidents_data", JSON.stringify(state.incidents));
     console.log(`[Dashboard] data.js 기본 데이터(${state.incidents.length}건)를 로컬스토리지에 초기 영구 저장했습니다.`);
-  } catch (e) {
-    console.error("로컬스토리지 초기 저장 에러:", e);
+  } catch (saveErr) {
+    console.warn("초기 데이터 로컬스토리지 저장 실패:", saveErr);
   }
 }
 
-// Setup Main Event Listeners
 function setupEventListeners() {
   // [긴급 복구] 탭 전환 이벤트 리스너 명시적 등록 (인라인 onclick 외에 addEventListener 다중 보장)
   try {
@@ -6538,14 +6451,14 @@ function handleExcelUploadSuccess(uploadedData) {
   sortIncidentsList(uploadedData, "id", "desc");
   state.incidents = uploadedData;
 
-  // 2. 브라우저 로컬 저장소 덮어쓰기
+  // 2. 브라우저 로컬 저장소 덮어쓰기 (강력 새로고침 시 버전 체크로 리셋되지 않도록 방어 처리)
   try {
-    // 현재 작업 데이터 저장
-    localStorage.setItem('resort_incidents_master', JSON.stringify(uploadedData));
-    // 초기화 시 돌아갈 '최신 기준 마스터'로도 저장
-    localStorage.setItem('resort_base_template_data', JSON.stringify(uploadedData));
-    localStorage.setItem('resort_incidents_data', JSON.stringify(uploadedData));
-    localStorage.setItem('resort_incident_records_v2', JSON.stringify(uploadedData));
+    const jsonStr = JSON.stringify(uploadedData);
+    localStorage.setItem('resort_incidents_master', jsonStr);
+    localStorage.setItem('resort_base_template_data', jsonStr);
+    localStorage.setItem('resort_incidents_data', jsonStr);
+    localStorage.setItem('resort_incident_records_v2', jsonStr);
+    localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
   } catch (err) {
     console.error("마스터 엑셀 로컬스토리지 덮어쓰기 실패:", err);
   }
@@ -6602,16 +6515,22 @@ function handleResetSample() {
     return;
   }
 
-  const savedBaseExcel = localStorage.getItem('resort_base_template_data');
-  const defaultList = (typeof window.initialIncidents !== "undefined" && Array.isArray(window.initialIncidents))
+  const savedBaseExcel = localStorage.getItem('resort_base_template_data') || localStorage.getItem('resort_incidents_master');
+  const defaultList = (typeof window.initialIncidents !== "undefined" && Array.isArray(window.initialIncidents) && window.initialIncidents.length > 0)
     ? window.initialIncidents
     : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
   const baseData = savedBaseExcel ? JSON.parse(savedBaseExcel) : defaultList;
 
+  baseData.forEach(item => normalizeIncident(item));
+  sortIncidentsList(baseData, "docNo", "desc");
   state.incidents = baseData;
-  localStorage.setItem('resort_incidents_master', JSON.stringify(baseData));
-  localStorage.setItem('resort_incidents_data', JSON.stringify(baseData));
-  localStorage.setItem('resort_incident_records_v2', JSON.stringify(baseData));
+
+  const jsonStr = JSON.stringify(baseData);
+  localStorage.setItem('resort_incidents_master', jsonStr);
+  localStorage.setItem('resort_base_template_data', jsonStr);
+  localStorage.setItem('resort_incidents_data', jsonStr);
+  localStorage.setItem('resort_incident_records_v2', jsonStr);
+  localStorage.setItem(VERSION_KEY, window.APP_DATA_VERSION);
   const storageInst = (typeof IncidentStorage !== 'undefined') ? IncidentStorage : (typeof window !== 'undefined' ? window.IncidentStorage : null);
   if (storageInst && storageInst.saveAll) {
     storageInst.saveAll(baseData);
