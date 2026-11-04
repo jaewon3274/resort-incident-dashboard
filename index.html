@@ -1254,6 +1254,16 @@
                 <option value="customer">고객</option>
               </select>
             </div>
+
+            <!-- 산재조사표 필터 드롭다운 -->
+            <div id="kpi-drill-report-wrap" class="flex items-center gap-2 whitespace-nowrap" style="display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;">
+              <label for="kpi-drill-filter-report" style="font-size: 0.82rem; font-weight: 600; color: #1d4ed8; white-space: nowrap; word-break: keep-all;">📋 산재조사표:</label>
+              <select id="kpi-drill-filter-report" class="custom-select" style="font-size: 0.82rem; padding: 0.3rem 0.6rem; height: auto; min-width: 95px; font-weight: 700; color: #1d4ed8; border-color: #93c5fd;" onchange="filterKpiDrilldownByReport(this.value)">
+                <option value="all">전체</option>
+                <option value="제출완료">제출완료</option>
+                <option value="해당 없음">해당 없음</option>
+              </select>
+            </div>
           </div>
         </div>
 

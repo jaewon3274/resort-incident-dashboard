@@ -6050,6 +6050,12 @@ function filterKpiDrilldownByVictim(val) {
 }
 window.filterKpiDrilldownByVictim = filterKpiDrilldownByVictim;
 
+function filterKpiDrilldownByReport(val) {
+  state.kpiDrillReportFilter = val || "all";
+  renderKpiDrilldownTable();
+}
+window.filterKpiDrilldownByReport = filterKpiDrilldownByReport;
+
 // [신규] 직원 안전사고 모달 연도 필터 변경 핸들러
 function handleKpiDrilldownYearChange(year) {
   state.kpiDrillYearFilter = year || "all";
@@ -6214,6 +6220,10 @@ function openKpiDrilldown(type) {
   const victimSel = document.getElementById("kpi-drill-filter-victim");
   if (victimSel) victimSel.value = "all";
 
+  state.kpiDrillReportFilter = "all";
+  const reportSel = document.getElementById("kpi-drill-filter-report");
+  if (reportSel) reportSel.value = "all";
+
   const modal = document.getElementById("kpi-drilldown-modal");
   if (modal) {
     modal.classList.add("active");
@@ -6230,9 +6240,20 @@ function renderKpiDrilldownTable() {
   if (state.kpiDrillVictimFilter && state.kpiDrillVictimFilter !== "all") {
     list = list.filter(item => classifyVictim(item).category === state.kpiDrillVictimFilter);
   }
+  if (state.kpiDrillReportFilter && state.kpiDrillReportFilter !== "all") {
+    list = list.filter(item => {
+      const rep = item.industrialAccident || item.reportStatus || item.industrialAccidentReport || "해당 없음";
+      if (state.kpiDrillReportFilter === "제출완료") return rep === "제출완료";
+      if (state.kpiDrillReportFilter === "해당 없음") return rep !== "제출완료";
+      return true;
+    });
+  }
 
   const footerInfoEl = document.getElementById("kpi-drilldown-footer-info");
-  if (footerInfoEl) footerInfoEl.textContent = `총 ${list.length.toLocaleString()}건 조회됨`;
+  if (footerInfoEl) {
+    const totalCount = (state.kpiDrilldownList || []).length;
+    footerInfoEl.textContent = `총 ${list.length.toLocaleString()}건 조회됨 (전체 ${totalCount.toLocaleString()}건 중)`;
+  }
 
   if (list.length === 0) {
     tbody.innerHTML = `
