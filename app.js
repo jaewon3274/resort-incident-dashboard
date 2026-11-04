@@ -2882,6 +2882,10 @@ const parseIncidentRow = (row, index) => {
   const rawCost = row['보험금'] !== undefined && row['보험금'] !== '' ? row['보험금'] : row[' 보험금 '];
   const insuranceCost = typeof rawCost === 'number' ? rawCost : (Number(String(rawCost || '').replace(/,/g, '').trim()) || 0);
 
+  // Q열 헤더명('산업재해조사표' 및 '산재조사표') 모두 대응
+  const reportStatus = row['산업재해조사표'] || row['산재조사표'] || row['산재 보고'] || '';
+  const isSubmitted = String(reportStatus).trim().includes('제출완료');
+
   return {
     id: row['문서번호'] || `INC-${Date.now()}-${index}`,
     docNo: row['문서번호'] ? String(row['문서번호']).trim() : `미부여-${index}`,
@@ -2898,7 +2902,7 @@ const parseIncidentRow = (row, index) => {
     victimType: victimType,
     victimDetail: victimRaw,
     insuranceCost: insuranceCost,
-    industrialAccident: row['산업재해조사표'] ? String(row['산업재해조사표']).trim() : '해당 없음',
+    industrialAccident: isSubmitted ? '제출완료' : '해당 없음',
     status: '조치완료'
   };
 };
