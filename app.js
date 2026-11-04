@@ -1,7 +1,7 @@
 // ==========================================================================
 // 0. Global System & Data Version Definition
 // ==========================================================================
-window.APP_DATA_VERSION = '20261102_vFINAL';
+window.APP_DATA_VERSION = '20261104_vVICTIM_FIX';
 const DATA_VERSION = window.APP_DATA_VERSION;
 
 // ==========================================================================
@@ -153,9 +153,40 @@ function normalizeIncident(item) {
   const catVal = getIncidentCategory(item);
   const deptVal = getIncidentDept(item);
   const locVal = getIncidentLocation(item);
-  const victimVal = getIncidentVictim(item);
   const costVal = getIncidentCost(item);
   const buVal = item.businessUnit || item.resort || deptVal || "IPARK 리조트";
+
+  // 피해 대상 매핑 (반드시 엑셀 E열 '구분2' 헤더 값 기준 직접 매핑, 본문 검색 금지)
+  const rawVictim = item['구분2'] !== undefined && item['구분2'] !== null ? String(item['구분2']) : (item.victimDetail || item.victimType || item.victim || "");
+  const cleanVictim = rawVictim.replace(/[\r\n]+/g, ' ').trim();
+
+  let victimType = "기타";
+  let victimName = item.victimName && item.victimName !== "익명" ? item.victimName : "";
+
+  const parenMatch = cleanVictim.match(/\(([^)]+)\)/);
+  if (parenMatch && parenMatch[1]) {
+    victimName = parenMatch[1].replace(/[\r\n]+/g, '').trim();
+  }
+
+  if (cleanVictim.includes("고객")) {
+    victimType = "고객";
+  } else if (cleanVictim.includes("캐디")) {
+    victimType = "캐디";
+  } else if (
+    cleanVictim.includes("직원") ||
+    cleanVictim.includes("근로자") ||
+    cleanVictim.includes("일용직") ||
+    cleanVictim.includes("협력사") ||
+    cleanVictim.includes("실습생")
+  ) {
+    victimType = "직원";
+  } else {
+    victimType = "기타";
+  }
+
+  if (!victimName) {
+    victimName = item.victimName || "익명";
+  }
 
   item.date = dateVal;
   item.occurredAt = dateVal;
@@ -167,9 +198,12 @@ function normalizeIncident(item) {
   item.department = deptVal;
   item.businessUnit = buVal;
   item.resort = item.resort || buVal;
-  item.victim = victimVal;
-  item.victimType = victimVal;
-  item['구분2'] = victimVal;
+  item.victim = victimType;
+  item.victimType = victimType;
+  item.victimName = victimName;
+  if (!item['구분2']) {
+    item['구분2'] = cleanVictim || victimType;
+  }
   item.location = locVal;
   item.place = locVal;
   item.locationDetail = item.locationDetail || locVal;
@@ -462,60 +496,58 @@ if (typeof window !== "undefined") {
 function classifyVictim(item) {
   if (!item) {
     return {
-      category: "customer",
-      label: "고객",
-      badgeClass: "badge-victim-customer bg-blue-50 text-blue-700 border-blue-200"
+      category: "other",
+      label: "기타",
+      badgeClass: "badge-victim-other bg-slate-50 text-slate-700 border-slate-200",
+      inlineStyle: "background-color: #f8fafc; color: #334155; border: 1px solid #cbd5e1;"
     };
   }
 
-  const vType = getIncidentVictim(item);
-  const vName = String(item.victimName || "").trim();
-  const note = String(item.note || item.notes || item.specialNotes || "");
-  const summary = String(item.summary || item.description || "");
-  const locDetail = getIncidentLocation(item);
-  const fullContext = `${vType} ${vName} ${note} ${summary} ${locDetail}`.toLowerCase();
+  // 본문(텍스트) 검색 절대 금지: 오직 item.victimType (또는 E열 '구분2' 헤더 값) 기준으로만 직접 매핑
+  const rawType = String(item.victimType || item['구분2'] || item.victim || "").replace(/[\r\n]+/g, " ").trim();
 
-  // 1. 캐디 우선 판별
-  if (vType.includes("캐디") || fullContext.includes("캐디")) {
+  // 1. 고객: 파란색
+  if (rawType.includes("고객")) {
+    return {
+      category: "customer",
+      label: "고객",
+      badgeClass: "badge-victim-customer bg-blue-50 text-blue-700 border-blue-200",
+      inlineStyle: "background-color: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;"
+    };
+  }
+
+  // 2. 캐디: 노란/주황색 (amber)
+  if (rawType.includes("캐디")) {
     return {
       category: "caddy",
       label: "캐디",
-      badgeClass: "badge-victim-caddy bg-amber-50 text-amber-700 border-amber-200"
+      badgeClass: "badge-victim-caddy bg-amber-50 text-amber-700 border-amber-200",
+      inlineStyle: "background-color: #fffbeb; color: #b45309; border: 1px solid #fde68a;"
     };
   }
 
-  // 2. 임직원 (직원, 근로자, 일용직, 실습생, 협력사) 판별
-  const empKeywords = ["직원", "임직원", "근로자", "일용직", "실습생", "협력사", "진행원", "조리원", "미화"];
-  if (empKeywords.some(kw => vType.includes(kw) || fullContext.includes(kw))) {
+  // 3. 직원: 보라색 ('직원', '근로자', '일용직', '협력사', '실습생' 등)
+  if (
+    rawType.includes("직원") ||
+    rawType.includes("근로자") ||
+    rawType.includes("일용직") ||
+    rawType.includes("협력사") ||
+    rawType.includes("실습생")
+  ) {
     return {
       category: "employee",
-      label: "임직원",
-      badgeClass: "badge-victim-employee bg-purple-50 text-purple-700 border-purple-200"
+      label: "직원",
+      badgeClass: "badge-victim-employee bg-purple-50 text-purple-700 border-purple-200",
+      inlineStyle: "background-color: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff;"
     };
   }
 
-  // 3. 고객 판별
-  if (vType.includes("고객") || vType.includes("투숙") || vType.includes("회원") || vType.includes("내장객") || fullContext.includes("고객")) {
-    return {
-      category: "customer",
-      label: "고객",
-      badgeClass: "badge-victim-customer bg-blue-50 text-blue-700 border-blue-200"
-    };
-  }
-
-  // 4. 기타/기본값: 원본 vType이 있으면 표시, 없으면 고객으로 기본 처리
-  if (vType && vType !== "-" && vType !== "미상") {
-    return {
-      category: "customer",
-      label: vType,
-      badgeClass: "badge-victim-other bg-slate-50 text-slate-700 border-slate-200"
-    };
-  }
-
+  // 4. 그 외 또는 미분류: 회색 '기타'
   return {
-    category: "customer",
-    label: "고객",
-    badgeClass: "badge-victim-customer bg-blue-50 text-blue-700 border-blue-200"
+    category: "other",
+    label: rawType || "기타",
+    badgeClass: "badge-victim-other bg-slate-50 text-slate-700 border-slate-200",
+    inlineStyle: "background-color: #f8fafc; color: #334155; border: 1px solid #cbd5e1;"
   };
 }
 window.classifyVictim = classifyVictim;
@@ -2851,15 +2883,38 @@ const parseIncidentRow = (row, index) => {
   const detailLocation = row['위치(세부)'] ? String(row['위치(세부)']).trim() : '기타 장소';
   const title = `[${detailLocation}] ${cleanType} 사고`;
 
-  // 4. 피해 대상 매핑
-  const victimRaw = row['구분2'] ? String(row['구분2']).replace(/[\r\n]+/g, ' ').trim() : '고객';
-  let victimType = '고객';
-  if (victimRaw.includes('직원') || victimRaw.includes('근로자') || victimRaw.includes('일용직')) {
-    victimType = '직원';
-  } else if (victimRaw.includes('캐디')) {
+  // 4. 피해 대상 매핑 (반드시 엑셀 E열 '구분2' 헤더 값 기준 직접 매핑, 사고 내용 본문 검색 금지)
+  const rawVictim = row['구분2'] !== undefined && row['구분2'] !== null ? String(row['구분2']) : (row['구분 2'] !== undefined && row['구분 2'] !== null ? String(row['구분 2']) : '');
+  const cleanVictim = rawVictim.replace(/[\r\n]+/g, ' ').trim();
+
+  let victimType = '기타';
+  let victimName = '';
+
+  // 괄호 안에 이름이 있는 경우 추출 (예: '캐디(손호준)', '캐디 (손호준)', '직원(박덕재)' -> '손호준', '박덕재')
+  const parenMatch = cleanVictim.match(/\(([^)]+)\)/);
+  if (parenMatch && parenMatch[1]) {
+    victimName = parenMatch[1].replace(/[\r\n]+/g, '').trim();
+  }
+
+  if (cleanVictim.includes('고객')) {
+    victimType = '고객';
+  } else if (cleanVictim.includes('캐디')) {
     victimType = '캐디';
-  } else if (victimRaw.includes('기타') || victimRaw.includes('AR')) {
+  } else if (
+    cleanVictim.includes('직원') ||
+    cleanVictim.includes('근로자') ||
+    cleanVictim.includes('일용직') ||
+    cleanVictim.includes('협력사') ||
+    cleanVictim.includes('실습생')
+  ) {
+    victimType = '직원';
+  } else {
     victimType = '기타';
+  }
+
+  if (!victimName) {
+    const rawName = row['성명'] || row['피해자명'] || row['피해자'] || '';
+    victimName = String(rawName).replace(/[\r\n]+/g, '').trim() || '익명';
   }
 
   // 5. 보험금 / 비용 숫자 변환
@@ -2879,18 +2934,18 @@ const parseIncidentRow = (row, index) => {
     team: team,
     department: dept,
     location: detailLocation,
-    type: cleanType,           // 정제된 '사고유형1' 주입
+    type: cleanType,
     title: title,
     description: row['내용'] ? String(row['내용']).trim() : '',
     countermeasure: row['재발방지대책'] ? String(row['재발방지대책']).trim() : '',
     victimType: victimType,
-    victimDetail: victimRaw,
+    victimName: victimName,
+    victimDetail: cleanVictim,
     insuranceCost: insuranceCost,
     industrialAccident: isSubmitted ? '제출완료' : '해당 없음',
     status: '조치완료'
   };
 };
-
 if (typeof window !== 'undefined') {
   window.parseIncidentRow = parseIncidentRow;
 }
@@ -2940,7 +2995,7 @@ function parseExcelRows(rawRows) {
       industrialAccidentReport: parsed.industrialAccident,
       preventiveMeasure: parsed.countermeasure || "시설 안전 점검 및 프로세스 준수 강화",
       actionTaken: "초동 조치 완료 및 현장 확인",
-      victimName: "익명",
+      victimName: parsed.victimName || "익명",
       manager: parsed.team || "안전관리팀",
       zone,
       severity,
@@ -4279,7 +4334,7 @@ function renderTable() {
           ${escapeHtml(item.resort || "")}${deptDisplay}
         </td>
         <td style="text-align: center;">
-          <span class="badge ${vInfo.badgeClass}">${escapeHtml(vInfo.label)}</span>
+          <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}" title="${escapeHtml(item.victimName && item.victimName !== '익명' ? `${vInfo.label} (${item.victimName})` : vInfo.label)}">${escapeHtml(vInfo.label)}</span>
         </td>
         <td class="location-cell" style="font-size: 0.83rem; color: #334155;">
           <span class="location-primary" style="font-weight: 600;">${escapeHtml(item.zone || "")}</span>
@@ -6005,7 +6060,7 @@ function renderYoyDrilldownTable() {
         <td style="font-size: 0.82rem; color: #475569; white-space: nowrap;">${escapeHtml(date)}</td>
         <td style="font-size: 0.83rem; color: #0f172a; font-weight: 600;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
         <td style="text-align: center;">
-          <span class="badge ${vInfo.badgeClass}">${escapeHtml(vInfo.label)}</span>
+          <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}" title="${escapeHtml(item.victimName && item.victimName !== '익명' ? `${vInfo.label} (${item.victimName})` : vInfo.label)}">${escapeHtml(vInfo.label)}</span>
         </td>
         <td style="font-size: 0.82rem; color: #334155;">${escapeHtml(loc)}</td>
         <td>

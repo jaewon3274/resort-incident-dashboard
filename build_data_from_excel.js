@@ -52,17 +52,39 @@ const parseIncidentRow = (row, index) => {
   const detailLocation = row['위치(세부)'] ? String(row['위치(세부)']).trim() : '기타 장소';
   const title = `[${detailLocation}] ${cleanType} 사고`;
 
-  // 4. 피해 대상 매핑
-  const victimRaw = row['구분2'] ? String(row['구분2']).replace(/[\r\n]+/g, ' ').trim() : '고객';
-  let victimType = '고객';
-  if (victimRaw.includes('직원') || victimRaw.includes('근로자') || victimRaw.includes('일용직')) {
-    victimType = '직원';
-  } else if (victimRaw.includes('캐디')) {
+  // 4. 피해 대상 매핑 (반드시 엑셀 E열 '구분2' 헤더 값 기준 직접 매핑, 사고 내용 본문 검색 금지)
+  const rawVictim = row['구분2'] !== undefined && row['구분2'] !== null ? String(row['구분2']) : (row['구분 2'] !== undefined && row['구분 2'] !== null ? String(row['구분 2']) : '');
+  const cleanVictim = rawVictim.replace(/[\r\n]+/g, ' ').trim();
+
+  let victimType = '기타';
+  let victimName = '';
+
+  // 괄호 안에 이름이 있는 경우 추출 (예: '캐디(손호준)', '캐디 (손호준)', '직원(박덕재)' -> '손호준', '박덕재')
+  const parenMatch = cleanVictim.match(/\(([^)]+)\)/);
+  if (parenMatch && parenMatch[1]) {
+    victimName = parenMatch[1].replace(/[\r\n]+/g, '').trim();
+  }
+
+  if (cleanVictim.includes('고객')) {
+    victimType = '고객';
+  } else if (cleanVictim.includes('캐디')) {
     victimType = '캐디';
-  } else if (victimRaw.includes('기타') || victimRaw.includes('AR')) {
+  } else if (
+    cleanVictim.includes('직원') ||
+    cleanVictim.includes('근로자') ||
+    cleanVictim.includes('일용직') ||
+    cleanVictim.includes('협력사') ||
+    cleanVictim.includes('실습생')
+  ) {
+    victimType = '직원';
+  } else {
     victimType = '기타';
   }
 
+  if (!victimName) {
+    const rawName = row['성명'] || row['피해자명'] || row['피해자'] || '';
+    victimName = String(rawName).replace(/[\r\n]+/g, '').trim() || '익명';
+  }
   // 5. 보험금 / 비용 숫자 변환
   const rawCost = row['보험금'] !== undefined && row['보험금'] !== '' ? row['보험금'] : row[' 보험금 '];
   const insuranceCost = typeof rawCost === 'number' ? rawCost : (Number(String(rawCost || '').replace(/,/g, '').trim()) || 0);
@@ -85,7 +107,8 @@ const parseIncidentRow = (row, index) => {
     description: row['내용'] ? String(row['내용']).trim() : '',
     countermeasure: row['재발방지대책'] ? String(row['재발방지대책']).trim() : '',
     victimType: victimType,
-    victimDetail: victimRaw,
+    victimName: victimName,
+    victimDetail: cleanVictim,
     insuranceCost: insuranceCost,
     industrialAccident: isSubmitted ? '제출완료' : '해당 없음',
     status: '조치완료'
@@ -151,7 +174,7 @@ rawRows.forEach((r) => {
     locationDetail: parsed.location,
     preventiveMeasure: parsed.countermeasure || '시설 안전 점검 및 프로세스 준수 강화',
     actionTaken: '초동 조치 완료 및 현장 확인',
-    victimName: '익명',
+    victimName: parsed.victimName || '익명',
     manager: parsed.team || '안전관리팀',
     zone: zoneStr,
     severity: severityStr,
@@ -185,7 +208,7 @@ const INITIAL_INCIDENTS = ${JSON.stringify(incidents, null, 2)};
 const initialIncidents = INITIAL_INCIDENTS;
 
 (function() {
-  const DEFAULT_VERSION = "20261102_vFINAL";
+  const DEFAULT_VERSION = "20261104_vVICTIM_FIX";
   const VERSION_KEY = "resort_data_version";
   const STORAGE_KEY = "resort_incidents_data";
   const LEGACY_STORAGE_KEY = "resort_incident_records_v2";
