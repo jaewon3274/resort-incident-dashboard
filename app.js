@@ -1302,26 +1302,10 @@ function setupEventListeners() {
     exportBtn.addEventListener("click", exportToCSV);
   }
 
-  // Reset Data Button (오직 사용자가 버튼을 직접 클릭하여 확인했을 때만 초기화)
+  // Reset Data Button (마지막 등록 마스터 엑셀 기준 복원)
   const resetBtn = document.getElementById("btn-reset-data") || document.getElementById("btn-reset-sample");
   if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      const defaultList = (typeof window.initialIncidents !== "undefined" && Array.isArray(window.initialIncidents))
-        ? window.initialIncidents
-        : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
-      const count = defaultList.length;
-
-      if (confirm(`데이터를 영구 기본 데이터(총 ${count}건)로 초기화하시겠습니까?\n\n※ 로컬스토리지에 저장된 사용자 수정 및 추가 데이터가 기본값으로 복원됩니다.`)) {
-        localStorage.removeItem("resort_incidents_master");
-        localStorage.removeItem("resort_incidents_last_sync");
-        state.lastSyncTime = null;
-        state.incidents = IncidentStorage.reset();
-        updateLastSyncTimeDisplay();
-        populateFilterDropdowns();
-        applyFilters();
-        showToast(`기본 데이터(${count}건)로 초기화되었습니다.`, "info");
-      }
-    });
+    resetBtn.addEventListener("click", handleResetSample);
   }
 
   // Register Modal Triggers
@@ -6352,7 +6336,10 @@ function handleExcelUploadSuccess(uploadedData) {
 
   // 2. 브라우저 로컬 저장소 덮어쓰기
   try {
+    // 현재 작업 데이터 저장
     localStorage.setItem('resort_incidents_master', JSON.stringify(uploadedData));
+    // 초기화 시 돌아갈 '최신 기준 마스터'로도 저장
+    localStorage.setItem('resort_base_template_data', JSON.stringify(uploadedData));
     localStorage.setItem('resort_incidents_data', JSON.stringify(uploadedData));
     localStorage.setItem('resort_incident_records_v2', JSON.stringify(uploadedData));
   } catch (err) {
@@ -6394,10 +6381,48 @@ function handleExcelUploadSuccess(uploadedData) {
   if (typeof renderAllCharts === "function") renderAllCharts();
   updateLastSyncTimeDisplay();
 
-  showToast(`마스터 엑셀 동기화 완료: 총 ${uploadedData.length.toLocaleString()}건이 반영되었습니다.`, "success");
-  alert(`마스터 엑셀 동기화 완료: 총 ${uploadedData.length}건이 반영되었습니다.`);
+  showToast(`새 마스터 엑셀(${uploadedData.length.toLocaleString()}건)이 기본 데이터로 등록되었습니다.`, "success");
+  alert(`새 마스터 엑셀(${uploadedData.length}건)이 기본 데이터로 등록되었습니다.`);
 }
 window.handleExcelUploadSuccess = handleExcelUploadSuccess;
+
+// 1. 엑셀 불러오기 성공 시: 현재 상태와 '마스터 기준값'을 동시에 갱신
+const handleExcelUpload = function(uploadedRows) {
+  handleExcelUploadSuccess(uploadedRows);
+};
+window.handleExcelUpload = handleExcelUpload;
+
+// 2. 샘플 초기화 버튼 클릭 시: 마지막으로 등록했던 엑셀이 있으면 그 파일로 원복
+function handleResetSample() {
+  if (!confirm("모든 수정 내역을 취소하고 마지막으로 등록한 마스터 엑셀 상태로 되돌리시겠습니까?")) {
+    return;
+  }
+
+  const savedBaseExcel = localStorage.getItem('resort_base_template_data');
+  const defaultList = (typeof window.initialIncidents !== "undefined" && Array.isArray(window.initialIncidents))
+    ? window.initialIncidents
+    : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
+  const baseData = savedBaseExcel ? JSON.parse(savedBaseExcel) : defaultList;
+
+  state.incidents = baseData;
+  localStorage.setItem('resort_incidents_master', JSON.stringify(baseData));
+  localStorage.setItem('resort_incidents_data', JSON.stringify(baseData));
+  localStorage.setItem('resort_incident_records_v2', JSON.stringify(baseData));
+  const storageInst = (typeof IncidentStorage !== 'undefined') ? IncidentStorage : (typeof window !== 'undefined' ? window.IncidentStorage : null);
+  if (storageInst && storageInst.saveAll) {
+    storageInst.saveAll(baseData);
+  }
+
+  populateFilterDropdowns();
+  applyFilters();
+  renderKPIs();
+  if (typeof renderAllCharts === "function") renderAllCharts();
+  updateLastSyncTimeDisplay();
+
+  alert(`데이터가 마스터 엑셀 기준(${baseData.length}건)으로 복원되었습니다.`);
+  showToast(`데이터가 마스터 엑셀 기준(${baseData.length}건)으로 복원되었습니다.`, "info");
+}
+window.handleResetSample = handleResetSample;
 
 function updateLastSyncTimeDisplay() {
   const syncTime = state.lastSyncTime || (typeof localStorage !== "undefined" ? localStorage.getItem('resort_incidents_last_sync') : null);

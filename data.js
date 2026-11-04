@@ -33392,12 +33392,22 @@ const initialIncidents = INITIAL_INCIDENTS;
 
     reset() {
       if (typeof localStorage !== "undefined") {
+        const savedBaseExcel = localStorage.getItem('resort_base_template_data');
+        const targetVer = getTargetVersion();
+        if (savedBaseExcel) {
+          try {
+            const baseData = JSON.parse(savedBaseExcel);
+            localStorage.setItem(VERSION_KEY, targetVer);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(baseData));
+            localStorage.setItem(MASTER_STORAGE_KEY, JSON.stringify(baseData));
+            return baseData;
+          } catch (_) {}
+        }
         try { localStorage.clear(); } catch (_) {}
         try {
           localStorage.removeItem(MASTER_STORAGE_KEY);
           localStorage.removeItem(SYNC_TIME_KEY);
         } catch (_) {}
-        const targetVer = getTargetVersion();
         localStorage.setItem(VERSION_KEY, targetVer);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INCIDENTS));
       }
