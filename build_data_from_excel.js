@@ -121,13 +121,61 @@ const parseIncidentRow = (row, index) => {
   };
 };
 
-function inferZoneFromLocation(loc, dept) {
-  const t = `${loc} ${dept}`.toLowerCase();
-  if (/그린|티|홀|\d+h|벙커|러프|페어웨이|카트도로|골프/.test(t)) return "골프 코스";
-  if (/클럽하우스|로비|스타트|식당|락카|사우나/.test(t)) return "클럽하우스/부대시설";
-  if (/스키|슬로프|렌탈|레저/.test(t)) return "레저/체육시설";
-  if (/콘도|객실|빌리지|타워|호실/.test(t)) return "콘도/객실";
-  if (/주차장|도로|진입로/.test(t)) return "주차장/도로";
+function inferZoneFromLocation(location, dept, team) {
+  const loc = String(location || "").trim();
+  const subDept = String(dept || "").trim();
+  const subTeam = String(team || "").trim();
+
+  // 1. D열('위치(세부)') 텍스트 최우선 검사
+  if (loc) {
+    const isCartRoad = /카트\s*도로/.test(loc);
+
+    // 1-1. 주차장 / 도로: D열에 '주차장', '지하주차장', '도로', '군도변', '진입로'가 포함되면 -> '주차장/도로'
+    // (단, '카트도로'는 골프 코스 전용 도로이므로 제외)
+    if (/주차장|지하주차장|군도변|진입로/.test(loc) || (!isCartRoad && /도로/.test(loc))) {
+      return "주차장/도로";
+    }
+
+    // 1-2. 골프 코스: D열에 'H'(예: 파인4H, 16H), '티박스', '그린', '페어웨이', '벙커', '카트도로'가 포함되면 -> '골프 코스'
+    if (isCartRoad || /[0-9]+[hH]|[hH]홀|홀\b|티박스|티잉|그린|페어웨이|벙커|러프/.test(loc) || (/[hH]/.test(loc) && /파인|오크|메이플|체리|버치|골프|브릿지|힐스|밸리|월송|성문/.test(loc))) {
+      return "골프 코스";
+    }
+
+    // 1-3. 콘도 / 객실: D열에 '객실', '콘도', '빌리지', '타워'가 포함되면 -> '콘도/객실'
+    if (/객실|콘도|빌리지|타워|호실/.test(loc)) {
+      return "콘도/객실";
+    }
+
+    // 1-4. 레저 / 야외시설: D열에 '슬로프', '스키장', '수영장', '스파', '사우나', '놀이동산'이 포함되면 -> '레저/야외시설'
+    if (/슬로프|스키장|수영장|스파|사우나|놀이동산|리프트|렌탈|눈썰매/.test(loc)) {
+      return "레저/야외시설";
+    }
+
+    // 1-5. 부대 / 영업시설: D열에 '클럽하우스', '스타트하우스', '식당', '락커'가 포함되면 -> '부대/영업시설'
+    if (/클럽하우스|스타트하우스|식당|락커|락카|레스토랑|카페|프로샵|로비|프런트|연회/.test(loc)) {
+      return "부대/영업시설";
+    }
+  }
+
+  // 2. 그 외 명시되지 않은 경우에만 C열/B열 기준으로 보조 분류
+  const context = `${subDept} ${subTeam}`.toLowerCase();
+
+  if (/주차|도로|교통/.test(context)) {
+    return "주차장/도로";
+  }
+  if (/골프|cc\b|라운드/.test(context)) {
+    return "골프 코스";
+  }
+  if (/슬로프|스키|레저|수영|스파|사우나/.test(context)) {
+    return "레저/야외시설";
+  }
+  if (/콘도|호텔|객실|빌리지|숙박/.test(context)) {
+    return "콘도/객실";
+  }
+  if (/클럽하우스|스타트|식음|f&b|식당|조리|영업/.test(context)) {
+    return "부대/영업시설";
+  }
+
   return "기타 부대시설";
 }
 
@@ -151,7 +199,7 @@ rawRows.forEach((r) => {
   if (!docNo || docNo === 'None') return;
 
   const parsed = parseIncidentRow(row, validIdx);
-  const zoneStr = inferZoneFromLocation(parsed.location, parsed.team);
+  const zoneStr = inferZoneFromLocation(parsed.location, parsed.department, parsed.team);
   const severityStr = inferSeverity(parsed.description, parsed.type);
   const reportDateStr = parsed.date.length >= 10 ? parsed.date.slice(0, 10).replace(/\./g, '-') : `${parsed.year}-01-01`;
 
@@ -217,7 +265,7 @@ const INITIAL_INCIDENTS = ${JSON.stringify(incidents, null, 2)};
 const initialIncidents = INITIAL_INCIDENTS;
 
 (function() {
-  const DEFAULT_VERSION = "20261104_vLOC_VICTIM_FIX";
+  const DEFAULT_VERSION = "20261104_vCHART_ZONE_FIX";
   const VERSION_KEY = "resort_data_version";
   const STORAGE_KEY = "resort_incidents_data";
   const LEGACY_STORAGE_KEY = "resort_incident_records_v2";

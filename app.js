@@ -1,7 +1,7 @@
 // ==========================================================================
 // 0. Global System & Data Version Definition
 // ==========================================================================
-window.APP_DATA_VERSION = '20261104_vLOC_VICTIM_FIX';
+window.APP_DATA_VERSION = '20261104_vCHART_ZONE_FIX';
 const DATA_VERSION = window.APP_DATA_VERSION;
 
 // ==========================================================================
@@ -216,6 +216,7 @@ function normalizeIncident(item) {
   item.cost = costVal;
   item.companyAmount = costVal;
   item['보험금'] = costVal;
+  item.zone = inferZoneFromLocation(locVal, rawDeptVal || deptVal, teamVal);
 
   // 산업재해조사표 제출 상태 기본값 및 보정
   if (!item.reportStatus && !item.industrialAccidentReport) {
@@ -440,6 +441,70 @@ window.handlePageSizeChange = function(val) {
  */
 
 // State Management
+
+/**
+ * 유형별 사고 발생 비중 전용 고정 색상 맵 (COLOR_MAP)
+ * - 슬라이스 색상을 단순 순번(index)이 아닌 유형명 기준 고정 매핑하여 필터링/클릭 후에도 고유 색상 유지
+ */
+const CATEGORY_COLOR_MAP = {
+  "넘어짐": "#38bdf8",            // Sky Blue
+  "타구사고": "#f59e0b",          // Amber / Orange
+  "타구사고(차량)": "#f97316",    // Bright Orange
+  "카트사고": "#10b981",          // Emerald Green
+  "차량사고": "#ef4444",          // Red
+  "부딪힘": "#8b5cf6",            // Purple
+  "대물사고(차량피해)": "#06b6d4", // Cyan
+  "열상": "#ec4899",              // Pink
+  "대물사고": "#14b8a6",          // Teal
+  "클럽 파손": "#6366f1",         // Indigo
+  "베임": "#f43f5e",              // Rose
+  "대물사고(골프백)": "#84cc16",   // Lime
+  "끼임": "#d946ef",              // Fuchsia
+  "벌 쏘임": "#eab308",           // Yellow
+  "낙상사고": "#0ea5e9",          // Light Blue
+  "떨어짐": "#0284c7",            // Blue
+  "물체에 맞음": "#a855f7",        // Violet
+  "근골격계 질환": "#3b82f6",      // Blue
+  "감전": "#e11d48",              // Crimson
+  "인사사고": "#dc2626",          // Dark Red
+  "화상": "#ff5722",              // Deep Orange
+  "화재": "#b91c1c",              // Dark Red
+  "찔림": "#fb7185",              // Light Rose
+  "빠짐": "#0284c7",              // Ocean Blue
+  "타구사고(카트)": "#fb923c",     // Orange Peach
+  "시설물": "#64748b",            // Slate
+  "벌레 물림": "#ca8a04",         // Dark Amber
+  "사망": "#475569",              // Charcoal
+  "장비사고(샌드프로)": "#059669",  // Forest Green
+  "기타": "#94a3b8"               // Slate Gray
+};
+if (typeof window !== "undefined") {
+  window.CATEGORY_COLOR_MAP = CATEGORY_COLOR_MAP;
+}
+
+function getCategoryColor(categoryName) {
+  if (!categoryName) return "#94a3b8";
+  if (categoryName.startsWith("기타 외") || categoryName === "기타") {
+    return "#94a3b8";
+  }
+  if (CATEGORY_COLOR_MAP[categoryName]) {
+    return CATEGORY_COLOR_MAP[categoryName];
+  }
+  let hash = 0;
+  for (let i = 0; i < categoryName.length; i++) {
+    hash = categoryName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const fallbackPalette = [
+    "#38bdf8", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6",
+    "#06b6d4", "#ec4899", "#6366f1", "#f97316", "#14b8a6",
+    "#84cc16", "#f43f5e", "#a855f7", "#eab308", "#0ea5e9"
+  ];
+  return fallbackPalette[Math.abs(hash) % fallbackPalette.length];
+}
+if (typeof window !== "undefined") {
+  window.getCategoryColor = getCategoryColor;
+}
+
 const state = {
   incidents: [],
   filteredIncidents: [],
@@ -2759,6 +2824,7 @@ function toggleChartDrilldown(type, value) {
   if (state.filters[type] === value) {
     state.filters[type] = "all";
     if (type === "category") {
+      if (state.categoryChartMeta) state.categoryChartMeta.clickedIsOther = false;
       const catSelect = document.getElementById("filter-category");
       if (catSelect) catSelect.value = "all";
       const tableCat = document.getElementById("table-filter-category");
@@ -2774,10 +2840,22 @@ function toggleChartDrilldown(type, value) {
   } else {
     state.filters[type] = value;
     if (type === "category") {
+      if (!state.categoryChartMeta) state.categoryChartMeta = {};
+      state.categoryChartMeta.clickedIsOther = Boolean(value.startsWith("기타 외") || value === "기타");
       const catSelect = document.getElementById("filter-category");
-      if (catSelect) catSelect.value = value;
+      if (catSelect) {
+        if (![...catSelect.options].some(o => o.value === value)) {
+          catSelect.add(new Option(value, value));
+        }
+        catSelect.value = value;
+      }
       const tableCat = document.getElementById("table-filter-category");
-      if (tableCat) tableCat.value = value;
+      if (tableCat) {
+        if (![...tableCat.options].some(o => o.value === value)) {
+          tableCat.add(new Option(value, value));
+        }
+        tableCat.value = value;
+      }
     } else if (type === "dept") {
       const deptSelect = document.getElementById("filter-dept");
       if (deptSelect) deptSelect.value = value;
@@ -3034,40 +3112,70 @@ function parseExcelRows(rawRows) {
 }
 
 // Location & Dept Based Zone Inference
-function inferZoneFromLocation(location, dept, resort) {
-  const text = `${location} ${dept} ${resort}`.toLowerCase();
+// Location & Dept Based Zone Inference (D열 '위치(세부)' 최우선 참조)
+function inferZoneFromLocation(location, dept, team) {
+  const loc = String(location || "").trim();
+  const subDept = String(dept || "").trim();
+  const subTeam = String(team || "").trim();
 
-  if (text.includes("스파") || text.includes("사우나") || text.includes("냉탕") || text.includes("온탕") || text.includes("열탕") || text.includes("락커")) {
-    return "사우나/스파";
+  // =========================================================================
+  // 1. D열('위치(세부)') 텍스트 최우선 검사
+  // =========================================================================
+  if (loc) {
+    const isCartRoad = /카트\s*도로/.test(loc);
+
+    // 1-1. 주차장 / 도로: D열에 '주차장', '지하주차장', '도로', '군도변', '진입로'가 포함되면 -> '주차장/도로'
+    // (단, '카트도로'는 골프 코스 전용 도로이므로 제외)
+    if (/주차장|지하주차장|군도변|진입로/.test(loc) || (!isCartRoad && /도로/.test(loc))) {
+      return "주차장/도로";
+    }
+
+    // 1-2. 골프 코스: D열에 'H'(예: 파인4H, 16H), '티박스', '그린', '페어웨이', '벙커', '카트도로'가 포함되면 -> '골프 코스'
+    if (isCartRoad || /[0-9]+[hH]|[hH]홀|홀\b|티박스|티잉|그린|페어웨이|벙커|러프/.test(loc) || (/[hH]/.test(loc) && /파인|오크|메이플|체리|버치|골프|브릿지|힐스|밸리|월송|성문/.test(loc))) {
+      return "골프 코스";
+    }
+
+    // 1-3. 콘도 / 객실: D열에 '객실', '콘도', '빌리지', '타워'가 포함되면 -> '콘도/객실'
+    if (/객실|콘도|빌리지|타워|호실/.test(loc)) {
+      return "콘도/객실";
+    }
+
+    // 1-4. 레저 / 야외시설: D열에 '슬로프', '스키장', '수영장', '스파', '사우나', '놀이동산'이 포함되면 -> '레저/야외시설'
+    if (/슬로프|스키장|수영장|스파|사우나|놀이동산|리프트|렌탈|눈썰매/.test(loc)) {
+      return "레저/야외시설";
+    }
+
+    // 1-5. 부대 / 영업시설: D열에 '클럽하우스', '스타트하우스', '식당', '락커'가 포함되면 -> '부대/영업시설'
+    if (/클럽하우스|스타트하우스|식당|락커|락카|레스토랑|카페|프로샵|로비|프런트|연회/.test(loc)) {
+      return "부대/영업시설";
+    }
   }
-  if (text.includes("풀") || text.includes("수영") || text.includes("자쿠지") || text.includes("워터") || text.includes("아쿠아") || text.includes("슬라이드")) {
-    return "수영장/워터플레이";
-  }
-  if (text.includes("벙커") || text.includes("홀") || text.includes("티잉") || text.includes("그린") || text.includes("페어웨이") || text.includes("카트") || text.includes("골프") || text.includes("코스") || text.includes("클럽하우스")) {
-    return "골프 코스";
-  }
-  if (text.includes("객실") || text.includes("호실") || text.includes("스위트") || text.includes("욕조") || text.includes("화장실") || text.includes("콘도")) {
-    return "객실";
-  }
-  if (text.includes("레스토랑") || text.includes("식당") || text.includes("카페") || text.includes("바비큐") || text.includes("그릴") || text.includes("다이닝") || text.includes("주방") || text.includes("f&b")) {
-    return "레스토랑/F&B";
-  }
-  if (text.includes("산책") || text.includes("숨길") || text.includes("데크") || text.includes("가든") || text.includes("광장") || text.includes("잔디") || text.includes("정원") || text.includes("야외")) {
-    return "산책로/야외공원";
-  }
-  if (text.includes("주차") || text.includes("램프") || text.includes("도로") || text.includes("승하차") || text.includes("셔틀")) {
+
+  // =========================================================================
+  // 2. 그 외 명시되지 않은 경우에만 C열/B열 기준으로 보조 분류
+  // =========================================================================
+  const context = `${subDept} ${subTeam}`.toLowerCase();
+
+  if (/주차|도로|교통/.test(context)) {
     return "주차장/도로";
   }
-  if (text.includes("로비") || text.includes("회전문") || text.includes("에스컬레이터") || text.includes("엘리베이터") || text.includes("센터") || text.includes("프런트")) {
-    return "로비/공용공간";
+  if (/골프|cc\b|라운드/.test(context)) {
+    return "골프 코스";
   }
-  if (text.includes("트램펄린") || text.includes("키즈") || text.includes("요가") || text.includes("웰니스") || text.includes("피트니스") || text.includes("렌탈")) {
-    return "레저/부대시설";
+  if (/슬로프|스키|레저|수영|스파|사우나/.test(context)) {
+    return "레저/야외시설";
+  }
+  if (/콘도|호텔|객실|빌리지|숙박/.test(context)) {
+    return "콘도/객실";
+  }
+  if (/클럽하우스|스타트|식음|f&b|식당|조리|영업/.test(context)) {
+    return "부대/영업시설";
   }
 
-  if (dept && dept.includes("골프")) return "골프 코스";
-  if (dept && dept.includes("콘도")) return "객실";
   return "기타 부대시설";
+}
+if (typeof window !== "undefined") {
+  window.inferZoneFromLocation = inferZoneFromLocation;
 }
 
 // Severity Inference
@@ -3582,8 +3690,16 @@ function applyFilters() {
       return false;
     }
 
-    if (category && category !== "all" && incidentCategory !== category) {
-      return false;
+    if (category && category !== "all") {
+      if (category.startsWith("기타 외") || (category === "기타" && state.categoryChartMeta && state.categoryChartMeta.clickedIsOther)) {
+        // 상위 TOP N에 포함되지 않은 나머지 모든 세부 사고유형들
+        const topList = state.categoryChartMeta?.topCategories || [];
+        if (topList.includes(incidentCategory)) {
+          return false;
+        }
+      } else if (incidentCategory !== category) {
+        return false;
+      }
     }
 
     // 신설: 피해자 세부 분류 필터링 (임직원 / 캐디 / 고객)
@@ -3849,7 +3965,7 @@ function renderCharts() {
     return;
   }
 
-  // 1. Group by Category (도넛 차트 집계)
+  // 1. Group by Category (도넛 차트 집계 - COLOR_MAP 고정 색상 및 기타 세부유형 연동)
   const categoryCounts = {};
   data.forEach(item => {
     const incidentCategory = getIncidentCategory(item);
@@ -3859,26 +3975,29 @@ function renderCharts() {
   const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
   const maxDisplay = 6;
   const topCategories = sortedCategories.slice(0, maxDisplay);
-  const otherSum = sortedCategories.slice(maxDisplay).reduce((sum, item) => sum + item[1], 0);
+  const otherCategories = sortedCategories.slice(maxDisplay);
+  const otherSum = otherCategories.reduce((sum, item) => sum + item[1], 0);
 
   const categoryLabels = topCategories.map(c => c[0]);
   const categoryData = topCategories.map(c => c[1]);
 
+  let otherLabel = null;
   if (otherSum > 0) {
-    categoryLabels.push(`기타 외 ${sortedCategories.length - maxDisplay}종`);
+    otherLabel = `기타 외 ${otherCategories.length}종`;
+    categoryLabels.push(otherLabel);
     categoryData.push(otherSum);
   }
 
-  const categoryPalette = [
-    "#38bdf8", // Sky Blue
-    "#f59e0b", // Amber
-    "#06b6d4", // Cyan
-    "#10b981", // Emerald
-    "#f87171", // Coral Red
-    "#818cf8", // Indigo
-    "#a78bfa", // Purple
-    "#94a3b8"  // Slate
-  ];
+  // 상위 TOP N과 나머지 목록을 state에 보관하여 필터링 시 활용
+  state.categoryChartMeta = {
+    topCategories: topCategories.map(c => c[0]),
+    otherCategories: otherCategories.map(c => c[0]),
+    otherLabel: otherLabel,
+    clickedIsOther: Boolean(state.categoryChartMeta && state.categoryChartMeta.clickedIsOther && (state.filters.category?.startsWith("기타 외") || state.filters.category === "기타"))
+  };
+
+  // 고정 COLOR_MAP을 사용하여 클릭/필터 후에도 고유 색상 유지
+  const categoryColors = categoryLabels.map(label => getCategoryColor(label));
 
   const catCtx = document.getElementById("categoryChart")?.getContext("2d");
   if (catCtx) {
@@ -3892,7 +4011,8 @@ function renderCharts() {
         labels: categoryLabels,
         datasets: [{
           data: categoryData,
-          backgroundColor: categoryPalette.slice(0, categoryLabels.length),
+          backgroundColor: categoryColors,
+          hoverBackgroundColor: categoryColors,
           borderColor: "#ffffff",
           borderWidth: 2,
           hoverOffset: 6
@@ -3905,7 +4025,7 @@ function renderCharts() {
           if (elements && elements.length > 0) {
             const elementIndex = elements[0].index;
             const clickedCategory = chart.data.labels[elementIndex];
-            if (clickedCategory && !clickedCategory.startsWith("기타 외")) {
+            if (clickedCategory) {
               toggleChartDrilldown("category", clickedCategory);
             }
           } else {
@@ -3925,7 +4045,7 @@ function renderCharts() {
                   return chartData.labels.map((label, i) => {
                     const val = chartData.datasets[0].data[i];
                     const pct = ((val / total) * 100).toFixed(1);
-                    const bg = chartData.datasets[0].backgroundColor[i];
+                    const bg = chartData.datasets[0].backgroundColor[i] || getCategoryColor(label);
                     return {
                       text: `${label} (${val}건, ${pct}%)`,
                       fillStyle: bg,
@@ -4074,16 +4194,25 @@ function renderCharts() {
     });
   }
 
-  // 3. Group by Zone (Top 7) (시설별 건수)
+  // 3. Group by Zone (Top 7) (시설별 건수 - D열 최우선 참조)
+    const ZONE_COLOR_MAP = {
+    "골프 코스": "#10b981",       // Emerald Green
+    "주차장/도로": "#f59e0b",     // Amber
+    "레저/야외시설": "#06b6d4",   // Cyan
+    "콘도/객실": "#8b5cf6",       // Purple
+    "부대/영업시설": "#38bdf8",   // Sky Blue
+    "기타 부대시설": "#94a3b8"    // Slate
+  };
   const zoneCounts = {};
   data.forEach(item => {
-    const z = item?.zone || inferZoneFromLocation(getIncidentLocation(item), getIncidentDept(item), item?.resort) || "기타";
+    const z = item?.zone || inferZoneFromLocation(getIncidentLocation(item), getIncidentDept(item), item?.resort || item?.team) || "기타 부대시설";
     zoneCounts[z] = (zoneCounts[z] || 0) + 1;
   });
 
   const sortedZones = Object.entries(zoneCounts).sort((a, b) => b[1] - a[1]).slice(0, 7);
   const zoneLabels = sortedZones.map(z => z[0]);
   const zoneData = sortedZones.map(z => z[1]);
+  const zoneColors = zoneLabels.map(z => ZONE_COLOR_MAP[z] || "#38bdf8");
 
   const zoneCtx = document.getElementById("zoneChart")?.getContext("2d");
   if (zoneCtx) {
@@ -4098,8 +4227,8 @@ function renderCharts() {
         datasets: [{
           label: "발생 건수",
           data: zoneData,
-          backgroundColor: "rgba(56, 189, 248, 0.75)",
-          hoverBackgroundColor: "#38bdf8",
+          backgroundColor: zoneColors,
+          hoverBackgroundColor: zoneColors,
           borderRadius: 6
         }]
       },

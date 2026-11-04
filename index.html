@@ -281,21 +281,7 @@
 
     <!-- 4. Interactive Visualization Section (Charts) -->
     <section class="charts-grid" aria-label="사고 통계 및 유형 분석">
-      <!-- Chart 1: 유형별 발생 비중 -->
-      <article class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>📊 유형별 사고 발생 비중</h3>
-            <span class="chart-subtitle">넘어짐, 타구사고, 기물접촉 등 분류별 점유율</span>
-          </div>
-          <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 유형으로 메인 테이블이 즉시 필터링됩니다">👆 조각 클릭 드릴다운</span>
-        </div>
-        <div class="chart-body">
-          <canvas id="categoryChart"></canvas>
-        </div>
-      </article>
-
-      <!-- Chart 2: 팀/부서별 사고 발생 비중 (신설 ⭐) -->
+      <!-- Chart 1: 팀/부서별 사고 발생 비중 -->
       <article class="chart-card">
         <div class="chart-header">
           <div>
@@ -306,6 +292,20 @@
         </div>
         <div class="chart-body">
           <canvas id="deptChart"></canvas>
+        </div>
+      </article>
+
+      <!-- Chart 2: 유형별 사고 발생 비중 -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>📊 유형별 사고 발생 비중</h3>
+            <span class="chart-subtitle">넘어짐, 타구사고, 기물접촉 등 분류별 점유율</span>
+          </div>
+          <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 유형으로 메인 테이블이 즉시 필터링됩니다">👆 조각 클릭 드릴다운</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="categoryChart"></canvas>
         </div>
       </article>
 
