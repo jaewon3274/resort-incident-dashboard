@@ -44,9 +44,14 @@ const parseIncidentRow = (row, index) => {
   const rawType = row['사고유형1'] || row['사고유형'] || row['사고 유형'] || row['유형'] || '기타';
   const cleanType = String(rawType).replace(/[\r\n]+/g, '').trim() || '기타';
 
-  // 2. 사업장/부서 구분 매핑
-  const team = row['구분1'] ? String(row['구분1']).trim() : '미분류';
-  const dept = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, '').trim() : '';
+  // 2. 사업장/부서 구분 매핑 (C열 구분1, B열 부문/부서)
+  const team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
+  const department = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, ' ').trim() : '';     // B열 (부문/부서)
+
+  // 화면 렌더링 로직 (사업장과 부서가 같으면 괄호 생략, 다르면 괄호 표기)
+  const displayLocation = (department && department !== team)
+    ? `${team} (${department})`  // 예: 밸리팀 (골프), 힐스빌리지 (리조트)
+    : team;                      // 같은 값이면 '밸리팀' 하나만 깔끔하게 표기
   
   // 3. 세부 장소 및 제목 생성
   const detailLocation = row['위치(세부)'] ? String(row['위치(세부)']).trim() : '기타 장소';
@@ -100,7 +105,8 @@ const parseIncidentRow = (row, index) => {
     year: Number(row['발생년(피벗)']) || (row['발생일시'] ? parseInt(String(row['발생일시']).slice(0, 4)) : 2026),
     month: Number(row['발생월(피벗)']) || 0,
     team: team,
-    department: dept,
+    department: department,
+    displayLocation: displayLocation,
     location: detailLocation,
     type: cleanType,           // 정제된 '사고유형1' 주입
     title: title,
@@ -154,7 +160,10 @@ rawRows.forEach((r) => {
     id: validIdx + 1,
     documentNumber: parsed.docNo,
     occurredAt: parsed.date,
-    dept: parsed.team,
+    dept: parsed.department || parsed.team,
+    department: parsed.department,
+    team: parsed.team,
+    displayLocation: parsed.displayLocation,
     businessUnit: parsed.team,
     division: parsed.department,
     place: parsed.location,
@@ -208,7 +217,7 @@ const INITIAL_INCIDENTS = ${JSON.stringify(incidents, null, 2)};
 const initialIncidents = INITIAL_INCIDENTS;
 
 (function() {
-  const DEFAULT_VERSION = "20261104_vVICTIM_FIX";
+  const DEFAULT_VERSION = "20261104_vLOC_VICTIM_FIX";
   const VERSION_KEY = "resort_data_version";
   const STORAGE_KEY = "resort_incidents_data";
   const LEGACY_STORAGE_KEY = "resort_incident_records_v2";

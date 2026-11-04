@@ -1,7 +1,7 @@
 // ==========================================================================
 // 0. Global System & Data Version Definition
 // ==========================================================================
-window.APP_DATA_VERSION = '20261104_vVICTIM_FIX';
+window.APP_DATA_VERSION = '20261104_vLOC_VICTIM_FIX';
 const DATA_VERSION = window.APP_DATA_VERSION;
 
 // ==========================================================================
@@ -194,10 +194,15 @@ function normalizeIncident(item) {
   item.type = catVal;
   item.incidentType = catVal;
   item['사고유형1'] = catVal;
-  item.dept = deptVal;
-  item.department = deptVal;
-  item.businessUnit = buVal;
-  item.resort = item.resort || buVal;
+  const teamVal = String(item.team || item['구분1'] || buVal || "미분류").replace(/[\r\n]+/g, " ").trim();
+  const rawDeptVal = String(item.department || item['부문/부서'] || (item.dept && item.dept !== teamVal ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
+  const displayLocationVal = (rawDeptVal && rawDeptVal !== teamVal) ? `${teamVal} (${rawDeptVal})` : teamVal;
+  item.team = teamVal;
+  item.department = rawDeptVal;
+  item.displayLocation = item.displayLocation || displayLocationVal;
+  item.dept = rawDeptVal || deptVal;
+  item.businessUnit = teamVal;
+  item.resort = teamVal;
   item.victim = victimType;
   item.victimType = victimType;
   item.victimName = victimName;
@@ -2875,9 +2880,14 @@ const parseIncidentRow = (row, index) => {
   const rawType = row['사고유형1'] || row['사고유형'] || row['사고 유형'] || row['유형'] || '기타';
   const cleanType = String(rawType).replace(/[\r\n]+/g, '').trim() || '기타';
 
-  // 2. 사업장/부서 구분 매핑
-  const team = row['구분1'] ? String(row['구분1']).trim() : '미분류';
-  const dept = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, '').trim() : '';
+  // 2. 사업장/부서 구분 매핑 (C열 구분1, B열 부문/부서)
+  const team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
+  const department = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, ' ').trim() : '';     // B열 (부문/부서)
+
+  // 화면 렌더링 로직 (사업장과 부서가 같으면 괄호 생략, 다르면 괄호 표기)
+  const displayLocation = (department && department !== team)
+    ? `${team} (${department})`  // 예: 밸리팀 (골프), 힐스빌리지 (리조트)
+    : team;                      // 같은 값이면 '밸리팀' 하나만 깔끔하게 표기
   
   // 3. 세부 장소 및 제목 생성
   const detailLocation = row['위치(세부)'] ? String(row['위치(세부)']).trim() : '기타 장소';
@@ -2932,7 +2942,8 @@ const parseIncidentRow = (row, index) => {
     year: Number(row['발생년(피벗)']) || (row['발생일시'] ? parseInt(String(row['발생일시']).slice(0, 4)) : 2026),
     month: Number(row['발생월(피벗)']) || 0,
     team: team,
-    department: dept,
+    department: department,
+    displayLocation: displayLocation,
     location: detailLocation,
     type: cleanType,
     title: title,
@@ -2980,8 +2991,11 @@ function parseExcelRows(rawRows) {
       occurredAt: occurDate,
       category: parsed.type,
       incidentType: parsed.type,
-      dept: parsed.team,
+      dept: parsed.department || parsed.team,
       resort: parsed.team,
+      team: parsed.team,
+      department: parsed.department,
+      displayLocation: parsed.displayLocation,
       businessUnit: parsed.team,
       division: parsed.department,
       locationDetail: parsed.location,
@@ -4323,7 +4337,9 @@ function renderTable() {
     if (item.severity && (item.severity.includes("중상") || item.severity.includes("중대"))) severityClass = "badge-severity-major";
 
     const vInfo = classifyVictim(item);
-    const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
+    const teamName = String(item.team || item['구분1'] || item.resort || "미분류").replace(/[\r\n]+/g, " ").trim();
+    const deptName = String(item.department || item['부문/부서'] || item.division || (item.dept && item.dept !== teamName ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
+    const displayLocation = item.displayLocation || ((deptName && deptName !== teamName) ? `${teamName} (${deptName})` : teamName);
 
     return `
       <tr onclick="openIncidentDetail('${escapeHtml(String(item.docNo || item.id))}')">
@@ -4331,7 +4347,7 @@ function renderTable() {
         <td class="id-cell min-w-[155px] whitespace-nowrap font-mono text-[12px]" style="min-width: 155px; width: 155px; white-space: nowrap; font-family: monospace; font-size: 12px; font-weight: 700; color: #2563eb;">${escapeHtml(item.docNo || item.documentNumber || item.id || "-")}</td>
         <td class="date-cell" style="font-size: 0.83rem; color: #475569; white-space: nowrap;">${escapeHtml(item.date)}</td>
         <td class="dept-cell" style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">
-          ${escapeHtml(item.resort || "")}${deptDisplay}
+          ${escapeHtml(displayLocation)}
         </td>
         <td style="text-align: center;">
           <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}" title="${escapeHtml(item.victimName && item.victimName !== '익명' ? `${vInfo.label} (${item.victimName})` : vInfo.label)}">${escapeHtml(vInfo.label)}</span>
@@ -6044,7 +6060,9 @@ function renderYoyDrilldownTable() {
     const loc = item.locationDetail || item.zone || "-";
     const title = item.title || item.description || "사고 개요 없음";
     const status = item.status || "접수대기";
-    const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
+    const teamName = String(item.team || item['구분1'] || item.resort || "미분류").replace(/[\r\n]+/g, " ").trim();
+    const deptName = String(item.department || item['부문/부서'] || item.division || (item.dept && item.dept !== teamName ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
+    const displayLocation = item.displayLocation || ((deptName && deptName !== teamName) ? `${teamName} (${deptName})` : teamName);
     const vInfo = classifyVictim(item);
 
     // Status badge class
@@ -6058,7 +6076,7 @@ function renderYoyDrilldownTable() {
         <td style="text-align: center; color: #64748b; font-size: 0.8rem;">${idx + 1}</td>
         <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(id)}</td>
         <td style="font-size: 0.82rem; color: #475569; white-space: nowrap;">${escapeHtml(date)}</td>
-        <td style="font-size: 0.83rem; color: #0f172a; font-weight: 600;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
+        <td style="font-size: 0.83rem; color: #0f172a; font-weight: 600;">${escapeHtml(displayLocation)}</td>
         <td style="text-align: center;">
           <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}" title="${escapeHtml(item.victimName && item.victimName !== '익명' ? `${vInfo.label} (${item.victimName})` : vInfo.label)}">${escapeHtml(vInfo.label)}</span>
         </td>
@@ -6317,7 +6335,9 @@ function renderKpiDrilldownTable() {
     if (item.status === "보험/보상진행") statusClass = "badge-status-insurance";
     if (item.status === "접수대기") statusClass = "badge-status-pending";
 
-    const deptDisplay = item.dept ? ` (${escapeHtml(item.dept)})` : "";
+    const teamName = String(item.team || item['구분1'] || item.resort || "미분류").replace(/[\r\n]+/g, " ").trim();
+    const deptName = String(item.department || item['부문/부서'] || item.division || (item.dept && item.dept !== teamName ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
+    const displayLocation = item.displayLocation || ((deptName && deptName !== teamName) ? `${teamName} (${deptName})` : teamName);
     const desc = item.title || item.locationDetail || "사고 개요 없음";
     const vInfo = classifyVictim(item);
     const docNoDisplay = item.docNo || item.documentNumber || item.id || "-";
@@ -6328,9 +6348,9 @@ function renderKpiDrilldownTable() {
         <td style="text-align: center; color: #64748b; font-size: 0.8rem;">${idx + 1}</td>
         <td class="id-cell font-mono text-[12px] whitespace-nowrap" style="min-width: 145px; width: 145px; white-space: nowrap; font-family: monospace; font-size: 12px; font-weight: 700; color: #2563eb;">${escapeHtml(docNoDisplay)}</td>
         <td style="color: #475569; font-weight: 500; font-size: 0.83rem; white-space: nowrap;">${escapeHtml(item.date || item.occurredAt || "-")}</td>
-        <td style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">${escapeHtml(item.resort || "기타")}${deptDisplay}</td>
+        <td style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">${escapeHtml(displayLocation)}</td>
         <td style="text-align: center;">
-          <span class="badge ${vInfo.badgeClass}">${escapeHtml(vInfo.label)}</span>
+          <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}">${escapeHtml(vInfo.label)}</span>
         </td>
         <td style="font-size: 0.82rem; color: #334155;">${escapeHtml(item.locationDetail || item.zone || "-")}</td>
         <td>

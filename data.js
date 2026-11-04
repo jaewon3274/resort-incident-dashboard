@@ -27,7 +27,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00002",
     "occurredAt": "2023.01.02\r 14:50경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "장비렌탈샵 앞",
@@ -63,7 +63,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 2,
@@ -86,7 +87,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00003",
     "occurredAt": "2023.01.06\r 10:30경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -122,7 +123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 3,
@@ -145,7 +147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00005",
     "occurredAt": "2023.01.15\r 12:40경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도 지하주차장",
@@ -181,7 +183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 4,
@@ -204,7 +207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00007",
     "occurredAt": "2023.01.13\r 15:15경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -240,7 +243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 5,
@@ -263,7 +267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00009",
     "occurredAt": "2023.01.13\r 15:15경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -299,7 +303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 6,
@@ -322,7 +327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00010",
     "occurredAt": "2023.01.16\r 16:28경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도 지하주차장",
@@ -358,7 +363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 7,
@@ -381,7 +387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00006",
     "occurredAt": "2023.01.15\r 10:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "N콘도 입구",
@@ -417,7 +423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 8,
@@ -440,7 +447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00011",
     "occurredAt": "2022.12.17\r 18:00경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "B-1 주차장",
@@ -476,7 +483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 9,
@@ -499,7 +507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00014",
     "occurredAt": "2023.01.17",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -535,7 +543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 10,
@@ -558,7 +567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00016",
     "occurredAt": "2022.12.20",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "N콘도 승차대",
@@ -594,7 +603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 11,
@@ -617,7 +627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00018",
     "occurredAt": "2023.01.18",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "F슬로프",
@@ -653,7 +663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 12,
@@ -676,7 +687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00019",
     "occurredAt": "2023.02.02\r 17:35경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "F슬로프",
@@ -712,7 +723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 13,
@@ -735,7 +747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00020",
     "occurredAt": "2023.02.04\r 10:58경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -771,7 +783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 14,
@@ -794,7 +807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00023",
     "occurredAt": "2023.01.30\r 09:50경",
-    "dept": "단지내",
+    "dept": "대정골프",
     "businessUnit": "단지내",
     "division": "대정골프",
     "place": "체리4H 진입도로변",
@@ -830,7 +843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (대정골프)"
   },
   {
     "id": 15,
@@ -853,7 +867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00024",
     "occurredAt": "2023.01.23\r 21:10경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -889,7 +903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 16,
@@ -912,7 +927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00025",
     "occurredAt": "2023.02.10\r 19:39경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -948,7 +963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 17,
@@ -971,7 +987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00026",
     "occurredAt": "2023.02.09\r 15:26경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "버드 리프트 승차장",
@@ -1007,7 +1023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 18,
@@ -1030,7 +1047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00027",
     "occurredAt": "2023.01.28\r 21:48경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -1066,7 +1083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 19,
@@ -1089,7 +1107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00028",
     "occurredAt": "2023.02.11\r 20:10경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "I슬로프",
@@ -1125,7 +1143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 20,
@@ -1148,7 +1167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00029",
     "occurredAt": "2023.02.26",
-    "dept": "아이파크콘도",
+    "dept": "리조트",
     "businessUnit": "아이파크콘도",
     "division": "리조트",
     "place": "주차장",
@@ -1184,7 +1203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "아이파크콘도",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "아이파크콘도 (리조트)"
   },
   {
     "id": 21,
@@ -1207,7 +1227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00031",
     "occurredAt": "2023.02.19\r 17:55경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워C",
@@ -1243,7 +1263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 22,
@@ -1266,7 +1287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00030",
     "occurredAt": "2023.02.11\r 20:13경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -1302,7 +1323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 23,
@@ -1325,7 +1347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00032",
     "occurredAt": "2023.02.15\r 19:24경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -1361,7 +1383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 24,
@@ -1384,7 +1407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00033",
     "occurredAt": "2023.01.23\r 18:18경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -1420,7 +1443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 25,
@@ -1443,7 +1467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00035",
     "occurredAt": "2023.02.25",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "객실",
@@ -1479,7 +1503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 26,
@@ -1502,7 +1527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00037",
     "occurredAt": "2023.03.05\r 16:17경",
-    "dept": "성문안팀",
+    "dept": "리조트",
     "businessUnit": "성문안팀",
     "division": "리조트",
     "place": "피오레토",
@@ -1538,7 +1563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (리조트)"
   },
   {
     "id": 27,
@@ -1561,7 +1587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00041",
     "occurredAt": "2023.03.06",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크1H",
@@ -1597,7 +1623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 28,
@@ -1620,7 +1647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00049",
     "occurredAt": "2023.02.24\r 12:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크4H",
@@ -1656,7 +1683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 29,
@@ -1679,7 +1707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00052",
     "occurredAt": "2023-03-18\r 12:50경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장",
@@ -1715,7 +1743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 30,
@@ -1738,7 +1767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00053",
     "occurredAt": "2023.03.13\r 13:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -1774,7 +1803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 31,
@@ -1797,7 +1827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00054",
     "occurredAt": "2023.03.18\r 10:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -1833,7 +1863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 32,
@@ -1856,7 +1887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00056",
     "occurredAt": "2023.03.23\r 07:46경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "인도어 스파",
@@ -1892,7 +1923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "인사사고",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 33,
@@ -1915,7 +1947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00058",
     "occurredAt": "2023.03.24\r 14:10경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "11H",
@@ -1951,7 +1983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 34,
@@ -1974,7 +2007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00067",
     "occurredAt": "2023.03.31\r 13:35경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -2010,7 +2043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 35,
@@ -2033,7 +2067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00069",
     "occurredAt": "2023.04.03\r 15:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인6H",
@@ -2069,7 +2103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 36,
@@ -2092,7 +2127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00070",
     "occurredAt": "2023.04.01\r 12:05경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리4H 진입도로변",
@@ -2128,7 +2163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(카트)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 37,
@@ -2151,7 +2187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00072",
     "occurredAt": "2023.04.04\r 12:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "카트고 내부",
@@ -2187,7 +2223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 38,
@@ -2246,7 +2283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "지관사업소",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "지관사업소"
   },
   {
     "id": 39,
@@ -2269,7 +2307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00074",
     "occurredAt": "2023.04.09\r 14:20경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "스타트하우스",
@@ -2305,7 +2343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 40,
@@ -2328,7 +2367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00076",
     "occurredAt": "2023.04.14\r 13:15경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플2H",
@@ -2364,7 +2403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 41,
@@ -2387,7 +2427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00078",
     "occurredAt": "2023.04.14",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "10H",
@@ -2423,7 +2463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 42,
@@ -2446,7 +2487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00079",
     "occurredAt": "2023.04.15\r 20:03분",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌리지센터 승강장",
@@ -2482,7 +2523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 43,
@@ -2505,7 +2547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00082",
     "occurredAt": "2023.04.20",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "8H",
@@ -2541,7 +2583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 44,
@@ -2564,7 +2607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00086",
     "occurredAt": "2023.04.23\r 20:00",
-    "dept": "성문안팀",
+    "dept": "리조트",
     "businessUnit": "성문안팀",
     "division": "리조트",
     "place": "피오레토",
@@ -2600,7 +2643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (리조트)"
   },
   {
     "id": 45,
@@ -2623,7 +2667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00088",
     "occurredAt": "2023.04.22",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "6H",
@@ -2659,7 +2703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 46,
@@ -2682,7 +2727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00089",
     "occurredAt": "2023.04.24",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "11~12H 교행구간",
@@ -2718,7 +2763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 47,
@@ -2741,7 +2787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00091",
     "occurredAt": "2023.04.24\r 15:40경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "1H",
@@ -2777,7 +2823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 48,
@@ -2800,7 +2847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00095",
     "occurredAt": "2023.04.26\r 13:30경",
-    "dept": "성문안팀",
+    "dept": "기타",
     "businessUnit": "성문안팀",
     "division": "기타",
     "place": "주차장",
@@ -2836,7 +2883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (기타)"
   },
   {
     "id": 49,
@@ -2859,7 +2907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00094",
     "occurredAt": "2023.04.21\r 10:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플8H",
@@ -2895,7 +2943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(강은아)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 50,
@@ -2918,7 +2967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00097",
     "occurredAt": "2023.04.28",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "광장",
@@ -2954,7 +3003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(임종훈)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 51,
@@ -2977,7 +3027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00099",
     "occurredAt": "2023.04.30\r 17:00경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "15H",
@@ -3013,7 +3063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "캐디(김태희)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 52,
@@ -3036,7 +3087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00098",
     "occurredAt": "2023.04.30\r 17:10경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "S콘도",
@@ -3072,7 +3123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 53,
@@ -3095,7 +3147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00101",
     "occurredAt": "2023.04.30\r 12:37경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -3131,7 +3183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 54,
@@ -3154,7 +3207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00110",
     "occurredAt": "2023.05.12\r 23:00경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지9H",
@@ -3190,7 +3243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 55,
@@ -3213,7 +3267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00111",
     "occurredAt": "2023.05.14\r 16:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -3249,7 +3303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 56,
@@ -3272,7 +3327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00112",
     "occurredAt": "2023.05.15\r 14:00경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장",
@@ -3308,7 +3363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 57,
@@ -3331,7 +3387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00115",
     "occurredAt": "2023.05.19\r 13:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -3367,7 +3423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 58,
@@ -3390,7 +3447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00116",
     "occurredAt": "2023.05.20\r 13:00경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "스타트하우스",
@@ -3426,7 +3483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 59,
@@ -3449,7 +3507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00117",
     "occurredAt": "2023.05.20\r 11:48경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌리지센터 승강장",
@@ -3485,7 +3543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 60,
@@ -3508,7 +3567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00121",
     "occurredAt": "2023.05.23\r 09:15경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지9H",
@@ -3544,7 +3603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 61,
@@ -3567,7 +3627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00122",
     "occurredAt": "2023.05.22",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "4H",
@@ -3603,7 +3663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 62,
@@ -3626,7 +3687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00125",
     "occurredAt": "2023.05.25\r 11:45경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크3H",
@@ -3662,7 +3723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 63,
@@ -3685,7 +3747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00131",
     "occurredAt": "2023.05.31\r 08:36경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "4H->5H 티 박스 진입로",
@@ -3721,7 +3783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 64,
@@ -3744,7 +3807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00132",
     "occurredAt": "2023.05.31",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H ↔ 18H 교행구간",
@@ -3780,7 +3843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 65,
@@ -3803,7 +3867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00136",
     "occurredAt": "2023.06.04\r 16:36경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "남자 사우나 출입구",
@@ -3839,7 +3903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 66,
@@ -3862,7 +3927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00140",
     "occurredAt": "2023.06.05\r 15:40경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -3898,7 +3963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 67,
@@ -3921,7 +3987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00142",
     "occurredAt": "2023.06.10",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "파우더룸",
@@ -3957,7 +4023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 68,
@@ -3980,7 +4047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00144",
     "occurredAt": "2023.06.10\r 16:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리3H",
@@ -4016,7 +4083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 69,
@@ -4039,7 +4107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00146",
     "occurredAt": "2023.06.10\r 08:45경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "6H",
@@ -4075,7 +4143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 70,
@@ -4098,7 +4167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00145",
     "occurredAt": "2023.06.11",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐스CC 현관",
@@ -4134,7 +4203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 71,
@@ -4157,7 +4227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00151",
     "occurredAt": "2023.06.15\r 13:09경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "3H",
@@ -4193,7 +4263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 72,
@@ -4216,7 +4287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00149",
     "occurredAt": "2023.06.04\r 16:36경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "남자사우나",
@@ -4252,7 +4323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 73,
@@ -4275,7 +4347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00156",
     "occurredAt": "2023.06.13\r 13:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐3H",
@@ -4311,7 +4383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(서영순)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 74,
@@ -4334,7 +4407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00157",
     "occurredAt": "2023.06.20\r 13:05경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "밸리 장비관리동 삼거리",
@@ -4370,7 +4443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 75,
@@ -4393,7 +4467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00158",
     "occurredAt": "2023.06.16",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "11H~12H 교행구간",
@@ -4429,7 +4503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 76,
@@ -4452,7 +4527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00163",
     "occurredAt": "2023.06.24\r 18:13경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "여자사우나",
@@ -4488,7 +4563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 77,
@@ -4511,7 +4587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00172",
     "occurredAt": "2023.07.01\r 20:32경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "인도어 스파",
@@ -4547,7 +4623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 78,
@@ -4570,7 +4647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00173",
     "occurredAt": "2023.07.05",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "광장",
@@ -4606,7 +4683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 79,
@@ -4629,7 +4707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00174",
     "occurredAt": "2023.07.06",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐6H",
@@ -4665,7 +4743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 80,
@@ -4688,7 +4767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00178",
     "occurredAt": "2023.07.08\r 14:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리1H",
@@ -4724,7 +4803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 81,
@@ -4747,7 +4827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00180",
     "occurredAt": "2023.07.04\r 작업 종료 후",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H 우측 관리동",
@@ -4783,7 +4863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 82,
@@ -4806,7 +4887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00181",
     "occurredAt": "2023.07.15",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리6H",
@@ -4842,7 +4923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 83,
@@ -4865,7 +4947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00183",
     "occurredAt": "2023.07.16\r 09:03경",
-    "dept": "월송리팀",
+    "dept": "산림경영팀",
     "businessUnit": "월송리팀",
     "division": "산림경영팀",
     "place": "5H",
@@ -4901,7 +4983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (산림경영팀)"
   },
   {
     "id": 84,
@@ -4924,7 +5007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00184",
     "occurredAt": "2023.07.20\r 15:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "군도변",
@@ -4960,7 +5043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 85,
@@ -4983,7 +5067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00186",
     "occurredAt": "2023.07.21",
-    "dept": "밸리빌리지",
+    "dept": "시설팀",
     "businessUnit": "밸리빌리지",
     "division": "시설팀",
     "place": "B콘도 주차장",
@@ -5019,7 +5103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (시설팀)"
   },
   {
     "id": 86,
@@ -5042,7 +5127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00185",
     "occurredAt": "2023.07.21",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인6H",
@@ -5078,7 +5163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(오원경)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 87,
@@ -5101,7 +5187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00189",
     "occurredAt": "2023.07.23\r 08:57경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "15H 티하우스",
@@ -5137,7 +5223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 88,
@@ -5160,7 +5247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00192",
     "occurredAt": "2023.07.23\r 12:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -5196,7 +5283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 89,
@@ -5219,7 +5307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00191",
     "occurredAt": "2023.07.22",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "5H",
@@ -5255,7 +5343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 90,
@@ -5278,7 +5367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00194",
     "occurredAt": "2023.07.29\r 10:35경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -5314,7 +5403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 91,
@@ -5337,7 +5427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00206",
     "occurredAt": "2023.08.04\r 13:58경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리4H",
@@ -5373,7 +5463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 92,
@@ -5396,7 +5487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00200",
     "occurredAt": "2023.08.04\r 08:15경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크4H",
@@ -5432,7 +5523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 93,
@@ -5455,7 +5547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00208",
     "occurredAt": "2023.08.05\r 14:22경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크3H",
@@ -5491,7 +5583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리팀",
     "구분2": "캐디(최준형)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 94,
@@ -5514,7 +5607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00216",
     "occurredAt": "2023.08.07\r 14:35경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "야외수영장",
@@ -5550,7 +5643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 95,
@@ -5573,7 +5667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00217",
     "occurredAt": "2023.08.07",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "12H, 15H 티하우스\r\n교차구간",
@@ -5609,7 +5703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 96,
@@ -5632,7 +5727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00220",
     "occurredAt": "2023.08.10\r 16:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "B콘도 주차장",
@@ -5668,7 +5763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 97,
@@ -5691,7 +5787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00222",
     "occurredAt": "2023.08.11",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "클럽하우스",
@@ -5727,7 +5823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 98,
@@ -5750,7 +5847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00223",
     "occurredAt": "2023.08.13\r 08:45경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -5786,7 +5883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 99,
@@ -5809,7 +5907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00230",
     "occurredAt": "2023.08.13\r 16:22경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "실내수영장",
@@ -5845,7 +5943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 100,
@@ -5868,7 +5967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00232",
     "occurredAt": "2023.08.14\r 21:15경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도 객실",
@@ -5904,7 +6003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 101,
@@ -5927,7 +6027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00231",
     "occurredAt": "2023.08.15",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지7H",
@@ -5963,7 +6063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 102,
@@ -5986,7 +6087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00235",
     "occurredAt": "2023.08.15\r 14:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "더밸리키친 주방",
@@ -6022,7 +6123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "실습생",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 103,
@@ -6045,7 +6147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00240",
     "occurredAt": "2023.08.20\r 18:03경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H",
@@ -6081,7 +6183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 104,
@@ -6104,7 +6207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00241",
     "occurredAt": "2023.08.21\r 15:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인8H",
@@ -6140,7 +6243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 105,
@@ -6163,7 +6267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00243",
     "occurredAt": "2023.08.20\r 03:00경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "군도변",
@@ -6199,7 +6303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 106,
@@ -6222,7 +6327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00242",
     "occurredAt": "2023.08.20",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장",
@@ -6258,7 +6363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 107,
@@ -6281,7 +6387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00246",
     "occurredAt": "2023.08.09\r 11:50경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "야외수영장\r\n에어바운스 슬라이드",
@@ -6317,7 +6423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 108,
@@ -6340,7 +6447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00249",
     "occurredAt": "2023.08.20\r 10:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플4H",
@@ -6376,7 +6483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(이다훈)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 109,
@@ -6399,7 +6507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00255",
     "occurredAt": "2023.08.27\r 11:08경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "실내수영장",
@@ -6435,7 +6543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 110,
@@ -6458,7 +6567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00252",
     "occurredAt": "2023.08.27\r 11:35경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플9H",
@@ -6494,7 +6603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 111,
@@ -6517,7 +6627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00257",
     "occurredAt": "2023.08.25\r 15:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -6553,7 +6663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(엄민희)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 112,
@@ -6576,7 +6687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00261",
     "occurredAt": "2023.07.28",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "실내수영장",
@@ -6612,7 +6723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 113,
@@ -6635,7 +6747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00262",
     "occurredAt": "2023.09.01\r 10:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인1H",
@@ -6671,7 +6783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(최성룡)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 114,
@@ -6694,7 +6807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00263",
     "occurredAt": "2023.09.02\r 14:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -6730,7 +6843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 115,
@@ -6753,7 +6867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00266",
     "occurredAt": "2023.09.03\r 18:30경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "A콘도 지하주차장",
@@ -6789,7 +6903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 116,
@@ -6812,7 +6927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00264",
     "occurredAt": "2023.09.03\r 12:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플5H",
@@ -6848,7 +6963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(홍혁근)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 117,
@@ -6871,7 +6987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00267",
     "occurredAt": "2023.09.02",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐1H",
@@ -6907,7 +7023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 118,
@@ -6930,7 +7047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00268",
     "occurredAt": "2023.08.04\r 09:37경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "B콘도 주차장",
@@ -6966,7 +7083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 119,
@@ -6989,7 +7107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00270",
     "occurredAt": "2023.09.07\r 11:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리6H, 7H \r\n사이 카트도로",
@@ -7025,7 +7143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 120,
@@ -7048,7 +7167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00273",
     "occurredAt": "2023.09.09",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "7H",
@@ -7084,7 +7203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 121,
@@ -7107,7 +7227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00271",
     "occurredAt": "2023.09.08",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "8H",
@@ -7143,7 +7263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 122,
@@ -7166,7 +7287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00274",
     "occurredAt": "2023.09.10\r 15:40경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리3H",
@@ -7202,7 +7323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(오현정)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 123,
@@ -7225,7 +7347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00275",
     "occurredAt": "2023.09.12",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "17H",
@@ -7261,7 +7383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 124,
@@ -7284,7 +7407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00276",
     "occurredAt": "2023.09.12",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "14H",
@@ -7320,7 +7443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 125,
@@ -7343,7 +7467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000005",
     "occurredAt": "2023.09.02\r 14:41경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "야외수영장 슬라이드",
@@ -7379,7 +7503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 126,
@@ -7402,7 +7527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000008",
     "occurredAt": "2023.09.22\r 09:45경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "17H",
@@ -7438,7 +7563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 127,
@@ -7461,7 +7587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000009",
     "occurredAt": "2023.09.22",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "1H->2H 홀 진입 코너",
@@ -7497,7 +7623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "낙상사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 128,
@@ -7520,7 +7647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000013",
     "occurredAt": "2023.09.24\r 13:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "9H",
@@ -7556,7 +7683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 129,
@@ -7579,7 +7707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000016",
     "occurredAt": "2023.09.25",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "15H",
@@ -7615,7 +7743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 130,
@@ -7638,7 +7767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000017",
     "occurredAt": "2023.09.28",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "7H",
@@ -7674,7 +7803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 131,
@@ -7697,7 +7827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000021",
     "occurredAt": "2023.10.08\r 12:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -7733,7 +7863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 132,
@@ -7756,7 +7887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000024",
     "occurredAt": "2023.10.04",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "객실",
@@ -7792,7 +7923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 133,
@@ -7815,7 +7947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000025",
     "occurredAt": "2023.10.10\r 18:55경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "B콘도 주차장",
@@ -7851,7 +7983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 134,
@@ -7874,7 +8007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000026",
     "occurredAt": "2023.10.05\r 16:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "주차장",
@@ -7910,7 +8043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "캐디(이채연)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 135,
@@ -7933,7 +8067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000030",
     "occurredAt": "2023.10.13\r 14:00경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "5H",
@@ -7969,7 +8103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "캐디(강민정)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 136,
@@ -7992,7 +8127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000034",
     "occurredAt": "2023.10.14\r 18:20경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지4H",
@@ -8028,7 +8163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 137,
@@ -8051,7 +8187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000037",
     "occurredAt": "2023.10.08\r 02:30경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도 객실",
@@ -8087,7 +8223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 138,
@@ -8110,7 +8247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000035",
     "occurredAt": "2023.10.16",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "1H",
@@ -8146,7 +8283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 139,
@@ -8169,7 +8307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000038",
     "occurredAt": "2023.10.18\r 15:45경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인9H",
@@ -8205,7 +8343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 140,
@@ -8228,7 +8367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000039",
     "occurredAt": "2023.10.19\r 17:45경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리4H",
@@ -8264,7 +8403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(서대훈)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 141,
@@ -8287,7 +8427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000040",
     "occurredAt": "2023.10.21",
-    "dept": "단지내",
+    "dept": "기타",
     "businessUnit": "단지내",
     "division": "기타",
     "place": "댐삼거리",
@@ -8323,7 +8463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (기타)"
   },
   {
     "id": 142,
@@ -8346,7 +8487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000043",
     "occurredAt": "2023.10.23",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "클럽하우스",
@@ -8382,7 +8523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 143,
@@ -8405,7 +8547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000045",
     "occurredAt": "2023.10.31\r 16:40경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플7H->8H",
@@ -8441,7 +8583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(김동혁)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 144,
@@ -8464,7 +8607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000047",
     "occurredAt": "2023.11.02\r 10:10경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "잔디광장",
@@ -8500,7 +8643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 145,
@@ -8523,7 +8667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000046",
     "occurredAt": "2023.11.03",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "9H",
@@ -8559,7 +8703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "캐디(김가람)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 146,
@@ -8582,7 +8727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000053",
     "occurredAt": "202311.07\r 07:32",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "옥외 주차장",
@@ -8618,7 +8763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 147,
@@ -8641,7 +8787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000055",
     "occurredAt": "2023.11.07",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "6H",
@@ -8677,7 +8823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 148,
@@ -8700,7 +8847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000056",
     "occurredAt": "2023.11.02\r 19:00",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -8736,7 +8883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 149,
@@ -8759,7 +8907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000058",
     "occurredAt": "2023.11.11\r 13:30경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지3H",
@@ -8795,7 +8943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 150,
@@ -8818,7 +8967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000066",
     "occurredAt": "2023.11.18",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "15H~16H\r\n티잉그라운드",
@@ -8854,7 +9003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 151,
@@ -8877,7 +9027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000067",
     "occurredAt": "2023.11.18",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "3H~8H\r\n교행구간",
@@ -8913,7 +9063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 152,
@@ -8936,7 +9087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000070",
     "occurredAt": "2023.11.18\r 18:30경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -8972,7 +9123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 153,
@@ -8995,7 +9147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000068",
     "occurredAt": "2023.11.28\r 11:26경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -9031,7 +9183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 154,
@@ -9054,7 +9207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000072",
     "occurredAt": "2023.11.28\r 15:40경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "8H",
@@ -9090,7 +9243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 155,
@@ -9113,7 +9267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000074",
     "occurredAt": "2023.11.28",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "로쉬카페 주방",
@@ -9149,7 +9303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 156,
@@ -9172,7 +9327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000075",
     "occurredAt": "2023.10.22",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "캐디 락커 이동 구간",
@@ -9208,7 +9363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(허신영)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 157,
@@ -9231,7 +9387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000077",
     "occurredAt": "2023.12.11\r 12:40경",
-    "dept": "밸리빌리지",
+    "dept": "식음팀",
     "businessUnit": "밸리빌리지",
     "division": "식음팀",
     "place": "밸리CC 쓰레기 하역장\r\n캐디대기실 주차장",
@@ -9267,7 +9423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (식음팀)"
   },
   {
     "id": 158,
@@ -9290,7 +9447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000079",
     "occurredAt": "2023.12.18",
-    "dept": "기타",
+    "dept": "식음팀",
     "businessUnit": "기타",
     "division": "식음팀",
     "place": "기타",
@@ -9326,7 +9483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "기타",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "기타 (식음팀)"
   },
   {
     "id": 159,
@@ -9349,7 +9507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000082",
     "occurredAt": "2023.12.27",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -9385,7 +9543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 160,
@@ -9408,7 +9567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000081",
     "occurredAt": "2023.12.23\r 16:18경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "I슬로프",
@@ -9444,7 +9603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 161,
@@ -9467,7 +9627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00013",
     "occurredAt": "2023.01.19\r 08:00경",
-    "dept": "밸리팀",
+    "dept": "리조트",
     "businessUnit": "밸리팀",
     "division": "리조트",
     "place": "카트고 앞 광장",
@@ -9503,7 +9663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (리조트)"
   },
   {
     "id": 162,
@@ -9526,7 +9687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00012",
     "occurredAt": "2023.01.16\r 13:00경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "스키 광장",
@@ -9562,7 +9723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 163,
@@ -9585,7 +9747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00021",
     "occurredAt": "2023.02.05\r 12:30경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프",
@@ -9621,7 +9783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 164,
@@ -9644,7 +9807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00096",
     "occurredAt": "2023.04.24\r 13:00경",
-    "dept": "월송리팀",
+    "dept": "KSD",
     "businessUnit": "월송리팀",
     "division": "KSD",
     "place": "운치",
@@ -9680,7 +9843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (KSD)"
   },
   {
     "id": 165,
@@ -9703,7 +9867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00103",
     "occurredAt": "2023.05.03",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크2H",
@@ -9739,7 +9903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 166,
@@ -9762,7 +9927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00104",
     "occurredAt": "2023.04.30\r 20:00경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "여자사우나",
@@ -9798,7 +9963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 167,
@@ -9821,7 +9987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00105",
     "occurredAt": "2023.04.30\r 16:00경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "로쉬카페 주방",
@@ -9857,7 +10023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화상",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 168,
@@ -9880,7 +10047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00106",
     "occurredAt": "2023.05.08",
-    "dept": "밸리빌리지",
+    "dept": "시설팀",
     "businessUnit": "밸리빌리지",
     "division": "시설팀",
     "place": "C/B 진입로",
@@ -9916,7 +10083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (시설팀)"
   },
   {
     "id": 169,
@@ -9939,7 +10107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00108",
     "occurredAt": "2023.05.10\r 09:20경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "5H",
@@ -9975,7 +10143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 170,
@@ -9998,7 +10167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-HDC-R036-00109",
     "occurredAt": "2023.05.13\r 16:50rud",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -10034,7 +10203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 171,
@@ -10057,7 +10227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2023-H1892-000028",
     "occurredAt": "2023.09.28\r 16:15경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "여자사우나",
@@ -10093,7 +10263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 172,
@@ -10116,7 +10287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000001",
     "occurredAt": "2023.12.30~2023.12.31",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "지하주차장",
@@ -10152,7 +10323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 173,
@@ -10175,7 +10347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000002",
     "occurredAt": "2023.12.31\r 17:10경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "사우나",
@@ -10211,7 +10383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 174,
@@ -10234,7 +10407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000004",
     "occurredAt": "2024.01.07\r 14:47경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "스키장",
@@ -10270,7 +10443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "떨어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 175,
@@ -10293,7 +10467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000003",
     "occurredAt": "2024.01.07\r 10:25경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "군도변",
@@ -10329,7 +10503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 176,
@@ -10352,7 +10527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000005",
     "occurredAt": "2024.01.14\r 11:00경",
-    "dept": "아이파크콘도",
+    "dept": "리조트",
     "businessUnit": "아이파크콘도",
     "division": "리조트",
     "place": "타워동",
@@ -10388,7 +10563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "시설물",
     "구분1": "아이파크콘도",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "아이파크콘도 (리조트)"
   },
   {
     "id": 177,
@@ -10411,7 +10587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000007",
     "occurredAt": "2024.01.20\r 13:15경",
-    "dept": "힐스팀",
+    "dept": "리조트",
     "businessUnit": "힐스팀",
     "division": "리조트",
     "place": "주차장",
@@ -10447,7 +10623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (리조트)"
   },
   {
     "id": 178,
@@ -10470,7 +10647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000011",
     "occurredAt": "2024.01.22\r 11:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "그랜드볼룸 출입구 로비",
@@ -10506,7 +10683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 179,
@@ -10529,7 +10707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000014",
     "occurredAt": "2024.01.24\r 08:50경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "파크키친 앞 가든",
@@ -10565,7 +10743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 180,
@@ -10588,7 +10767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000015",
     "occurredAt": "2024.01.31\r 13:10경",
-    "dept": "단지내",
+    "dept": "대정골프",
     "businessUnit": "단지내",
     "division": "대정골프",
     "place": "힐스CC → 월송리CC\r\n군도 사잇길",
@@ -10624,7 +10803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (대정골프)"
   },
   {
     "id": 181,
@@ -10647,7 +10827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000016",
     "occurredAt": "2024.02.02\r 16:17경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프 6~7구역",
@@ -10683,7 +10863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 182,
@@ -10706,7 +10887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000017",
     "occurredAt": "2024.02.09\r 16:42경",
-    "dept": "객실",
+    "dept": "리조트",
     "businessUnit": "객실",
     "division": "리조트",
     "place": "안방 욕실",
@@ -10742,7 +10923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "물체에 맞음",
     "구분1": "객실",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "객실 (리조트)"
   },
   {
     "id": 183,
@@ -10765,7 +10947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000019",
     "occurredAt": "2024.02.12\r 14:47경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "7H 세컨 우측 벙커 지점",
@@ -10801,7 +10983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 184,
@@ -10824,7 +11007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000020",
     "occurredAt": "2024.02.11\r 18:01경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "로쉬카페",
@@ -10860,7 +11043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화재",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 185,
@@ -10883,7 +11067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000021",
     "occurredAt": "2024.01.13\r 20:50경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "F슬로프 1지역",
@@ -10919,7 +11103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 186,
@@ -10942,7 +11127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000026",
     "occurredAt": "2024.02.27\r 08:55경",
-    "dept": "월송리팀",
+    "dept": "KSD",
     "businessUnit": "월송리팀",
     "division": "KSD",
     "place": "운치라운지",
@@ -10978,7 +11163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "찔림",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (KSD)"
   },
   {
     "id": 187,
@@ -11001,7 +11187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000032",
     "occurredAt": "2024.03.13",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크2H 페어웨이 초입",
@@ -11037,7 +11223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 188,
@@ -11060,7 +11247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000031",
     "occurredAt": "2024.02.22",
-    "dept": "아이파크콘도",
+    "dept": "리조트",
     "businessUnit": "아이파크콘도",
     "division": "리조트",
     "place": "도로 주변",
@@ -11096,7 +11283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "아이파크콘도",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "아이파크콘도 (리조트)"
   },
   {
     "id": 189,
@@ -11119,7 +11307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000030",
     "occurredAt": "2024.03.10\r 16:40경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리1H → 2H 교량",
@@ -11155,7 +11343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(주아현)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 190,
@@ -11178,7 +11367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000033",
     "occurredAt": "2024.03.13\r 14:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -11214,7 +11403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 191,
@@ -11237,7 +11427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000034",
     "occurredAt": "2023.12.10",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "주차장",
@@ -11273,7 +11463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 192,
@@ -11296,7 +11487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000035",
     "occurredAt": "2024.03.14\r 12:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크3H 그린 좌측 벙커",
@@ -11332,7 +11523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(정진선)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 193,
@@ -11355,7 +11547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000042",
     "occurredAt": "2024.03.30\r 16:50경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H 150Y 선상\r\n좌측 벙커",
@@ -11391,7 +11583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 194,
@@ -11414,7 +11607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000054",
     "occurredAt": "2024.04.24\r 15:40경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "11H 세컨 구간",
@@ -11450,7 +11643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 195,
@@ -11473,7 +11667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000058",
     "occurredAt": "2024.04.26\r 14:15경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "4H 카트도로 100m 지점",
@@ -11509,7 +11703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 196,
@@ -11532,7 +11727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000060",
     "occurredAt": "2024.05.01\r 08:35경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -11568,7 +11763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 197,
@@ -11591,7 +11787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000061",
     "occurredAt": "2024.05.02\r 14:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "7H 70m 지점 러프",
@@ -11627,7 +11823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 198,
@@ -11650,7 +11847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000064",
     "occurredAt": "2024.05.04\r 17:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H 좌측 도로\r\n100yd 지점",
@@ -11686,7 +11883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 199,
@@ -11709,7 +11907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000063",
     "occurredAt": "2024.05.04\r 16:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -11745,7 +11943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 200,
@@ -11768,7 +11967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000067",
     "occurredAt": "2024.05.05\r 11:30경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H 그린주변\r\n카트도로",
@@ -11804,7 +12003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 201,
@@ -11827,7 +12027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000073",
     "occurredAt": "2024.05.21\r 12:38경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H 50m 지점\r\n우측 군도",
@@ -11863,7 +12063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 202,
@@ -11886,7 +12087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000077",
     "occurredAt": "2024.05.31\r 15:35경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리3H",
@@ -11922,7 +12123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 203,
@@ -11945,7 +12147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000076",
     "occurredAt": "2024.06.01\r 06:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지 4H",
@@ -11981,7 +12183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 204,
@@ -12004,7 +12207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000079",
     "occurredAt": "2024.06.07\r 11:40경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지 7H 그린",
@@ -12040,7 +12243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 205,
@@ -12063,7 +12267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000080",
     "occurredAt": "2024.06.06\r 17:05경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "월송리CC",
@@ -12099,7 +12303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 206,
@@ -12122,7 +12327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000083",
     "occurredAt": "2024.06.10\r 15:10경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지5H 화이트 티박스",
@@ -12158,7 +12363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 207,
@@ -12181,7 +12387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000084",
     "occurredAt": "2024.06.11\r 18:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "직원식당 옆 주차장",
@@ -12217,7 +12423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "캐디(김태현)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 208,
@@ -12240,7 +12447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000086",
     "occurredAt": "2024.06.13\r 19:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H~18H 교차구간",
@@ -12276,7 +12483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 209,
@@ -12299,7 +12507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000085",
     "occurredAt": "2024.06.13\r 08:55경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "1H 그린 뒤 카트도로",
@@ -12335,7 +12543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 210,
@@ -12358,7 +12567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000087",
     "occurredAt": "2024.06.14\r 14:20경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "9H 150m 세컨지점",
@@ -12394,7 +12603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 211,
@@ -12417,7 +12627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000090",
     "occurredAt": "2024.06.15\r 16:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -12453,7 +12663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 212,
@@ -12476,7 +12687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000091",
     "occurredAt": "2024.06.11\r 07:30경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지5H",
@@ -12512,7 +12723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(양소윤)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 213,
@@ -12535,7 +12747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000092",
     "occurredAt": "2024.06.11\r 08:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H 그린 주변\r\n잔디보호구역",
@@ -12571,7 +12783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 214,
@@ -12594,7 +12807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000094",
     "occurredAt": "2024.06.23\r 15:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "주차장",
@@ -12630,7 +12843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 215,
@@ -12653,7 +12867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000096",
     "occurredAt": "2024.06.26\r 07:34경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "객실",
@@ -12689,7 +12903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 216,
@@ -12712,7 +12927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000097",
     "occurredAt": "2024.06.23\r 07:45경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "3H 우측 90m 러프 지점",
@@ -12748,7 +12963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "캐디(선수정)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 217,
@@ -12771,7 +12987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000098",
     "occurredAt": "2024.07.03\r 12:15경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "클럽하우스 주차장 2층",
@@ -12807,7 +13023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 218,
@@ -12830,7 +13047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000099",
     "occurredAt": "2024.07.05\r 14:45경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장 C구역",
@@ -12866,7 +13083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 219,
@@ -12889,7 +13107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000101",
     "occurredAt": "2024.07.09\r 13:05경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "3호 승강기 1F 카 내부",
@@ -12925,7 +13143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 220,
@@ -12948,7 +13167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000102",
     "occurredAt": "2024.07.14\r 10:35경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장",
@@ -12984,7 +13203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 221,
@@ -13007,7 +13227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000103",
     "occurredAt": "2024.07.15\r 16:25경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "12H",
@@ -13043,7 +13263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 222,
@@ -13066,7 +13287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000105",
     "occurredAt": "2024.07.16\r 11:53경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H",
@@ -13102,7 +13323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "빠짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 223,
@@ -13125,7 +13347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000104",
     "occurredAt": "2024.07.15\r 12:45경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지4H 우측 내리막",
@@ -13161,7 +13383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 224,
@@ -13184,7 +13407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000106",
     "occurredAt": "2024.06.24\r 20:23경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "객실",
@@ -13220,7 +13443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 225,
@@ -13243,7 +13467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000107",
     "occurredAt": "2024.07.22\r 13:40경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "4H 220m 우측 러프",
@@ -13279,7 +13503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 226,
@@ -13302,7 +13527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000110",
     "occurredAt": "2024.07.25\r 12:15경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐 2H 40m 카트도로",
@@ -13338,7 +13563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(박준식)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 227,
@@ -13361,7 +13587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000111",
     "occurredAt": "2024.07.25\r 07:40경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "4H 그린 전 크리크",
@@ -13397,7 +13623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 228,
@@ -13420,7 +13647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000115",
     "occurredAt": "2024.07.27\r 12:30경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "여자사우나 온탕",
@@ -13456,7 +13683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 229,
@@ -13479,7 +13707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000114",
     "occurredAt": "2024.07.27\r 10:25경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐 1H",
@@ -13515,7 +13743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(이한율)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 230,
@@ -13538,7 +13767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000113",
     "occurredAt": "2024.07.27\r 10:15경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "15H 화이트티",
@@ -13574,7 +13803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 231,
@@ -13597,7 +13827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000117",
     "occurredAt": "2024.07.27\r 16:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H~18H 교차구간",
@@ -13633,7 +13863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 232,
@@ -13656,7 +13887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000118",
     "occurredAt": "2024.07.31\r 15:38경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도 지하주차장\r\n2F ↔ 1F",
@@ -13692,7 +13923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 233,
@@ -13715,7 +13947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000126",
     "occurredAt": "2024.07.28\r 17:00경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "사우나",
@@ -13751,7 +13983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 234,
@@ -13774,7 +14007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000127",
     "occurredAt": "2024.08.01\r 21:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "17H 레이디티 부근",
@@ -13810,7 +14043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 235,
@@ -13833,7 +14067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000124",
     "occurredAt": "2024.07.13\r 16",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H 그린",
@@ -13869,7 +14103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(손준형)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 236,
@@ -13892,7 +14127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000128",
     "occurredAt": "2024.08.09\r 23:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "11H 그린",
@@ -13928,7 +14163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 237,
@@ -13951,7 +14187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000132",
     "occurredAt": "2024.08.11\r 20:25경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "로쉬카페",
@@ -13987,7 +14223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 238,
@@ -14010,7 +14247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000133",
     "occurredAt": "2024.08.15\r 22:30경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "B콘도 객실",
@@ -14046,7 +14283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "물체에 맞음",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 239,
@@ -14069,7 +14307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000134",
     "occurredAt": "2024.08.16\r 17:00경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "C콘도 객실",
@@ -14105,7 +14343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 240,
@@ -14128,7 +14367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000135",
     "occurredAt": "2024.08.16\r 19:25경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐 6H 페어웨이 40m 지점",
@@ -14164,7 +14403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 241,
@@ -14187,7 +14427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000136",
     "occurredAt": "2024.08.17\r 16:24경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -14223,7 +14463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 242,
@@ -14246,7 +14487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000139",
     "occurredAt": "2024.08.23\r 07:20경",
-    "dept": "기숙사",
+    "dept": "리조트",
     "businessUnit": "기숙사",
     "division": "리조트",
     "place": "기숙사",
@@ -14282,7 +14523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌레 물림",
     "구분1": "기숙사",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "기숙사 (리조트)"
   },
   {
     "id": 243,
@@ -14305,7 +14547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000140",
     "occurredAt": "2024.08.25\r 09:58경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "C콘도 객실",
@@ -14341,7 +14583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 244,
@@ -14364,7 +14607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000141",
     "occurredAt": "2024.08.23\r 10:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "5H 60m 우측 러프",
@@ -14400,7 +14643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 245,
@@ -14423,7 +14667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000143",
     "occurredAt": "2024.08.26\r 16:35경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐 4H 72m 지점",
@@ -14459,7 +14703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 246,
@@ -14482,7 +14727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000147",
     "occurredAt": "2024.09.01\r 18:25경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "인도어 스파",
@@ -14518,7 +14763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 247,
@@ -14541,7 +14787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000146",
     "occurredAt": "2024.08.21\r 08:35경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "3H 좌측 150m 러프 지점",
@@ -14577,7 +14823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 248,
@@ -14600,7 +14847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000148",
     "occurredAt": "2024.09.01\r 05:50경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "밸리CC 컨베이어벨트",
@@ -14636,7 +14883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 249,
@@ -14659,7 +14907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000149",
     "occurredAt": "2024.09.05\r 09:15경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "1H IP부분",
@@ -14695,7 +14943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 250,
@@ -14718,7 +14967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000150",
     "occurredAt": "2024.09.04\r 14:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "클럽하우스 입구",
@@ -14754,7 +15003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 251,
@@ -14777,7 +15027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000152",
     "occurredAt": "2024.09.08\r 17:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크9H 90Y 러프 지점",
@@ -14813,7 +15063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 252,
@@ -14836,7 +15087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000153",
     "occurredAt": "2024.09.10\r 15:14경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "2H 화이트 티박스\r\n카트도로",
@@ -14872,7 +15123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 253,
@@ -14895,7 +15147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000155",
     "occurredAt": "2024.09.13\r 09:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인 2H",
@@ -14931,7 +15183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(이상민)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 254,
@@ -14954,7 +15207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000156",
     "occurredAt": "2024.09.13\r 15:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "체크인센터",
@@ -14990,7 +15243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 255,
@@ -15013,7 +15267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000157",
     "occurredAt": "2024.09.14\r 18:05경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장 락카",
@@ -15049,7 +15303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 256,
@@ -15072,7 +15327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000158",
     "occurredAt": "2024.09.16\r 12:30경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도 지하주차장\r\n2F",
@@ -15108,7 +15363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 257,
@@ -15131,7 +15387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000159",
     "occurredAt": "2024.09.25\r 19:00경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도 후면 도로",
@@ -15167,7 +15423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 258,
@@ -15190,7 +15447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000160",
     "occurredAt": "2024.09.29\r 11:03경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -15226,7 +15483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 259,
@@ -15249,7 +15507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000161",
     "occurredAt": "2024.09.29\r 11:10경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "D콘도",
@@ -15285,7 +15543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 260,
@@ -15308,7 +15567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000165",
     "occurredAt": "2024.10.02\r 16:57경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "4H 그린",
@@ -15344,7 +15603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 261,
@@ -15367,7 +15627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000167",
     "occurredAt": "2024.10.01\r 10:08경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인9H 그린 좌측 \r\n카트도로",
@@ -15403,7 +15663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(김별)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 262,
@@ -15426,7 +15687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000170",
     "occurredAt": "2024.10.02\r 13:10경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "18H",
@@ -15462,7 +15723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "근골격계 질환",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 263,
@@ -15485,7 +15747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000173",
     "occurredAt": "2024.10.03\r 11:50경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H 230m 해저드 지점",
@@ -15521,7 +15783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 264,
@@ -15544,7 +15807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000172",
     "occurredAt": "2024.10.02\r 13:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H 100m지점\r\n카트도로",
@@ -15580,7 +15843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 265,
@@ -15603,7 +15867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000175",
     "occurredAt": "2024.10.06\r 16:52",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인7H 그린",
@@ -15639,7 +15903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 266,
@@ -15662,7 +15927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000179",
     "occurredAt": "2024.10.05\r 16:00경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "파크키친",
@@ -15698,7 +15963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 267,
@@ -15721,7 +15987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000180",
     "occurredAt": "2024.10.11\r 13:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "1H",
@@ -15757,7 +16023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 268,
@@ -15780,7 +16047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000181",
     "occurredAt": "2024.10.12",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "1H",
@@ -15816,7 +16083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 269,
@@ -15839,7 +16107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000182",
     "occurredAt": "2024.10.09\r 16:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H",
@@ -15875,7 +16143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "캐디(김재이)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 270,
@@ -15898,7 +16167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000184",
     "occurredAt": "2024.10.19\r 09:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "조각공원",
@@ -15934,7 +16203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 271,
@@ -15957,7 +16227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000186",
     "occurredAt": "2024.10.24\r 10:10경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "카트고",
@@ -15993,7 +16263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 272,
@@ -16016,7 +16287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000190",
     "occurredAt": "2024.10.26\r 18:20경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지9H",
@@ -16052,7 +16323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 273,
@@ -16075,7 +16347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000189",
     "occurredAt": "2024.10.26\r 10:15경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H",
@@ -16111,7 +16383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(심지수)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 274,
@@ -16134,7 +16407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000191",
     "occurredAt": "2024.10.27",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "15H",
@@ -16170,7 +16443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 275,
@@ -16193,7 +16467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000193",
     "occurredAt": "2024.10.29\r 08:35경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지4H",
@@ -16229,7 +16503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 276,
@@ -16252,7 +16527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000192",
     "occurredAt": "2024.10.27\r 10:23경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장",
@@ -16288,7 +16563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 277,
@@ -16311,7 +16587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000194",
     "occurredAt": "2024.10.29\r 18:000경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H~18H 교차구간",
@@ -16347,7 +16623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 278,
@@ -16370,7 +16647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000195",
     "occurredAt": "2024.11.01\r 22:09경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "15H 교차구간",
@@ -16406,7 +16683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 279,
@@ -16429,7 +16707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000197",
     "occurredAt": "2024.11.02\r 13:50경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -16465,7 +16743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 280,
@@ -16488,7 +16767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000198",
     "occurredAt": "2024.11.02\r 15:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "14H",
@@ -16524,7 +16803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 281,
@@ -16547,7 +16827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000199",
     "occurredAt": "2024.11.11\r 13:10경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장 D구역",
@@ -16583,7 +16863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 282,
@@ -16606,7 +16887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000201",
     "occurredAt": "2024.11.13\r 09:38경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지9H 좌측 250yd\r\n거리목 부근",
@@ -16642,7 +16923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 283,
@@ -16665,7 +16947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000201",
     "occurredAt": "2024.11.13\r 17:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -16701,7 +16983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 284,
@@ -16724,7 +17007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000204",
     "occurredAt": "2024.11.18\r 15:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐8H 그린 뒤 카트도로",
@@ -16760,7 +17043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 285,
@@ -16783,7 +17067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000204",
     "occurredAt": "2024.11.21\r 17:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "11H",
@@ -16819,7 +17103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 286,
@@ -16842,7 +17127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000206",
     "occurredAt": "2024.11.07",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "피클볼파크",
@@ -16878,7 +17163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 287,
@@ -16901,7 +17187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000208",
     "occurredAt": "2024.12.10\r 13:50경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "12H",
@@ -16937,7 +17223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 500000
+    "보험금": 500000,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 288,
@@ -16960,7 +17247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000210",
     "occurredAt": "2024.12.24\r 22:40경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "S콘도",
@@ -16996,7 +17283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 289,
@@ -17019,7 +17307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000211",
     "occurredAt": "2024.12.03",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "4H 계류지역",
@@ -17055,7 +17343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 290,
@@ -17078,7 +17367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000023",
     "occurredAt": "2024.02.24\r 08:00경",
-    "dept": "밸리팀",
+    "dept": "리조트",
     "businessUnit": "밸리팀",
     "division": "리조트",
     "place": "직원식당 휴게공간",
@@ -17114,7 +17403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "사망",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (리조트)"
   },
   {
     "id": 291,
@@ -17137,7 +17427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000130",
     "occurredAt": "2024.08.09\r 07:15경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "객실",
@@ -17173,7 +17463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 292,
@@ -17196,7 +17487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000036",
     "occurredAt": "2024.03.26",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플3H",
@@ -17232,7 +17523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 293,
@@ -17255,7 +17547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000038",
     "occurredAt": "2024.03.26\r 13:50경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "밸리CC 하역장",
@@ -17291,7 +17583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 294,
@@ -17314,7 +17607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000044",
     "occurredAt": "2024.03.27\r 12:30경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐2H 100yd 카트 도로\r\n우측 배토통 지점",
@@ -17350,7 +17643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(심지수)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 295,
@@ -17373,7 +17667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000045",
     "occurredAt": "2024.04.06\r 15:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크5H",
@@ -17409,7 +17703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 296,
@@ -17432,7 +17727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000046",
     "occurredAt": "2024.04.12\r 13:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H 20yd 지점\r\n카트도로",
@@ -17468,7 +17763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 297,
@@ -17491,7 +17787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000048",
     "occurredAt": "2024.04.16",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "12H~15H 교행구간",
@@ -17527,7 +17823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 298,
@@ -17550,7 +17847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000050",
     "occurredAt": "2024.04.19",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "여자락카",
@@ -17586,7 +17883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 299,
@@ -17609,7 +17907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000052",
     "occurredAt": "2024.04.23\r 13:15경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지4H 우측 내리막",
@@ -17645,7 +17943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 300,
@@ -17668,7 +17967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000053",
     "occurredAt": "45404",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H~18H 교차구간",
@@ -17704,7 +18003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 301,
@@ -17727,7 +18027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000055",
     "occurredAt": "2024.04.26\r 13:15경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "12H 화이트티 149m\r\n카트도로 지점",
@@ -17763,7 +18063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 302,
@@ -17786,7 +18087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000062",
     "occurredAt": "2024.05.03\r 12:40경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "Practice Range",
@@ -17822,7 +18123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 303,
@@ -17845,7 +18147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000071",
     "occurredAt": "2024.05.13",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인9H",
@@ -17881,7 +18183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(김채민)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 304,
@@ -17904,7 +18207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000072",
     "occurredAt": "2024.05.18\r 11:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "B217호 침실 내 화장실",
@@ -17940,7 +18243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "찔림",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 305,
@@ -17963,7 +18267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000074",
     "occurredAt": "2024.05.23\r 09:46경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -17999,7 +18303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 306,
@@ -18022,7 +18327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000075",
     "occurredAt": "2024.05.28\r 11:15경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16h 150m 카트도로 지점",
@@ -18058,7 +18363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 307,
@@ -18081,7 +18387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000082",
     "occurredAt": "2024.06.09\r 17:14경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인9H",
@@ -18117,7 +18423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 308,
@@ -18140,7 +18447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000171",
     "occurredAt": "2024.10.03\r 17:50경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "5H",
@@ -18176,7 +18483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 309,
@@ -18199,7 +18507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000169",
     "occurredAt": "2024.10.02\r 11:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플4H 그린 우측\r\n법사면",
@@ -18235,7 +18543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디(강대훈)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 310,
@@ -18258,7 +18567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2024-H1892-000187",
     "occurredAt": "2024.10.24\r 14:50경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H 그린 옆 카트도로",
@@ -18294,7 +18603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 311,
@@ -18317,7 +18627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000001",
     "occurredAt": "2025.01.08\r 20:30경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워D",
@@ -18353,7 +18663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 312,
@@ -18376,7 +18687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000002",
     "occurredAt": "2025.01.07\r 09:46경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "스키장",
@@ -18412,7 +18723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 313,
@@ -18435,7 +18747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000004",
     "occurredAt": "2025.01.17\r 14:00경",
-    "dept": "단지내",
+    "dept": "조경",
     "businessUnit": "단지내",
     "division": "조경",
     "place": "단지내",
@@ -18471,7 +18783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "단지내",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (조경)"
   },
   {
     "id": 314,
@@ -18494,7 +18807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000006",
     "occurredAt": "2025.01.22\r 14:20경",
-    "dept": "월송리팀",
+    "dept": "힐스/월송리사업소",
     "businessUnit": "월송리팀",
     "division": "힐스/월송리사업소",
     "place": "12H",
@@ -18530,7 +18843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "월송리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (힐스/월송리사업소)"
   },
   {
     "id": 315,
@@ -18553,7 +18867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000005",
     "occurredAt": "2024.12.27\r 12:22경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "스키장",
@@ -18589,7 +18903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 316,
@@ -18612,7 +18927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000007",
     "occurredAt": "2025.01.16\r 18:48경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "체크인센터",
@@ -18648,7 +18963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 317,
@@ -18671,7 +18987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000012",
     "occurredAt": "2025.02.03\r 17:53경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "S콘도",
@@ -18707,7 +19023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 318,
@@ -18730,7 +19047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000013",
     "occurredAt": "2025.01.29\r 16:19경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "스키장",
@@ -18766,7 +19083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 319,
@@ -18789,7 +19107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000014",
     "occurredAt": "2025.02.03\r 04:30경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "군도변",
@@ -18825,7 +19143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 320,
@@ -18848,7 +19167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000015",
     "occurredAt": "2025.01.25\r 12:07경",
-    "dept": "단지내",
+    "dept": "리조트",
     "businessUnit": "단지내",
     "division": "리조트",
     "place": "군도변",
@@ -18884,7 +19203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (리조트)"
   },
   {
     "id": 321,
@@ -18907,7 +19227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000016",
     "occurredAt": "2025.01.26\r 11:25경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "스키장",
@@ -18943,7 +19263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 322,
@@ -18966,7 +19287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000017",
     "occurredAt": "2025.02.07\r 19:40경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "셔틀버스 정거장",
@@ -19002,7 +19323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 323,
@@ -19025,7 +19347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000018",
     "occurredAt": "2025.02.12\r 11:00경",
-    "dept": "단지내",
+    "dept": "리조트",
     "businessUnit": "단지내",
     "division": "리조트",
     "place": "단지내",
@@ -19061,7 +19383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (리조트)"
   },
   {
     "id": 324,
@@ -19084,7 +19407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000019",
     "occurredAt": "2025.02.22\r 13:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "직원식당 앞",
@@ -19120,7 +19443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 325,
@@ -19143,7 +19467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000020",
     "occurredAt": "2025.02.22\r 14:50경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "스키장",
@@ -19179,7 +19503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 326,
@@ -19202,7 +19527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000021",
     "occurredAt": "2025.02.07\r 11:20경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "스키장",
@@ -19238,7 +19563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 327,
@@ -19261,7 +19587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000022",
     "occurredAt": "2025.02.27\r 16:30경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "기타",
@@ -19297,7 +19623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 328,
@@ -19320,7 +19647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000023",
     "occurredAt": "2025.03.01\r 11:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "조각공원",
@@ -19356,7 +19683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 329,
@@ -19379,7 +19707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000025",
     "occurredAt": "2025.03.15\r 11:50경",
-    "dept": "밸리팀",
+    "dept": "대정골프",
     "businessUnit": "밸리팀",
     "division": "대정골프",
     "place": "체리9H",
@@ -19415,7 +19743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (대정골프)"
   },
   {
     "id": 330,
@@ -19438,7 +19767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000030",
     "occurredAt": "2025.03.22",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "11H",
@@ -19474,7 +19803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 331,
@@ -19497,7 +19827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000029",
     "occurredAt": "2025.03.22\r 16:27경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크1H",
@@ -19533,7 +19863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디(이규담)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 332,
@@ -19556,7 +19887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000031",
     "occurredAt": "2025.03.14\r 09:07경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "사우나 샤워부스",
@@ -19592,7 +19923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 333,
@@ -19615,7 +19947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000032",
     "occurredAt": "2025.03.21\r 13:30경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "1층 후문\r\n케이블카 방향",
@@ -19651,7 +19983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 334,
@@ -19674,7 +20007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000034",
     "occurredAt": "2025.03.28\r 15:18경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "4H",
@@ -19710,7 +20043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 335,
@@ -19733,7 +20067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000036",
     "occurredAt": "2025.04.02\r 12:53경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지1H",
@@ -19769,7 +20103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "물체에 맞음",
     "구분1": "힐스팀",
     "구분2": "캐디(안지영)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 336,
@@ -19792,7 +20127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000037",
     "occurredAt": "2025.04.07",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H",
@@ -19828,7 +20163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "캐디(김지현)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 337,
@@ -19851,7 +20187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000039",
     "occurredAt": "2025.04.06\r 05:20경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "객실",
@@ -19887,7 +20223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 338,
@@ -19910,7 +20247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000040",
     "occurredAt": "2025.04.11\r 16:45경",
-    "dept": "단지내",
+    "dept": "코스관리팀",
     "businessUnit": "단지내",
     "division": "코스관리팀",
     "place": "오크6H",
@@ -19946,7 +20283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "단지내",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (코스관리팀)"
   },
   {
     "id": 339,
@@ -19969,7 +20307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000043",
     "occurredAt": "2025.03.31\r 12:00경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "파크키친",
@@ -20005,7 +20343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 340,
@@ -20028,7 +20367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000045",
     "occurredAt": "2025.04.15",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리8H → 9H\r\n굴다리 지점",
@@ -20064,7 +20403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디(주아현)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 341,
@@ -20087,7 +20427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000047",
     "occurredAt": "2025.04.10\r 12:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "여성캐디 대기실",
@@ -20123,7 +20463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스팀",
     "구분2": "캐디(김영아)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 342,
@@ -20146,7 +20487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000048",
     "occurredAt": "2025.04.21",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "9H",
@@ -20182,7 +20523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 343,
@@ -20205,7 +20547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000050",
     "occurredAt": "2025.04.21\r 12:40경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인6H",
@@ -20241,7 +20583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 344,
@@ -20264,7 +20607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000052",
     "occurredAt": "2025.04.21\r 08:30경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지7H",
@@ -20300,7 +20643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(정시은)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 345,
@@ -20323,7 +20667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000056",
     "occurredAt": "2025.04.27\r 12:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -20359,7 +20703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 346,
@@ -20382,7 +20727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000058",
     "occurredAt": "2025.04.30\r 11:1경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인7H",
@@ -20418,7 +20763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 347,
@@ -20441,7 +20787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000059",
     "occurredAt": "2025.04.30\r 12:30경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "클럽하우스 현관",
@@ -20477,7 +20823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 348,
@@ -20500,7 +20847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000060",
     "occurredAt": "2025.05.05",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -20536,7 +20883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 349,
@@ -20559,7 +20907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000061",
     "occurredAt": "2025.05.05",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "군도변\r\n브릿지 3~4H",
@@ -20595,7 +20943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 350,
@@ -20618,7 +20967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000062",
     "occurredAt": "2025.05.05\r 21:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H 티빅사 전\r\n대기장소",
@@ -20654,7 +21003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 351,
@@ -20677,7 +21027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000063",
     "occurredAt": "2025.04.21",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "1층 자동문",
@@ -20713,7 +21063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 352,
@@ -20736,7 +21087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000065",
     "occurredAt": "2025.04.11",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H",
@@ -20772,7 +21123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 353,
@@ -20795,7 +21147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000064",
     "occurredAt": "2025.04.25\r 12:12경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "코스 내",
@@ -20831,7 +21183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 354,
@@ -20854,7 +21207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000066",
     "occurredAt": "2025.05.07\r 12:40경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지5H",
@@ -20890,7 +21243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(김미란)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 355,
@@ -20913,7 +21267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000069",
     "occurredAt": "2025.05.14\r 09:00경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지9H",
@@ -20949,7 +21303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(박민서)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 356,
@@ -20972,7 +21327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000068",
     "occurredAt": "2025.05.16",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "3H",
@@ -21008,7 +21363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "캐디(우효림)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 357,
@@ -21031,7 +21387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000067",
     "occurredAt": "2025.05.16\r 16:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "11H",
@@ -21067,7 +21423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 358,
@@ -21090,7 +21447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000071",
     "occurredAt": "2025.04.26\r 18:40경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아크아클럽 남자 사우나\r\n샤워부스",
@@ -21126,7 +21483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 359,
@@ -21149,7 +21507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000070",
     "occurredAt": "2025.05.16\r 18:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -21185,7 +21543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 360,
@@ -21208,7 +21567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000072",
     "occurredAt": "2025.05.18",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "주차장",
@@ -21244,7 +21603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 361,
@@ -21267,7 +21627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000074",
     "occurredAt": "2025.05.22\r 05:00경",
-    "dept": "단지내",
+    "dept": "기타",
     "businessUnit": "단지내",
     "division": "기타",
     "place": "밸리CC 진입 군도",
@@ -21303,7 +21663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "단지내",
     "구분2": "협력사",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "단지내 (기타)"
   },
   {
     "id": 362,
@@ -21326,7 +21687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000075",
     "occurredAt": "2025.05.24\r 09:30경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌리지센터",
@@ -21362,7 +21723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 363,
@@ -21385,7 +21747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000076",
     "occurredAt": "2025.05.26\r 15:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크4H",
@@ -21421,7 +21783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 364,
@@ -21444,7 +21807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000078",
     "occurredAt": "2025.05.31\r 17:35경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "6H",
@@ -21480,7 +21843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 365,
@@ -21503,7 +21867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000077",
     "occurredAt": "2025.05.31\r 08:45경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리7H",
@@ -21539,7 +21903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "벌 쏘임",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 366,
@@ -21562,7 +21927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000079",
     "occurredAt": "2025.06.04\r 17:40경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "주차장",
@@ -21598,7 +21963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 367,
@@ -21621,7 +21987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000080",
     "occurredAt": "2025.06.06\r 15:55경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "9H",
@@ -21657,7 +22023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 368,
@@ -21680,7 +22047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000081",
     "occurredAt": "2025.06.04\r 09:50경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐1H",
@@ -21716,7 +22083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(손범진)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 369,
@@ -21739,7 +22107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000083",
     "occurredAt": "2025.06.06\r 23:25경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "광장 에어컨 앞",
@@ -21775,7 +22143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 370,
@@ -21798,7 +22167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000085",
     "occurredAt": "2025.06.09\r 15:20경",
-    "dept": "성문안팀",
+    "dept": "기타",
     "businessUnit": "성문안팀",
     "division": "기타",
     "place": "16H",
@@ -21834,7 +22203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (기타)"
   },
   {
     "id": 371,
@@ -21857,7 +22227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000086",
     "occurredAt": "2025.06.13\r 19:55경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "군도변\r\n브릿지 3~4H",
@@ -21893,7 +22263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 372,
@@ -21916,7 +22287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000087",
     "occurredAt": "45829",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "18H",
@@ -21952,7 +22323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 373,
@@ -21975,7 +22347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000088",
     "occurredAt": "2025.06.21\r 22:15",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "객실",
@@ -22011,7 +22383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 374,
@@ -22034,7 +22407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000090",
     "occurredAt": "2025.06.25\r 11:26경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "3H",
@@ -22070,7 +22443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "캐디(전아율)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 375,
@@ -22093,7 +22467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000089",
     "occurredAt": "2025.06.25\r 10:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "군도변",
@@ -22129,7 +22503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 376,
@@ -22152,7 +22527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000091",
     "occurredAt": "45826",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "주차장",
@@ -22188,7 +22563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 377,
@@ -22211,7 +22587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000092",
     "occurredAt": "2025.06.28\r 08:45경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "군도변",
@@ -22247,7 +22623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 378,
@@ -22270,7 +22647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000095",
     "occurredAt": "2025.06.29\r 10:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -22306,7 +22683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 379,
@@ -22329,7 +22707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000096",
     "occurredAt": "2025.07.01\r 19:32경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리6H",
@@ -22365,7 +22743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 380,
@@ -22388,7 +22767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000098",
     "occurredAt": "2025.07.04\r 16:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -22424,7 +22803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 381,
@@ -22447,7 +22827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000097",
     "occurredAt": "2025.07.04\r 11:40경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "6H",
@@ -22483,7 +22863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 382,
@@ -22506,7 +22887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000099",
     "occurredAt": "2025.07.05\r 16:20",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -22542,7 +22923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 383,
@@ -22565,7 +22947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000100",
     "occurredAt": "2025.07.05\r 16:20",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -22601,7 +22983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 384,
@@ -22624,7 +23007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000101",
     "occurredAt": "45849",
-    "dept": "힐스팀",
+    "dept": "힐스/월송리사업소",
     "businessUnit": "힐스팀",
     "division": "힐스/월송리사업소",
     "place": "브릿지4H",
@@ -22660,7 +23043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (힐스/월송리사업소)"
   },
   {
     "id": 385,
@@ -22683,7 +23067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000103",
     "occurredAt": "2025.07.12",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리3H",
@@ -22719,7 +23103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 386,
@@ -22742,7 +23127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000102",
     "occurredAt": "2025.07.12",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리9H",
@@ -22778,7 +23163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 387,
@@ -22801,7 +23187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000104",
     "occurredAt": "2025.07.08",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지3H",
@@ -22837,7 +23223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디(김덕훈)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 388,
@@ -22860,7 +23247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000105",
     "occurredAt": "2025.07.12\r 21:20경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "조각공원",
@@ -22896,7 +23283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 389,
@@ -22919,7 +23307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000107",
     "occurredAt": "2025.07.18",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "18H",
@@ -22955,7 +23343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 390,
@@ -22978,7 +23367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000108",
     "occurredAt": "2025.07.19\r 19:55경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -23014,7 +23403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 391,
@@ -23037,7 +23427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000109",
     "occurredAt": "2025.07.23\r 17:20경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "주차장",
@@ -23073,7 +23463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 392,
@@ -23096,7 +23487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000110",
     "occurredAt": "2024.07.24\r 14:40경",
-    "dept": "힐스빌리지",
+    "dept": "힐스/월송리사업소",
     "businessUnit": "힐스빌리지",
     "division": "힐스/월송리사업소",
     "place": "주차장",
@@ -23132,7 +23523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (힐스/월송리사업소)"
   },
   {
     "id": 393,
@@ -23155,7 +23547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000113",
     "occurredAt": "2025.07.19\r 13:30경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "객실",
@@ -23191,7 +23583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "감전",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 394,
@@ -23214,7 +23607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000114",
     "occurredAt": "2025.07.25\r 13:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "발렛데스크",
@@ -23250,7 +23643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 395,
@@ -23273,7 +23667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000115",
     "occurredAt": "2025.07.26\r 07:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "객실",
@@ -23309,7 +23703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 396,
@@ -23332,7 +23727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000116",
     "occurredAt": "2025.07.24\r 20:00",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -23368,7 +23763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 397,
@@ -23391,7 +23787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000117",
     "occurredAt": "2025.07.26\r 16:20경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워C",
@@ -23427,7 +23823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 398,
@@ -23450,7 +23847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000118",
     "occurredAt": "2025.07.29\r 15:20경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "지하주차장",
@@ -23486,7 +23883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 399,
@@ -23509,7 +23907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000119",
     "occurredAt": "2025.08.01\r 06:35경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "A콘도 승차대",
@@ -23545,7 +23943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 400,
@@ -23568,7 +23967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000122",
     "occurredAt": "2025.08.07\r 09:00경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐9H",
@@ -23604,7 +24003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 401,
@@ -23627,7 +24027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000123",
     "occurredAt": "2025.08.09",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -23663,7 +24063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 402,
@@ -23686,7 +24087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000124",
     "occurredAt": "2025.08.09\r 15:20경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "4H~5H 티잉그라운드\r\n사이",
@@ -23722,7 +24123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 403,
@@ -23745,7 +24147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000128",
     "occurredAt": "2025.08.09",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "컨벤션홀",
@@ -23781,7 +24183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 404,
@@ -23840,7 +24243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "지관사업소",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "지관사업소"
   },
   {
     "id": 405,
@@ -23863,7 +24267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000131",
     "occurredAt": "2025.08.14\r 13:40경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -23899,7 +24303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "떨어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 406,
@@ -23922,7 +24327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000132",
     "occurredAt": "2025.08.18\r 09:30",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H",
@@ -23958,7 +24363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 407,
@@ -23981,7 +24387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000133",
     "occurredAt": "2025.08.21\r 14:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플7H",
@@ -24017,7 +24423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 408,
@@ -24040,7 +24447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000135",
     "occurredAt": "2025.08.21\r 16:06경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "수영장",
@@ -24076,7 +24483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 409,
@@ -24099,7 +24507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000136",
     "occurredAt": "2025.08.23\r 06:50경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "클럽하우스 광장 계단",
@@ -24135,7 +24543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 410,
@@ -24158,7 +24567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000137",
     "occurredAt": "2025.08.24\r 12:40경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장",
@@ -24194,7 +24603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 411,
@@ -24217,7 +24627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000138",
     "occurredAt": "2025.08.26",
-    "dept": "군도변",
+    "dept": "대정골프",
     "businessUnit": "군도변",
     "division": "대정골프",
     "place": "군도변",
@@ -24253,7 +24663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "군도변",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "군도변 (대정골프)"
   },
   {
     "id": 412,
@@ -24276,7 +24687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000139",
     "occurredAt": "2025.08.15\r 08:50경",
-    "dept": "군도변",
+    "dept": "호텔IPARK",
     "businessUnit": "군도변",
     "division": "호텔IPARK",
     "place": "댐삼거리",
@@ -24312,7 +24723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "군도변",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "군도변 (호텔IPARK)"
   },
   {
     "id": 413,
@@ -24335,7 +24747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000140",
     "occurredAt": "2025.08.18\r 21:00경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타위C 객실",
@@ -24371,7 +24783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 414,
@@ -24394,7 +24807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000142",
     "occurredAt": "2025.08.27\r 06:30경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "조각공원",
@@ -24430,7 +24843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 415,
@@ -24453,7 +24867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000141",
     "occurredAt": "2025.08.28\r 14:50경",
-    "dept": "파크로쉬",
+    "dept": "조경지원팀",
     "businessUnit": "파크로쉬",
     "division": "조경지원팀",
     "place": "출입구",
@@ -24489,7 +24903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (조경지원팀)"
   },
   {
     "id": 416,
@@ -24512,7 +24927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000143",
     "occurredAt": "2025.08.30\r 17:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -24548,7 +24963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 417,
@@ -24571,7 +24987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000144",
     "occurredAt": "2025.08.31\r 01:30경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워D",
@@ -24607,7 +25023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 418,
@@ -24630,7 +25047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000145",
     "occurredAt": "2025.09.03\r 16:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인9H",
@@ -24666,7 +25083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 419,
@@ -24689,7 +25107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000146",
     "occurredAt": "2025.09.06",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리6H",
@@ -24725,7 +25143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 420,
@@ -24733,7 +25152,7 @@ const INITIAL_INCIDENTS = [
     "date": "2025.09.17\r 09:00경",
     "year": 2025,
     "month": 9,
-    "team": "힐스/월송리\r\n사업소",
+    "team": "힐스/월송리 사업소",
     "department": "힐스/월송리사업소",
     "location": "힐스/월송리\r\n사업소",
     "type": "대물사고(차량피해)",
@@ -24748,8 +25167,8 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000151",
     "occurredAt": "2025.09.17\r 09:00경",
-    "dept": "힐스/월송리\r\n사업소",
-    "businessUnit": "힐스/월송리\r\n사업소",
+    "dept": "힐스/월송리사업소",
+    "businessUnit": "힐스/월송리 사업소",
     "division": "힐스/월송리사업소",
     "place": "힐스/월송리\r\n사업소",
     "category": "대물사고(차량피해)",
@@ -24762,7 +25181,7 @@ const INITIAL_INCIDENTS = [
     "reportStatus": "해당 없음",
     "industrialAccidentReport": "해당 없음",
     "notes": "",
-    "resort": "힐스/월송리\r\n사업소",
+    "resort": "힐스/월송리 사업소",
     "locationDetail": "힐스/월송리\r\n사업소",
     "preventiveMeasure": "1. 사고사례 공유 및 안전교육 실시\r\n- 작업 중 주변 시야 확보\r\n- 운전 중 주변 장애물 확인 철저",
     "actionTaken": "초동 조치 완료 및 현장 확인",
@@ -24784,7 +25203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스/월송리\r\n사업소",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스/월송리 사업소 (힐스/월송리사업소)"
   },
   {
     "id": 421,
@@ -24807,7 +25227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000148",
     "occurredAt": "2025.09.12",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플4H",
@@ -24843,7 +25263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 422,
@@ -24866,7 +25287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000152",
     "occurredAt": "2025.09.22",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐4H",
@@ -24902,7 +25323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 423,
@@ -24925,7 +25347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000156",
     "occurredAt": "2025.09.22",
-    "dept": "밸리빌리지",
+    "dept": "시설팀",
     "businessUnit": "밸리빌리지",
     "division": "시설팀",
     "place": "B콘도 주차장",
@@ -24961,7 +25383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (시설팀)"
   },
   {
     "id": 424,
@@ -24984,7 +25407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000155",
     "occurredAt": "2025.09.21",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H",
@@ -25020,7 +25443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(골프백)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 425,
@@ -25043,7 +25467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000157",
     "occurredAt": "2025.09.26",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인6H",
@@ -25079,7 +25503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 426,
@@ -25102,7 +25527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000158",
     "occurredAt": "2025.10.03",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "스타트하우스 야외데크",
@@ -25138,7 +25563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 427,
@@ -25161,7 +25587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000161",
     "occurredAt": "2025.10.16\r 08:13경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "밸리CC 현관",
@@ -25197,7 +25623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 428,
@@ -25220,7 +25647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000162",
     "occurredAt": "2025.10.17",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -25256,7 +25683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 429,
@@ -25279,7 +25707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000164",
     "occurredAt": "2025.10.16\r 08:40경",
-    "dept": "잠실진주",
+    "dept": "조경기획팀",
     "businessUnit": "잠실진주",
     "division": "조경기획팀",
     "place": "잠실진주",
@@ -25315,7 +25743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "떨어짐",
     "구분1": "잠실진주",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "잠실진주 (조경기획팀)"
   },
   {
     "id": 430,
@@ -25338,7 +25767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000165",
     "occurredAt": "2025.10.20\r 09:45경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "B콘도 주차장",
@@ -25374,7 +25803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 431,
@@ -25397,7 +25827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000166",
     "occurredAt": "2025.10.22\r 12:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -25433,7 +25863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 432,
@@ -25456,7 +25887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000167",
     "occurredAt": "2025.10.28\r 20:20경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리9H",
@@ -25492,7 +25923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 433,
@@ -25515,7 +25947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000168",
     "occurredAt": "2025.10.29\r 08:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플3H",
@@ -25551,7 +25983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 434,
@@ -25574,7 +26007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000169",
     "occurredAt": "2025.10.26",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐7H",
@@ -25610,7 +26043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 435,
@@ -25633,7 +26067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000170",
     "occurredAt": "2025.10.29",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐5H",
@@ -25669,7 +26103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 436,
@@ -25692,7 +26127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000172",
     "occurredAt": "2025.11.01",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리5H",
@@ -25728,7 +26163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 437,
@@ -25751,7 +26187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000174",
     "occurredAt": "2025.10.30\r 20:54경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아쿠아클럽 남자 사우나",
@@ -25787,7 +26223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 438,
@@ -25810,7 +26247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000171",
     "occurredAt": "2025.10.30",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "기타",
@@ -25846,7 +26283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 439,
@@ -25869,7 +26307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000177",
     "occurredAt": "2025.11.04",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지2H",
@@ -25905,7 +26343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 440,
@@ -25928,7 +26367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000178",
     "occurredAt": "2025.11.03\r 08:10경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H",
@@ -25964,7 +26403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 441,
@@ -25987,7 +26427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000179",
     "occurredAt": "2025.11.02\r 16:50경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "루프탑",
@@ -26023,7 +26463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 442,
@@ -26046,7 +26487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000180",
     "occurredAt": "2025.11.11",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인3H",
@@ -26082,7 +26523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 443,
@@ -26105,7 +26547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000181",
     "occurredAt": "2025.11.15\r 04:15경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "군도변",
@@ -26141,7 +26583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 444,
@@ -26164,7 +26607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000184",
     "occurredAt": "2025.11.16",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "8H",
@@ -26200,7 +26643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 445,
@@ -26223,7 +26667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000185",
     "occurredAt": "2025.11.17",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "카트고 출차 지역",
@@ -26259,7 +26703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(손재양)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 446,
@@ -26282,7 +26727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000186",
     "occurredAt": "2025.11.09",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -26318,7 +26763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 447,
@@ -26341,7 +26787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000193",
     "occurredAt": "2025.11.24\r 16:25경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "G층 실내 주차장",
@@ -26377,7 +26823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 448,
@@ -26400,7 +26847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000194",
     "occurredAt": "2025.11.24\r 13:50경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -26436,7 +26883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 449,
@@ -26459,7 +26907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000195",
     "occurredAt": "2025.11.19",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐4, 힐7H",
@@ -26495,7 +26943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "근골격계 질환",
     "구분1": "힐스팀",
     "구분2": "캐디(정시은)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 450,
@@ -26518,7 +26967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000196",
     "occurredAt": "2025.11.18\r 14:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크5H",
@@ -26554,7 +27003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 451,
@@ -26577,7 +27027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000197",
     "occurredAt": "2025.11.18",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인9H",
@@ -26613,7 +27063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 452,
@@ -26636,7 +27087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000198",
     "occurredAt": "2025.11.29",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H",
@@ -26672,7 +27123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 453,
@@ -26695,7 +27147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000200",
     "occurredAt": "2025.11.14",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "9H",
@@ -26731,7 +27183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 454,
@@ -26754,7 +27207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000202",
     "occurredAt": "2025.12.03",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "플라워 리프트",
@@ -26790,7 +27243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "스키장",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 455,
@@ -26813,7 +27267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000204",
     "occurredAt": "2025.12.21\r 12:10경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "눈놀이동산",
@@ -26849,7 +27303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "스키장",
     "구분2": "AR",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 456,
@@ -26872,7 +27327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000203",
     "occurredAt": "2025.12.18\r 17:09경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워D GS편의점",
@@ -26908,7 +27363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "힐스빌리지",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 457,
@@ -26931,7 +27387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000205",
     "occurredAt": "2025.12.23\r 14:02경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -26967,7 +27423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 458,
@@ -26990,7 +27447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2025-H1892-000206",
     "occurredAt": "2025.12.25\r 15:20경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "눈놀이동산",
@@ -27026,7 +27483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 459,
@@ -27049,7 +27507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000003",
     "occurredAt": "2026.01.05\r 10:30경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "눈놀이동산",
@@ -27085,7 +27543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 460,
@@ -27108,7 +27567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000005",
     "occurredAt": "2026.01.10\r 12:00경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "눈놀이동산",
@@ -27144,7 +27603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 461,
@@ -27167,7 +27627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000006",
     "occurredAt": "2026.01.10\r 15:20경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워C",
@@ -27203,7 +27663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 462,
@@ -27226,7 +27687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000007",
     "occurredAt": "2026.01.11\r 12:00경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "눈놀이동산",
@@ -27262,7 +27723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 463,
@@ -27285,7 +27747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000008",
     "occurredAt": "2026.01.15\r 17:40경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워C",
@@ -27321,7 +27783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 464,
@@ -27344,7 +27807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000009",
     "occurredAt": "2026.01.20\r 15:15경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "13F 루프탑",
@@ -27380,7 +27843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 465,
@@ -27403,7 +27867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000011",
     "occurredAt": "2026.01.19",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "A콘도 객실",
@@ -27439,7 +27903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 466,
@@ -27462,7 +27927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000012",
     "occurredAt": "2025.12.16\r 10:09경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "기타 장소",
@@ -27498,7 +27963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 100000
+    "보험금": 100000,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 467,
@@ -27521,7 +27987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000013",
     "occurredAt": "2026.02.01",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "N콘도 객실",
@@ -27557,7 +28023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 468,
@@ -27580,7 +28047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000014",
     "occurredAt": "2026.02.02\r 16:18경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "눈놀이동산",
@@ -27616,7 +28083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 469,
@@ -27639,7 +28107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000016",
     "occurredAt": "2026.01.28\r 19:39경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아쿠아클럽",
@@ -27675,7 +28143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "끼임",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 470,
@@ -27698,7 +28167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000017",
     "occurredAt": "2026.02.07\r 16:50경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "플라워 리프트",
@@ -27734,7 +28203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 471,
@@ -27757,7 +28227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000019",
     "occurredAt": "2026.02.10\r 20:04경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "G슬로프 최하단부",
@@ -27793,7 +28263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 472,
@@ -27816,7 +28287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000021",
     "occurredAt": "2026.02.15\r 19:39경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "A콘도 객실",
@@ -27852,7 +28323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "베임",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 473,
@@ -27875,7 +28347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000020",
     "occurredAt": "2026.02.15\r 13:26경",
-    "dept": "스키장",
+    "dept": "리조트",
     "businessUnit": "스키장",
     "division": "리조트",
     "place": "플라워 리프트",
@@ -27911,7 +28383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "스키장",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "스키장 (리조트)"
   },
   {
     "id": 474,
@@ -27934,7 +28407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000024",
     "occurredAt": "2026.02.22\r 01:48경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "S콘도 객실",
@@ -27970,7 +28443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 475,
@@ -27993,7 +28467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000023",
     "occurredAt": "2026.02.20\r 15:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "현관",
@@ -28029,7 +28503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 476,
@@ -28052,7 +28527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000025",
     "occurredAt": "2026.03.05\r 13:26경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "7H",
@@ -28088,7 +28563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 477,
@@ -28111,7 +28587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000026",
     "occurredAt": "2026.02.28\r 09:15경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "아웃코스 티하우스\r\n화장실 진입로",
@@ -28147,7 +28623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 478,
@@ -28170,7 +28647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000028",
     "occurredAt": "2026.03.17",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "18H",
@@ -28206,7 +28683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 479,
@@ -28229,7 +28707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000029",
     "occurredAt": "2026.03.16\r 06:00경",
-    "dept": "힐스팀",
+    "dept": "조경관리팀",
     "businessUnit": "힐스팀",
     "division": "조경관리팀",
     "place": "브릿지6H 다리",
@@ -28265,7 +28743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스팀",
     "구분2": "직원(박덕재)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (조경관리팀)"
   },
   {
     "id": 480,
@@ -28288,7 +28767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000031",
     "occurredAt": "2026.03.22\r 05:39경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌라B 객실",
@@ -28324,7 +28803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "낙상사고",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 481,
@@ -28347,7 +28827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000032",
     "occurredAt": "2026.03.22\r 09:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크5H",
@@ -28383,7 +28863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 482,
@@ -28406,7 +28887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000033",
     "occurredAt": "2026.04.01\r 15:20경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "뮤지엄산  입구",
@@ -28442,7 +28923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "월송리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 483,
@@ -28465,7 +28947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000035",
     "occurredAt": "2026.04.02\r 13:10경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "장비관리동",
@@ -28501,7 +28983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "성문안팀",
     "구분2": "직원(대정)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 484,
@@ -28524,7 +29007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000036",
     "occurredAt": "2026.04.04\r 21:20경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "군도변",
@@ -28560,7 +29043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "파크로쉬",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 485,
@@ -28583,7 +29067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000039",
     "occurredAt": "2026.04.13\r 10:15경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "여자 습식사우나",
@@ -28619,7 +29103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 486,
@@ -28642,7 +29127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000040",
     "occurredAt": "2026.04.16\r 10:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "7H",
@@ -28678,7 +29163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 487,
@@ -28701,7 +29187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000041",
     "occurredAt": "2026.04.20",
-    "dept": "성문안팀",
+    "dept": "대정골프",
     "businessUnit": "성문안팀",
     "division": "대정골프",
     "place": "장비관리동 진입로",
@@ -28737,7 +29223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "성문안팀",
     "구분2": "직원(대정)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (대정골프)"
   },
   {
     "id": 488,
@@ -28760,7 +29247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000042",
     "occurredAt": "2026.03.21\r 16:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "B콘도 로비",
@@ -28796,7 +29283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 489,
@@ -28819,7 +29307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000043",
     "occurredAt": "2026.04.25\r 11:10경",
-    "dept": "힐스빌리지",
+    "dept": "조경관리팀",
     "businessUnit": "힐스빌리지",
     "division": "조경관리팀",
     "place": "D콘도",
@@ -28855,7 +29343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스빌리지",
     "구분2": "일용직",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (조경관리팀)"
   },
   {
     "id": 490,
@@ -28878,7 +29367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000045",
     "occurredAt": "2026.04.27",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "야외주차장",
@@ -28914,7 +29403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "힐스팀",
     "구분2": "캐디(김수종)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 491,
@@ -28937,7 +29427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000046",
     "occurredAt": "2026.05.06\r 11:29경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "18H 그린주변",
@@ -28973,7 +29463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "낙상사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 492,
@@ -28996,7 +29487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000047",
     "occurredAt": "2026.05.05\r 22:00경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌라S 객실",
@@ -29032,7 +29523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 493,
@@ -29055,7 +29547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000048",
     "occurredAt": "2026.05.10",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장",
@@ -29091,7 +29583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 494,
@@ -29114,7 +29607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000049",
     "occurredAt": "2026.05.09\r 12:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -29150,7 +29643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 495,
@@ -29173,7 +29667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000050",
     "occurredAt": "2026.05.16",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H",
@@ -29209,7 +29703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 496,
@@ -29232,7 +29727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000052",
     "occurredAt": "2026.05.17\r 11:00경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "광장",
@@ -29268,7 +29763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "화재",
     "구분1": "월송리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 497,
@@ -29291,7 +29787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000053",
     "occurredAt": "2026.05.17\r 18:28경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "2H",
@@ -29327,7 +29823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 498,
@@ -29350,7 +29847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000054",
     "occurredAt": "2026.05.17",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "16H",
@@ -29386,7 +29883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 499,
@@ -29409,7 +29907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000055",
     "occurredAt": "2026.05.16\r 09:30경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워C 지상주차장",
@@ -29445,7 +29943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 500,
@@ -29468,7 +29967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000056",
     "occurredAt": "2026.05.13\r 11:30경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "6H↔7H 카트도로",
@@ -29504,7 +30003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 501,
@@ -29527,7 +30027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000057",
     "occurredAt": "2026.05.10\r 13:50경",
-    "dept": "밸리팀",
+    "dept": "대정골프",
     "businessUnit": "밸리팀",
     "division": "대정골프",
     "place": "밸리CC 전기차 주차장",
@@ -29563,7 +30063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (대정골프)"
   },
   {
     "id": 502,
@@ -29586,7 +30087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000060",
     "occurredAt": "2026.05.25\r 08:39경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아쿠아클럽",
@@ -29622,7 +30123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬",
     "구분2": "직원 (황령흠)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 503,
@@ -29645,7 +30147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000063",
     "occurredAt": "2026.06.03\r 14:40경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H 군도변",
@@ -29681,7 +30183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 504,
@@ -29704,7 +30207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000064",
     "occurredAt": "2026.06.03\r 15:10경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리2H 군도변",
@@ -29740,7 +30243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 505,
@@ -29763,7 +30267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000066",
     "occurredAt": "2026.06.09\r 13:00경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지3H 군도변",
@@ -29799,7 +30303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "직원 (홍기배)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 506,
@@ -29822,7 +30327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000067",
     "occurredAt": "2026.06.10\r 14:05경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐1H 그린",
@@ -29858,7 +30363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "힐스팀",
     "구분2": "캐디(백인성)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 507,
@@ -29881,7 +30387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000069",
     "occurredAt": "2026.06.13\r 13:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -29917,7 +30423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 508,
@@ -29940,7 +30447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000070",
     "occurredAt": "2026.06.15\r 13:05경",
-    "dept": "월송리팀",
+    "dept": "골프",
     "businessUnit": "월송리팀",
     "division": "골프",
     "place": "10H",
@@ -29976,7 +30483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "월송리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "월송리팀 (골프)"
   },
   {
     "id": 509,
@@ -29999,7 +30507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000071",
     "occurredAt": "2026.06.17\r 12:26경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "주차장 D구역",
@@ -30035,7 +30543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 510,
@@ -30058,7 +30567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000073",
     "occurredAt": "2026.07.04\r 11:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -30094,7 +30603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 511,
@@ -30117,7 +30627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000074",
     "occurredAt": "2026.07.05\r 14:43경",
-    "dept": "레저팀",
+    "dept": "리조트",
     "businessUnit": "레저팀",
     "division": "리조트",
     "place": "수영장 사우나",
@@ -30153,7 +30663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "감전",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "레저팀 (리조트)"
   },
   {
     "id": 512,
@@ -30176,7 +30687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000075",
     "occurredAt": "2026.07.05\r 12:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -30212,7 +30723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 513,
@@ -30220,7 +30732,7 @@ const INITIAL_INCIDENTS = [
     "date": "2026.07.07\r 13:37경",
     "year": 2026,
     "month": 7,
-    "team": "파크로쉬\r\n시설팀",
+    "team": "파크로쉬 시설팀",
     "department": "리조트",
     "location": "여자 사우나",
     "type": "열상",
@@ -30235,8 +30747,8 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000077",
     "occurredAt": "2026.07.07\r 13:37경",
-    "dept": "파크로쉬\r\n시설팀",
-    "businessUnit": "파크로쉬\r\n시설팀",
+    "dept": "리조트",
+    "businessUnit": "파크로쉬 시설팀",
     "division": "리조트",
     "place": "여자 사우나",
     "category": "열상",
@@ -30249,7 +30761,7 @@ const INITIAL_INCIDENTS = [
     "reportStatus": "해당 없음",
     "industrialAccidentReport": "해당 없음",
     "notes": "",
-    "resort": "파크로쉬\r\n시설팀",
+    "resort": "파크로쉬 시설팀",
     "locationDetail": "여자 사우나",
     "preventiveMeasure": "시설 안전 점검 및 프로세스 준수 강화",
     "actionTaken": "초동 조치 완료 및 현장 확인",
@@ -30271,7 +30783,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "파크로쉬\r\n시설팀",
     "구분2": "직원 (시설팀)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 시설팀 (리조트)"
   },
   {
     "id": 514,
@@ -30294,7 +30807,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000079",
     "occurredAt": "2026.07.11\r 04:20경",
-    "dept": "성문안팀",
+    "dept": "대정골프",
     "businessUnit": "성문안팀",
     "division": "대정골프",
     "place": "12H 화이트티 내려오는\r\n경사구간",
@@ -30330,7 +30843,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "장비사고(샌드프로)",
     "구분1": "성문안팀",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (대정골프)"
   },
   {
     "id": 515,
@@ -30353,7 +30867,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000081",
     "occurredAt": "2026.07.10\r 18:20경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지6H",
@@ -30389,7 +30903,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 516,
@@ -30412,7 +30927,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000082",
     "occurredAt": "2026.07.11\r 08:20경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지4H",
@@ -30448,7 +30963,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 517,
@@ -30471,7 +30987,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000083",
     "occurredAt": "2026.07.18\r 17:53경",
-    "dept": "레저팀",
+    "dept": "리조트",
     "businessUnit": "레저팀",
     "division": "리조트",
     "place": "야외수영장 유아풀",
@@ -30507,7 +31023,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "레저팀 (리조트)"
   },
   {
     "id": 518,
@@ -30530,7 +31047,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000085",
     "occurredAt": "2026.07.19\r 11:09경",
-    "dept": "레저팀",
+    "dept": "리조트",
     "businessUnit": "레저팀",
     "division": "리조트",
     "place": "실내수영장",
@@ -30566,7 +31083,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "레저팀 (리조트)"
   },
   {
     "id": 519,
@@ -30589,7 +31107,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000086",
     "occurredAt": "2026.07.19\r 15:35경",
-    "dept": "레저팀",
+    "dept": "리조트",
     "businessUnit": "레저팀",
     "division": "리조트",
     "place": "야외수영장 유수풀",
@@ -30625,7 +31143,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "레저팀 (리조트)"
   },
   {
     "id": 520,
@@ -30648,7 +31167,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000087",
     "occurredAt": "2026.07.19\r 10:35경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌라N 승차대",
@@ -30684,7 +31203,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 521,
@@ -30707,7 +31227,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000088",
     "occurredAt": "2026.07.17\r 12:30경",
-    "dept": "밸리팀",
+    "dept": "리조트",
     "businessUnit": "밸리팀",
     "division": "리조트",
     "place": "파인4H",
@@ -30743,7 +31263,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (리조트)"
   },
   {
     "id": 522,
@@ -30766,7 +31287,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000089",
     "occurredAt": "2026.07.26\r 17:04경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "남자 사우나",
@@ -30802,7 +31323,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 523,
@@ -30825,7 +31347,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000091",
     "occurredAt": "2026.07.31\r 17:00경",
-    "dept": "레저팀",
+    "dept": "리조트",
     "businessUnit": "레저팀",
     "division": "리조트",
     "place": "야외수영장\r\n워터플레이존",
@@ -30861,7 +31383,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "레저팀 (리조트)"
   },
   {
     "id": 524,
@@ -30884,7 +31407,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000093",
     "occurredAt": "2026.08.05\r 16:35경",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "타워D",
@@ -30920,7 +31443,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 525,
@@ -30943,7 +31467,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000094",
     "occurredAt": "2026.08.09\r 08:30경",
-    "dept": "밸리팀",
+    "dept": "리조트",
     "businessUnit": "밸리팀",
     "division": "리조트",
     "place": "메이플6H",
@@ -30979,7 +31503,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (리조트)"
   },
   {
     "id": 526,
@@ -31002,7 +31527,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000096",
     "occurredAt": "2026.08.13\r 12:13경",
-    "dept": "레저팀",
+    "dept": "리조트",
     "businessUnit": "레저팀",
     "division": "리조트",
     "place": "야외수영장\r\n워터플레이존",
@@ -31038,7 +31563,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "레저팀 (리조트)"
   },
   {
     "id": 527,
@@ -31061,7 +31587,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000097",
     "occurredAt": "2026.08.14\r 17:20경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지4H",
@@ -31097,7 +31623,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 528,
@@ -31120,7 +31647,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000098",
     "occurredAt": "2026.08.15",
-    "dept": "밸리빌리지",
+    "dept": "시설팀",
     "businessUnit": "밸리빌리지",
     "division": "시설팀",
     "place": "빌라B 주차장",
@@ -31156,7 +31683,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "밸리빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (시설팀)"
   },
   {
     "id": 529,
@@ -31179,7 +31707,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000099",
     "occurredAt": "2026.08.18\r 15:40경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "A콘도 객실",
@@ -31215,7 +31743,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 530,
@@ -31238,7 +31767,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000100",
     "occurredAt": "2026.08.15\r 17:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H 좌측도로",
@@ -31274,7 +31803,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "기타",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 531,
@@ -31297,7 +31827,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000102",
     "occurredAt": "2026.08.20\r 11:50경",
-    "dept": "CS팀",
+    "dept": "골프",
     "businessUnit": "CS팀",
     "division": "골프",
     "place": "주차장",
@@ -31333,7 +31863,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "CS팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "CS팀 (골프)"
   },
   {
     "id": 532,
@@ -31356,7 +31887,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000103",
     "occurredAt": "2026.08.20\r 17:50경",
-    "dept": "CS팀",
+    "dept": "골프",
     "businessUnit": "CS팀",
     "division": "골프",
     "place": "주차장",
@@ -31392,7 +31923,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고(차량피해)",
     "구분1": "CS팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "CS팀 (골프)"
   },
   {
     "id": 533,
@@ -31415,7 +31947,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000105",
     "occurredAt": "2026.08.20\r 16:00경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "여자 사우나",
@@ -31451,7 +31983,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "대물사고",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 534,
@@ -31474,7 +32007,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000106",
     "occurredAt": "2026.08.22",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "브릿지4H 주변 판석 보도",
@@ -31510,7 +32043,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "힐스팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 535,
@@ -31533,7 +32067,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000108",
     "occurredAt": "2026.08.17",
-    "dept": "힐스빌리지",
+    "dept": "리조트",
     "businessUnit": "힐스빌리지",
     "division": "리조트",
     "place": "킹콩부대찌개",
@@ -31569,7 +32103,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "힐스빌리지",
     "구분2": "기타",
-    "보험금": 100000
+    "보험금": 100000,
+    "displayLocation": "힐스빌리지 (리조트)"
   },
   {
     "id": 536,
@@ -31592,7 +32127,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000109",
     "occurredAt": "2026.08.12",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플4H",
@@ -31628,7 +32163,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "빠짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 537,
@@ -31651,7 +32187,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000110",
     "occurredAt": "2026.08.25",
-    "dept": "김해도시계획시설",
+    "dept": "조경시공팀",
     "businessUnit": "김해도시계획시설",
     "division": "조경시공팀",
     "place": "김해도시계획시설",
@@ -31687,7 +32223,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "인사사고",
     "구분1": "김해도시계획시설",
     "구분2": "근로자 (일용직)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "김해도시계획시설 (조경시공팀)"
   },
   {
     "id": 538,
@@ -31710,7 +32247,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000112",
     "occurredAt": "2026.08.26",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H~5H 카트도로",
@@ -31746,7 +32283,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "밸리팀",
     "구분2": "캐디 (김광현)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 539,
@@ -31769,7 +32307,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000113",
     "occurredAt": "2026.09.04",
-    "dept": "레저팀",
+    "dept": "리조트",
     "businessUnit": "레저팀",
     "division": "리조트",
     "place": "2F사우나~1F수영장",
@@ -31805,7 +32343,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "열상",
     "구분1": "레저팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "레저팀 (리조트)"
   },
   {
     "id": 540,
@@ -31828,7 +32367,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000114",
     "occurredAt": "2026.09.05\r 21:53",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "여자 사우나",
@@ -31864,7 +32403,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 541,
@@ -31887,7 +32427,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000117",
     "occurredAt": "2026.09.11",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "9H",
@@ -31923,7 +32463,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "카트사고",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 100000
+    "보험금": 100000,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 542,
@@ -31946,7 +32487,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000118",
     "occurredAt": "2026.08.29",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크6H",
@@ -31982,7 +32523,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "캐디 (이옥규)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 543,
@@ -32005,7 +32547,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000119",
     "occurredAt": "2026.09.13\r 17:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인4H",
@@ -32041,7 +32583,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "근로자 (미화)",
-    "보험금": 370000
+    "보험금": 370000,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 544,
@@ -32064,7 +32607,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000120",
     "occurredAt": "2026.09.11\r 13:10경",
-    "dept": "힐스팀",
+    "dept": "골프",
     "businessUnit": "힐스팀",
     "division": "골프",
     "place": "힐3H",
@@ -32100,7 +32643,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "힐스팀",
     "구분2": "캐디 (김혜영)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스팀 (골프)"
   },
   {
     "id": 545,
@@ -32123,7 +32667,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000121",
     "occurredAt": "2026.09.15\r 09:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리7H",
@@ -32159,7 +32703,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "기타",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 546,
@@ -32182,7 +32727,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000122",
     "occurredAt": "2026.09.17\r 20:30경",
-    "dept": "군도변",
+    "dept": "대정골프",
     "businessUnit": "군도변",
     "division": "대정골프",
     "place": "파인5H 군도변",
@@ -32218,7 +32763,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "군도변",
     "구분2": "직원 (대정)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "군도변 (대정골프)"
   },
   {
     "id": 547,
@@ -32241,7 +32787,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000123",
     "occurredAt": "2026.09.02\r 10:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "2H",
@@ -32277,7 +32823,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "근골격계 질환",
     "구분1": "성문안팀",
     "구분2": "캐디 (오은율)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 548,
@@ -32300,7 +32847,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000125",
     "occurredAt": "2026.09.20\r 14:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플2H",
@@ -32336,7 +32883,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디 (조수민)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 549,
@@ -32359,7 +32907,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000127",
     "occurredAt": "2026.09.21\r 09:40경",
-    "dept": "힐스빌리지",
+    "dept": "시설팀",
     "businessUnit": "힐스빌리지",
     "division": "시설팀",
     "place": "타워D 주차장",
@@ -32395,7 +32943,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "차량사고",
     "구분1": "힐스빌리지",
     "구분2": "직원",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "힐스빌리지 (시설팀)"
   },
   {
     "id": 550,
@@ -32418,7 +32967,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000128",
     "occurredAt": "2026.09.21\r 17:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리8H 벙커",
@@ -32454,7 +33003,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 551,
@@ -32477,7 +33027,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000129",
     "occurredAt": "2026.09.19\r 15:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H 군도변",
@@ -32513,7 +33063,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고(차량)",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 552,
@@ -32536,7 +33087,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000131",
     "occurredAt": "2026.09.21\r 18:05경",
-    "dept": "파크로쉬",
+    "dept": "리조트",
     "businessUnit": "파크로쉬",
     "division": "리조트",
     "place": "아웃도어 스파",
@@ -32572,7 +33123,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "파크로쉬",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "파크로쉬 (리조트)"
   },
   {
     "id": 553,
@@ -32595,7 +33147,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000133",
     "occurredAt": "2026.09.19",
-    "dept": "밸리CC",
+    "dept": "골프",
     "businessUnit": "밸리CC",
     "division": "골프",
     "place": "밸리CC 1층 로비",
@@ -32631,7 +33183,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리CC",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리CC (골프)"
   },
   {
     "id": 554,
@@ -32654,7 +33207,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000134",
     "occurredAt": "2026.09.22\r 14:45경",
-    "dept": "밸리CC",
+    "dept": "골프",
     "businessUnit": "밸리CC",
     "division": "골프",
     "place": "밸리CC 1층 로비",
@@ -32690,7 +33243,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리CC",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리CC (골프)"
   },
   {
     "id": 555,
@@ -32713,7 +33267,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000135",
     "occurredAt": "2026.09.24\r 10:50경",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌라B 객실",
@@ -32749,7 +33303,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "감전",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   },
   {
     "id": 556,
@@ -32772,7 +33327,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000138",
     "occurredAt": "2026.10.09",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "18H 벙커",
@@ -32808,7 +33363,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 482000
+    "보험금": 482000,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 557,
@@ -32831,7 +33387,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000139",
     "occurredAt": "2026.10.10\r 10:00경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "오크8H",
@@ -32867,7 +33423,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디 (윤서은)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 558,
@@ -32890,7 +33447,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000140",
     "occurredAt": "2026.10.17\r 16:30경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "체리4H",
@@ -32926,7 +33483,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 559,
@@ -32949,7 +33507,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000141",
     "occurredAt": "2026.10.17\r 10:50경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "메이플1H",
@@ -32985,7 +33543,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "캐디 (손호준)",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 560,
@@ -33008,7 +33567,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000142",
     "occurredAt": "2026.10.18\r 10:40경",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인1H",
@@ -33044,7 +33603,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "타구사고",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 561,
@@ -33067,7 +33627,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000143",
     "occurredAt": "2026.10.17",
-    "dept": "밸리팀",
+    "dept": "골프",
     "businessUnit": "밸리팀",
     "division": "골프",
     "place": "파인5H 그린 전 돌계단",
@@ -33103,7 +33663,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "넘어짐",
     "구분1": "밸리팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리팀 (골프)"
   },
   {
     "id": 562,
@@ -33126,7 +33687,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000146",
     "occurredAt": "2026.10.31\r 11:30경",
-    "dept": "성문안팀",
+    "dept": "골프",
     "businessUnit": "성문안팀",
     "division": "골프",
     "place": "16H",
@@ -33162,7 +33723,8 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "클럽 파손",
     "구분1": "성문안팀",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "성문안팀 (골프)"
   },
   {
     "id": 563,
@@ -33185,7 +33747,7 @@ const INITIAL_INCIDENTS = [
     "status": "조치완료",
     "documentNumber": "2026-H1892-000147",
     "occurredAt": "2026.10.31\r 18:41",
-    "dept": "밸리빌리지",
+    "dept": "리조트",
     "businessUnit": "밸리빌리지",
     "division": "리조트",
     "place": "빌라A 객실",
@@ -33221,14 +33783,15 @@ const INITIAL_INCIDENTS = [
     "사고유형1": "부딪힘",
     "구분1": "밸리빌리지",
     "구분2": "고객",
-    "보험금": 0
+    "보험금": 0,
+    "displayLocation": "밸리빌리지 (리조트)"
   }
 ];
 
 const initialIncidents = INITIAL_INCIDENTS;
 
 (function() {
-  const DEFAULT_VERSION = "20261104_vVICTIM_FIX";
+  const DEFAULT_VERSION = "20261104_vLOC_VICTIM_FIX";
   const VERSION_KEY = "resort_data_version";
   const STORAGE_KEY = "resort_incidents_data";
   const LEGACY_STORAGE_KEY = "resort_incident_records_v2";
@@ -33240,9 +33803,14 @@ const initialIncidents = INITIAL_INCIDENTS;
   const rawType = row['사고유형1'] || row['사고유형'] || row['사고 유형'] || row['유형'] || '기타';
   const cleanType = String(rawType).replace(/[\r\n]+/g, '').trim() || '기타';
 
-  // 2. 사업장/부서 구분 매핑
-  const team = row['구분1'] ? String(row['구분1']).trim() : '미분류';
-  const dept = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, '').trim() : '';
+  // 2. 사업장/부서 구분 매핑 (C열 구분1, B열 부문/부서)
+  const team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
+  const department = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, ' ').trim() : '';     // B열 (부문/부서)
+
+  // 화면 렌더링 로직 (사업장과 부서가 같으면 괄호 생략, 다르면 괄호 표기)
+  const displayLocation = (department && department !== team)
+    ? `${team} (${department})`  // 예: 밸리팀 (골프), 힐스빌리지 (리조트)
+    : team;                      // 같은 값이면 '밸리팀' 하나만 깔끔하게 표기
   
   // 3. 세부 장소 및 제목 생성
   const detailLocation = row['위치(세부)'] ? String(row['위치(세부)']).trim() : '기타 장소';
@@ -33296,7 +33864,8 @@ const initialIncidents = INITIAL_INCIDENTS;
     year: Number(row['발생년(피벗)']) || (row['발생일시'] ? parseInt(String(row['발생일시']).slice(0, 4)) : 2026),
     month: Number(row['발생월(피벗)']) || 0,
     team: team,
-    department: dept,
+    department: department,
+    displayLocation: displayLocation,
     location: detailLocation,
     type: cleanType,           // 정제된 '사고유형1' 주입
     title: title,
