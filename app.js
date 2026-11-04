@@ -2853,99 +2853,123 @@ function getColValue(row, candidates, fallback = "") {
   return fallback;
 }
 
+// 엑셀 row 데이터를 파싱하는 함수 내부
+const parseIncidentRow = (row, index) => {
+  // 1. 사고유형 필드 매핑: '사고유형1' 우선 탐색 및 줄바꿈/공백 제거 정제
+  const rawType = row['사고유형1'] || row['사고유형'] || row['사고 유형'] || row['유형'] || '기타';
+  const cleanType = String(rawType).replace(/[\r\n]+/g, '').trim() || '기타';
+
+  // 2. 사업장/부서 구분 매핑
+  const team = row['구분1'] ? String(row['구분1']).trim() : '미분류';
+  const dept = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, '').trim() : '';
+  
+  // 3. 세부 장소 및 제목 생성
+  const detailLocation = row['위치(세부)'] ? String(row['위치(세부)']).trim() : '기타 장소';
+  const title = `[${detailLocation}] ${cleanType} 사고`;
+
+  // 4. 피해 대상 매핑
+  const victimRaw = row['구분2'] ? String(row['구분2']).replace(/[\r\n]+/g, ' ').trim() : '고객';
+  let victimType = '고객';
+  if (victimRaw.includes('직원') || victimRaw.includes('근로자') || victimRaw.includes('일용직')) {
+    victimType = '직원';
+  } else if (victimRaw.includes('캐디')) {
+    victimType = '캐디';
+  } else if (victimRaw.includes('기타') || victimRaw.includes('AR')) {
+    victimType = '기타';
+  }
+
+  // 5. 보험금 / 비용 숫자 변환
+  const rawCost = row['보험금'] !== undefined && row['보험금'] !== '' ? row['보험금'] : row[' 보험금 '];
+  const insuranceCost = typeof rawCost === 'number' ? rawCost : (Number(String(rawCost || '').replace(/,/g, '').trim()) || 0);
+
+  return {
+    id: row['문서번호'] || `INC-${Date.now()}-${index}`,
+    docNo: row['문서번호'] ? String(row['문서번호']).trim() : `미부여-${index}`,
+    date: row['발생일시'] ? String(row['발생일시']).replace(/\n/g, ' ').trim() : '',
+    year: Number(row['발생년(피벗)']) || (row['발생일시'] ? parseInt(String(row['발생일시']).slice(0, 4)) : 2026),
+    month: Number(row['발생월(피벗)']) || 0,
+    team: team,
+    department: dept,
+    location: detailLocation,
+    type: cleanType,           // 정제된 '사고유형1' 주입
+    title: title,
+    description: row['내용'] ? String(row['내용']).trim() : '',
+    countermeasure: row['재발방지대책'] ? String(row['재발방지대책']).trim() : '',
+    victimType: victimType,
+    victimDetail: victimRaw,
+    insuranceCost: insuranceCost,
+    industrialAccident: row['산업재해조사표'] ? String(row['산업재해조사표']).trim() : '해당 없음',
+    status: '조치완료'
+  };
+};
+
+if (typeof window !== 'undefined') {
+  window.parseIncidentRow = parseIncidentRow;
+}
+
 // Convert Excel Rows to Dashboard Incident Objects
 function parseExcelRows(rawRows) {
   const result = [];
-  let rowIdx = 1;
+  let rowIdx = 0;
 
-  for (const row of rawRows) {
-    let docNo = getColValue(row, ["문서번호", "문서 번호", "docNo", "DocNo", "사고번호", "관리번호", "No", "NO", "번호"]);
-    if (!docNo) {
-      docNo = `2026-H${String(1000 + rowIdx).padStart(4, "0")}-${String(rowIdx).padStart(6, "0")}`;
+  for (const r of rawRows) {
+    if (!r) continue;
+    // Normalize row keys
+    const row = {};
+    for (const [k, v] of Object.entries(r)) {
+      row[String(k).trim()] = v;
     }
 
-    const dept = getColValue(row, ["부문/부서", "부문", "부서", "소속", "dept", "Dept", "담당부서"], "리조트운영팀");
-    const resort = getColValue(row, ["구분1", "사업장", "리조트", "사업부", "area", "구분", "골프장"], "IPARK 리조트");
-    const locationDetail = getColValue(row, ["위치(세부)", "위치(상세)", "위치", "세부위치", "발생장소", "장소", "locationDetail"], "공용 구역");
-    const victimType = getColValue(row, ["구분2", "대상", "피해자구분", "피해자", "victimType", "고객구분"], "고객");
-    let reportDate = getColValue(row, ["기안일", "기안일자", "보고일", "등록일", "reportDate"], "");
-    if (/^\d{5}$/.test(String(reportDate).trim())) {
-      const serial = parseInt(reportDate, 10);
-      const utc_days = Math.floor(serial - 25569);
-      const utc_value = utc_days * 86400;
-      const date_info = new Date(utc_value * 1000);
-      reportDate = date_info.toISOString().slice(0, 10);
-    }
-    reportDate = String(reportDate).replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
+    const hasAnyContent = row['문서번호'] || row['발생일시'] || row['사고유형1'] || row['내용'] || row['위치(세부)'];
+    if (!hasAnyContent) continue;
 
-    let occurDate = getColValue(row, ["발생일시", "발생일", "일시", "발생 일시", "사고일시", "occurDate", "Date"]);
-    if (/^\d{5}$/.test(String(occurDate).trim())) {
-      const serial = parseInt(occurDate, 10);
-      const utc_days = Math.floor(serial - 25569);
-      const utc_value = utc_days * 86400;
-      const date_info = new Date(utc_value * 1000);
-      occurDate = date_info.toISOString().slice(0, 10);
-    }
-    if (!occurDate) {
-      occurDate = reportDate || new Date().toISOString().slice(0, 10);
-    } else {
-      occurDate = String(occurDate).replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
-    }
+    const parsed = parseIncidentRow(row, rowIdx);
 
-    const category = getColValue(row, ["사고유형", "유형", "사고종류", "분류", "incidentType", "사고구분"], "기타");
-    const description = getColValue(row, ["내용", "상세내용", "사고내용", "사고경위", "경위", "개요", "description"], "경위 기록 없음");
+    const occurDate = parsed.date || new Date().toISOString().slice(0, 10);
+    const reportDateStr = occurDate.length >= 10 ? occurDate.slice(0, 10).replace(/\./g, '-') : `${parsed.year}-01-01`;
+    const zone = inferZoneFromLocation(parsed.location, parsed.department, parsed.team);
+    const severity = inferSeverity(parsed.description, parsed.type);
 
-    let title = getColValue(row, ["제목", "사고제목", "건명", "title"]);
-    if (!title) {
-      const locPrefix = locationDetail && locationDetail !== "공용 구역" ? `[${locationDetail}]` : (resort ? `[${resort}]` : "");
-      const catSuffix = category ? `${category} 사고` : "안전 사고";
-      title = `${locPrefix} ${catSuffix}`.trim();
-    }
-
-    const faultRatio = getColValue(row, ["과실비율", "과실", "과실율", "faultRatio"], "과실 미산정");
-    const totalAmount = parseNumericCost(getColValue(row, ["총금액", "총 금액", "총금액(원)", "손해액", "totalAmount"], "0"));
-    const companyAmount = parseNumericCost(getColValue(row, ["보험금", "보험금액", "당사지급금액", "당사지급액", "당사 지급 금액", "보상금액", "보상금", "companyAmount", "지급금액", "cost", "당사부담금"], "0"));
-    const personalAmount = parseNumericCost(getColValue(row, ["본인부담금", "본인 부담금", "자부담", "personalAmount"], "0"));
-
-    const zone = inferZoneFromLocation(locationDetail, dept, resort);
-    const severity = inferSeverity(description, category);
-    const status = getColValue(row, ["처리상태", "상태", "진행상태", "status"], "조치완료");
-    const manager = getColValue(row, ["담당자", "담당", "작성자", "manager"], dept || "안전관리팀");
-
-    const actionTaken = getColValue(row, ["조치내역", "초동조치", "조치", "actionTaken"], "현장 초동 조치 및 고객 케어 완료");
-    const preventiveMeasure = getColValue(row, ["재발방지대책", "예방대책", "개선대책", "preventiveMeasure"], "시설 및 운영 프로세스 점검 강화");
-
-    result.push({
-      id: docNo,
-      date: occurDate,
-      resort,
+    const item = {
+      ...parsed,
+      // Compatibility aliases for charts, KPI cards, filters, modals
+      documentNumber: parsed.docNo,
+      occurredAt: occurDate,
+      category: parsed.type,
+      incidentType: parsed.type,
+      dept: parsed.team,
+      resort: parsed.team,
+      businessUnit: parsed.team,
+      division: parsed.department,
+      locationDetail: parsed.location,
+      place: parsed.location,
+      victim: parsed.victimType,
+      cost: parsed.insuranceCost,
+      companyAmount: parsed.insuranceCost,
+      totalAmount: parsed.insuranceCost,
+      personalAmount: 0,
+      reportStatus: parsed.industrialAccident,
+      industrialAccidentReport: parsed.industrialAccident,
+      preventiveMeasure: parsed.countermeasure || "시설 안전 점검 및 프로세스 준수 강화",
+      actionTaken: "초동 조치 완료 및 현장 확인",
+      victimName: "익명",
+      manager: parsed.team || "안전관리팀",
       zone,
-      locationDetail,
-      category,
       severity,
-      victimType,
-      victimName: getColValue(row, ["피해자명", "고객명", "성명", "이름"], "익명"),
-      title,
-      description,
-      actionTaken,
-      preventiveMeasure,
-      status,
-      cost: companyAmount,
-      companyAmount: companyAmount,
-      '보험금': companyAmount,
-      faultRatio,
-      totalAmount,
-      companyAmount,
-      personalAmount,
-      manager,
-      dept,
-      reportDate,
+      faultRatio: parsed.insuranceCost > 0 ? "당사 과실 일부" : "과실 미산정",
+      reportDate: reportDateStr,
+      notes: String(row['비고'] || '').trim(),
       timeline: [
-        { time: occurDate, note: "사고 발생 접수" },
-        { time: occurDate, note: `조치 내역: ${actionTaken.slice(0, 40)}` }
-      ]
-    });
+        { time: occurDate.slice(0, 16), note: "사고 발생 접수" },
+        { time: occurDate.slice(0, 16), note: "초동 조치 완료 및 확인" }
+      ],
+      '사고유형1': parsed.type,
+      '구분1': parsed.team,
+      '구분2': parsed.victimDetail,
+      '보험금': parsed.insuranceCost
+    };
 
+    result.push(item);
     rowIdx++;
   }
 
