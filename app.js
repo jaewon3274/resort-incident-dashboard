@@ -3340,7 +3340,8 @@ function populateEditForm(id) {
   const item = state.incidents.find(i => i.id === id);
   if (!item) return;
 
-  document.getElementById("edit-id").value = item.id;
+  const docNum = item.docNo || item.documentNumber || item.id || "";
+  document.getElementById("edit-id").value = docNum;
   document.getElementById("edit-date").value = item.date;
   document.getElementById("edit-resort").value = item.resort;
   const editDeptEl = document.getElementById("edit-dept");
@@ -3386,6 +3387,8 @@ function handleSaveEdit() {
   const item = state.incidents.find(i => i.id === id);
   if (!item) return;
 
+  const docNoInput = document.getElementById("edit-id");
+  const docNo = docNoInput ? docNoInput.value.trim() : "";
   const dateStr = document.getElementById("edit-date").value.trim();
   const resort = document.getElementById("edit-resort").value.trim();
   const editDeptEl = document.getElementById("edit-dept");
@@ -3428,6 +3431,8 @@ function handleSaveEdit() {
   });
 
   const updatedFields = {
+    docNo: docNo || item.docNo || item.id,
+    documentNumber: docNo || item.documentNumber || item.docNo || item.id,
     date: dateStr,
     category: category,
     type: category,
