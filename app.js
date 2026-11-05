@@ -527,6 +527,8 @@ const state = {
   currentKpiDrillType: null,
   currentKpiDrillTitle: "",
   trendSelectedItem: null,
+  trendSelectedTeam: null,
+  trendSelectedType: null,
   currentPage: 1,
   pageSize: 10,
   sort: {
@@ -1816,6 +1818,8 @@ function openTrendAnalysisModal() {
   const modal = document.getElementById("trend-analysis-modal");
   if (!modal) return;
 
+  state.trendSelectedTeam = null;
+  state.trendSelectedType = null;
   state.trendSelectedItem = null; // 초기에는 아무것도 선택되지 않은 전체 표출 상태
   renderTrendAnalysis();
   modal.classList.add("active");
@@ -1916,13 +1920,16 @@ function renderTrendAnalysis() {
 // ==========================================================================
 // 2-1-B. [KPI 1] 사고 발생 추이 및 통계 브리핑: TOP 3 인터랙티브 선택 & 세부 패널
 // ==========================================================================
+// ==========================================================================
+// 2-1-B. [KPI 1] 사고 발생 추이 및 통계 브리핑: TOP 3 2중 연계 필터 & 세부 패널
+// ==========================================================================
 function renderTrendTopRankings() {
   const allIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
     ? state.filteredIncidents
     : (state.incidents || []);
   const totalCount = allIncidents.length || 1;
 
-  // 1) 사업장/소속팀 TOP 3 집계
+  // 1) 사업장/소속팀 TOP 3 집계 (전체 범위 기준)
   const teamCounts = {};
   allIncidents.forEach(item => {
     const team = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "기타";
@@ -1937,17 +1944,22 @@ function renderTrendTopRankings() {
       percentage: ((count / totalCount) * 100).toFixed(1) + "%"
     }));
 
+  const topResortsSubTitle = document.getElementById("trend-top-resorts-subtitle");
+  if (topResortsSubTitle) {
+    topResortsSubTitle.innerHTML = state.trendSelectedTeam
+      ? `<span style="color: #2563eb; font-weight: 700;">[${escapeHtml(state.trendSelectedTeam)}] 선택됨</span> <span style="color: #94a3b8; font-size: 11px;">(재클릭 시 해제)</span>`
+      : `항목 클릭 시 세부 내역 표출`;
+  }
+
   const topResortsEl = document.getElementById("trend-top-resorts");
   if (topResortsEl) {
     topResortsEl.innerHTML = topTeams.map((team, idx) => {
-      const isSelected = state.trendSelectedItem && 
-                         state.trendSelectedItem.category === 'team' && 
-                         state.trendSelectedItem.name === team.name;
+      const isSelected = state.trendSelectedTeam === team.name;
       return `
         <div
-          onclick="handleTrendItemSelect('team', '${escapeHtml(team.name)}', ${team.count}, '${team.percentage}')"
+          onclick="handleTrendItemSelect('team', '${escapeHtml(team.name)}')"
           class="trend-top-item ${isSelected ? 'is-selected is-team' : ''}"
-          title="클릭하여 '${escapeHtml(team.name)}' 세부 구성 비율 및 사고 목록 조회"
+          title="${isSelected ? '클릭하여 \'' + escapeHtml(team.name) + '\' 필터 해제' : '클릭하여 \'' + escapeHtml(team.name) + '\' 세부 구성 비율 및 사고 목록 조회'}"
         >
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span class="trend-top-rank">${idx + 1}</span>
@@ -1963,9 +1975,20 @@ function renderTrendTopRankings() {
     }).join("");
   }
 
-  // 2) 사고유형 TOP 3 집계
+  // 2) 사고유형 TOP 3 집계 (사업장 선택 여부에 따라 연동 재계산)
+  let typeBaseIncidents = allIncidents;
+  let typeScopeCount = totalCount;
+
+  if (state.trendSelectedTeam) {
+    typeBaseIncidents = allIncidents.filter(item => {
+      const d = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "기타";
+      return d === state.trendSelectedTeam;
+    });
+    typeScopeCount = typeBaseIncidents.length || 1;
+  }
+
   const typeCounts = {};
-  allIncidents.forEach(item => {
+  typeBaseIncidents.forEach(item => {
     const type = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
     typeCounts[type] = (typeCounts[type] || 0) + 1;
   });
@@ -1975,20 +1998,33 @@ function renderTrendTopRankings() {
     .map(([name, count]) => ({
       name,
       count,
-      percentage: ((count / totalCount) * 100).toFixed(1) + "%"
+      percentage: ((count / typeScopeCount) * 100).toFixed(1) + "%"
     }));
+
+  const topCategoriesTitle = document.getElementById("trend-top-categories-title");
+  const topCategoriesSubTitle = document.getElementById("trend-top-categories-subtitle");
+  if (topCategoriesTitle) {
+    topCategoriesTitle.innerHTML = state.trendSelectedTeam
+      ? `⚠️ 최다 발생 사고유형 TOP 3 <span style="font-size: 0.72rem; color: #2563eb; background: #eff6ff; border: 1px solid #bfdbfe; padding: 1px 6px; border-radius: 9999px; margin-left: 4px; font-weight: 600;">${escapeHtml(state.trendSelectedTeam)} 기준</span>`
+      : `⚠️ 최다 발생 사고유형 TOP 3`;
+  }
+  if (topCategoriesSubTitle) {
+    topCategoriesSubTitle.innerHTML = state.trendSelectedType
+      ? `<span style="color: #4f46e5; font-weight: 700;">[${escapeHtml(state.trendSelectedType)}] 선택됨</span> <span style="color: #94a3b8; font-size: 11px;">(재클릭 시 해제)</span>`
+      : (state.trendSelectedTeam 
+          ? `<span style="color: #2563eb; font-weight: 600;">[${escapeHtml(state.trendSelectedTeam)}] 내 3대 유형</span>`
+          : `항목 클릭 시 세부 내역 표출`);
+  }
 
   const topCatEl = document.getElementById("trend-top-categories");
   if (topCatEl) {
     topCatEl.innerHTML = topTypes.map((type, idx) => {
-      const isSelected = state.trendSelectedItem && 
-                         state.trendSelectedItem.category === 'type' && 
-                         state.trendSelectedItem.name === type.name;
+      const isSelected = state.trendSelectedType === type.name;
       return `
         <div
-          onclick="handleTrendItemSelect('type', '${escapeHtml(type.name)}', ${type.count}, '${type.percentage}')"
+          onclick="handleTrendItemSelect('type', '${escapeHtml(type.name)}')"
           class="trend-top-item ${isSelected ? 'is-selected is-type' : ''}"
-          title="클릭하여 '${escapeHtml(type.name)}' 세부 구성 비율 및 사고 목록 조회"
+          title="${isSelected ? '클릭하여 \'' + escapeHtml(type.name) + '\' 필터 해제' : '클릭하여 \'' + escapeHtml(type.name) + '\' 세부 구성 비율 및 사고 목록 조회'}"
         >
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span class="trend-top-rank">${idx + 1}</span>
@@ -2006,21 +2042,50 @@ function renderTrendTopRankings() {
 }
 window.renderTrendTopRankings = renderTrendTopRankings;
 
-function handleTrendItemSelect(category, name, count, percentage) {
-  if (state.trendSelectedItem && state.trendSelectedItem.category === category && state.trendSelectedItem.name === name) {
-    // 같은 카드를 다시 클릭하면 선택 해제 -> 전체 사고 분석 복원
+function handleTrendItemSelect(category, name) {
+  if (category === "reset" || (!category && !name)) {
+    // [필터 전체 해제] 클릭 시 초기 전체 표출 모드로 복원
+    state.trendSelectedTeam = null;
+    state.trendSelectedType = null;
     state.trendSelectedItem = null;
-  } else if (!category && !name) {
-    // 닫기 버튼을 클릭했을 때 -> 전체 사고 분석 복원
-    state.trendSelectedItem = null;
-  } else {
-    state.trendSelectedItem = {
-      category: category,
-      name: name,
-      totalCount: count,
-      percentage: percentage
-    };
+  } else if (category === "team") {
+    if (state.trendSelectedTeam === name) {
+      // 이미 선택된 사업장 카드 재클릭 -> 사업장 필터 개별 토글 해제
+      state.trendSelectedTeam = null;
+    } else {
+      state.trendSelectedTeam = name;
+    }
+  } else if (category === "type") {
+    if (state.trendSelectedType === name) {
+      // 이미 선택된 사고유형 카드 재클릭 -> 사고유형 필터 개별 토글 해제
+      state.trendSelectedType = null;
+    } else {
+      state.trendSelectedType = name;
+    }
   }
+
+  // 하위 호환성을 위한 state.trendSelectedItem 동기화
+  if (state.trendSelectedTeam && state.trendSelectedType) {
+    state.trendSelectedItem = {
+      category: "both",
+      team: state.trendSelectedTeam,
+      type: state.trendSelectedType,
+      name: `${state.trendSelectedTeam} > ${state.trendSelectedType}`
+    };
+  } else if (state.trendSelectedTeam) {
+    state.trendSelectedItem = {
+      category: "team",
+      name: state.trendSelectedTeam
+    };
+  } else if (state.trendSelectedType) {
+    state.trendSelectedItem = {
+      category: "type",
+      name: state.trendSelectedType
+    };
+  } else {
+    state.trendSelectedItem = null;
+  }
+
   renderTrendTopRankings();
   renderTrendDetailPanel();
 }
@@ -2034,36 +2099,19 @@ function renderTrendDetailPanel() {
     ? state.filteredIncidents
     : (state.incidents || []);
 
-  const sel = state.trendSelectedItem;
-  let filtered = [];
-  const breakdownMap = {};
+  const selTeam = state.trendSelectedTeam;
+  const selType = state.trendSelectedType;
+  const hasFilter = Boolean(selTeam || selType);
 
-  if (!sel) {
-    // [요구사항 1] 아무것도 선택하지 않았을 때: 현재 필터 범위 전체 건에 대한 기본 분석
-    filtered = [...allIncidents];
-    filtered.forEach(item => {
-      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
-      breakdownMap[t] = (breakdownMap[t] || 0) + 1;
-    });
-  } else if (sel.category === "team") {
-    filtered = allIncidents.filter(item => {
-      const d = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "";
-      return d === sel.name;
-    });
-    filtered.forEach(item => {
-      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
-      breakdownMap[t] = (breakdownMap[t] || 0) + 1;
-    });
-  } else {
-    filtered = allIncidents.filter(item => {
-      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "";
-      return t === sel.name;
-    });
-    filtered.forEach(item => {
-      const d = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "기타";
-      breakdownMap[d] = (breakdownMap[d] || 0) + 1;
-    });
-  }
+  // AND 조합 필터링 수행
+  let filtered = allIncidents.filter(item => {
+    const itemDept = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "기타";
+    const itemCat = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
+
+    const matchTeam = !selTeam || itemDept === selTeam;
+    const matchType = !selType || itemCat === selType;
+    return matchTeam && matchType;
+  });
 
   // 최신순 (날짜 내림차순) 정렬
   filtered.sort((a, b) => {
@@ -2071,6 +2119,43 @@ function renderTrendDetailPanel() {
     const db = parseIncidentDate(b)?.getTime() || 0;
     return db - da;
   });
+
+  // 하위 구성비 (서브 브레이크다운) 집계
+  const breakdownMap = {};
+  let subCategoryTitle = "";
+
+  if (selTeam && selType) {
+    // 사업장 + 사고유형 2중 선택 시: 세부 소속팀(CC) 또는 구역/장소별 비중 집계
+    subCategoryTitle = `[${selTeam} > ${selType}] 세부 소속팀/구역별 비중`;
+    filtered.forEach(item => {
+      const subTeam = item.team || item.businessUnit || "";
+      const key = (subTeam && subTeam !== selTeam)
+        ? subTeam
+        : (getIncidentLocation(item) || item.victimType || "기타");
+      breakdownMap[key] = (breakdownMap[key] || 0) + 1;
+    });
+  } else if (selTeam) {
+    // 사업장만 선택 시: 해당 사업장 내 사고유형별 비중 집계
+    subCategoryTitle = `[${selTeam}] 주요 발생 사고유형 비중`;
+    filtered.forEach(item => {
+      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
+      breakdownMap[t] = (breakdownMap[t] || 0) + 1;
+    });
+  } else if (selType) {
+    // 사고유형만 선택 시: 해당 사고유형의 사업장/부서별 비중 집계
+    subCategoryTitle = `[${selType}] 주요 발생 사업장/팀 비중`;
+    filtered.forEach(item => {
+      const d = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "기타";
+      breakdownMap[d] = (breakdownMap[d] || 0) + 1;
+    });
+  } else {
+    // 아무것도 선택하지 않은 전체 표출 모드: 전체 범위 주요 사고유형 비중 집계
+    subCategoryTitle = `주요 발생 사고유형 비중 (전체)`;
+    filtered.forEach(item => {
+      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
+      breakdownMap[t] = (breakdownMap[t] || 0) + 1;
+    });
+  }
 
   const subBreakdown = Object.entries(breakdownMap)
     .map(([name, cnt]) => ({
@@ -2084,15 +2169,31 @@ function renderTrendDetailPanel() {
   panel.style.display = "block";
   panel.className = "animate-fadeIn";
 
-  const titleText = sel ? `[${escapeHtml(sel.name)}] 상세 구성 비율 분석` : `[전체 사고 분석] 주요 발생 사고유형 비중 및 내역`;
-  const badgeText = sel ? `총 ${sel.totalCount}건 (${sel.percentage})` : `총 ${allIncidents.length}건 (100.0%)`;
-  const subCategoryTitle = sel 
-    ? (sel.category === 'team' ? '주요 발생 사고유형 비중' : '주요 발생 사업장/팀 비중')
-    : '주요 발생 사고유형 비중 (전체)';
+  // 패널 제목 및 뱃지 텍스트
+  let titleHtml = "";
+  let badgeText = "";
 
-  const closeButtonHtml = sel
-    ? `<button type="button" onclick="handleTrendItemSelect()" style="font-size: 0.78rem; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; cursor: pointer; padding: 0.25rem 0.65rem; border-radius: 0.375rem; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;" onmouseover="this.style.color='#0f172a'; this.style.backgroundColor='#e2e8f0'" onmouseout="this.style.color='#475569'; this.style.backgroundColor='#f1f5f9'" title="선택 해제하고 전체 사고 분석으로 복원">✕ 닫기 (전체 분석 복원)</button>`
+  if (selTeam && selType) {
+    titleHtml = `[<span style="color: #2563eb;">${escapeHtml(selTeam)}</span> &gt; <span style="color: #4f46e5;">${escapeHtml(selType)}</span>] 상세 내역`;
+    badgeText = `총 ${filtered.length}건 (전체의 ${((filtered.length / (allIncidents.length || 1)) * 100).toFixed(1)}%)`;
+  } else if (selTeam) {
+    titleHtml = `[<span style="color: #2563eb;">${escapeHtml(selTeam)}</span>] 주요 발생 사고유형 비중 및 내역`;
+    badgeText = `총 ${filtered.length}건 (${((filtered.length / (allIncidents.length || 1)) * 100).toFixed(1)}%)`;
+  } else if (selType) {
+    titleHtml = `[<span style="color: #4f46e5;">${escapeHtml(selType)}</span>] 주요 발생 사업장 비중 및 내역`;
+    badgeText = `총 ${filtered.length}건 (${((filtered.length / (allIncidents.length || 1)) * 100).toFixed(1)}%)`;
+  } else {
+    titleHtml = `[전체 사고 분석] 주요 발생 사고유형 비중 및 내역`;
+    badgeText = `총 ${allIncidents.length}건 (100.0%)`;
+  }
+
+  const closeButtonHtml = hasFilter
+    ? `<button type="button" onclick="handleTrendItemSelect('reset')" style="font-size: 0.78rem; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; cursor: pointer; padding: 0.28rem 0.75rem; border-radius: 0.375rem; font-weight: 600; display: flex; align-items: center; gap: 0.35rem; transition: all 0.15s ease;" onmouseover="this.style.color='#0f172a'; this.style.backgroundColor='#e2e8f0'" onmouseout="this.style.color='#475569'; this.style.backgroundColor='#f1f5f9'" title="선택된 모든 조건을 해제하고 전체 사고 분석으로 복원">✕ 필터 전체 해제 (전체 분석 복원)</button>`
     : `<span style="font-size: 0.75rem; color: #64748b; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.375rem; padding: 0.2rem 0.55rem; font-weight: 500;">전체 표출 모드</span>`;
+
+  const thirdColHeader = (selTeam && selType)
+    ? "소속팀/CC"
+    : (selTeam ? "사고유형" : (selType ? "소속팀" : "사고유형"));
 
   panel.innerHTML = `
     <div style="border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.25rem; background: #ffffff; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);">
@@ -2102,7 +2203,7 @@ function renderTrendDetailPanel() {
         <div style="display: flex; align-items: center; gap: 0.5rem;">
           <span style="color: #2563eb; font-weight: 700; font-size: 1.15rem; line-height: 1;">↳</span>
           <span style="font-weight: 700; color: #1e293b; font-size: 0.95rem;">
-            ${titleText}
+            ${titleHtml}
           </span>
           <span style="font-size: 0.75rem; background-color: #f1f5f9; color: #475569; padding: 0.15rem 0.55rem; border-radius: 9999px; font-weight: 600;">
             ${badgeText}
@@ -2118,21 +2219,21 @@ function renderTrendDetailPanel() {
         </span>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem;">
           ${subBreakdown.map(sub => `
-            <div style="background: #ffffff; padding: 0.625rem; border-radius: 0.375rem; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between;">
-              <span style="font-size: 0.75rem; color: #475569; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500;" title="${escapeHtml(sub.name)}">${escapeHtml(sub.name)}</span>
-              <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 0.35rem;">
-                <span style="font-size: 0.875rem; font-weight: 700; color: #1e293b;">${sub.count}건</span>
-                <span style="font-size: 0.75rem; color: #2563eb; font-weight: 600;">${sub.percent}%</span>
+            <div style="background: #ffffff; padding: 0.65rem 0.75rem; border-radius: 0.375rem; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between;">
+              <span style="font-size: 0.75rem; color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(sub.name)}">${escapeHtml(sub.name)}</span>
+              <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 0.25rem;">
+                <span style="font-weight: 700; font-size: 0.875rem; color: #1e293b;">${sub.count}건</span>
+                <span style="font-size: 0.75rem; font-weight: 600; color: #2563eb;">${sub.percent}%</span>
               </div>
             </div>
-          `).join('')}
+          `).join("")}
         </div>
       </div>
 
       <!-- 실제 사고 건별 리스트 테이블 -->
       <div style="margin-top: 1rem;">
         <span style="font-size: 0.76rem; font-weight: 600; color: #64748b; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.5rem;">
-          <span>📄</span> ${sel ? '세부 사고 등록 내역' : '전체 사고 등록 내역'} (최신순 ${filtered.length}건)
+          <span>📄</span> ${hasFilter ? '세부 사고 등록 내역' : '전체 사고 등록 내역'} (최신순 ${filtered.length}건)
         </span>
         <div style="max-height: 280px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.75rem;">
           <table style="width: 100%; text-align: left; border-collapse: collapse;">
@@ -2140,7 +2241,7 @@ function renderTrendDetailPanel() {
               <tr>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 145px; white-space: nowrap;">문서번호</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 125px; white-space: nowrap;">발생일시</th>
-                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 110px;">${!sel ? '사고유형' : (sel.category === 'team' ? '사고유형' : '소속팀')}</th>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 110px;">${thirdColHeader}</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 130px;">발생장소</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600;">사고 경위 요약</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 95px; text-align: center; white-space: nowrap;">처리상태</th>
@@ -2162,17 +2263,23 @@ function renderTrendDetailPanel() {
                 const docNo = row.docNo || row.documentNumber || row.id || '-';
                 const place = row.locationDetail || row.place || row.location || row.zone || '-';
                 const desc = row.title || row.description || row.summary || '사고 개요 없음';
-                const subCategory = !sel
-                  ? ((typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || '기타')
-                  : (sel.category === 'team' 
-                    ? ((typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || '기타') 
-                    : ((typeof getIncidentDept === "function" ? getIncidentDept(row) : "") || row.dept || row.department || row.resort || '기타'));
+
+                let thirdColVal = "";
+                if (selTeam && selType) {
+                  thirdColVal = row.team || row.businessUnit || row.resort || "기타";
+                } else if (selTeam) {
+                  thirdColVal = (typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || "기타";
+                } else if (selType) {
+                  thirdColVal = row.displayLocation || (row.department && row.department !== row.team ? `${row.team} (${row.department})` : row.team) || ((typeof getIncidentDept === "function" ? getIncidentDept(row) : "") || row.dept || row.department || row.resort || "기타");
+                } else {
+                  thirdColVal = (typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || "기타";
+                }
 
                 return `
                   <tr onclick="navigateToDetailFromTrendModal('${escapeHtml(row.id)}')" style="cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background-color 0.15s ease;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'" title="클릭하여 사고 상세 정보 조회 및 수정">
                     <td style="padding: 0.5rem 0.75rem; font-family: monospace; font-size: 11px; font-weight: 700; color: #2563eb; white-space: nowrap;">${escapeHtml(docNo)}</td>
                     <td style="padding: 0.5rem 0.75rem; color: #64748b; white-space: nowrap;">${escapeHtml(row.date || row.occurredAt || '-')}</td>
-                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #334155;">${escapeHtml(subCategory)}</td>
+                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #334155;">${escapeHtml(thirdColVal)}</td>
                     <td style="padding: 0.5rem 0.75rem; color: #475569;">${escapeHtml(place)}</td>
                     <td style="padding: 0.5rem 0.75rem; color: #1e293b; font-weight: 500; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeHtml(desc)}">
                       ${escapeHtml(desc)}
@@ -2185,7 +2292,7 @@ function renderTrendDetailPanel() {
                     </td>
                   </tr>
                 `;
-              }).join('')}
+              }).join("")}
             </tbody>
           </table>
         </div>
