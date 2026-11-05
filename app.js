@@ -1670,7 +1670,7 @@ function renderCostAnalysisData() {
   if (displayItems.length === 0) {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="5" style="text-align: center; padding: 2.5rem 1rem; color: #94a3b8;">
+        <td colspan="6" style="text-align: center; padding: 2.5rem 1rem; color: #94a3b8;">
           <div style="font-size: 1.8rem; margin-bottom: 0.35rem;">💳</div>
           <div>선택한 기간에 실제 지급된 보상/보험 비용 발생 내역이 없습니다. (지급 건수 0건)</div>
         </td>
@@ -1681,25 +1681,49 @@ function renderCostAnalysisData() {
 
   tableBody.innerHTML = displayItems.map(item => {
     const paid = getIncidentCost(item);
-    const paidText = formatCurrency(paid);
-    const cellStyle = "font-weight: 700; color: #2563eb;";
+    const paidText = `${paid.toLocaleString()}원`;
+    
+    // 1) 문서번호 (w-[180px], 폰트 모노스페이스 또는 굵게, 클릭 시 상세조회 안내 링크 느낌)
+    const docNo = String(item.docNo || item.documentNumber || item.id || '-').trim();
+    
+    // 2) 발생일시 (w-[150px], text-slate-500)
+    const dateStr = String(item.date || item.occurredAt || '-').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+    
+    // 3) 구분/사업장 (w-[120px], 예: 성문안팀, 밸리팀 - font-semibold)
+    const teamName = String(item.team || item['구분1'] || item.resort || item.businessUnit || '기타').trim();
+    
+    // 4) 세부장소 (w-[140px], 엑셀 D열 기준, 예: 18H 벙커, 파인4H - 괄호 없이 깔끔하게)
+    const rawPlace = String(item.locationDetail || item.place || item['위치(세부)'] || item.location || '-');
+    const cleanPlace = rawPlace.replace(/[()]/g, '').trim() || '-';
+    
+    // 5) 사고유형 (w-[120px], 깔끔한 둥근 뱃지 렌더링)
+    const category = getIncidentCategory(item) || '기타';
+
     return `
-      <tr onclick="navigateToDetailFromCost('${escapeHtml(item.id)}')">
-        <td class="id-cell">${escapeHtml(item.id)}</td>
-        <td style="color:#475569; font-size:0.82rem;">${escapeHtml(item.date)}</td>
-        <td>
-          <span style="font-weight:600; color:#1e293b;">${escapeHtml(item.resort)}</span>
-          <span style="color:#64748b; font-size:0.75rem; margin-left:0.25rem;">(${escapeHtml(item.locationDetail || '-')})</span>
+      <tr class="hover:bg-blue-50/50 cursor-pointer border-b border-slate-100 transition-colors" onclick="navigateToDetailFromCost('${escapeHtml(String(item.id))}')" style="cursor: pointer;">
+        <td class="w-[180px] py-3 px-4 font-mono font-semibold text-blue-600 hover:text-blue-800" style="width: 180px; padding: 0.75rem 1rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 600; color: #2563eb;">
+          <span class="hover:underline">${escapeHtml(docNo)}</span>
         </td>
-        <td>
-          <span class="badge badge-category">${escapeHtml(getIncidentCategory(item))}</span>
+        <td class="w-[150px] py-3 px-4 text-slate-500 text-xs sm:text-sm" style="width: 150px; padding: 0.75rem 1rem; color: #64748b; font-size: 0.82rem;">
+          ${escapeHtml(dateStr)}
         </td>
-        <td class="cost-amount-cell" style="text-align: right; ${cellStyle}">
+        <td class="w-[120px] py-3 px-4 font-semibold text-slate-800" style="width: 120px; padding: 0.75rem 1rem; font-weight: 600; color: #1e293b;">
+          ${escapeHtml(teamName)}
+        </td>
+        <td class="w-[140px] py-3 px-4 text-slate-600" style="width: 140px; padding: 0.75rem 1rem; color: #475569;">
+          ${escapeHtml(cleanPlace)}
+        </td>
+        <td class="w-[120px] py-3 px-4" style="width: 120px; padding: 0.75rem 1rem;">
+          <span class="badge badge-category inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" style="background-color: #f1f5f9; color: #334155; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; border: 1px solid #e2e8f0; font-weight: 500;">
+            ${escapeHtml(category)}
+          </span>
+        </td>
+        <td class="w-[150px] py-3 px-4 text-right font-bold text-blue-600" style="width: 150px; padding: 0.75rem 1rem; text-align: right; font-weight: 700; color: #2563eb;">
           ${paidText}
         </td>
       </tr>
     `;
-  }).join("");
+  }).join("")
 }
 
 // Navigate from Cost Modal to Incident Detail Modal
@@ -1792,6 +1816,7 @@ function openTrendAnalysisModal() {
   const modal = document.getElementById("trend-analysis-modal");
   if (!modal) return;
 
+  state.trendSelectedItem = null; // 초기에는 아무것도 선택되지 않은 전체 표출 상태
   renderTrendAnalysis();
   modal.classList.add("active");
   document.body.classList.add("modal-open");
@@ -1983,6 +2008,10 @@ window.renderTrendTopRankings = renderTrendTopRankings;
 
 function handleTrendItemSelect(category, name, count, percentage) {
   if (state.trendSelectedItem && state.trendSelectedItem.category === category && state.trendSelectedItem.name === name) {
+    // 같은 카드를 다시 클릭하면 선택 해제 -> 전체 사고 분석 복원
+    state.trendSelectedItem = null;
+  } else if (!category && !name) {
+    // 닫기 버튼을 클릭했을 때 -> 전체 사고 분석 복원
     state.trendSelectedItem = null;
   } else {
     state.trendSelectedItem = {
@@ -2001,20 +2030,22 @@ function renderTrendDetailPanel() {
   const panel = document.getElementById("trend-detail-panel");
   if (!panel) return;
 
-  const sel = state.trendSelectedItem;
-  if (!sel) {
-    panel.style.display = "none";
-    panel.innerHTML = "";
-    return;
-  }
-
   const allIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
     ? state.filteredIncidents
     : (state.incidents || []);
+
+  const sel = state.trendSelectedItem;
   let filtered = [];
   const breakdownMap = {};
 
-  if (sel.category === "team") {
+  if (!sel) {
+    // [요구사항 1] 아무것도 선택하지 않았을 때: 현재 필터 범위 전체 건에 대한 기본 분석
+    filtered = [...allIncidents];
+    filtered.forEach(item => {
+      const t = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
+      breakdownMap[t] = (breakdownMap[t] || 0) + 1;
+    });
+  } else if (sel.category === "team") {
     filtered = allIncidents.filter(item => {
       const d = (typeof getIncidentDept === "function" ? getIncidentDept(item) : "") || item.dept || item.department || item.resort || "";
       return d === sel.name;
@@ -2052,6 +2083,17 @@ function renderTrendDetailPanel() {
 
   panel.style.display = "block";
   panel.className = "animate-fadeIn";
+
+  const titleText = sel ? `[${escapeHtml(sel.name)}] 상세 구성 비율 분석` : `[전체 사고 분석] 주요 발생 사고유형 비중 및 내역`;
+  const badgeText = sel ? `총 ${sel.totalCount}건 (${sel.percentage})` : `총 ${allIncidents.length}건 (100.0%)`;
+  const subCategoryTitle = sel 
+    ? (sel.category === 'team' ? '주요 발생 사고유형 비중' : '주요 발생 사업장/팀 비중')
+    : '주요 발생 사고유형 비중 (전체)';
+
+  const closeButtonHtml = sel
+    ? `<button type="button" onclick="handleTrendItemSelect()" style="font-size: 0.78rem; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; cursor: pointer; padding: 0.25rem 0.65rem; border-radius: 0.375rem; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;" onmouseover="this.style.color='#0f172a'; this.style.backgroundColor='#e2e8f0'" onmouseout="this.style.color='#475569'; this.style.backgroundColor='#f1f5f9'" title="선택 해제하고 전체 사고 분석으로 복원">✕ 닫기 (전체 분석 복원)</button>`
+    : `<span style="font-size: 0.75rem; color: #64748b; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.375rem; padding: 0.2rem 0.55rem; font-weight: 500;">전체 표출 모드</span>`;
+
   panel.innerHTML = `
     <div style="border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.25rem; background: #ffffff; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);">
       
@@ -2060,21 +2102,19 @@ function renderTrendDetailPanel() {
         <div style="display: flex; align-items: center; gap: 0.5rem;">
           <span style="color: #2563eb; font-weight: 700; font-size: 1.15rem; line-height: 1;">↳</span>
           <span style="font-weight: 700; color: #1e293b; font-size: 0.95rem;">
-            [${escapeHtml(sel.name)}] 상세 구성 비율 분석
+            ${titleText}
           </span>
           <span style="font-size: 0.75rem; background-color: #f1f5f9; color: #475569; padding: 0.15rem 0.55rem; border-radius: 9999px; font-weight: 600;">
-            총 ${sel.totalCount}건 (${sel.percentage})
+            ${badgeText}
           </span>
         </div>
-        <button type="button" onclick="handleTrendItemSelect('${sel.category}', '${escapeHtml(sel.name)}')" style="font-size: 0.78rem; color: #94a3b8; background: none; border: 1px solid #e2e8f0; cursor: pointer; padding: 0.25rem 0.65rem; border-radius: 0.375rem; transition: all 0.15s ease;" onmouseover="this.style.color='#1e293b'; this.style.borderColor='#94a3b8'" onmouseout="this.style.color='#94a3b8'; this.style.borderColor='#e2e8f0'">
-          ✕ 닫기
-        </button>
+        ${closeButtonHtml}
       </div>
 
       <!-- 하위 구성비 배지 (어떤 내용으로 구성되어 있는지 요약) -->
       <div style="background-color: #f8fafc; border-radius: 0.5rem; padding: 0.85rem; border: 1px solid #f1f5f9; margin-top: 0.75rem;">
         <span style="font-size: 0.76rem; font-weight: 600; color: #64748b; margin-bottom: 0.5rem; display: block;">
-          ${sel.category === 'team' ? '주요 발생 사고유형 비중' : '주요 발생 사업장/팀 비중'}
+          ${subCategoryTitle}
         </span>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem;">
           ${subBreakdown.map(sub => `
@@ -2092,15 +2132,15 @@ function renderTrendDetailPanel() {
       <!-- 실제 사고 건별 리스트 테이블 -->
       <div style="margin-top: 1rem;">
         <span style="font-size: 0.76rem; font-weight: 600; color: #64748b; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.5rem;">
-          <span>📄</span> 세부 사고 등록 내역 (최신순 ${filtered.length}건)
+          <span>📄</span> ${sel ? '세부 사고 등록 내역' : '전체 사고 등록 내역'} (최신순 ${filtered.length}건)
         </span>
-        <div style="max-height: 240px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.75rem;">
+        <div style="max-height: 280px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.75rem;">
           <table style="width: 100%; text-align: left; border-collapse: collapse;">
             <thead style="background-color: #f8fafc; position: sticky; top: 0; color: #475569; border-bottom: 1px solid #e2e8f0; z-index: 2;">
               <tr>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 145px; white-space: nowrap;">문서번호</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 125px; white-space: nowrap;">발생일시</th>
-                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 110px;">${sel.category === 'team' ? '사고유형' : '소속팀'}</th>
+                <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 110px;">${!sel ? '사고유형' : (sel.category === 'team' ? '사고유형' : '소속팀')}</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 130px;">발생장소</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600;">사고 경위 요약</th>
                 <th style="padding: 0.5rem 0.75rem; font-weight: 600; width: 95px; text-align: center; white-space: nowrap;">처리상태</th>
@@ -2113,7 +2153,7 @@ function renderTrendDetailPanel() {
                     해당 조건의 등록된 사고 내역이 없습니다.
                   </td>
                 </tr>
-              ` : filtered.slice(0, 30).map(row => {
+              ` : filtered.map(row => {
                 const isResolved = row.status === '처리완료' || row.status === '보상완료' || row.status === '조치완료';
                 const badgeStyle = isResolved
                   ? 'background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;'
@@ -2122,9 +2162,11 @@ function renderTrendDetailPanel() {
                 const docNo = row.docNo || row.documentNumber || row.id || '-';
                 const place = row.locationDetail || row.place || row.location || row.zone || '-';
                 const desc = row.title || row.description || row.summary || '사고 개요 없음';
-                const subCategory = sel.category === 'team' 
-                  ? ((typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || '기타') 
-                  : ((typeof getIncidentDept === "function" ? getIncidentDept(row) : "") || row.dept || row.department || row.resort || '기타');
+                const subCategory = !sel
+                  ? ((typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || '기타')
+                  : (sel.category === 'team' 
+                    ? ((typeof getIncidentCategory === "function" ? getIncidentCategory(row) : "") || row.category || row.type || '기타') 
+                    : ((typeof getIncidentDept === "function" ? getIncidentDept(row) : "") || row.dept || row.department || row.resort || '기타'));
 
                 return `
                   <tr onclick="navigateToDetailFromTrendModal('${escapeHtml(row.id)}')" style="cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background-color 0.15s ease;" onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='transparent'" title="클릭하여 사고 상세 정보 조회 및 수정">
@@ -6234,10 +6276,30 @@ window.filterKpiDrilldownByReport = filterKpiDrilldownByReport;
 function handleKpiDrilldownYearChange(year) {
   state.kpiDrillYearFilter = year || "all";
   updateKpiDrilldownData();
+
+  const typeSel = document.getElementById("kpi-drill-filter-type");
+  if (typeSel) {
+    const uniqueTypes = [...new Set((state.kpiDrilldownList || []).map(item => {
+      return (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "";
+    }).filter(Boolean))].sort();
+
+    const curVal = state.kpiDrillTypeFilter || "all";
+    typeSel.innerHTML = `<option value="all">전체 사고유형</option>` +
+      uniqueTypes.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+    typeSel.value = uniqueTypes.includes(curVal) ? curVal : "all";
+    state.kpiDrillTypeFilter = typeSel.value;
+  }
+  renderKpiDrilldownTable();
 }
 window.handleKpiDrilldownYearChange = handleKpiDrilldownYearChange;
 
 // [신규] 드릴다운 데이터 실시간 재계산 및 렌더링
+state.kpiDrillTypeFilter = "all";
+window.filterKpiDrilldownByType = function(type) {
+  state.kpiDrillTypeFilter = type;
+  renderKpiDrilldownTable();
+};
+
 function updateKpiDrilldownData() {
   let base = [...(state.kpiDrilldownBaseList || [])];
   const year = state.kpiDrillYearFilter || "all";
@@ -6446,6 +6508,19 @@ function openKpiDrilldown(type) {
   const reportSel = document.getElementById("kpi-drill-filter-report");
   if (reportSel) reportSel.value = "all";
 
+  // [신규] 사고유형 드롭다운 옵션 자동 생성 및 초기화
+  state.kpiDrillTypeFilter = "all";
+  const typeSel = document.getElementById("kpi-drill-filter-type");
+  if (typeSel) {
+    const uniqueTypes = [...new Set((state.kpiDrilldownBaseList || []).map(item => {
+      return (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "";
+    }).filter(Boolean))].sort();
+
+    typeSel.innerHTML = `<option value="all">전체 사고유형</option>` +
+      uniqueTypes.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+    typeSel.value = "all";
+  }
+
   const modal = document.getElementById("kpi-drilldown-modal");
   if (modal) {
     modal.classList.add("active");
@@ -6468,6 +6543,12 @@ function renderKpiDrilldownTable() {
       if (state.kpiDrillReportFilter === "제출완료") return rep === "제출완료";
       if (state.kpiDrillReportFilter === "해당 없음") return rep !== "제출완료";
       return true;
+    });
+  }
+  if (state.kpiDrillTypeFilter && state.kpiDrillTypeFilter !== "all") {
+    list = list.filter(item => {
+      const cat = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "";
+      return cat === state.kpiDrillTypeFilter;
     });
   }
 
