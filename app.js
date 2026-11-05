@@ -1435,6 +1435,33 @@ function setupEventListeners() {
     if (e.target === yoyDrillModal) closeYoyDrill();
   });
 
+  // 글로벌 ESC (Escape) 키 이벤트 리스너: 상세 조회 창 및 팝업 모달 닫기
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.key === "Esc") {
+      // 1. 상세 모달이 열려 있는 경우
+      if (detailModal && detailModal.classList.contains("active")) {
+        closeDetail();
+        return;
+      }
+      // 2. 신규 등록 모달이 열려 있는 경우
+      if (registerModal && registerModal.classList.contains("active")) {
+        closeRegister();
+        return;
+      }
+      // 3. 다년도 대조표 드릴다운 모달이 열려 있는 경우
+      if (yoyDrillModal && yoyDrillModal.classList.contains("active")) {
+        closeYoyDrill();
+        return;
+      }
+      // 4. 기타 활성화된 모달들 닫기 (KPI 드릴다운, 통계 브리핑, 비용 분석 등)
+      const activeModals = document.querySelectorAll(".modal-overlay.active, .sub-analysis-modal.active, #trend-analysis-modal.active, #pending-incidents-modal.active, #cost-analysis-modal.active, #kpiDrilldownModal.active");
+      if (activeModals && activeModals.length > 0) {
+        activeModals.forEach(m => m.classList.remove("active"));
+        document.body.classList.remove("modal-open");
+      }
+    }
+  });
+
   if (registerForm) {
     registerForm.addEventListener("submit", handleRegisterSubmit);
   }
@@ -3848,8 +3875,35 @@ function getFilteredIncidents(excludeKey = null) {
     const itemVictim = getIncidentVictim(item);
 
     if (search) {
-      const targetStr = `${item?.id || ''} ${item?.title || ''} ${itemLoc} ${item?.description || ''} ${item?.victimName || ''} ${item?.manager || ''} ${item?.resort || item?.businessUnit || ''} ${itemDept} ${item?.faultRatio || ''}`.toLowerCase();
-      if (!targetStr.includes(search)) return false;
+      const searchTerm = String(search || "").trim().toLowerCase();
+
+      if (searchTerm.length > 0) {
+        // [엄격 모드 1 & 2] 사고 본문(description/경위) 간섭 완전 제거, 오직 엑셀 D열('위치(세부)', item.location) 원본 데이터만 기준으로 판별
+        // 공백 제거 없는 글자 그대로 엄격 대조 (Strict Exact Match, includes)
+        const rawLoc = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").toLowerCase();
+        const matchLocation = rawLoc.includes(searchTerm);
+
+        // 기타 관리 필드 (문서번호, 피해자 성명, 제목, 담당자, 부서, 사업장, 사고유형 - 사고 경위 본문 M열은 일체 배제)
+        const docNo = String(item.docNo || item.documentNumber || item.id || "").toLowerCase();
+        const victimName = String(item.victimName && item.victimName !== "익명" && item.victimName !== "미상" ? item.victimName : "").toLowerCase();
+        const title = String(item.title || "").toLowerCase();
+        const manager = String(item.manager || "").toLowerCase();
+        const dept = String(itemDept || "").toLowerCase();
+        const resort = String(item.resort || item.businessUnit || "").toLowerCase();
+        const category = String(incidentCategory || "").toLowerCase();
+
+        const matchOther = docNo.includes(searchTerm) ||
+                           victimName.includes(searchTerm) ||
+                           title.includes(searchTerm) ||
+                           manager.includes(searchTerm) ||
+                           dept.includes(searchTerm) ||
+                           resort.includes(searchTerm) ||
+                           category.includes(searchTerm);
+
+        if (!matchLocation && !matchOther) {
+          return false;
+        }
+      }
     }
 
     if (resort && resort !== "all" && item?.resort !== resort && item?.businessUnit !== resort) {
@@ -4791,6 +4845,12 @@ function renderTable() {
     const deptName = String(item.department || item['부문/부서'] || item.division || (item.dept && item.dept !== teamName ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
     const displayLocation = item.displayLocation || ((deptName && deptName !== teamName) ? `${teamName} (${deptName})` : teamName);
 
+    // 피해자 구분 및 성명 연동 표기 로직 (성명이 있는 경우 '캐디(윤서은)', '직원(홍길동)' 형태)
+    const vType = item.victimType || vInfo.label || "기타";
+    const rawVName = (item.victimName && typeof item.victimName === "string") ? item.victimName.trim() : "";
+    const hasValidName = Boolean(rawVName && rawVName !== "익명" && rawVName !== "미상" && rawVName !== "-" && rawVName !== "미기재");
+    const victimBadgeText = hasValidName ? `${vType}(${rawVName})` : vType;
+
     return `
       <tr onclick="openIncidentDetail('${escapeHtml(String(item.docNo || item.id))}')">
         <td class="no-cell" style="text-align: center;">${globalIndex}</td>
@@ -4799,8 +4859,8 @@ function renderTable() {
         <td class="dept-cell" style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">
           ${escapeHtml(displayLocation)}
         </td>
-        <td style="text-align: center;">
-          <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}" title="${escapeHtml(item.victimName && item.victimName !== '익명' ? `${vInfo.label} (${item.victimName})` : vInfo.label)}">${escapeHtml(vInfo.label)}</span>
+        <td style="text-align: center; white-space: nowrap;">
+          <span class="badge ${vInfo.badgeClass} whitespace-nowrap" style="${vInfo.inlineStyle}; white-space: nowrap;" title="${escapeHtml(victimBadgeText)}">${escapeHtml(victimBadgeText)}</span>
         </td>
         <td class="location-cell" style="font-size: 0.83rem; color: #334155;">
           <span class="location-primary" style="font-weight: 600;">${escapeHtml(item.zone || "")}</span>
@@ -6516,6 +6576,10 @@ function renderYoyDrilldownTable() {
     const deptName = String(item.department || item['부문/부서'] || item.division || (item.dept && item.dept !== teamName ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
     const displayLocation = item.displayLocation || ((deptName && deptName !== teamName) ? `${teamName} (${deptName})` : teamName);
     const vInfo = classifyVictim(item);
+    const vType = item.victimType || vInfo.label || "기타";
+    const rawVName = (item.victimName && typeof item.victimName === "string") ? item.victimName.trim() : "";
+    const hasValidName = Boolean(rawVName && rawVName !== "익명" && rawVName !== "미상" && rawVName !== "-" && rawVName !== "미기재");
+    const victimBadgeText = hasValidName ? `${vType}(${rawVName})` : vType;
 
     // Status badge class
     let statusClass = "badge-status-pending";
@@ -6529,8 +6593,8 @@ function renderYoyDrilldownTable() {
         <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(id)}</td>
         <td style="font-size: 0.82rem; color: #475569; white-space: nowrap;">${escapeHtml(date)}</td>
         <td style="font-size: 0.83rem; color: #0f172a; font-weight: 600;">${escapeHtml(displayLocation)}</td>
-        <td style="text-align: center;">
-          <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}" title="${escapeHtml(item.victimName && item.victimName !== '익명' ? `${vInfo.label} (${item.victimName})` : vInfo.label)}">${escapeHtml(vInfo.label)}</span>
+        <td style="text-align: center; white-space: nowrap;">
+          <span class="badge ${vInfo.badgeClass} whitespace-nowrap" style="${vInfo.inlineStyle}; white-space: nowrap;" title="${escapeHtml(victimBadgeText)}">${escapeHtml(victimBadgeText)}</span>
         </td>
         <td style="font-size: 0.82rem; color: #334155;">${escapeHtml(loc)}</td>
         <td>
@@ -6881,6 +6945,10 @@ function renderKpiDrilldownTable() {
     const vInfo = classifyVictim(item);
     const docNoDisplay = item.docNo || item.documentNumber || item.id || "-";
     const reportBadge = getReportStatusBadge(item.reportStatus || item.industrialAccidentReport || "해당 없음");
+    const vType = item.victimType || vInfo.label || "기타";
+    const rawVName = (item.victimName && typeof item.victimName === "string") ? item.victimName.trim() : "";
+    const hasValidName = Boolean(rawVName && rawVName !== "익명" && rawVName !== "미상" && rawVName !== "-" && rawVName !== "미기재");
+    const victimBadgeText = hasValidName ? `${vType}(${rawVName})` : vType;
 
     return `
       <tr class="drilldown-incident-row" onclick="navigateToDetailFromKpiDrilldown('${escapeHtml(item.id)}')" title="클릭하여 사고 상세 정보 조회 및 수정">
@@ -6888,8 +6956,8 @@ function renderKpiDrilldownTable() {
         <td class="id-cell font-mono text-[12px] whitespace-nowrap" style="min-width: 145px; width: 145px; white-space: nowrap; font-family: monospace; font-size: 12px; font-weight: 700; color: #2563eb;">${escapeHtml(docNoDisplay)}</td>
         <td style="color: #475569; font-weight: 500; font-size: 0.83rem; white-space: nowrap;">${escapeHtml(item.date || item.occurredAt || "-")}</td>
         <td style="font-weight: 600; color: #0f172a; font-size: 0.84rem;">${escapeHtml(displayLocation)}</td>
-        <td style="text-align: center;">
-          <span class="badge ${vInfo.badgeClass}" style="${vInfo.inlineStyle}">${escapeHtml(vInfo.label)}</span>
+        <td style="text-align: center; white-space: nowrap;">
+          <span class="badge ${vInfo.badgeClass} whitespace-nowrap" style="${vInfo.inlineStyle}; white-space: nowrap;" title="${escapeHtml(victimBadgeText)}">${escapeHtml(victimBadgeText)}</span>
         </td>
         <td style="font-size: 0.82rem; color: #334155;">${escapeHtml(item.locationDetail || item.zone || "-")}</td>
         <td>
