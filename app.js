@@ -1789,7 +1789,9 @@ window.navigateToDetailFromDrilldown = function(id) {
     resort: state.yoyDrilldown?.resort,
     category: state.yoyDrilldown?.category,
     tab: state.yoyDrilldown?.activeTab || "a",
-    scrollTop: scrollTop
+    scrollTop: scrollTop,
+    filterMonth: state.yoyDrilldown?.filterMonth,
+    drillType: state.yoyDrilldown?.drillType
   };
 
   const drillModal = document.getElementById("yoyDrilldownModal");
@@ -1814,13 +1816,13 @@ window.handleDetailBackToList = function() {
     return;
   }
 
-  const { fromModalId, resort, category, tab, scrollTop } = detailModalOrigin;
+  const { fromModalId, resort, category, tab, scrollTop, filterMonth, drillType } = detailModalOrigin;
   detailModalOrigin = null;
 
   setTimeout(() => {
     if (fromModalId === "yoyDrilldownModal") {
       if (typeof window.openYoyDrilldown === "function") {
-        window.openYoyDrilldown(resort, category, tab, scrollTop);
+        window.openYoyDrilldown(resort, category, tab, scrollTop, filterMonth, drillType);
       }
     } else {
       const prevModal = document.getElementById(fromModalId);
@@ -5910,6 +5912,8 @@ function executeComparison() {
   state.comparison.lastDataA = dataA;
   state.comparison.lastDataB = dataB;
   state.comparison.lastSelectedType = selectedType;
+  state.comparison.lastLabelA = labelA;
+  state.comparison.lastLabelB = labelB;
 
   renderComparisonCharts(dataA, dataB, labelA, labelB, resA.mode, selectedType);
   renderComparisonTable(dataA, dataB, selectedType);
@@ -5977,8 +5981,68 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode, selectedType
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        onClick: (event, elements, chart) => {
+          if (!elements || elements.length === 0) return;
+          const el = elements[0];
+          const targetPeriod = el.datasetIndex === 0 ? "a" : "b";
+          const labelVal = sortedLabels[el.index];
+          if (!labelVal || labelVal === "데이터 없음") return;
+
+          if (isTypeFiltered) {
+            openYoyDrilldown(labelVal, selectedType, targetPeriod, 0, null, "category");
+          } else {
+            openYoyDrilldown("all", labelVal, targetPeriod, 0, null, "category");
+          }
+        },
+        onHover: (event, elements, chart) => {
+          if (chart && chart.canvas) {
+            chart.canvas.style.cursor = (elements && elements.length > 0) ? "pointer" : "default";
+          }
+        },
         plugins: {
-          legend: { position: "top", labels: { font: { weight: 600 } } }
+          legend: {
+            position: "top",
+            labels: { font: { weight: 600 } },
+            onClick: (e, legendItem, legend) => {
+              if (e) {
+                if (e.native) {
+                  if (typeof e.native.stopPropagation === "function") e.native.stopPropagation();
+                  if (typeof e.native.preventDefault === "function") e.native.preventDefault();
+                }
+                if (typeof e.stopPropagation === "function") e.stopPropagation();
+                if (typeof e.preventDefault === "function") e.preventDefault();
+              }
+              const chart = legend.chart;
+              const clickedIdx = legendItem.datasetIndex;
+
+              if (chart._focusedDataset === clickedIdx) {
+                chart._focusedDataset = null;
+                chart.data.datasets[0].backgroundColor = "#2563EB";
+                chart.data.datasets[1].backgroundColor = "#F59E0B";
+              } else {
+                chart._focusedDataset = clickedIdx;
+                if (clickedIdx === 0) {
+                  chart.data.datasets[0].backgroundColor = "#2563EB";
+                  chart.data.datasets[1].backgroundColor = "rgba(245, 158, 11, 0.22)";
+                } else {
+                  chart.data.datasets[0].backgroundColor = "rgba(37, 99, 235, 0.22)";
+                  chart.data.datasets[1].backgroundColor = "#F59E0B";
+                }
+              }
+              chart.update();
+            },
+            onHover: (e, legendItem, legend) => {
+              if (legend.chart.canvas) legend.chart.canvas.style.cursor = "pointer";
+            },
+            onLeave: (e, legendItem, legend) => {
+              if (legend.chart.canvas) legend.chart.canvas.style.cursor = "default";
+            }
+          },
+          tooltip: {
+            callbacks: {
+              afterLabel: () => "👉 클릭하여 세부 사고 목록 조회"
+            }
+          }
         },
         scales: {
           y: { beginAtZero: true, grid: { color: "#f1f5f9" } },
@@ -6054,8 +6118,85 @@ function renderComparisonCharts(dataA, dataB, labelA, labelB, mode, selectedType
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        onClick: (event, elements, chart) => {
+          if (!elements || elements.length === 0) return;
+          const el = elements[0];
+          const targetPeriod = el.datasetIndex === 0 ? "a" : "b";
+          const monthIndex = el.index; // 0 to 11
+          if (monthIndex < 0 || monthIndex >= 12) return;
+
+          openYoyDrilldown("all", isTypeFiltered ? selectedType : "all", targetPeriod, 0, monthIndex, "month");
+        },
+        onHover: (event, elements, chart) => {
+          if (chart && chart.canvas) {
+            chart.canvas.style.cursor = (elements && elements.length > 0) ? "pointer" : "default";
+          }
+        },
         plugins: {
-          legend: { position: "top", labels: { font: { weight: 600 } } }
+          legend: {
+            position: "top",
+            labels: { font: { weight: 600 } },
+            onClick: (e, legendItem, legend) => {
+              if (e) {
+                if (e.native) {
+                  if (typeof e.native.stopPropagation === "function") e.native.stopPropagation();
+                  if (typeof e.native.preventDefault === "function") e.native.preventDefault();
+                }
+                if (typeof e.stopPropagation === "function") e.stopPropagation();
+                if (typeof e.preventDefault === "function") e.preventDefault();
+              }
+              const chart = legend.chart;
+              const clickedIdx = legendItem.datasetIndex;
+
+              if (chart._focusedDataset === clickedIdx) {
+                chart._focusedDataset = null;
+                chart.data.datasets[0].borderColor = "#2563EB";
+                chart.data.datasets[0].backgroundColor = "rgba(37, 99, 235, 0.12)";
+                chart.data.datasets[0].pointRadius = 4;
+                chart.data.datasets[0].borderWidth = 3;
+
+                chart.data.datasets[1].borderColor = "#F59E0B";
+                chart.data.datasets[1].backgroundColor = "rgba(245, 158, 11, 0.08)";
+                chart.data.datasets[1].pointRadius = 4;
+                chart.data.datasets[1].borderWidth = 3;
+              } else {
+                chart._focusedDataset = clickedIdx;
+                if (clickedIdx === 0) {
+                  chart.data.datasets[0].borderColor = "#2563EB";
+                  chart.data.datasets[0].backgroundColor = "rgba(37, 99, 235, 0.22)";
+                  chart.data.datasets[0].pointRadius = 5;
+                  chart.data.datasets[0].borderWidth = 3.5;
+
+                  chart.data.datasets[1].borderColor = "rgba(245, 158, 11, 0.25)";
+                  chart.data.datasets[1].backgroundColor = "rgba(245, 158, 11, 0.02)";
+                  chart.data.datasets[1].pointRadius = 2;
+                  chart.data.datasets[1].borderWidth = 1.5;
+                } else {
+                  chart.data.datasets[0].borderColor = "rgba(37, 99, 235, 0.25)";
+                  chart.data.datasets[0].backgroundColor = "rgba(37, 99, 235, 0.02)";
+                  chart.data.datasets[0].pointRadius = 2;
+                  chart.data.datasets[0].borderWidth = 1.5;
+
+                  chart.data.datasets[1].borderColor = "#F59E0B";
+                  chart.data.datasets[1].backgroundColor = "rgba(245, 158, 11, 0.22)";
+                  chart.data.datasets[1].pointRadius = 5;
+                  chart.data.datasets[1].borderWidth = 3.5;
+                }
+              }
+              chart.update();
+            },
+            onHover: (e, legendItem, legend) => {
+              if (legend.chart.canvas) legend.chart.canvas.style.cursor = "pointer";
+            },
+            onLeave: (e, legendItem, legend) => {
+              if (legend.chart.canvas) legend.chart.canvas.style.cursor = "default";
+            }
+          },
+          tooltip: {
+            callbacks: {
+              afterLabel: () => "👉 클릭하여 해당 월 사고 목록 조회"
+            }
+          }
         },
         scales: {
           y: { beginAtZero: true, grid: { color: "#f1f5f9" } },
@@ -6441,7 +6582,58 @@ window.renderYoyTable = renderComparisonTable;
 // ==========================================================================
 // 6-6. 다년도 대조표 드릴다운 상세 사고 내역 팝업 모달
 // ==========================================================================
-function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTop = 0) {
+function updateYoyDrilldownHeader() {
+  if (!state.yoyDrilldown) return;
+  const { resort: r, category: c, filterMonth, drillType, listA, listB, activeTab } = state.yoyDrilldown;
+
+  const rawLabelA = (state.comparison && state.comparison.lastLabelA)
+    || document.getElementById("ck-label-period-a")?.textContent
+    || "2026년";
+  const rawLabelB = (state.comparison && state.comparison.lastLabelB)
+    || document.getElementById("ck-label-period-b")?.textContent
+    || "2025년";
+
+  const periodTextA = rawLabelA.includes("A") ? rawLabelA : `A 기간(${rawLabelA})`;
+  const periodTextB = rawLabelB.includes("B") ? rawLabelB : `B 기간(${rawLabelB})`;
+
+  const activePeriodText = activeTab === "a" ? periodTextA : periodTextB;
+  const activeCount = activeTab === "a" ? listA.length : listB.length;
+
+  const titleEl = document.getElementById("yoy-drilldown-title");
+  const subEl = document.getElementById("yoy-drilldown-sub");
+
+  if (titleEl) {
+    if (drillType === "category") {
+      const displayCategory = (c === "all" || !c || c === "-" || c === "소계" || c === "전체 유형") ? "전체 사고유형" : c;
+      titleEl.textContent = `[사고유형: ${displayCategory}] ${activePeriodText} 상세 내역 (총 ${activeCount.toLocaleString()}건)`;
+    } else if (drillType === "month") {
+      const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+      const mName = (filterMonth !== null && filterMonth !== undefined) ? (monthNames[filterMonth] || `${Number(filterMonth) + 1}월`) : "월별";
+      titleEl.textContent = `[월별: ${mName}] ${activePeriodText} 상세 내역 (총 ${activeCount.toLocaleString()}건)`;
+    } else {
+      const displayResort = (r === "all" || !r) ? "전체 사업장" : r;
+      const displayCategory = (c === "all" || !c || c === "-" || c === "소계" || c === "전체 유형") ? "전체 사고유형" : c;
+      titleEl.textContent = `[${displayResort}] - [${displayCategory}] ${activePeriodText} 상세 내역 (총 ${activeCount.toLocaleString()}건)`;
+    }
+  }
+
+  if (subEl) {
+    subEl.textContent = `${periodTextA} ${listA.length.toLocaleString()}건 vs ${periodTextB} ${listB.length.toLocaleString()}건 상세 대조`;
+  }
+
+  const tabLabelAEl = document.getElementById("drill-tab-label-a");
+  const tabLabelBEl = document.getElementById("drill-tab-label-b");
+  if (tabLabelAEl) tabLabelAEl.textContent = `${periodTextA} 사고 목록 (${listA.length.toLocaleString()}건)`;
+  if (tabLabelBEl) tabLabelBEl.textContent = `${periodTextB} 사고 목록 (${listB.length.toLocaleString()}건)`;
+
+  const btnA = document.getElementById("btn-drill-tab-a");
+  const btnB = document.getElementById("btn-drill-tab-b");
+  if (btnA) btnA.classList.toggle("active", activeTab === "a");
+  if (btnB) btnB.classList.toggle("active", activeTab === "b");
+}
+window.updateYoyDrilldownHeader = updateYoyDrilldownHeader;
+
+function openYoyDrilldown(resort = "all", category = "all", preferredTab = null, restoreScrollTop = 0, filterMonth = null, drillType = "table") {
   const r = (resort || "").trim();
   const c = (category || "").trim();
 
@@ -6453,11 +6645,15 @@ function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTo
     ? state.comparison.lastDataB
     : (typeof getIncidentsForCurrentMode === "function" ? getIncidentsForCurrentMode("b").data : []);
 
-  // 사업장 및 사고유형 필터 유연 적용 ('all', '-', '전체 유형', '소계' 대응)
+  // 사업장, 사고유형 및 월 필터 유연 적용 ('all', '-', '전체 유형', '소계' 대응)
   const filterFn = (x) => {
     if (r !== "all" && r !== "" && (x.resort || "").trim() !== r) return false;
     const catVal = getIncidentCategory(x);
     if (c !== "all" && c !== "" && c !== "-" && c !== "소계" && c !== "전체 유형" && catVal !== c) return false;
+    if (filterMonth !== null && filterMonth !== undefined && filterMonth !== "") {
+      const p = parseIncidentDate(x);
+      if (!p || p.getMonth() !== Number(filterMonth)) return false;
+    }
     return true;
   };
 
@@ -6469,37 +6665,17 @@ function openYoyDrilldown(resort, category, preferredTab = null, restoreScrollTo
   state.yoyDrilldown = {
     resort: r,
     category: c,
+    filterMonth: (filterMonth !== null && filterMonth !== undefined && filterMonth !== "") ? Number(filterMonth) : null,
+    drillType: drillType || "table",
     listA,
     listB,
     activeTab
   };
 
-  const totalCount = listA.length + listB.length;
-  const titleEl = document.getElementById("yoy-drilldown-title");
-  const subEl = document.getElementById("yoy-drilldown-sub");
-  if (titleEl) {
-    const displayResort = (r === "all" || !r) ? "전체 사업장" : r;
-    const displayCategory = (c === "all" || !c || c === "-" || c === "소계" || c === "전체 유형") ? "전체 사고유형" : c;
-    titleEl.textContent = `[${displayResort}] - [${displayCategory}] 세부 사고 내역 (총 ${totalCount.toLocaleString()}건)`;
-  }
+  // 헤더 및 탭 라벨 동기화
+  updateYoyDrilldownHeader();
 
-  const labelA = document.getElementById("ck-label-period-a")?.textContent || "A기간";
-  const labelB = document.getElementById("ck-label-period-b")?.textContent || "B기간";
-  if (subEl) {
-    subEl.textContent = `${labelA}(A) ${listA.length}건 / ${labelB}(B) ${listB.length}건 상세 대조`;
-  }
-
-  const tabLabelAEl = document.getElementById("drill-tab-label-a");
-  const tabLabelBEl = document.getElementById("drill-tab-label-b");
-  if (tabLabelAEl) tabLabelAEl.textContent = `${labelA} 사고 목록 (${listA.length}건)`;
-  if (tabLabelBEl) tabLabelBEl.textContent = `${labelB} 사고 목록 (${listB.length}건)`;
-
-  const btnA = document.getElementById("btn-drill-tab-a");
-  const btnB = document.getElementById("btn-drill-tab-b");
-  if (btnA) btnA.classList.toggle("active", activeTab === "a");
-  if (btnB) btnB.classList.toggle("active", activeTab === "b");
-
-  // 신설: 피해자 필터 초기화
+  // 피해자 필터 초기화
   state.yoyDrillVictimFilter = "all";
   const victimSel = document.getElementById("yoy-drill-filter-victim");
   if (victimSel) victimSel.value = "all";
@@ -6531,11 +6707,7 @@ function switchYoyDrillTab(tab) {
   if (!state.yoyDrilldown) return;
   state.yoyDrilldown.activeTab = tab;
 
-  const btnA = document.getElementById("btn-drill-tab-a");
-  const btnB = document.getElementById("btn-drill-tab-b");
-  if (btnA) btnA.classList.toggle("active", tab === "a");
-  if (btnB) btnB.classList.toggle("active", tab === "b");
-
+  updateYoyDrilldownHeader();
   renderYoyDrilldownTable();
 }
 window.switchYoyDrillTab = switchYoyDrillTab;
@@ -6552,12 +6724,13 @@ function renderYoyDrilldownTable() {
   }
 
   if (!currentList || currentList.length === 0) {
-    const periodName = activeTab === "a"
-      ? (document.getElementById("ck-label-period-a")?.textContent || "A기간")
-      : (document.getElementById("ck-label-period-b")?.textContent || "B기간");
+    const rawLabel = activeTab === "a"
+      ? ((state.comparison && state.comparison.lastLabelA) || document.getElementById("ck-label-period-a")?.textContent || "A기간")
+      : ((state.comparison && state.comparison.lastLabelB) || document.getElementById("ck-label-period-b")?.textContent || "B기간");
+    const periodName = rawLabel.includes(activeTab.toUpperCase()) ? rawLabel : `${activeTab.toUpperCase()} 기간(${rawLabel})`;
     tbody.innerHTML = `
       <tr>
-        <td colspan="10" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
+        <td colspan="11" style="text-align: center; color: #64748b; padding: 2.5rem 1rem;">
           <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📂</div>
           <div style="font-weight: 600; color: #334155;">해당 조건(${escapeHtml(periodName)})에 등록된 세부 사고 건이 없습니다.</div>
         </td>
@@ -6568,10 +6741,8 @@ function renderYoyDrilldownTable() {
 
   tbody.innerHTML = currentList.map((item, idx) => {
     const id = item.id || "-";
-    const date = item.date || "-";
-    const loc = item.locationDetail || item.zone || "-";
-    const title = item.title || item.description || "사고 개요 없음";
-    const status = item.status || "접수대기";
+    const docNo = item.docNo || item.documentNumber || item.id || "-";
+    const date = item.date || item.occurredAt || "-";
     const teamName = String(item.team || item['구분1'] || item.resort || "미분류").replace(/[\r\n]+/g, " ").trim();
     const deptName = String(item.department || item['부문/부서'] || item.division || (item.dept && item.dept !== teamName ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
     const displayLocation = item.displayLocation || ((deptName && deptName !== teamName) ? `${teamName} (${deptName})` : teamName);
@@ -6580,6 +6751,11 @@ function renderYoyDrilldownTable() {
     const rawVName = (item.victimName && typeof item.victimName === "string") ? item.victimName.trim() : "";
     const hasValidName = Boolean(rawVName && rawVName !== "익명" && rawVName !== "미상" && rawVName !== "-" && rawVName !== "미기재");
     const victimBadgeText = hasValidName ? `${vType}(${rawVName})` : vType;
+    // 엑셀 D열 원본 세부장소 ('위치(세부)')
+    const loc = String(item['위치(세부)'] || item.locationDetail || item.location || item.zone || "-").trim();
+    const title = item.title || item.locationDetail || item.description || "사고 개요 없음";
+    const reportBadge = getReportStatusBadge(item.reportStatus || item.industrialAccidentReport || "해당 없음");
+    const status = item.status || "접수대기";
 
     // Status badge class
     let statusClass = "badge-status-pending";
@@ -6588,9 +6764,9 @@ function renderYoyDrilldownTable() {
     else if (status.includes("보험") || status.includes("보상")) statusClass = "badge-status-insurance";
 
     return `
-      <tr class="drilldown-incident-row" onclick="navigateToDetailFromDrilldown('${escapeHtml(id)}')" title="클릭하여 '${escapeHtml(id)}' 상세 내역 보기">
+      <tr class="drilldown-incident-row" onclick="navigateToDetailFromDrilldown('${escapeHtml(id)}')" title="클릭하여 '${escapeHtml(docNo)}' 상세 내역 보기">
         <td style="text-align: center; color: #64748b; font-size: 0.8rem;">${idx + 1}</td>
-        <td class="id-cell" style="font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(id)}</td>
+        <td class="id-cell font-mono text-[12px] whitespace-nowrap" style="min-width: 145px; width: 145px; white-space: nowrap; font-family: monospace; font-size: 12px; font-weight: 700; color: #2563eb;">${escapeHtml(docNo)}</td>
         <td style="font-size: 0.82rem; color: #475569; white-space: nowrap;">${escapeHtml(date)}</td>
         <td style="font-size: 0.83rem; color: #0f172a; font-weight: 600;">${escapeHtml(displayLocation)}</td>
         <td style="text-align: center; white-space: nowrap;">
@@ -6604,6 +6780,9 @@ function renderYoyDrilldownTable() {
           <div style="max-height: 2.6em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.35; font-size: 0.83rem; font-weight: 600;">
             ${escapeHtml(title)}
           </div>
+        </td>
+        <td style="text-align: center; white-space: nowrap;">
+          ${reportBadge}
         </td>
         <td style="text-align: center;">
           <span class="badge ${statusClass}" style="font-size: 0.74rem;">${escapeHtml(status)}</span>
