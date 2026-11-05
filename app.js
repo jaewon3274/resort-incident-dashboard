@@ -2837,49 +2837,92 @@ function clearDrilldownFilter() {
 }
 
 function toggleChartDrilldown(type, value) {
-  if (state.filters[type] === value) {
+  const currentVal = state.filters[type];
+
+  if (value === "all") {
     state.filters[type] = "all";
     if (type === "category") {
-      if (state.categoryChartMeta) state.categoryChartMeta.clickedIsOther = false;
+      if (state.categoryChartMeta) state.categoryChartMeta.isOtherSelected = false;
       const catSelect = document.getElementById("filter-category");
       if (catSelect) catSelect.value = "all";
       const tableCat = document.getElementById("table-filter-category");
       if (tableCat) tableCat.value = "all";
     } else if (type === "dept") {
+      if (state.deptChartMeta) state.deptChartMeta.isOtherSelected = false;
       const deptSelect = document.getElementById("filter-dept");
       if (deptSelect) deptSelect.value = "all";
     } else if (type === "zone") {
       const tableZone = document.getElementById("table-filter-zone");
       if (tableZone) tableZone.value = "all";
     }
-    showToast(`'${value}' 차트 필터가 해제되었습니다.`, "info");
+    showToast("차트 필터가 초기화되었습니다.", "info");
   } else {
-    state.filters[type] = value;
-    if (type === "category") {
-      if (!state.categoryChartMeta) state.categoryChartMeta = {};
-      state.categoryChartMeta.clickedIsOther = Boolean(value.startsWith("기타 외") || value === "기타");
-      const catSelect = document.getElementById("filter-category");
-      if (catSelect) {
-        if (![...catSelect.options].some(o => o.value === value)) {
-          catSelect.add(new Option(value, value));
-        }
-        catSelect.value = value;
+    const isOther = value && (
+      value.startsWith("기타") || 
+      (type === "category" && state.categoryChartMeta?.otherLabel === value) ||
+      (type === "dept" && state.deptChartMeta?.otherLabel === value)
+    );
+    
+    const isCurrentOther = currentVal && (
+      currentVal.startsWith("기타") || 
+      (type === "category" && state.categoryChartMeta?.isOtherSelected) ||
+      (type === "dept" && state.deptChartMeta?.isOtherSelected)
+    );
+
+    // 동일 항목 재클릭 시: 필터 해제 (전체 사고 목록으로 원복)
+    if (currentVal === value || (isOther && isCurrentOther)) {
+      state.filters[type] = "all";
+      if (type === "category") {
+        if (state.categoryChartMeta) state.categoryChartMeta.isOtherSelected = false;
+        const catSelect = document.getElementById("filter-category");
+        if (catSelect) catSelect.value = "all";
+        const tableCat = document.getElementById("table-filter-category");
+        if (tableCat) tableCat.value = "all";
+      } else if (type === "dept") {
+        if (state.deptChartMeta) state.deptChartMeta.isOtherSelected = false;
+        const deptSelect = document.getElementById("filter-dept");
+        if (deptSelect) deptSelect.value = "all";
+      } else if (type === "zone") {
+        const tableZone = document.getElementById("table-filter-zone");
+        if (tableZone) tableZone.value = "all";
       }
-      const tableCat = document.getElementById("table-filter-category");
-      if (tableCat) {
-        if (![...tableCat.options].some(o => o.value === value)) {
-          tableCat.add(new Option(value, value));
+      showToast(`'${value}' 차트 필터가 해제되었습니다.`, "info");
+    } else {
+      // 새로운 항목 선택 시: 필터 적용
+      state.filters[type] = value;
+      if (type === "category") {
+        if (!state.categoryChartMeta) state.categoryChartMeta = {};
+        state.categoryChartMeta.isOtherSelected = Boolean(isOther);
+        const catSelect = document.getElementById("filter-category");
+        if (catSelect) {
+          if (![...catSelect.options].some(o => o.value === value)) {
+            catSelect.add(typeof Option !== "undefined" ? new Option(value, value) : { value, text: value });
+          }
+          catSelect.value = value;
         }
-        tableCat.value = value;
+        const tableCat = document.getElementById("table-filter-category");
+        if (tableCat) {
+          if (![...tableCat.options].some(o => o.value === value)) {
+            tableCat.add(typeof Option !== "undefined" ? new Option(value, value) : { value, text: value });
+          }
+          tableCat.value = value;
+        }
+      } else if (type === "dept") {
+        if (!state.deptChartMeta) state.deptChartMeta = {};
+        state.deptChartMeta.isOtherSelected = Boolean(isOther);
+        const deptSelect = document.getElementById("filter-dept");
+        if (deptSelect) {
+          if (![...deptSelect.options].some(o => o.value === value)) {
+            deptSelect.add(typeof Option !== "undefined" ? new Option(value, value) : { value, text: value });
+          }
+          deptSelect.value = value;
+        }
+      } else if (type === "zone") {
+        const tableZone = document.getElementById("table-filter-zone");
+        if (tableZone) tableZone.value = value;
       }
-    } else if (type === "dept") {
-      const deptSelect = document.getElementById("filter-dept");
-      if (deptSelect) deptSelect.value = value;
-    } else if (type === "zone") {
-      const tableZone = document.getElementById("table-filter-zone");
-      if (tableZone) tableZone.value = value;
+      showToast(`차트 필터: '${value}' 조건으로 목록이 필터링되었습니다.`, "success");
     }
-    showToast(`차트 필터: '${value}' 조건으로 목록이 필터링되었습니다.`, "success");
   }
 
   state.currentPage = 1;
@@ -3680,15 +3723,19 @@ window.deleteIncident = function(id) {
   }
 };
 
-// Apply Filters to Data
-function applyFilters() {
-  const { search, resort, dept, category, victimType, severity, status, period, zone, reportStatus, startDate, endDate, from, to } = state.filters || {};
+// Filter helper to compute filtered incidents with optional exclusion of a specific drilldown key
+function getFilteredIncidents(excludeKey = null) {
+  const filters = { ...(state.filters || {}) };
+  if (excludeKey) {
+    filters[excludeKey] = "all";
+  }
+  const { search, resort, dept, category, victimType, severity, status, period, zone, reportStatus, startDate, endDate, from, to } = filters;
   const refDate = getSystemReferenceDate();
   const todayStart = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 0, 0, 0, 0);
   const todayEnd = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 23, 59, 59, 999);
 
-  state.filteredIncidents = (state.incidents || []).filter(item => {
-    const itemDept = getIncidentDept(item);
+  return (state.incidents || []).filter(item => {
+    const itemDept = getIncidentDept(item) || (typeof inferDeptFromIncident === "function" ? inferDeptFromIncident(item) : "") || "시설팀";
     const incidentCategory = getIncidentCategory(item);
     const itemLoc = getIncidentLocation(item);
     const itemVictim = getIncidentVictim(item);
@@ -3702,23 +3749,39 @@ function applyFilters() {
       return false;
     }
 
-    if (dept && dept !== "all" && itemDept !== dept) {
-      return false;
+    // [요구사항 1] 부서 필터: '기타' 묶음 처리 (otherKeys 목록 또는 상위 TOP N 제외)
+    if (dept && dept !== "all") {
+      const isOtherDept = dept.startsWith("기타") || dept === state.deptChartMeta?.otherLabel || (state.deptChartMeta && state.deptChartMeta.isOtherSelected && dept.startsWith("기타"));
+      if (isOtherDept) {
+        const otherKeys = state.deptChartMeta?.otherKeys || [];
+        const topKeys = state.deptChartMeta?.topKeys || [];
+        if (otherKeys.length > 0) {
+          if (!otherKeys.includes(itemDept)) return false;
+        } else if (topKeys.length > 0) {
+          if (topKeys.includes(itemDept)) return false;
+        }
+      } else if (itemDept !== dept) {
+        return false;
+      }
     }
 
+    // [요구사항 1] 사고유형 필터: '기타' 묶음 처리 (otherKeys 목록 또는 상위 TOP N 제외)
     if (category && category !== "all") {
-      if (category.startsWith("기타 외") || (category === "기타" && state.categoryChartMeta && state.categoryChartMeta.clickedIsOther)) {
-        // 상위 TOP N에 포함되지 않은 나머지 모든 세부 사고유형들
-        const topList = state.categoryChartMeta?.topCategories || [];
-        if (topList.includes(incidentCategory)) {
-          return false;
+      const isOtherCat = category.startsWith("기타") || category === state.categoryChartMeta?.otherLabel || (state.categoryChartMeta && state.categoryChartMeta.isOtherSelected && category.startsWith("기타"));
+      if (isOtherCat) {
+        const otherKeys = state.categoryChartMeta?.otherKeys || [];
+        const topKeys = state.categoryChartMeta?.topKeys || [];
+        if (otherKeys.length > 0) {
+          if (!otherKeys.includes(incidentCategory)) return false;
+        } else if (topKeys.length > 0) {
+          if (topKeys.includes(incidentCategory)) return false;
         }
       } else if (incidentCategory !== category) {
         return false;
       }
     }
 
-    // 신설: 피해자 세부 분류 필터링 (임직원 / 캐디 / 고객)
+    // 피해자 세부 분류 필터링 (임직원 / 캐디 / 고객)
     if (victimType && victimType !== "all") {
       const vInfo = classifyVictim(item);
       if (vInfo.category !== victimType) {
@@ -3726,7 +3789,7 @@ function applyFilters() {
       }
     }
 
-    // [신규] 산재조사표 필터링 (해당 없음 / 제출예정 / 제출완료)
+    // 산재조사표 필터링 (해당 없음 / 제출예정 / 제출완료)
     if (reportStatus && reportStatus !== "all") {
       let r = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
       if (r === "해당없음") r = "해당 없음";
@@ -3753,7 +3816,7 @@ function applyFilters() {
     // 전역 날짜 파싱 기반 엄격한 기간 필터링
     if (period && period !== "all") {
       const parsedDate = parseIncidentDate(item);
-      if (!parsedDate) return false; // 파싱 실패 시 무조건 제외
+      if (!parsedDate) return false;
 
       const time = parsedDate.getTime();
 
@@ -3804,7 +3867,11 @@ function applyFilters() {
 
     return true;
   });
+}
 
+// Apply Filters to Data
+function applyFilters() {
+  state.filteredIncidents = getFilteredIncidents(null);
   sortFilteredIncidents();
   updateSortHeaderUI();
   updateDrilldownTag();
@@ -3981,245 +4048,364 @@ function renderKPIs() {
 // Render Charts with Dynamic Top-N Grouping for 500+ Rows
 function renderCharts() {
   try {
-  const data = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
-    ? state.filteredIncidents
-    : (state.incidents || []);
-
-  if (typeof Chart === "undefined") {
-    console.warn("Chart.js 라이브러리가 로드되지 않았습니다.");
-    return;
-  }
-
-  // 1. Group by Category (도넛 차트 집계 - COLOR_MAP 고정 색상 및 기타 세부유형 연동)
-  const categoryCounts = {};
-  data.forEach(item => {
-    const incidentCategory = getIncidentCategory(item);
-    categoryCounts[incidentCategory] = (categoryCounts[incidentCategory] || 0) + 1;
-  });
-
-  const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
-  const maxDisplay = 6;
-  const topCategories = sortedCategories.slice(0, maxDisplay);
-  const otherCategories = sortedCategories.slice(maxDisplay);
-  const otherSum = otherCategories.reduce((sum, item) => sum + item[1], 0);
-
-  const categoryLabels = topCategories.map(c => c[0]);
-  const categoryData = topCategories.map(c => c[1]);
-
-  let otherLabel = null;
-  if (otherSum > 0) {
-    otherLabel = `기타 외 ${otherCategories.length}종`;
-    categoryLabels.push(otherLabel);
-    categoryData.push(otherSum);
-  }
-
-  // 상위 TOP N과 나머지 목록을 state에 보관하여 필터링 시 활용
-  state.categoryChartMeta = {
-    topCategories: topCategories.map(c => c[0]),
-    otherCategories: otherCategories.map(c => c[0]),
-    otherLabel: otherLabel,
-    clickedIsOther: Boolean(state.categoryChartMeta && state.categoryChartMeta.clickedIsOther && (state.filters.category?.startsWith("기타 외") || state.filters.category === "기타"))
-  };
-
-  // 고정 COLOR_MAP을 사용하여 클릭/필터 후에도 고유 색상 유지
-  const categoryColors = categoryLabels.map(label => getCategoryColor(label));
-
-  const catCtx = document.getElementById("categoryChart")?.getContext("2d");
-  if (catCtx) {
-    if (state.charts.categoryChart) {
-      state.charts.categoryChart.destroy();
+    if (typeof Chart === "undefined") {
+      console.warn("Chart.js 라이브러리가 로드되지 않았습니다.");
+      return;
     }
 
-    state.charts.categoryChart = new Chart(catCtx, {
-      type: "doughnut",
-      data: {
-        labels: categoryLabels,
-        datasets: [{
-          data: categoryData,
-          backgroundColor: categoryColors,
-          hoverBackgroundColor: categoryColors,
-          borderColor: "#ffffff",
-          borderWidth: 2,
-          hoverOffset: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        onClick: (event, elements, chart) => {
-          if (elements && elements.length > 0) {
-            const elementIndex = elements[0].index;
-            const clickedCategory = chart.data.labels[elementIndex];
-            if (clickedCategory) {
-              toggleChartDrilldown("category", clickedCategory);
-            }
-          } else {
-            if (state.filters.category !== "all") {
-              toggleChartDrilldown("category", "all");
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            position: "right",
-            labels: {
-              generateLabels: (chart) => {
-                const chartData = chart.data;
-                if (chartData.labels.length && chartData.datasets.length) {
-                  const total = chartData.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
-                  return chartData.labels.map((label, i) => {
-                    const val = chartData.datasets[0].data[i];
-                    const pct = ((val / total) * 100).toFixed(1);
-                    const bg = chartData.datasets[0].backgroundColor[i] || getCategoryColor(label);
-                    return {
-                      text: `${label} (${val}건, ${pct}%)`,
-                      fillStyle: bg,
-                      strokeStyle: bg,
-                      lineWidth: 1,
-                      hidden: isNaN(val) || chart.getDatasetMeta(0).data[i].hidden,
-                      index: i
-                    };
-                  });
-                }
-                return [];
-              },
-              color: "#94a3b8",
-              font: { family: "Pretendard", size: 11 },
-              padding: 8,
-              boxWidth: 10,
-              boxHeight: 10
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const val = context.raw || 0;
-                const pct = ((val / (data.length || 1)) * 100).toFixed(1);
-                return ` ${context.label}: ${val}건 (${pct}%) - 클릭 시 드릴다운`;
-              }
-            }
-          }
-        },
-        cutout: "66%"
-      }
+    // 1. Group by Category (도넛 차트 집계 - COLOR_MAP 고정 색상 및 기타 세부유형 연동)
+    // 자체 category 필터를 제외한 데이터 기준으로 집계하여 슬라이스 증발 방지 및 otherKeys 보존
+    const catBaseData = getFilteredIncidents("category");
+    const categoryCounts = {};
+    catBaseData.forEach(item => {
+      const incidentCategory = getIncidentCategory(item);
+      categoryCounts[incidentCategory] = (categoryCounts[incidentCategory] || 0) + 1;
     });
-  }
 
-  // 2. Group by Dept (🏢 팀/부서별 사고 발생 비중)
-  const deptCounts = {};
-  data.forEach(item => {
-    const dept = getIncidentDept(item) || inferDeptFromIncident(item) || "시설팀";
-    deptCounts[dept] = (deptCounts[dept] || 0) + 1;
-  });
+    const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
+    const maxDisplay = 6;
+    const topCategories = sortedCategories.slice(0, maxDisplay);
+    const otherCategories = sortedCategories.slice(maxDisplay);
+    const otherSum = otherCategories.reduce((sum, item) => sum + item[1], 0);
 
-  const sortedDepts = Object.entries(deptCounts).sort((a, b) => b[1] - a[1]);
-  const maxDeptDisplay = 8; // 4대 골프CC(밸리/힐스/성문안/월송리)와 리조트 부서(레저/시설/객실/식음)가 모두 온전히 분리 표기되도록 8개 확장
-  const topDepts = sortedDepts.slice(0, maxDeptDisplay);
-  const otherDeptSum = sortedDepts.slice(maxDeptDisplay).reduce((sum, item) => sum + item[1], 0);
+    const categoryLabels = topCategories.map(c => c[0]);
+    const categoryData = topCategories.map(c => c[1]);
 
-  const deptLabels = topDepts.map(d => d[0]);
-  const deptData = topDepts.map(d => d[1]);
+    const otherCategoryKeys = otherCategories.map(c => c[0]);
+    const topCategoryKeys = topCategories.map(c => c[0]);
 
-  if (otherDeptSum > 0) {
-    deptLabels.push(`기타 외 ${sortedDepts.length - maxDeptDisplay}개팀`);
-    deptData.push(otherDeptSum);
-  }
-
-  const deptPalette = [
-    "#0284c7", // 밸리팀 (Sky Blue)
-    "#8b5cf6", // 레저팀 (Purple)
-    "#d97706", // 시설팀 (Warm Amber)
-    "#059669", // 성문안팀 (Forest Emerald)
-    "#4f46e5", // 힐스팀 (Deep Indigo)
-    "#0891b2", // 월송리팀 (Cyan)
-    "#db2777", // 객실팀 (Rose Pink)
-    "#ea580c", // 식음팀 (Vivid Orange)
-    "#0d9488", // 골프운영(공통) (Teal)
-    "#64748b"  // 기타 (Slate)
-  ];
-
-  const deptCtx = document.getElementById("deptChart")?.getContext("2d");
-  if (deptCtx) {
-    if (state.charts.deptChart) {
-      state.charts.deptChart.destroy();
+    let otherLabel = null;
+    if (otherSum > 0) {
+      otherLabel = `기타 외 ${otherCategories.length}종`;
+      categoryLabels.push(otherLabel);
+      categoryData.push(otherSum);
     }
 
-    state.charts.deptChart = new Chart(deptCtx, {
-      type: "doughnut",
-      data: {
-        labels: deptLabels,
-        datasets: [{
-          data: deptData,
-          backgroundColor: deptPalette.slice(0, deptLabels.length),
-          borderColor: "#ffffff",
-          borderWidth: 2,
-          hoverOffset: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        onClick: (event, elements, chart) => {
-          if (elements && elements.length > 0) {
-            const elementIndex = elements[0].index;
-            const clickedDept = chart.data.labels[elementIndex];
-            if (clickedDept && !clickedDept.startsWith("기타 외")) {
-              toggleChartDrilldown("dept", clickedDept);
-            }
-          } else {
-            if (state.filters.dept && state.filters.dept !== "all") {
-              toggleChartDrilldown("dept", "all");
-            }
-          }
+    // 상위 TOP N과 나머지 목록(otherKeys)을 state에 보관하여 필터링 시 활용
+    state.categoryChartMeta = {
+      topKeys: topCategoryKeys,
+      otherKeys: otherCategoryKeys,
+      otherLabel: otherLabel,
+      isOtherSelected: Boolean(
+        state.filters.category && state.filters.category !== "all" && (
+          state.filters.category.startsWith("기타") ||
+          state.filters.category === otherLabel ||
+          (state.categoryChartMeta && state.categoryChartMeta.isOtherSelected)
+        )
+      )
+    };
+
+    const categoryColors = categoryLabels.map(label => getCategoryColor(label));
+
+    const catCtx = document.getElementById("categoryChart")?.getContext("2d");
+    if (catCtx) {
+      if (state.charts.categoryChart) {
+        state.charts.categoryChart.destroy();
+      }
+
+      state.charts.categoryChart = new Chart(catCtx, {
+        type: "doughnut",
+        data: {
+          labels: categoryLabels,
+          datasets: [{
+            data: categoryData,
+            backgroundColor: categoryColors,
+            hoverBackgroundColor: categoryColors,
+            borderColor: "#ffffff",
+            borderWidth: 2,
+            hoverOffset: 8,
+            offset: categoryLabels.map(l => {
+              const isItemOther = l.startsWith("기타") || l === otherLabel;
+              const isSelected = Boolean(
+                state.filters.category && state.filters.category !== "all" && (
+                  state.filters.category === l || (isItemOther && state.categoryChartMeta.isOtherSelected)
+                )
+              );
+              return isSelected ? 12 : 0;
+            })
+          }]
         },
-        plugins: {
-          legend: {
-            position: "right",
-            labels: {
-              generateLabels: (chart) => {
-                const chartData = chart.data;
-                if (chartData.labels.length && chartData.datasets.length) {
-                  const total = chartData.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
-                  return chartData.labels.map((label, i) => {
-                    const val = chartData.datasets[0].data[i];
-                    const pct = ((val / total) * 100).toFixed(1);
-                    const bg = chartData.datasets[0].backgroundColor[i];
-                    return {
-                      text: `${label} (${val}건, ${pct}%)`,
-                      fillStyle: bg,
-                      strokeStyle: bg,
-                      lineWidth: 1,
-                      hidden: isNaN(val) || chart.getDatasetMeta(0).data[i].hidden,
-                      index: i
-                    };
-                  });
-                }
-                return [];
-              },
-              color: "#94a3b8",
-              font: { family: "Pretendard", size: 11 },
-              padding: 8,
-              boxWidth: 10,
-              boxHeight: 10
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const val = context.raw || 0;
-                const total = data.length || 1;
-                const pct = ((val / total) * 100).toFixed(1);
-                return ` ${context.label}: ${val}건 (${pct}%) - 클릭 시 드릴다운`;
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onClick: (event, elements, chart) => {
+            if (elements && elements.length > 0) {
+              const elementIndex = elements[0].index;
+              const clickedCategory = chart.data.labels[elementIndex];
+              if (clickedCategory) {
+                toggleChartDrilldown("category", clickedCategory);
+              }
+            } else {
+              if (state.filters.category !== "all") {
+                toggleChartDrilldown("category", "all");
               }
             }
-          }
-        },
-        cutout: "66%"
-      }
-    });
-  }
+          },
+          plugins: {
+            legend: {
+              position: "right",
+              onClick: (e, legendItem, legend) => {
+                // [요구사항 2] 이벤트 차단으로 기본 조각 숨김(toggleDataVisibility) 방지
+                if (e) {
+                  if (e.native) {
+                    if (typeof e.native.stopPropagation === "function") e.native.stopPropagation();
+                    if (typeof e.native.preventDefault === "function") e.native.preventDefault();
+                  }
+                  if (typeof e.stopPropagation === "function") e.stopPropagation();
+                  if (typeof e.preventDefault === "function") e.preventDefault();
+                }
+                // [요구사항 2] 범례 클릭 시에도 원형 차트 조각 클릭과 100% 동일하게 토글 드릴다운
+                const chart = legend.chart;
+                const clickedCategory = chart?.data?.labels?.[legendItem.index];
+                if (clickedCategory) {
+                  toggleChartDrilldown("category", clickedCategory);
+                }
+              },
+              onHover: (event, legendItem, legend) => {
+                if (legend.chart.canvas) legend.chart.canvas.style.cursor = 'pointer';
+              },
+              onLeave: (event, legendItem, legend) => {
+                if (legend.chart.canvas) legend.chart.canvas.style.cursor = 'default';
+              },
+              labels: {
+                generateLabels: (chart) => {
+                  const chartData = chart.data;
+                  if (chartData.labels.length && chartData.datasets.length) {
+                    const total = chartData.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                    const curFilter = state.filters.category;
+                    const isOtherActive = Boolean(state.categoryChartMeta && state.categoryChartMeta.isOtherSelected);
 
-  // 3. Group by Zone (Top 7) (시설별 건수 - D열 최우선 참조)
+                    return chartData.labels.map((label, i) => {
+                      const val = chartData.datasets[0].data[i];
+                      const pct = ((val / total) * 100).toFixed(1);
+                      const bg = chartData.datasets[0].backgroundColor[i] || getCategoryColor(label);
+
+                      const isItemOther = label.startsWith("기타") || label === otherLabel;
+                      const isSelected = Boolean(
+                        curFilter && curFilter !== "all" && (
+                          curFilter === label || (isItemOther && isOtherActive)
+                        )
+                      );
+
+                      // [요구사항 2] 선택된 항목은 범례 텍스트에 볼드/포커스 효과 부여
+                      return {
+                        text: isSelected ? `▶ ${label} (${val}건, ${pct}%) [선택됨]` : `${label} (${val}건, ${pct}%)`,
+                        fillStyle: bg,
+                        strokeStyle: isSelected ? "#1d4ed8" : bg,
+                        lineWidth: isSelected ? 3 : 1,
+                        fontColor: isSelected ? "#0f172a" : "#64748b",
+                        hidden: false, // 브라우저 기본 숨김 완전 차단
+                        index: i
+                      };
+                    });
+                  }
+                  return [];
+                },
+                color: "#64748b",
+                font: { family: "Pretendard", size: 11, weight: "600" },
+                padding: 8,
+                boxWidth: 10,
+                boxHeight: 10
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const val = context.raw || 0;
+                  const total = categoryData.reduce((a, b) => a + b, 0) || 1;
+                  const pct = ((val / total) * 100).toFixed(1);
+                  return ` ${context.label}: ${val}건 (${pct}%) - 클릭 시 필터 토글`;
+                }
+              }
+            }
+          },
+          cutout: "66%"
+        }
+      });
+    }
+
+    // 2. Group by Dept (🏢 팀/부서별 사고 발생 비중)
+    // 자체 dept 필터를 제외한 데이터 기준으로 집계하여 슬라이스 증발 방지 및 otherKeys 보존
+    const deptBaseData = getFilteredIncidents("dept");
+    const deptCounts = {};
+    deptBaseData.forEach(item => {
+      const dept = getIncidentDept(item) || (typeof inferDeptFromIncident === "function" ? inferDeptFromIncident(item) : "") || "시설팀";
+      deptCounts[dept] = (deptCounts[dept] || 0) + 1;
+    });
+
+    const sortedDepts = Object.entries(deptCounts).sort((a, b) => b[1] - a[1]);
+    const maxDeptDisplay = 8;
+    const topDepts = sortedDepts.slice(0, maxDeptDisplay);
+    const otherDepts = sortedDepts.slice(maxDeptDisplay);
+    const otherDeptSum = otherDepts.reduce((sum, item) => sum + item[1], 0);
+
+    const deptLabels = topDepts.map(d => d[0]);
+    const deptData = topDepts.map(d => d[1]);
+
+    const otherDeptKeys = otherDepts.map(d => d[0]);
+    const topDeptKeys = topDepts.map(d => d[0]);
+
+    let otherDeptLabel = null;
+    if (otherDeptSum > 0) {
+      otherDeptLabel = `기타 외 ${otherDepts.length}개팀`;
+      deptLabels.push(otherDeptLabel);
+      deptData.push(otherDeptSum);
+    }
+
+    // 상위 TOP N과 나머지 목록(otherKeys)을 state에 보관하여 필터링 시 활용
+    state.deptChartMeta = {
+      topKeys: topDeptKeys,
+      otherKeys: otherDeptKeys,
+      otherLabel: otherDeptLabel,
+      isOtherSelected: Boolean(
+        state.filters.dept && state.filters.dept !== "all" && (
+          state.filters.dept.startsWith("기타") ||
+          state.filters.dept === otherDeptLabel ||
+          (state.deptChartMeta && state.deptChartMeta.isOtherSelected)
+        )
+      )
+    };
+
+    const deptPalette = [
+      "#0284c7", // 밸리팀 (Sky Blue)
+      "#8b5cf6", // 레저팀 (Purple)
+      "#d97706", // 시설팀 (Warm Amber)
+      "#059669", // 성문안팀 (Forest Emerald)
+      "#4f46e5", // 힐스팀 (Deep Indigo)
+      "#0891b2", // 월송리팀 (Cyan)
+      "#db2777", // 객실팀 (Rose Pink)
+      "#ea580c", // 식음팀 (Vivid Orange)
+      "#0d9488", // 골프운영(공통) (Teal)
+      "#64748b"  // 기타 (Slate)
+    ];
+
+    const deptCtx = document.getElementById("deptChart")?.getContext("2d");
+    if (deptCtx) {
+      if (state.charts.deptChart) {
+        state.charts.deptChart.destroy();
+      }
+
+      state.charts.deptChart = new Chart(deptCtx, {
+        type: "doughnut",
+        data: {
+          labels: deptLabels,
+          datasets: [{
+            data: deptData,
+            backgroundColor: deptPalette.slice(0, deptLabels.length),
+            borderColor: "#ffffff",
+            borderWidth: 2,
+            hoverOffset: 8,
+            offset: deptLabels.map(l => {
+              const isItemOther = l.startsWith("기타") || l === otherDeptLabel;
+              const isSelected = Boolean(
+                state.filters.dept && state.filters.dept !== "all" && (
+                  state.filters.dept === l || (isItemOther && state.deptChartMeta.isOtherSelected)
+                )
+              );
+              return isSelected ? 12 : 0;
+            })
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onClick: (event, elements, chart) => {
+            if (elements && elements.length > 0) {
+              const elementIndex = elements[0].index;
+              const clickedDept = chart.data.labels[elementIndex];
+              if (clickedDept) {
+                toggleChartDrilldown("dept", clickedDept);
+              }
+            } else {
+              if (state.filters.dept && state.filters.dept !== "all") {
+                toggleChartDrilldown("dept", "all");
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: "right",
+              onClick: (e, legendItem, legend) => {
+                // [요구사항 2] 이벤트 차단으로 기본 조각 숨김 방지
+                if (e) {
+                  if (e.native) {
+                    if (typeof e.native.stopPropagation === "function") e.native.stopPropagation();
+                    if (typeof e.native.preventDefault === "function") e.native.preventDefault();
+                  }
+                  if (typeof e.stopPropagation === "function") e.stopPropagation();
+                  if (typeof e.preventDefault === "function") e.preventDefault();
+                }
+                // [요구사항 2] 범례 클릭 시에도 원형 차트 조각 클릭과 100% 동일하게 토글 드릴다운
+                const chart = legend.chart;
+                const clickedDept = chart?.data?.labels?.[legendItem.index];
+                if (clickedDept) {
+                  toggleChartDrilldown("dept", clickedDept);
+                }
+              },
+              onHover: (event, legendItem, legend) => {
+                if (legend.chart.canvas) legend.chart.canvas.style.cursor = 'pointer';
+              },
+              onLeave: (event, legendItem, legend) => {
+                if (legend.chart.canvas) legend.chart.canvas.style.cursor = 'default';
+              },
+              labels: {
+                generateLabels: (chart) => {
+                  const chartData = chart.data;
+                  if (chartData.labels.length && chartData.datasets.length) {
+                    const total = chartData.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                    const curFilter = state.filters.dept;
+                    const isOtherActive = Boolean(state.deptChartMeta && state.deptChartMeta.isOtherSelected);
+
+                    return chartData.labels.map((label, i) => {
+                      const val = chartData.datasets[0].data[i];
+                      const pct = ((val / total) * 100).toFixed(1);
+                      const bg = chartData.datasets[0].backgroundColor[i] || "#64748b";
+
+                      const isItemOther = label.startsWith("기타") || label === otherDeptLabel;
+                      const isSelected = Boolean(
+                        curFilter && curFilter !== "all" && (
+                          curFilter === label || (isItemOther && isOtherActive)
+                        )
+                      );
+
+                      // [요구사항 2] 선택된 항목은 범례 텍스트에 볼드/포커스 효과 부여
+                      return {
+                        text: isSelected ? `▶ ${label} (${val}건, ${pct}%) [선택됨]` : `${label} (${val}건, ${pct}%)`,
+                        fillStyle: bg,
+                        strokeStyle: isSelected ? "#1d4ed8" : bg,
+                        lineWidth: isSelected ? 3 : 1,
+                        fontColor: isSelected ? "#0f172a" : "#64748b",
+                        hidden: false, // 기본 조각 숨김 방지
+                        index: i
+                      };
+                    });
+                  }
+                  return [];
+                },
+                color: "#64748b",
+                font: { family: "Pretendard", size: 11, weight: "600" },
+                padding: 8,
+                boxWidth: 10,
+                boxHeight: 10
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const val = context.raw || 0;
+                  const total = deptData.reduce((a, b) => a + b, 0) || 1;
+                  const pct = ((val / total) * 100).toFixed(1);
+                  return ` ${context.label}: ${val}건 (${pct}%) - 클릭 시 필터 토글`;
+                }
+              }
+            }
+          },
+          cutout: "66%"
+        }
+      });
+    }
+
+    // 3. Group by Zone (Top 7) (시설별 건수 - D열 최우선 참조)
     const ZONE_COLOR_MAP = {
     "골프 코스": "#10b981",       // Emerald Green
     "주차장/도로": "#f59e0b",     // Amber
@@ -4228,8 +4414,11 @@ function renderCharts() {
     "부대/영업시설": "#38bdf8",   // Sky Blue
     "기타 부대시설": "#94a3b8"    // Slate
   };
+  const currentIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
   const zoneCounts = {};
-  data.forEach(item => {
+  currentIncidents.forEach(item => {
     const z = item?.zone || inferZoneFromLocation(getIncidentLocation(item), getIncidentDept(item), item?.resort || item?.team) || "기타 부대시설";
     zoneCounts[z] = (zoneCounts[z] || 0) + 1;
   });
@@ -5095,6 +5284,8 @@ function resetAllFilters() {
   state.filters.endDate = "";
   state.filters.from = "";
   state.filters.to = "";
+  if (state.categoryChartMeta) state.categoryChartMeta.isOtherSelected = false;
+  if (state.deptChartMeta) state.deptChartMeta.isOtherSelected = false;
   state.currentPage = 1;
 
   const searchInput = document.getElementById("search-input");
