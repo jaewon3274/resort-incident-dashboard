@@ -121,11 +121,13 @@ window.getIncidentVictim = getIncidentVictim;
 
 function getIncidentCost(item) {
   if (!item) return 0;
-  const raw = (item.cost !== undefined && item.cost !== null && item.cost !== "")
-    ? item.cost
-    : ((item.companyAmount !== undefined && item.companyAmount !== null && item.companyAmount !== "")
-      ? item.companyAmount
-      : (item['보험금'] !== undefined && item['보험금'] !== null && item['보험금'] !== "" ? item['보험금'] : item.totalAmount));
+  const raw = (item.insuranceCost !== undefined && item.insuranceCost !== null && item.insuranceCost !== "")
+    ? item.insuranceCost
+    : ((item.cost !== undefined && item.cost !== null && item.cost !== "")
+      ? item.cost
+      : ((item.companyAmount !== undefined && item.companyAmount !== null && item.companyAmount !== "")
+        ? item.companyAmount
+        : (item['보험금'] !== undefined && item['보험금'] !== null && item['보험금'] !== "" ? item['보험금'] : item.totalAmount)));
   const num = typeof raw === "number" ? raw : Number(String(raw || 0).replace(/[^0-9.-]/g, ""));
   return isNaN(num) ? 0 : num;
 }
@@ -1535,12 +1537,16 @@ function renderCostYearSelect() {
   const selectEl = document.getElementById("expenseYearSelect");
   if (!selectEl) return;
 
+  const baseIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
+
   // 1. 최소 최근 4개년(2023년 ~ 2026년) 기본 연도 fallback 보장
   const defaultYears = ["2026", "2025", "2024", "2023"];
   const yearsSet = new Set(defaultYears);
 
-  // 2. 전체 사고 데이터의 '발생일시(occurDate/date)' 또는 '기안일(reportDate)'에서 4자리 연도(YYYY) 모두 수집
-  (state.incidents || []).forEach(item => {
+  // 2. 현재 조회 데이터의 '발생일시(occurDate/date)' 또는 '기안일(reportDate)'에서 4자리 연도(YYYY) 모두 수집
+  baseIncidents.forEach(item => {
     const occurY = extractYear(item.occurDate || item.date);
     if (occurY) yearsSet.add(occurY);
 
@@ -1565,8 +1571,29 @@ function renderCostYearSelect() {
 function renderCostAnalysisData() {
   const { year, from, to } = state.costModal;
 
+  const baseIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
+
+  const totalAll = (state.incidents || []).length;
+  const isFiltered = Boolean(
+    (state.filteredIncidents && state.filteredIncidents.length !== totalAll) ||
+    (state.filters && (
+      (state.filters.period && state.filters.period !== "all") ||
+      (state.filters.resort && state.filters.resort !== "all") ||
+      (state.filters.dept && state.filters.dept !== "all") ||
+      (state.filters.category && state.filters.category !== "all") ||
+      (state.filters.victimType && state.filters.victimType !== "all") ||
+      (state.filters.severity && state.filters.severity !== "all") ||
+      (state.filters.status && state.filters.status !== "all") ||
+      (state.filters.zone && state.filters.zone !== "all") ||
+      (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
+      state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
+    ))
+  );
+
   // Filter incidents in period
-  const filteredInPeriod = state.incidents.filter(item => {
+  const filteredInPeriod = baseIncidents.filter(item => {
     const p = parseIncidentDate(item);
     if (!p) return false;
 
@@ -1597,7 +1624,7 @@ function renderCostAnalysisData() {
     return true;
   });
 
-  // [요구사항 2] 0원 완전히 제외: 실제 지급 금액이 1원 이상 발생한 건만 필터링
+  // [신규 요구사항 1 & 2] 실제 지급 금액(getIncidentCost)이 0원 초과 발생한 건만 필터링
   const costItems = filteredInPeriod.filter(item => getIncidentCost(item) > 0);
 
   // Calculate totals
@@ -1607,10 +1634,19 @@ function renderCostAnalysisData() {
 
   // Render Highlight Banner
   let periodText = "전체 기간 당사 지급 총액";
-  if (year !== "all" && year !== "custom") {
+  if (isFiltered && year === "all" && !from && !to) {
+    periodText = "선택 기간 당사 지급 총액";
+  } else if (year !== "all" && year !== "custom") {
     periodText = `${year}년 당사 지급 총액`;
   } else if (from || to) {
     periodText = `${from || '초기'} ~ ${to || '현재'} 기간 당사 지급 총액`;
+  }
+
+  const costModalTitle = document.getElementById("cost-modal-title");
+  if (costModalTitle) {
+    costModalTitle.innerHTML = isFiltered 
+      ? `<span>💳</span> 당사 지급 보상·보험 비용 조회 <span style="font-size: 0.82rem; font-weight: 600; color: #1d4ed8; background: #eff6ff; padding: 2px 8px; border-radius: 9999px; border: 1px solid #bfdbfe; margin-left: 6px;">선택 범위 (${costItems.length.toLocaleString()}건)</span>`
+      : `<span>💳</span> 당사 지급 보상·보험 비용 조회 <span style="font-size: 0.82rem; font-weight: 600; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 9999px; margin-left: 6px;">전체 누적 (${costItems.length.toLocaleString()}건)</span>`;
   }
 
   const periodLabelEl = document.getElementById("cost-summary-period");
@@ -1762,11 +1798,23 @@ function openTrendAnalysisModal() {
 }
 
 function renderTrendAnalysis() {
-  const allIncidents = state.incidents || [];
+  const allIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
 
-  // 1. 연도별(2023~2026) 연간 발생 건수 비교 미니 차트
-  const years = ["2023", "2024", "2025", "2026"];
-  const yearCounts = { "2023": 0, "2024": 0, "2025": 0, "2026": 0 };
+  const totalAll = (state.incidents || []).length;
+  const isFiltered = Boolean(state.filteredIncidents && state.filteredIncidents.length !== totalAll);
+
+  const trendModalTitle = document.getElementById("trend-modal-title");
+  if (trendModalTitle) {
+    trendModalTitle.innerHTML = isFiltered 
+      ? `<span>📊</span> 사고 발생 추이 및 통계 브리핑 <span style="font-size: 0.82rem; font-weight: 600; color: #1d4ed8; background: #eff6ff; padding: 2px 8px; border-radius: 9999px; border: 1px solid #bfdbfe; margin-left: 6px;">선택 범위 (${allIncidents.length.toLocaleString()}건)</span>`
+      : `<span>📊</span> 사고 발생 추이 및 통계 브리핑 <span style="font-size: 0.82rem; font-weight: 600; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 9999px; margin-left: 6px;">전체 누적 (${allIncidents.length.toLocaleString()}건)</span>`;
+  }
+
+  // 1. 연도별 연간 발생 건수 비교 미니 차트
+  const years = [];
+  const yearCounts = {};
 
   allIncidents.forEach(item => {
     const y = getIncidentYear(item);
@@ -1779,6 +1827,13 @@ function renderTrendAnalysis() {
       }
     }
   });
+
+  if (years.length === 0) {
+    ["2023", "2024", "2025", "2026"].forEach(y => {
+      years.push(y);
+      yearCounts[y] = 0;
+    });
+  }
   years.sort();
 
   const trendCtx = document.getElementById("trendYearChart")?.getContext("2d");
@@ -1819,7 +1874,7 @@ function renderTrendAnalysis() {
   // 2. 사업장 선택 콤보박스 채우기
   const resortSelect = document.getElementById("trendResortSelect");
   if (resortSelect) {
-    const uniqueResorts = [...new Set(allIncidents.map(i => i.resort).filter(Boolean))].sort();
+    const uniqueResorts = [...new Set(allIncidents.map(i => i.resort || i.businessUnit).filter(Boolean))].sort();
     const currentVal = resortSelect.value || "all";
     resortSelect.innerHTML = `<option value="all">전체 사업장 (월별 합산)</option>` +
       uniqueResorts.map(r => `<option value="${escapeHtml(r)}">${escapeHtml(r)}</option>`).join("");
@@ -1837,7 +1892,9 @@ function renderTrendAnalysis() {
 // 2-1-B. [KPI 1] 사고 발생 추이 및 통계 브리핑: TOP 3 인터랙티브 선택 & 세부 패널
 // ==========================================================================
 function renderTrendTopRankings() {
-  const allIncidents = state.incidents || [];
+  const allIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
   const totalCount = allIncidents.length || 1;
 
   // 1) 사업장/소속팀 TOP 3 집계
@@ -1951,7 +2008,9 @@ function renderTrendDetailPanel() {
     return;
   }
 
-  const allIncidents = state.incidents || [];
+  const allIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
   let filtered = [];
   const breakdownMap = {};
 
@@ -2112,10 +2171,12 @@ function navigateToDetailFromTrendModal(id) {
 window.navigateToDetailFromTrendModal = navigateToDetailFromTrendModal;
 
 function renderTrendMonthlyChart(selectedResort = "all") {
-  const allIncidents = state.incidents || [];
+  const allIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
+    ? state.filteredIncidents
+    : (state.incidents || []);
   const targetIncidents = selectedResort === "all"
     ? allIncidents
-    : allIncidents.filter(i => i.resort === selectedResort);
+    : allIncidents.filter(i => (i.resort === selectedResort || i.businessUnit === selectedResort));
 
   const monthCounts = Array(12).fill(0);
   targetIncidents.forEach(item => {
@@ -3724,7 +3785,7 @@ function renderKPIs() {
       : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
     const totalAll = all.length;
 
-    // [요구사항 3] 상단 퀵 필터 및 상세 필터 연동 감지
+    // [요구사항 1] 상단 4대 요약 카드(KPI) 계산 기준을 'filteredIncidents'로 일원화
     const isFiltered = Boolean(
       (state.filteredIncidents && state.filteredIncidents.length !== totalAll) ||
       (state.filters && (
@@ -3733,14 +3794,18 @@ function renderKPIs() {
         (state.filters.dept && state.filters.dept !== "all") ||
         (state.filters.category && state.filters.category !== "all") ||
         (state.filters.victimType && state.filters.victimType !== "all") ||
-        state.filters.startDate || state.filters.endDate || state.filters.searchQuery
+        (state.filters.severity && state.filters.severity !== "all") ||
+        (state.filters.status && state.filters.status !== "all") ||
+        (state.filters.zone && state.filters.zone !== "all") ||
+        (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
+        state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
       ))
     );
 
-    const targetList = isFiltered ? (state.filteredIncidents || []) : all;
+    const targetList = (state.filteredIncidents && Array.isArray(state.filteredIncidents)) ? state.filteredIncidents : all;
     const currentCount = targetList.length;
 
-    // 1) [카드 1] 총 사고 발생 건수
+    // 1) [카드 1] 총 사고 발생 건수 (filteredIncidents.length 기준)
     const elTotal = document.getElementById("kpiTotalIncidents") || document.getElementById("kpiTotalIncidentCount") || document.getElementById("kpi-total");
     if (elTotal) elTotal.innerText = `${currentCount.toLocaleString()}건`;
 
@@ -3758,35 +3823,31 @@ function renderKPIs() {
       }
     }
 
-    // 2) [카드 2] 동적 현재 연도(currentYear) 직원 안전사고 (2026 -> 2027 자동 승계)
+    // 2) [카드 2] 직원 안전사고 (필터 적용 시 '선택 기간 직원 안전사고', 전체일 때 '2026년 직원 안전사고')
     const currentYear = new Date().getFullYear();
     const elEmpTitle = document.getElementById("kpi-title-employee");
-    if (elEmpTitle) elEmpTitle.textContent = `${currentYear}년 직원 안전사고`;
+    if (elEmpTitle) {
+      elEmpTitle.textContent = isFiltered ? "선택 기간 직원 안전사고" : `${currentYear}년 직원 안전사고`;
+    }
 
     const cardEmployee = document.getElementById("kpiEmployee2026Card") || document.getElementById("kpi-card-employee");
-    if (cardEmployee) cardEmployee.title = `클릭 시 ${currentYear}년 직원 및 근로자 안전사고 목록 모달이 열립니다`;
+    if (cardEmployee) {
+      cardEmployee.title = isFiltered 
+        ? "클릭 시 선택 기간 직원 및 캐디 안전사고 목록 모달이 열립니다"
+        : `클릭 시 ${currentYear}년 직원 및 근로자 안전사고 목록 모달이 열립니다`;
+    }
 
     const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자", "실습생", "일용직", "협력사"];
     const listEmp = targetList.filter(x => {
       if (!x) return false;
       const p = parseIncidentDate(x);
       const isCurrentYear = (x.year === currentYear) || (p && p.getFullYear() === currentYear) || String(x.date || x.occurredAt || "").includes(String(currentYear));
+      // 전체(미필터링) 상태일 때는 당해 연도(2026년) 기준 집계, 필터 적용 시 선택 범위(filteredIncidents) 기준 전체 집계
       if (!isFiltered && !isCurrentYear) return false;
 
-      const note = (
-        String(x?.notes || x?.note || x?.specialNotes || "") + " " +
-        String(x?.description || x?.summary || "") + " " +
-        String(x?.place || x?.location || x?.locationDetail || "") + " " +
-        String(x?.title || "")
-      ).toLowerCase();
-
-      return empKeywords.some(kw => 
-        (x.victim && x.victim.includes(kw)) || 
-        (x.victimType && x.victimType.includes(kw)) || 
-        (x.victimName && x.victimName.includes(kw)) ||
-        (typeof getIncidentVictim === "function" && getIncidentVictim(x)?.includes(kw)) ||
-        note.includes(kw)
-      );
+      // [원칙 준수] 본문(텍스트) 검색 금지: 오직 victimType 또는 E열 구분2 헤더 기준 직접 매핑
+      const rawType = String(x.victimType || x['구분2'] || x.victim || "").replace(/[\r\n]+/g, " ").trim();
+      return empKeywords.some(kw => rawType.includes(kw));
     });
     const countEmp = listEmp.length;
     const elEmp = document.getElementById("kpi2026EmployeeCount") || document.getElementById("kpiEmployee2026Count");
@@ -3827,11 +3888,15 @@ function renderKPIs() {
 
     // 4) [카드 4] 당사 지급 / 보상 비용 (현재 범위 내 1원 이상 지급 건 실시간 합산)
     const costItems = targetList.filter(curr => {
-      const amt = curr.cost || curr.companyAmount || (typeof getIncidentCost === "function" ? getIncidentCost(curr) : 0);
+      const amt = (curr.insuranceCost !== undefined && curr.insuranceCost !== null && curr.insuranceCost !== "")
+        ? Number(curr.insuranceCost)
+        : (curr.cost || curr.companyAmount || (typeof getIncidentCost === "function" ? getIncidentCost(curr) : 0));
       return amt > 0;
     });
     const totalCompanyCost = costItems.reduce((acc, curr) => {
-      const amt = curr.cost || curr.companyAmount || (typeof getIncidentCost === "function" ? getIncidentCost(curr) : 0);
+      const amt = (curr.insuranceCost !== undefined && curr.insuranceCost !== null && curr.insuranceCost !== "")
+        ? Number(curr.insuranceCost)
+        : (curr.cost || curr.companyAmount || (typeof getIncidentCost === "function" ? getIncidentCost(curr) : 0));
       return acc + (amt || 0);
     }, 0);
     const costCount = costItems.length;
@@ -3849,6 +3914,11 @@ function renderKPIs() {
         costText = "0원";
       }
       totalCostEl.innerHTML = `${costText} <span id="kpi-cost-count" style="font-size: 0.92rem; font-weight: 600; color: #64748b; margin-left: 0.35rem;">(${costCount.toLocaleString()}건)</span>`;
+    }
+
+    const elSubCost = document.getElementById("kpi-sub-cost");
+    if (elSubCost) {
+      elSubCost.innerText = isFiltered ? "💳 선택 범위 보상/보험 비용" : "💳 기간별 상세 분석";
     }
 
     // Legacy fallback elements
@@ -6193,13 +6263,37 @@ function updateKpiDrilldownData() {
   const subEl = document.getElementById("kpi-drilldown-sub");
   const iconEl = document.getElementById("kpi-drilldown-icon");
 
+  const totalAll = (state.incidents || []).length;
+  const isFiltered = Boolean(
+    (state.filteredIncidents && state.filteredIncidents.length !== totalAll) ||
+    (state.filters && (
+      (state.filters.period && state.filters.period !== "all") ||
+      (state.filters.resort && state.filters.resort !== "all") ||
+      (state.filters.dept && state.filters.dept !== "all") ||
+      (state.filters.category && state.filters.category !== "all") ||
+      (state.filters.victimType && state.filters.victimType !== "all") ||
+      (state.filters.severity && state.filters.severity !== "all") ||
+      (state.filters.status && state.filters.status !== "all") ||
+      (state.filters.zone && state.filters.zone !== "all") ||
+      (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
+      state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
+    ))
+  );
+
   if (state.currentKpiDrillType === "employee2026" || state.currentKpiDrillType === "employee") {
-    const yearLabel = year === "all" ? "전체 연도" : `${year}년`;
-    if (titleEl) titleEl.textContent = `[${yearLabel} 직원 안전사고] 세부 내역 (총 ${base.length.toLocaleString()}건)`;
-    if (subEl) subEl.textContent = `${yearLabel} 발생한 임직원·캐디·진행원 산재 및 안전사고 목록`;
+    if (isFiltered) {
+      if (titleEl) titleEl.textContent = `[선택 기간 직원 안전사고] 세부 내역 (총 ${base.length.toLocaleString()}건)`;
+      if (subEl) subEl.textContent = `현재 필터링 조건에 부합하는 임직원·캐디 안전사고 목록`;
+    } else {
+      const yearLabel = year === "all" ? "전체 연도" : `${year}년`;
+      if (titleEl) titleEl.textContent = `[${yearLabel} 직원 안전사고] 세부 내역 (총 ${base.length.toLocaleString()}건)`;
+      if (subEl) subEl.textContent = `${yearLabel} 발생한 임직원·캐디·진행원 산재 및 안전사고 목록`;
+    }
     if (iconEl) iconEl.textContent = "⛑️";
   } else {
     if (titleEl) titleEl.textContent = `${state.currentKpiDrillTitle || "KPI 세부 사고 내역"} (총 ${base.length.toLocaleString()}건)`;
+    if (subEl) subEl.textContent = state.currentKpiDrillSub || "";
+    if (iconEl) iconEl.textContent = state.currentKpiDrillIcon || "📌";
   }
 
   renderKpiDrilldownTable();
@@ -6214,6 +6308,25 @@ function openKpiDrilldown(type) {
     ? state.incidents
     : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
 
+  const totalAll = all.length;
+  const isFiltered = Boolean(
+    (state.filteredIncidents && state.filteredIncidents.length !== totalAll) ||
+    (state.filters && (
+      (state.filters.period && state.filters.period !== "all") ||
+      (state.filters.resort && state.filters.resort !== "all") ||
+      (state.filters.dept && state.filters.dept !== "all") ||
+      (state.filters.category && state.filters.category !== "all") ||
+      (state.filters.victimType && state.filters.victimType !== "all") ||
+      (state.filters.severity && state.filters.severity !== "all") ||
+      (state.filters.status && state.filters.status !== "all") ||
+      (state.filters.zone && state.filters.zone !== "all") ||
+      (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
+      state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
+    ))
+  );
+
+  const targetList = (state.filteredIncidents && Array.isArray(state.filteredIncidents)) ? state.filteredIncidents : all;
+
   let filtered = [];
   let title = "";
   let sub = "";
@@ -6223,34 +6336,37 @@ function openKpiDrilldown(type) {
   const yearSelect = document.getElementById("kpi-drill-filter-year");
 
   if (type === "employee2026" || type === "employee") {
-    if (yearWrap) yearWrap.style.display = "flex";
-
-    const defaultYear = String(currentYear);
-    state.kpiDrillYearFilter = defaultYear;
-    if (yearSelect) yearSelect.value = defaultYear;
-
     const empKeywords = ["직원", "임직원", "캐디", "진행원", "근로자", "실습생", "일용직", "협력사"];
-    // 전체 연도 직원 안전사고를 Base 목록으로 캐싱
-    state.kpiDrilldownBaseList = all.filter(x => {
+    // 필터 활성화 시 filteredIncidents 기준, 전체일 시 all 기준
+    const sourceList = isFiltered ? targetList : all;
+
+    state.kpiDrilldownBaseList = sourceList.filter(x => {
       if (!x) return false;
-      const note = (
-        String(x?.notes || x?.note || x?.specialNotes || "") + " " +
-        String(x?.description || x?.summary || "") + " " +
-        String(x?.place || x?.location || x?.locationDetail || "") + " " +
-        String(x?.title || "")
-      ).toLowerCase();
-      return empKeywords.some(kw => 
-        (x.victim && x.victim.includes(kw)) || 
-        (x.victimType && x.victimType.includes(kw)) || 
-        (x.victimName && x.victimName.includes(kw)) ||
-        (typeof getIncidentVictim === "function" && getIncidentVictim(x)?.includes(kw)) ||
-        note.includes(kw)
-      );
+      // [원칙 준수] 본문(텍스트) 검색 금지: 오직 victimType 또는 E열 구분2 헤더 기준 직접 매핑
+      const rawType = String(x.victimType || x['구분2'] || x.victim || "").replace(/[\r\n]+/g, " ").trim();
+      return empKeywords.some(kw => rawType.includes(kw));
     });
 
     icon = "⛑️";
     state.currentKpiDrillIcon = icon;
-    state.currentKpiDrillTitle = `[${currentYear}년 직원 안전사고] 세부 내역`;
+
+    if (isFiltered) {
+      // 선택 필터 적용 상태: 기본 연도 제한 없이 선택 범위 내 전체 직원 사고 표출
+      state.kpiDrillYearFilter = "all";
+      if (yearSelect) yearSelect.value = "all";
+      if (yearWrap) yearWrap.style.display = "none";
+      state.currentKpiDrillTitle = "[선택 기간 직원 안전사고] 세부 내역";
+      state.currentKpiDrillSub = "현재 필터링 조건에 부합하는 임직원·캐디 안전사고 목록";
+    } else {
+      // 전체 누적 상태: 당해 연도(2026년)를 기본 선택하여 제공
+      if (yearWrap) yearWrap.style.display = "flex";
+      const defaultYear = String(currentYear);
+      state.kpiDrillYearFilter = defaultYear;
+      if (yearSelect) yearSelect.value = defaultYear;
+      state.currentKpiDrillTitle = `[${currentYear}년 직원 안전사고] 세부 내역`;
+      state.currentKpiDrillSub = `${currentYear}년 발생한 임직원·캐디·진행원 산재 및 안전사고 목록`;
+    }
+
     updateKpiDrilldownData();
 
   } else {
@@ -6258,16 +6374,16 @@ function openKpiDrilldown(type) {
     state.kpiDrillYearFilter = "all";
 
     if (type === "year2026") {
-      filtered = all.filter(x => {
+      filtered = targetList.filter(x => {
         const p = parseIncidentDate(x);
         return (x.year === currentYear) || (p && p.getFullYear() === currentYear) || String(x.date || x.occurredAt || "").includes(String(currentYear));
       });
       icon = "📅";
-      title = `[${currentYear}년 당해 사고] 세부 내역`;
-      sub = `${currentYear}년에 발생한 안전사고 전체 목록`;
+      title = isFiltered ? `[선택 기간 당해 사고] 세부 내역` : `[${currentYear}년 당해 사고] 세부 내역`;
+      sub = isFiltered ? `선택 기간에 발생한 당해(${currentYear}년) 안전사고 목록` : `${currentYear}년에 발생한 안전사고 전체 목록`;
     } else if (type === "golfCC") {
       const ccKeywords = ["밸리", "성문안", "힐스", "월송리"];
-      filtered = all.filter(x => {
+      filtered = targetList.filter(x => {
         if (!x) return false;
         const isCC = ccKeywords.some(cc => 
           x.dept?.includes(cc) || 
@@ -6288,13 +6404,15 @@ function openKpiDrilldown(type) {
       });
       icon = "⛳";
       title = `[골프장(4대 CC) 사고] 세부 내역`;
-      sub = `밸리팀 · 힐스팀 · 성문안팀 · 월송리팀 골프 코스 안전사고 목록`;
+      sub = isFiltered 
+        ? `선택 기간 밸리팀 · 힐스팀 · 성문안팀 · 월송리팀 골프 코스 안전사고 목록` 
+        : `밸리팀 · 힐스팀 · 성문안팀 · 월송리팀 골프 코스 안전사고 목록`;
     } else {
       // 전체 누적 사고
-      filtered = all;
+      filtered = targetList;
       icon = "📊";
-      title = `[전체 누적 사고] 세부 내역`;
-      sub = `등록된 모든 연도 안전사고 전체 내역`;
+      title = isFiltered ? `[선택 기간 사고] 세부 내역` : `[전체 누적 사고] 세부 내역`;
+      sub = isFiltered ? `현재 필터링 조건에 부합하는 안전사고 목록` : `등록된 모든 연도 안전사고 전체 내역`;
     }
 
     filtered.sort((a, b) => {
