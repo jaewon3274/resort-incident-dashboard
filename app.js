@@ -7964,7 +7964,7 @@ function openAllHotspotsRankingModal() {
   rankingModalAllData = Array.from(hotspotMap.values()).sort((a, b) => b.count - a.count);
 
   const badgeEl = document.getElementById("all-hotspots-modal-badge");
-  if (badgeEl) badgeEl.textContent = `총 ${rankingModalAllData.length}개 구역 (${baseData.length}건 발생)`;
+  if (badgeEl) badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${baseData.length.toLocaleString()}건 발생`;
 
   const searchInput = document.getElementById("ranking-search-input");
   if (searchInput) searchInput.value = "";
@@ -7996,22 +7996,18 @@ function renderRankingModalRows(items, totalBase) {
 
   tbody.innerHTML = items.map((item, idx) => {
     const rank = idx + 1;
-    let rankBadgeClass = "ranking-rank-other";
-    let rankText = `${rank}위`;
-    if (rank === 1) { rankBadgeClass = "ranking-rank-1"; rankText = "🥇 1위"; }
-    else if (rank === 2) { rankBadgeClass = "ranking-rank-2"; rankText = "🥈 2위"; }
-    else if (rank === 3) { rankBadgeClass = "ranking-rank-3"; rankText = "🥉 3위"; }
-
+    const rankStyle = rank <= 3 
+      ? "font-weight: 700; color: #1e293b;" 
+      : "font-weight: 500; color: #64748b;";
+    const rankClass = rank <= 3 ? "font-bold text-slate-800" : "text-slate-600";
     const pct = totalBase > 0 ? ((item.count / totalBase) * 100).toFixed(1) : "0.0";
     const barWidth = Math.max(6, Math.min(100, Math.round((item.count / maxCount) * 100)));
 
     return `
-      <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#ffffff'">
-        <td style="padding: 0.65rem 0.85rem; text-align: center;">
-          <span class="ranking-rank-badge ${rankBadgeClass}" style="min-width: 48px; padding: 0.15rem 0.4rem; font-size: 0.76rem;">${rankText}</span>
-        </td>
-        <td style="padding: 0.65rem 0.85rem; font-weight: 700; color: #1e293b;">${escapeHtml(item.colC || "미지정")}</td>
-        <td style="padding: 0.65rem 0.85rem; font-weight: 600; color: #2563eb;">${escapeHtml(item.colD || "미지정")}</td>
+      <tr style="border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#ffffff'" onclick="openHotspotAnalysisModalFromRanking('${escapeHtml(item.key)}')">
+        <td style="padding: 0.65rem 0.85rem; text-align: center; font-size: 0.82rem; ${rankStyle}" class="${rankClass}">${rank}위</td>
+        <td style="padding: 0.65rem 0.85rem; font-weight: 600; color: #334155;">${escapeHtml(item.colC || "미지정")}</td>
+        <td style="padding: 0.65rem 0.85rem; font-weight: 600; color: #1d4ed8;">${escapeHtml(item.colD || "미지정")}</td>
         <td style="padding: 0.65rem 0.85rem;">
           <div style="display: flex; align-items: center; gap: 0.5rem;">
             <span style="font-weight: 700; color: #0f172a; min-width: 38px;">${item.count}건</span>
@@ -8022,8 +8018,8 @@ function renderRankingModalRows(items, totalBase) {
         </td>
         <td style="padding: 0.65rem 0.85rem; text-align: right; font-weight: 600; color: #475569;">${pct}%</td>
         <td style="padding: 0.65rem 0.85rem; text-align: center;">
-          <button type="button" class="btn btn-primary btn-sm" style="padding: 0.2rem 0.55rem; font-size: 0.74rem;" onclick="openHotspotAnalysisModalFromRanking('${escapeHtml(item.key)}')">
-            심층 분석 📊
+          <button type="button" class="btn-ranking-action" style="border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.75rem; font-weight: 500; padding: 0.25rem 0.65rem; border-radius: 0.25rem; cursor: pointer; transition: background 0.15s, border-color 0.15s;" onmouseover="this.style.background='#f8fafc'; this.style.borderColor='#94a3b8';" onmouseout="this.style.background='#ffffff'; this.style.borderColor='#cbd5e1';" onclick="event.stopPropagation(); openHotspotAnalysisModalFromRanking('${escapeHtml(item.key)}')">
+            심층 분석
           </button>
         </td>
       </tr>
@@ -8046,8 +8042,10 @@ function filterRankingModalTable(query) {
   const q = String(query || "").trim().toLowerCase();
   const baseData = getFilteredIncidents("hotspot");
   const totalBase = baseData.length || 1;
+  const badgeEl = document.getElementById("all-hotspots-modal-badge");
 
   if (!q) {
+    if (badgeEl) badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${baseData.length.toLocaleString()}건 발생`;
     renderRankingModalRows(rankingModalAllData, totalBase);
     return;
   }
@@ -8059,6 +8057,7 @@ function filterRankingModalTable(query) {
     return colC.includes(q) || colD.includes(q) || label.includes(q);
   });
 
+  if (badgeEl) badgeEl.textContent = `검색 ${filtered.length.toLocaleString()}개 구역 / 총 ${rankingModalAllData.length.toLocaleString()}개`;
   renderRankingModalRows(filtered, totalBase);
 }
 window.filterRankingModalTable = filterRankingModalTable;

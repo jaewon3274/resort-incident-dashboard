@@ -4523,17 +4523,25 @@ body.auth-locked .main-wrapper {
   padding: 0.45rem 0.65rem;
 }
 
-.ranking-rank-badge {
+/* Ranking Modal Action Button & Plain Rank Text */
+.btn-ranking-action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 9999px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 500;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  line-height: 1.25;
+  white-space: nowrap;
+  transition: all 0.15s ease;
 }
-.ranking-rank-1 { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
-.ranking-rank-2 { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
-.ranking-rank-3 { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
-.ranking-rank-other { background: #f8fafc; color: #64748b; font-weight: 600; }
+.btn-ranking-action:hover {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
