@@ -345,14 +345,14 @@
 
       <!-- 3열: 사고 다발 세부구역 TOP 7 (핫스팟) -->
       <article class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3 id="hotspot-chart-title">📍 사고 다발 세부구역 TOP 7 (핫스팟)</h3>
-            <span class="chart-subtitle" id="hotspot-chart-subtitle">현재 필터 기준 사고 집중 발생 세부장소 순위</span>
+        <div class="chart-header flex items-center justify-between gap-2" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.85rem;">
+          <div class="min-w-0 flex-1" style="min-width: 0; flex: 1;">
+            <h3 id="hotspot-chart-title" class="whitespace-nowrap text-sm sm:text-base font-bold" style="white-space: nowrap; font-size: 0.95rem; font-weight: 700; margin: 0; overflow: hidden; text-overflow: ellipsis;">📍 사고 다발 세부구역 TOP 7 (핫스팟)</h3>
+            <span class="chart-subtitle text-xs text-slate-500 whitespace-nowrap block" id="hotspot-chart-subtitle" style="white-space: nowrap; font-size: 0.74rem; color: #64748b; margin-top: 0.15rem; display: block;">현재 필터 기준 사고 집중 발생 세부장소 순위</span>
           </div>
-          <div class="chart-header-actions" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-            <span class="drilldown-hint-badge" title="차트 막대를 클릭하면 해당 세부구역의 심층 분석 모달이 열립니다">👉 막대 클릭 심층 분석</span>
-            <button type="button" class="btn-chart-more" id="btn-hotspots-all-ranking" onclick="openAllHotspotsRankingModal()" title="현재 필터 조건에 해당하는 모든 세부 장소 순위 목록을 봅니다">
+          <div class="chart-header-actions flex items-center gap-1.5 shrink-0" style="display: flex; align-items: center; gap: 0.35rem; flex-shrink: 0;">
+            <span class="drilldown-hint-badge px-2 py-1 text-xs" style="padding: 0.2rem 0.45rem; font-size: 0.7rem; white-space: nowrap;" title="차트 막대를 클릭하면 해당 세부구역의 심층 분석 모달이 열립니다">👉 막대 클릭 심층 분석</span>
+            <button type="button" class="btn-chart-more px-2 py-1 text-xs" id="btn-hotspots-all-ranking" onclick="openAllHotspotsRankingModal()" style="padding: 0.2rem 0.5rem; font-size: 0.7rem; white-space: nowrap;" title="현재 필터 조건에 해당하는 모든 세부 장소 순위 목록을 봅니다">
               전체 순위 보기 (더보기) ↗
             </button>
           </div>
@@ -573,33 +573,35 @@
   <!-- ==========================================================================
        6-8. Modal: 사고 다발 세부구역 순위 모달 (#all-hotspots-ranking-modal)
        ========================================================================== -->
-  <div class="modal-overlay" id="all-hotspots-ranking-modal" aria-hidden="true" style="z-index: 1040;">
-    <div class="modal-container all-hotspots-ranking-container max-w-4xl w-[95%] max-h-[88vh] overflow-y-auto pr-1" role="dialog" aria-modal="true" aria-labelledby="all-hotspots-modal-title">
-      <div class="modal-header">
-        <div>
-          <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
-            <h3 id="all-hotspots-modal-title" style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #0f172a;">사고 다발 세부구역 순위</h3>
-            <span id="all-hotspots-modal-badge" class="badge" style="background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 0.375rem; font-size: 0.76rem;">총 0개 구역 / 0건 발생</span>
-          </div>
-          <span id="all-hotspots-modal-subtitle" style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem; display: block;">현재 대시보드 필터 조건에 부합하는 모든 세부 장소 발생 순위</span>
-          </div>
+  <div class="modal-overlay fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4" id="all-hotspots-ranking-modal" aria-hidden="true" style="z-index: 1040;">
+    <!-- [단일 모달 컨테이너 (Modal Box)] -->
+    <div class="modal-container bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95" role="dialog" aria-modal="true" aria-labelledby="all-hotspots-modal-title" style="background: #ffffff !important; border-radius: 1rem; border: 1px solid #e2e8f0; width: 100%; max-width: 56rem; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+      
+      <!-- [A. 헤더 (Header)] -->
+      <div class="modal-header p-5 border-b border-slate-100 flex items-center justify-between" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between;">
+        <div class="flex items-center gap-3 flex-wrap" style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <h3 id="all-hotspots-modal-title" class="font-bold text-lg text-slate-900" style="margin: 0; font-size: 1.125rem; font-weight: 700; color: #0f172a;">사고 다발 세부구역 순위</h3>
+          <span id="all-hotspots-modal-badge" class="badge text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200" style="background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 0.375rem; font-size: 0.76rem;">총 0개 구역 / 0건 발생</span>
         </div>
-        <button class="modal-close-btn" onclick="closeAllHotspotsRankingModal()" aria-label="닫기">&times;</button>
+        <button type="button" class="modal-close-btn text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition" onclick="closeAllHotspotsRankingModal()" aria-label="닫기" style="background: transparent; border: none; font-size: 1.35rem; line-height: 1; cursor: pointer; color: #64748b; padding: 0.375rem; border-radius: 0.375rem; transition: all 0.15s ease;">&times;</button>
       </div>
 
-      <div class="modal-body" style="padding: 1.25rem 1.4rem;">
-        <!-- 상단 검색창 및 안내 바 -->
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
-          <div style="position: relative; flex: 1; min-width: 260px;">
-            <input type="text" id="ranking-search-input" placeholder="구역 또는 사업장 명칭 빠른 검색 (예: 파인, 밸리, 슬로프)..." style="width: 100%; padding: 0.55rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; font-size: 0.86rem;" oninput="filterRankingModalTable(this.value)">
-          </div>
-          <span style="font-size: 0.76rem; color: #64748b;">안내: 행 또는 [심층 분석] 클릭 시 상세 분석 팝업</span>
+      <!-- [B. 검색 영역 (Search)] -->
+      <div class="px-6 pt-4 pb-2 bg-slate-50/50" style="padding: 1rem 1.5rem 0.5rem 1.5rem; background-color: rgba(248, 250, 252, 0.6); border-bottom: 1px solid #f1f5f9;">
+        <div class="relative w-full" style="position: relative; width: 100%;">
+          <input type="text" id="ranking-search-input" placeholder="구역 또는 사업장 명칭 빠른 검색 (예: 파인, 밸리, 슬로프)..." class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.6rem 0.9rem; font-size: 0.86rem; outline: none; box-sizing: border-box;" oninput="filterRankingModalTable(this.value)">
         </div>
+        <div class="flex items-center justify-between mt-2 px-1" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.35rem; padding: 0 0.2rem;">
+          <span style="font-size: 0.75rem; color: #64748b;">안내: 행 또는 [심층 분석] 클릭 시 상세 분석 팝업</span>
+          <span id="all-hotspots-modal-subtitle" style="font-size: 0.75rem; color: #94a3b8;">현재 필터 기준 전체 세부 장소 순위</span>
+        </div>
+      </div>
 
-        <!-- 랭킹 테이블 -->
-        <div style="border: 1px solid #e2e8f0; border-radius: 0.5rem; overflow: hidden; max-height: 55vh; overflow-y: auto;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
-            <thead style="background: #f8fafc; color: #475569; font-weight: 700; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10;">
+      <!-- [C. 테이블 스크롤 영역 (Body)] -->
+      <div class="modal-body flex-1 overflow-y-auto px-6 py-2" style="flex: 1 1 auto; overflow-y: auto; padding: 0.75rem 1.5rem; max-height: calc(85vh - 210px); min-height: 200px;">
+        <div class="border border-slate-200 rounded-lg overflow-hidden" style="border: 1px solid #e2e8f0; border-radius: 0.5rem; overflow: hidden;">
+          <table class="w-full border-collapse text-sm" style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
+            <thead class="sticky top-0 bg-slate-50 text-slate-600 font-semibold border-b border-slate-200 z-10" style="position: sticky; top: 0; background: #f8fafc; color: #475569; font-weight: 600; border-bottom: 1px solid #cbd5e1; z-index: 10;">
               <tr>
                 <th style="padding: 0.65rem 0.85rem; width: 75px; text-align: center;">순위</th>
                 <th style="padding: 0.65rem 0.85rem; width: 140px; text-align: left;">구분 / 사업장</th>
@@ -609,20 +611,24 @@
                 <th style="padding: 0.65rem 0.85rem; width: 95px; text-align: center;">심층 분석</th>
               </tr>
             </thead>
-            <tbody id="all-hotspots-table-body">
+            <tbody id="all-hotspots-table-body" class="divide-y divide-slate-100 bg-white" style="background: #ffffff;">
               <!-- Dynamic Rows -->
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="modal-footer" style="display: flex; justify-content: flex-end; padding: 0.85rem 1.4rem; border-top: 1px solid #e2e8f0;">
-        <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllHotspotsRankingModal()">닫기 (ESC)</button>
+      <!-- [D. 푸터 (Footer)] -->
+      <div class="modal-footer p-4 border-t border-slate-100 bg-slate-50 flex justify-end" style="padding: 0.85rem 1.5rem; border-top: 1px solid #f1f5f9; background: #f8fafc; display: flex; justify-content: flex-end;">
+        <button type="button" class="btn-ranking-footer-close px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition" onclick="closeAllHotspotsRankingModal()" style="padding: 0.45rem 1rem; font-size: 0.78rem; font-weight: 500; color: #334155; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.375rem; cursor: pointer; transition: all 0.15s ease;">
+          닫기 (ESC)
+        </button>
       </div>
+
     </div>
   </div>
 
-<!-- ==========================================================================
+  <!-- ==========================================================================
        신설: 다년도·기간 비교 분석 전용 뷰 (#view-comparison)
        ========================================================================== -->
   <div id="view-comparison" class="comparison-wrapper view-pane" style="display: none;">

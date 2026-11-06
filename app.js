@@ -8004,7 +8004,7 @@ function renderRankingModalRows(items, totalBase) {
     const barWidth = Math.max(6, Math.min(100, Math.round((item.count / maxCount) * 100)));
 
     return `
-      <tr style="border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#ffffff'" onclick="openHotspotAnalysisModalFromRanking('${escapeHtml(item.key)}')">
+      <tr class="hover:bg-slate-50/80 transition" style="border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#ffffff'" onclick="openHotspotAnalysisModalFromRanking('${escapeHtml(item.key)}')">
         <td style="padding: 0.65rem 0.85rem; text-align: center; font-size: 0.82rem; ${rankStyle}" class="${rankClass}">${rank}위</td>
         <td style="padding: 0.65rem 0.85rem; font-weight: 600; color: #334155;">${escapeHtml(item.colC || "미지정")}</td>
         <td style="padding: 0.65rem 0.85rem; font-weight: 600; color: #1d4ed8;">${escapeHtml(item.colD || "미지정")}</td>
