@@ -3092,6 +3092,49 @@ function setupSubAnalysisModals() {
   }
 }
 
+// ==========================================================================
+// [사업장(C열) 정규화 매핑 규칙] getNormalizedBusinessUnit
+// - '대정골프'는 밸리팀 관할 코스(파인, 체리, 오크, 메이플) 등의 위탁 관리 협력사임.
+// - C열(item.bizUnit 또는 구분1) 또는 부서(dept)가 '대정골프'인 경우:
+//   * D열 세부장소에 '파인', '체리', '오크', '메이플' 키워드가 포함되어 있다면, 집계 시 사업장 키를 '밸리팀'으로 자동 변환
+//   * 힐스/월송리 관련 키워드가 포함되어 있다면 '힐스팀'으로 매핑
+//   * 성문안 관련 키워드가 포함되어 있다면 '성문안팀'으로 매핑
+//   * 그 외 명확하지 않은 경우는 기존 C열 유지
+// ==========================================================================
+function getNormalizedBusinessUnit(item, fallbackC) {
+  if (!item) return fallbackC || "";
+  const colC = String(fallbackC || item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+  const dept = String(item.dept || item.department || item.division || "").trim();
+  const victimDetail = String(item.victimDetail || item['구분2'] || "").trim();
+  const rawLoc = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+
+  const isDaejeong = colC === "대정골프" || colC === "대정" ||
+                     dept === "대정골프" || dept === "대정" ||
+                     victimDetail.includes("대정");
+
+  if (isDaejeong) {
+    // 1) 밸리팀 관할 코스: 파인, 체리, 오크, 메이플 (단, '오크힐스'는 힐스팀)
+    if (/(파인|체리|메이플)/i.test(rawLoc) || (/오크/i.test(rawLoc) && !/오크힐스|힐스/i.test(rawLoc))) {
+      return "밸리팀";
+    }
+    // 2) 성문안팀 관할 코스: 성문안
+    if (/성문안/i.test(rawLoc)) {
+      return "성문안팀";
+    }
+    // 3) 힐스팀 관할 코스: 힐스, 오크힐스, 힐
+    if (/(오크힐스|힐스|\b힐\d*h\b|힐\s*코스)/i.test(rawLoc) || /힐스/i.test(rawLoc)) {
+      return "힐스팀";
+    }
+    // 4) 월송리팀 관할 코스: 월송리, 월송
+    if (/(월송리|월송)/i.test(rawLoc)) {
+      return "월송리팀";
+    }
+  }
+
+  return colC;
+}
+window.getNormalizedBusinessUnit = getNormalizedBusinessUnit;
+
 // Chart Drilldown Helpers
 // ==========================================================================
 // [장소 정규화 함수] getStandardLocation
@@ -3107,6 +3150,14 @@ function getStandardLocation(d) {
     const course = golfMatch[1];
     const holeNum = golfMatch[2];
     return `${course}${holeNum}H`;
+  }
+
+  // 1-1. 성문안 골프장 홀 패턴: /성문안\s*(?:인코스|아웃코스|코스)?\s*(\d+)\s*(?:H|홀|\b)/i
+  //      치환: `${숫자}H` (예: '성문안 3H' -> '3H', '성문안 12H 화이트티' -> '12H')
+  const smnMatch = text.match(/성문안\s*(?:인코스|아웃코스|코스)?\s*(\d+)\s*(?:H|홀|\b)/i);
+  if (smnMatch) {
+    const holeNum = smnMatch[1];
+    return `${holeNum}H`;
   }
 
   // 2. 스키장 슬로프 패턴: /([A-Za-z가-힣]+)s*슬로프/i (예: 'G슬로프 상단', 'A 슬로프 하단 펜스' 등)
@@ -4254,12 +4305,27 @@ function getFilteredIncidents(excludeKey = null) {
 
     // [요구사항 4] C+D열 세부 핫스팟 (정규화 대표구역 일괄 필터링)
     if (hotspot) {
-      const itemColC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+      const itemColC = getNormalizedBusinessUnit(item);
       const itemColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
       if (hotspot.colC && itemColC !== hotspot.colC) return false;
       const itemStdD = getStandardLocation(itemColD);
       const targetStdD = hotspot.stdLocation || hotspot.colD;
-      const matchesD = (targetStdD && (itemStdD === targetStdD || itemColD.includes(targetStdD))) || itemColD === hotspot.colD;
+      let matchesD = false;
+      if (itemColD === hotspot.colD) {
+        matchesD = true;
+      } else if (targetStdD) {
+        if (itemStdD === targetStdD) {
+          matchesD = true;
+        } else {
+          const holeMatch = targetStdD.match(/^(\d+)H$/i);
+          if (holeMatch) {
+            const regex = new RegExp('(^|[^0-9])' + holeMatch[1] + '\\s*(?:H|홀)\\b', 'i');
+            matchesD = regex.test(itemColD);
+          } else {
+            matchesD = itemColD.includes(targetStdD);
+          }
+        }
+      }
       if (!matchesD) return false;
     }
 
@@ -4920,7 +4986,7 @@ function renderCharts() {
 
     const hotspotMap = new Map();
     hotspotBaseData.forEach(item => {
-      const colC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+      const colC = getNormalizedBusinessUnit(item);
       const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
       const stdColD = getStandardLocation(rawColD);
       const label = getHotspotLabel(colC, stdColD);
@@ -7813,12 +7879,27 @@ function openHotspotAnalysisModal(hotspotItem) {
 
   // Filter for matching C & D (supporting normalized representative keyword)
   const incidents = baseData.filter(item => {
-    const itemColC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+    const itemColC = getNormalizedBusinessUnit(item);
     const itemColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
     if (hotspotItem.colC && itemColC !== hotspotItem.colC) return false;
     const itemStdD = getStandardLocation(itemColD);
     const targetStdD = hotspotItem.stdLocation || hotspotItem.colD;
-    const matchesD = (targetStdD && (itemStdD === targetStdD || itemColD.includes(targetStdD))) || itemColD === hotspotItem.colD;
+    let matchesD = false;
+    if (itemColD === hotspotItem.colD) {
+      matchesD = true;
+    } else if (targetStdD) {
+      if (itemStdD === targetStdD) {
+        matchesD = true;
+      } else {
+        const holeMatch = targetStdD.match(/^(\d+)H$/i);
+        if (holeMatch) {
+          const regex = new RegExp('(^|[^0-9])' + holeMatch[1] + '\\s*(?:H|홀)\\b', 'i');
+          matchesD = regex.test(itemColD);
+        } else {
+          matchesD = itemColD.includes(targetStdD);
+        }
+      }
+    }
     if (!matchesD) return false;
     return true;
   });
@@ -7997,7 +8078,7 @@ function openAllHotspotsRankingModal() {
   // Aggregate all hotspots under current filters (standardized representative areas)
   const hotspotMap = new Map();
   baseData.forEach(item => {
-    const colC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+    const colC = getNormalizedBusinessUnit(item);
     const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
     const stdColD = getStandardLocation(rawColD);
     const label = getHotspotLabel(colC, stdColD);
@@ -8109,3 +8190,11 @@ function filterRankingModalTable(query) {
   renderRankingModalRows(filtered, totalBase);
 }
 window.filterRankingModalTable = filterRankingModalTable;
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    getStandardLocation,
+    getHotspotLabel,
+    getNormalizedBusinessUnit
+  };
+}
