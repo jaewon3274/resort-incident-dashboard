@@ -91,40 +91,66 @@ function getIncidentDate(item) {
 }
 window.getIncidentDate = getIncidentDate;
 
+// ==========================================================================
+// [사고유형 정규화 함수] normalizeAccidentType
+// - '타구사고': 사람이 직접 골프공에 맞은 대인 사고 (단독 유지)
+// - '타구사고(차량)', '타구사고(카트)': 골프공에 의해 차량 또는 카트가 파손된 대물 사고 (동일 유형으로 통합)
+// ==========================================================================
+function normalizeAccidentType(rawType) {
+  if (!rawType) return "기타";
+  const str = String(rawType).replace(/[\r\n]+/g, "").trim();
+  const clean = str.replace(/\s+/g, "");
+  if (clean === "타구사고(차량)" || clean === "타구사고(카트)" || clean === "타구사고(차량·카트)" || clean === "타구사고(차량,카트)") {
+    return "타구사고(차량·카트)";
+  }
+  return str || "기타";
+}
+window.normalizeAccidentType = normalizeAccidentType;
+
 function getIncidentCategory(item) {
   if (!item) return "기타";
   const val = item.category || item.type || item.incidentType || item['사고유형1'] || "기타";
-  return String(val).replace(/[\r\n]+/g, "").trim() || "기타";
+  return normalizeAccidentType(val);
 }
 window.getIncidentCategory = getIncidentCategory;
 
-// [통일 필터 함수] 사고유형 필터 대조 로직 (타구/타구사고 및 파생 유형 일관 포함 지원)
+// [통일 필터 함수] 사고유형 필터 대조 로직 (대인 타구사고 단독 유지 & 대물 타구사고(차량·카트) 통합 매핑)
 function matchCategoryFilter(itemCategory, filterCategory) {
   if (!filterCategory || filterCategory === "all") return true;
   if (!itemCategory) return false;
 
-  const incCat = String(itemCategory).replace(/[\r\n]+/g, "").trim();
-  const fltCat = String(filterCategory).replace(/[\r\n]+/g, "").trim();
+  const incCat = normalizeAccidentType(String(itemCategory).replace(/[\r\n]+/g, "").trim());
+  const fltCat = normalizeAccidentType(String(filterCategory).replace(/[\r\n]+/g, "").trim());
 
-  // 1. 완전 일치 (Exact Match)
+  // 1. 완전 일치 (Exact Match - normalized)
   if (incCat === fltCat) return true;
 
-  // 2. '타구' 또는 '타구사고'인 경우 -> 파생 유형('타구사고(차량)', '타구사고(카트)' 등) 모두 포함
-  if (fltCat === "타구" || fltCat === "타구사고") {
+  // 2. '타구사고(차량·카트)' 대물 통합 유형 매칭
+  if (fltCat === "타구사고(차량·카트)" || fltCat === "타구사고(차량)" || fltCat === "타구사고(카트)") {
+    return incCat === "타구사고(차량·카트)" || incCat === "타구사고(차량)" || incCat === "타구사고(카트)";
+  }
+
+  // 3. '타구사고' 순수 대인 사고 매칭 (단독 유지 - 차량/카트 대물 사고와 완전 분리)
+  if (fltCat === "타구사고") {
+    return incCat === "타구사고";
+  }
+
+  // 4. '타구' 검색어인 경우 -> 대인 + 대물 파생 유형 전체 포괄
+  if (fltCat === "타구") {
     return incCat.includes("타구");
   }
 
-  // 3. '대물' 또는 '대물사고'인 경우 -> '대물사고(차량피해)', '대물사고(골프백)' 등 파생 유형 포함
+  // 5. '대물' 또는 '대물사고'인 경우 -> '대물사고(차량피해)', '대물사고(골프백)' 등 파생 유형 포함
   if (fltCat === "대물" || fltCat === "대물사고") {
     return incCat.includes("대물");
   }
 
-  // 4. 일반적인 괄호 파생 유형 매칭: fltCat이 기본형(예: '차량사고')일 때 incCat이 '차량사고(단독)' 등
-  if (incCat.startsWith(`${fltCat}(`) || incCat.startsWith(`${fltCat} `)) {
+  // 6. 일반적인 괄호 파생 유형 매칭: fltCat이 기본형(예: '차량사고')일 때 incCat이 '차량사고(단독)' 등
+  if (incCat.startsWith(fltCat + "(") || incCat.startsWith(fltCat + " ")) {
     return true;
   }
 
-  // 5. 공백/대소문자 무시 정규화 포함 (단, 필터 길이가 2글자 이상인 경우에만 포괄 매칭)
+  // 7. 공백/대소문자 무시 정규화 포함 (단, 필터 길이가 2글자 이상인 경우에만 포괄 매칭)
   const normInc = incCat.replace(/\s+/g, "").toLowerCase();
   const normFlt = fltCat.replace(/\s+/g, "").toLowerCase();
   if (normFlt.length >= 2 && normInc.includes(normFlt)) {
@@ -227,12 +253,14 @@ function normalizeIncident(item) {
     victimName = item.victimName || "익명";
   }
 
+  const originalRawType = String(item.rawType || item['사고유형1'] || item.type || item.category || "").replace(/[\r\n]+/g, "").trim() || "기타";
+  item.rawType = originalRawType;
   item.date = dateVal;
   item.occurredAt = dateVal;
   item.category = catVal;
   item.type = catVal;
   item.incidentType = catVal;
-  item['사고유형1'] = catVal;
+  item['사고유형1'] = originalRawType;
   const teamVal = String(item.team || item['구분1'] || buVal || "미분류").replace(/[\r\n]+/g, " ").trim();
   const rawDeptVal = String(item.department || item['부문/부서'] || (item.dept && item.dept !== teamVal ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
   const displayLocationVal = (rawDeptVal && rawDeptVal !== teamVal) ? `${teamVal} (${rawDeptVal})` : teamVal;
@@ -491,6 +519,7 @@ window.handlePageSizeChange = function(val) {
 const CATEGORY_COLOR_MAP = {
   "넘어짐": "#38bdf8",            // Sky Blue
   "타구사고": "#f59e0b",          // Amber / Orange
+  "타구사고(차량·카트)": "#f97316", // Bright Orange (통합 대물 타구사고)
   "타구사고(차량)": "#f97316",    // Bright Orange
   "카트사고": "#10b981",          // Emerald Green
   "차량사고": "#ef4444",          // Red
@@ -3446,6 +3475,7 @@ const parseIncidentRow = (row, index) => {
   // 1. 사고유형 필드 매핑: '사고유형1' 우선 탐색 및 줄바꿈/공백 제거 정제
   const rawType = row['사고유형1'] || row['사고유형'] || row['사고 유형'] || row['유형'] || '기타';
   const cleanType = String(rawType).replace(/[\r\n]+/g, '').trim() || '기타';
+  const normalizedCategory = normalizeAccidentType(cleanType);
 
   // 2. 사업장/부서 구분 매핑 (C열 구분1, B열 부문/부서)
   const team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
@@ -5395,7 +5425,7 @@ function renderTable(data = state.filteredIncidents) {
           <span class="location-sub" style="color: #64748b; font-size: 0.78rem;">${escapeHtml(item.locationDetail || "")}</span>
         </td>
         <td>
-          <span class="badge badge-category" style="font-size: 0.75rem;">${escapeHtml(getIncidentCategory(item))}</span>
+          <span class="badge badge-category" style="font-size: 0.75rem;">${escapeHtml(item.rawType || item['사고유형1'] || item.type || getIncidentCategory(item))}</span>
         </td>
         <td class="title-cell" title="${escapeHtml(item.title || "")}" style="font-weight: 600; color: #0f172a;">
           ${escapeHtml(item.title || "-")}
@@ -5495,7 +5525,7 @@ function openIncidentDetail(id, originContext) {
   document.getElementById("dtl-date").innerText = item.date;
   document.getElementById("dtl-resort").innerText = `${item.resort} ${item.dept ? `(${item.dept})` : ''}`;
   document.getElementById("dtl-location").innerText = `${item.zone} - ${item.locationDetail}`;
-  document.getElementById("dtl-category").innerText = getIncidentCategory(item);
+  document.getElementById("dtl-category").innerText = item.rawType || item['사고유형1'] || item.type || getIncidentCategory(item);
   document.getElementById("dtl-victim").innerText = `${item.victimType || '고객'} - ${item.victimName || '미상'}`;
   document.getElementById("dtl-severity").innerText = item.severity;
   document.getElementById("dtl-manager").innerText = item.manager || "-";
@@ -8195,6 +8225,9 @@ if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     getStandardLocation,
     getHotspotLabel,
-    getNormalizedBusinessUnit
+    getNormalizedBusinessUnit,
+    normalizeAccidentType,
+    getIncidentCategory,
+    matchCategoryFilter
   };
 }
