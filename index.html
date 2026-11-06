@@ -165,7 +165,7 @@
   <main class="main-wrapper view-pane" id="view-monitoring">
 
     <!-- Search & Filter Controls -->
-    <section class="filter-panel" aria-label="필터 및 검색 제어판">
+    <section class="filter-panel relative z-30 overflow-visible" aria-label="필터 및 검색 제어판">
       <!-- 1행: 검색창(flex-1) + 기간 선택 캡슐 그룹 (나란히 배치) -->
       <div class="filter-row-primary">
         <!-- Live Fulltext Search -->
@@ -178,7 +178,7 @@
         </div>
 
         <!-- 기간 선택 캡슐 그룹 (1행 우측 여백) -->
-        <div class="period-filter-wrapper">
+        <div class="period-filter-wrapper relative z-30 overflow-visible">
           <div class="quick-period-tags" role="group" aria-label="기간 필터">
             <button type="button" class="period-btn active" data-period="all">전체</button>
             <button type="button" class="period-btn" data-period="thisMonth">당월(이번 달)</button>
@@ -190,7 +190,7 @@
           </div>
 
           <!-- 미니 팝오버 달력 입력창 (직접지정 클릭 시 표출) -->
-          <div id="custom-date-popover" class="custom-date-popover" style="display: none;">
+          <div id="custom-date-popover" class="custom-date-popover absolute right-0 top-full mt-2 z-50 shadow-xl border border-slate-200" style="display: none;">
             <div class="popover-header">
               <span class="popover-title">📅 기간 직접 지정</span>
               <button type="button" class="btn-popover-close" id="btn-close-date-popover" aria-label="닫기">&times;</button>
@@ -315,38 +315,15 @@
       <article class="chart-card">
         <div class="chart-header">
           <div>
-            <h3>🏢 팀/부서별 사고 발생 비중</h3>
-            <span class="chart-subtitle">밸리팀, 성문안팀, 레저팀, 시설팀 등 부서별 점유율</span>
+            <h3 id="hotspot-chart-title">📍 사고 다발 세부구역 TOP 7 (핫스팟)</h3>
+            <span class="chart-subtitle" id="hotspot-chart-subtitle">현재 필터 기준 사고 집중 발생 세부장소 순위</span>
           </div>
-          <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 팀으로 메인 테이블이 즉시 필터링됩니다">👆 조각 클릭 드릴다운</span>
-        </div>
-        <div class="chart-body">
-          <canvas id="deptChart"></canvas>
-        </div>
-      </article>
-
-      <!-- Chart 2: 유형별 사고 발생 비중 -->
-      <article class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>📊 유형별 사고 발생 비중</h3>
-            <span class="chart-subtitle">넘어짐, 타구사고, 기물접촉 등 분류별 점유율</span>
+          <div class="chart-header-actions" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <span class="drilldown-hint-badge" title="차트 막대를 클릭하면 해당 세부구역의 심층 분석 모달이 열립니다">👉 막대 클릭 심층 분석</span>
+            <button type="button" class="btn-chart-more" id="btn-hotspots-all-ranking" onclick="openAllHotspotsRankingModal()" title="현재 필터 조건에 해당하는 모든 세부 장소 순위 목록을 봅니다">
+              전체 순위 보기 (더보기) ↗
+            </button>
           </div>
-          <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 유형으로 메인 테이블이 즉시 필터링됩니다">👆 조각 클릭 드릴다운</span>
-        </div>
-        <div class="chart-body">
-          <canvas id="categoryChart"></canvas>
-        </div>
-      </article>
-
-      <!-- Chart 3: 사고 다발 세부구역 TOP 7 (핫스팟) -->
-      <article class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>📍 사고 다발 세부구역 TOP 7 (핫스팟)</h3>
-            <span class="chart-subtitle">현재 필터 기준 사고 집중 발생 세부장소 순위</span>
-          </div>
-          <span class="drilldown-hint-badge" title="차트 막대를 클릭하면 해당 세부구역으로 메인 테이블이 즉시 필터링됩니다">👉 막대 클릭 상세 조회</span>
         </div>
         <div class="chart-body" style="height: 290px;">
           <canvas id="zoneChart"></canvas>
@@ -478,7 +455,157 @@
 
   </main>
 
+  
   <!-- ==========================================================================
+       6-7. Modal: 📍 사고 다발 세부구역 심층 분석 모달 (#hotspot-analysis-modal)
+       ========================================================================== -->
+  <div class="modal-overlay" id="hotspot-analysis-modal" aria-hidden="true" style="z-index: 1040;">
+    <div class="modal-container hotspot-analysis-container max-w-4xl w-[95%] max-h-[88vh] overflow-y-auto pr-1" role="dialog" aria-modal="true" aria-labelledby="hotspot-modal-title">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <span style="font-size: 1.4rem;">📍</span>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+              <h3 id="hotspot-modal-title" style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #0f172a;">세부구역 심층 분석</h3>
+              <span id="hotspot-modal-badge" class="badge" style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.78rem;">총 0건 (0.0%)</span>
+            </div>
+            <span id="hotspot-modal-subtitle" style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem; display: block;">현재 필터 기준 해당 세부구역의 사고 구성 및 조치 현황 분석</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeHotspotAnalysisModal()" aria-label="닫기">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem 1.4rem;">
+        <!-- 상단 3대 요약 분석 그리드 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <!-- 1) 사고 유형별 구성비 -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">📊 사고 유형별 구성비</span>
+              <span id="hotspot-modal-type-count" style="font-size: 0.75rem; color: #64748b; font-weight: 600;"></span>
+            </div>
+            <div id="hotspot-modal-types-list" style="display: flex; flex-direction: column; gap: 0.55rem; max-height: 155px; overflow-y: auto;">
+              <!-- Dynamic Rows -->
+            </div>
+          </div>
+
+          <!-- 2) 피해 대상 구성비 (고객 / 캐디 / 직원) -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">👥 피해 대상 구성비</span>
+              <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">고객 · 캐디 · 직원</span>
+            </div>
+            <div id="hotspot-modal-victims-list" style="display: flex; flex-direction: column; gap: 0.55rem; max-height: 155px; overflow-y: auto;">
+              <!-- Dynamic Rows -->
+            </div>
+          </div>
+
+          <!-- 3) 조치 완료율 -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">✅ 조치 완료율</span>
+                <span id="hotspot-modal-action-rate" style="font-size: 1.15rem; font-weight: 800; color: #059669;">100%</span>
+              </div>
+              <p style="font-size: 0.75rem; color: #64748b; margin: 0 0 0.75rem;">현장 조치 및 종결 완료 비율</p>
+            </div>
+            <div id="hotspot-modal-action-progress">
+              <!-- Dynamic Bar -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 하단: 해당 구역 발생 사고 상세 리스트 테이블 -->
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+              <span>📋 발생 사고 상세 내역</span>
+              <span id="hotspot-modal-table-count" style="font-size: 0.8rem; font-weight: 700; color: #2563eb;">총 0건</span>
+            </h4>
+            <span style="font-size: 0.74rem; color: #64748b;">💡 항목 클릭 시 상세 보고서로 이동</span>
+          </div>
+
+          <div style="border: 1px solid #e2e8f0; border-radius: 0.5rem; overflow: hidden;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
+              <thead style="background: #f8fafc; color: #475569; font-weight: 700; border-bottom: 1px solid #e2e8f0;">
+                <tr>
+                  <th style="padding: 0.65rem 0.85rem; width: 175px; text-align: left;">문서번호</th>
+                  <th style="padding: 0.65rem 0.85rem; width: 140px; text-align: left;">발생일시</th>
+                  <th style="padding: 0.65rem 0.85rem; width: 130px; text-align: left;">피해자 구분</th>
+                  <th style="padding: 0.65rem 0.85rem; text-align: left;">사고제목 / 세부경위</th>
+                  <th style="padding: 0.65rem 0.85rem; width: 95px; text-align: center;">처리상태</th>
+                </tr>
+              </thead>
+              <tbody id="hotspot-modal-table-body">
+                <!-- Dynamic Rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.4rem; border-top: 1px solid #e2e8f0;">
+        <button type="button" class="btn btn-primary btn-sm" id="btn-hotspot-pin-filter" onclick="applyHotspotFilterFromModal()">하단 메인 테이블에 필터 고정 📌</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeHotspotAnalysisModal()">닫기 (ESC)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       6-8. Modal: 🏆 사고 다발 세부구역 전체 순위 랭킹 모달 (#all-hotspots-ranking-modal)
+       ========================================================================== -->
+  <div class="modal-overlay" id="all-hotspots-ranking-modal" aria-hidden="true" style="z-index: 1040;">
+    <div class="modal-container all-hotspots-ranking-container max-w-4xl w-[95%] max-h-[88vh] overflow-y-auto pr-1" role="dialog" aria-modal="true" aria-labelledby="all-hotspots-modal-title">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <span style="font-size: 1.4rem;">🏆</span>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+              <h3 id="all-hotspots-modal-title" style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #0f172a;">사고 다발 세부구역 전체 순위 (랭킹)</h3>
+              <span id="all-hotspots-modal-badge" class="badge" style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.78rem;">총 0개 구역</span>
+            </div>
+            <span id="all-hotspots-modal-subtitle" style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem; display: block;">현재 대시보드 필터 조건에 부합하는 모든 세부 장소 발생 순위</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeAllHotspotsRankingModal()" aria-label="닫기">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem 1.4rem;">
+        <!-- 상단 검색창 및 안내 바 -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+          <div style="position: relative; flex: 1; min-width: 260px;">
+            <input type="text" id="ranking-search-input" placeholder="구역 또는 사업장 명칭 빠른 검색 (예: 파인, 밸리, 슬로프)..." style="width: 100%; padding: 0.55rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; font-size: 0.86rem;" oninput="filterRankingModalTable(this.value)">
+          </div>
+          <span style="font-size: 0.76rem; color: #64748b;">💡 행 또는 [심층 분석] 클릭 시 구역 상세 분석 팝업</span>
+        </div>
+
+        <!-- 랭킹 테이블 -->
+        <div style="border: 1px solid #e2e8f0; border-radius: 0.5rem; overflow: hidden; max-height: 55vh; overflow-y: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
+            <thead style="background: #f8fafc; color: #475569; font-weight: 700; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10;">
+              <tr>
+                <th style="padding: 0.65rem 0.85rem; width: 75px; text-align: center;">순위</th>
+                <th style="padding: 0.65rem 0.85rem; width: 140px; text-align: left;">구분 / 사업장</th>
+                <th style="padding: 0.65rem 0.85rem; text-align: left;">세부 장소 (위치)</th>
+                <th style="padding: 0.65rem 0.85rem; width: 160px; text-align: left;">발생 건수</th>
+                <th style="padding: 0.65rem 0.85rem; width: 95px; text-align: right;">점유율(%)</th>
+                <th style="padding: 0.65rem 0.85rem; width: 95px; text-align: center;">심층 분석</th>
+              </tr>
+            </thead>
+            <tbody id="all-hotspots-table-body">
+              <!-- Dynamic Rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: flex-end; padding: 0.85rem 1.4rem; border-top: 1px solid #e2e8f0;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllHotspotsRankingModal()">닫기 (ESC)</button>
+      </div>
+    </div>
+  </div>
+
+<!-- ==========================================================================
        신설: 다년도·기간 비교 분석 전용 뷰 (#view-comparison)
        ========================================================================== -->
   <div id="view-comparison" class="comparison-wrapper view-pane" style="display: none;">

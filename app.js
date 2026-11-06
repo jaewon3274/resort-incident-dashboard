@@ -98,6 +98,43 @@ function getIncidentCategory(item) {
 }
 window.getIncidentCategory = getIncidentCategory;
 
+// [통일 필터 함수] 사고유형 필터 대조 로직 (타구/타구사고 및 파생 유형 일관 포함 지원)
+function matchCategoryFilter(itemCategory, filterCategory) {
+  if (!filterCategory || filterCategory === "all") return true;
+  if (!itemCategory) return false;
+
+  const incCat = String(itemCategory).replace(/[\r\n]+/g, "").trim();
+  const fltCat = String(filterCategory).replace(/[\r\n]+/g, "").trim();
+
+  // 1. 완전 일치 (Exact Match)
+  if (incCat === fltCat) return true;
+
+  // 2. '타구' 또는 '타구사고'인 경우 -> 파생 유형('타구사고(차량)', '타구사고(카트)' 등) 모두 포함
+  if (fltCat === "타구" || fltCat === "타구사고") {
+    return incCat.includes("타구");
+  }
+
+  // 3. '대물' 또는 '대물사고'인 경우 -> '대물사고(차량피해)', '대물사고(골프백)' 등 파생 유형 포함
+  if (fltCat === "대물" || fltCat === "대물사고") {
+    return incCat.includes("대물");
+  }
+
+  // 4. 일반적인 괄호 파생 유형 매칭: fltCat이 기본형(예: '차량사고')일 때 incCat이 '차량사고(단독)' 등
+  if (incCat.startsWith(`${fltCat}(`) || incCat.startsWith(`${fltCat} `)) {
+    return true;
+  }
+
+  // 5. 공백/대소문자 무시 정규화 포함 (단, 필터 길이가 2글자 이상인 경우에만 포괄 매칭)
+  const normInc = incCat.replace(/\s+/g, "").toLowerCase();
+  const normFlt = fltCat.replace(/\s+/g, "").toLowerCase();
+  if (normFlt.length >= 2 && normInc.includes(normFlt)) {
+    return true;
+  }
+
+  return false;
+}
+window.matchCategoryFilter = matchCategoryFilter;
+
 function getIncidentDept(item) {
   if (!item) return "기타";
   const val = item.dept || item.department || item.businessUnit || item['구분1'] || item['부문/부서'] || "기타";
@@ -1539,6 +1576,10 @@ function setupEventListeners() {
     if (e.target === registerModal) closeRegister();
     if (e.target === detailModal) closeDetail();
     if (e.target === yoyDrillModal) closeYoyDrill();
+    const hsModal = document.getElementById("hotspot-analysis-modal");
+    if (e.target === hsModal && typeof closeHotspotAnalysisModal === "function") closeHotspotAnalysisModal();
+    const rankModal = document.getElementById("all-hotspots-ranking-modal");
+    if (e.target === rankModal && typeof closeAllHotspotsRankingModal === "function") closeAllHotspotsRankingModal();
   });
 
   // 글로벌 ESC (Escape) 키 이벤트 리스너: 상세 조회 창 및 팝업 모달 닫기
@@ -2250,7 +2291,7 @@ function renderTrendDetailPanel() {
     const itemCat = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "기타";
 
     const matchTeam = !selTeam || itemDept === selTeam;
-    const matchType = !selType || itemCat === selType;
+    const matchType = !selType || matchCategoryFilter(itemCat, selType);
     return matchTeam && matchType;
   });
 
@@ -3188,6 +3229,7 @@ function toggleChartDrilldown(type, value) {
       // 새로운 항목 선택 시: 필터 적용
       state.filters[type] = value;
       if (type === "category") {
+        if (state.filters.hotspot) state.filters.hotspot = null; // Clear hotspot on category cross-filter
         if (!state.categoryChartMeta) state.categoryChartMeta = {};
         state.categoryChartMeta.isOtherSelected = Boolean(isOther);
         const catSelect = document.getElementById("filter-category");
@@ -4040,48 +4082,75 @@ function getFilteredIncidents(excludeKey = null) {
 
     const rawSearch = search || filters.searchQuery || "";
     if (rawSearch) {
-      const query = String(rawSearch).trim().toLowerCase();
+      // 1. 정규화 함수(Normalize): 공백 제거 및 영문 소문자 변환
+      const normalize = (str) => String(str || "").replace(/\s+/g, "").toLowerCase();
+      const queryTrim = String(rawSearch).trim();
+      const queryNorm = normalize(rawSearch);
 
-      if (query.length > 0) {
-        // [스마트 검색 로직 1. 검색어 유형 자동 판별]
-        // - 패턴: /\d+h/i, /[가-힣]+(?:\d+)?h/i (예: '파인4h', '오크8h', '18h', '체리5h' 등)
-        // - 키워드: '홀', '슬로프', '콘도', '주차장' 단어가 포함된 경우
-        const isHolePattern = /\d+h/i.test(query) || /[가-힣]+(?:\d+)?h/i.test(query);
-        const locationKeywords = ['홀', '슬로프', '콘도', '주차장'];
-        const hasLocationKeyword = locationKeywords.some(kw => query.includes(kw));
-        const isLocationSearch = isHolePattern || hasLocationKeyword;
+      if (queryNorm.length > 0) {
+        // 2. 골프 코스/홀 장소 검색어 감지:
+        //    코스명(파인/오크/체리/힐/메이플/밸리/스톤/레이크 등)과 숫자가 조합된 검색어 (예: '파인4', '파인 4', '오크8H', '체리 5' 등)
+        //    또는 단독 홀 번호 (예: '18H', '18h', '4H', '18홀' 등)
+        const courseHolePattern = /(?:파인|오크|체리|힐|메이플|밸리|스톤|레이크|브릿지|월송|성문안)\s*\d+|\d+\s*(?:파인|오크|체리|힐|메이플|밸리|스톤|레이크|브릿지|월송|성문안)/i;
+        const soloHolePattern = /^\d+\s*(?:h|홀)$/i;
+        const isGolfHole = courseHolePattern.test(queryTrim) || soloHolePattern.test(queryTrim);
 
-        // D열 원본 ('위치(세부)', item.location)
-        const rawLoc = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").toLowerCase();
+        // 엑셀 D열(location) 원본 데이터
+        const rawLoc = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "");
 
-        if (isLocationSearch) {
-          // [A. 장소 패턴 검색어인 경우]:
-          // 본문(description) 간섭을 완전 차단하고,
-          // 오직 엑셀 D열 원본('위치(세부)', item.location)에 해당 텍스트가 정확히 포함되어 있는지만 검사
-          if (!rawLoc.includes(query)) {
+        if (isGolfHole) {
+          // [A. 골프 코스/홀 장소 검색어인 경우]:
+          // * 사고 경위 본문(description)은 일체 대조하지 않음 (타 홀 언급으로 인한 오검색 원천 차단)
+          // * 엑셀 D열(location) 원본 데이터와만 정규화 대조를 진행
+          // * 검색어가 '파인4'처럼 'H'가 생략되어도 D열의 '파인4H'와 매칭되도록 처리
+          // * 결과: '파인4', '파인 4', '파인4H', '파인 4H' 모두 D열 기준 정확히 19건만 도출
+          const locNorm = normalize(rawLoc);
+          const qHole = queryNorm.replace(/홀$/, "h");
+          const matched = locNorm.includes(queryNorm) || locNorm.includes(qHole);
+          if (!matched) {
             return false;
           }
         } else {
-          // [B. 그 외 일반 키워드인 경우 ('로봇', '로봇모어', '예초기', 성명 등)]:
-          // item.location(장소)뿐만 아니라 item.title(제목), item.description(사고 경위 본문), item.victimName(피해자), item.docNo(문서번호)를 모두 검색 대상에 포함하여 검사
-          const title = String(item.title || item.accidentName || "").toLowerCase();
-          const description = String(item.description || item.content || item.details || item['사고경위'] || item['사고내용'] || "").toLowerCase();
-          const victimName = String(item.victimName || item.victim || "").toLowerCase();
-          const docNo = String(item.docNo || item.documentNumber || item.id || "").toLowerCase();
-          const manager = String(item.manager || "").toLowerCase();
-          const deptStr = String(itemDept || "").toLowerCase();
-          const resortStr = String(item.resort || item.businessUnit || "").toLowerCase();
-          const categoryStr = String(incidentCategory || "").toLowerCase();
+          // [B. 그 외 일반 키워드 검색 ('로봇', '로봇모어', '예초기', 사람 이름, 문서번호 등)]:
+          // * 장소(location)뿐만 아니라 제목(title), 사고 경위 본문(description), 피해자 성명(victimName), 문서번호(docNo)를 정상 포함하여 대조
+          // * 단어 간 공백은 자연스럽게 매칭되도록 처리하여 엉뚱한 문맥이 낚이지 않게 함
+          const escapeRegExp = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          const matchKeyword = (targetStr) => {
+            if (!targetStr) return false;
+            const str = String(targetStr).toLowerCase();
+            const qTrim = queryTrim.toLowerCase();
+            if (str.includes(qTrim)) return true;
+            const tokens = qTrim.split(/\s+/).filter(Boolean);
+            if (tokens.length > 1) {
+              try {
+                const flexRegex = new RegExp(tokens.map(escapeRegExp).join("\\s*"), "i");
+                if (flexRegex.test(str)) return true;
+              } catch (_) {}
+            } else if (queryNorm.length >= 2) {
+              const strNorm = normalize(str);
+              if (strNorm.includes(queryNorm)) return true;
+            }
+            return false;
+          };
 
-          const match = rawLoc.includes(query) ||
-                        title.includes(query) ||
-                        description.includes(query) ||
-                        victimName.includes(query) ||
-                        docNo.includes(query) ||
-                        manager.includes(query) ||
-                        deptStr.includes(query) ||
-                        resortStr.includes(query) ||
-                        categoryStr.includes(query);
+          const title = String(item.title || item.accidentName || "");
+          const description = String(item.description || item.content || item.details || item['사고경위'] || item['사고내용'] || "");
+          const victimName = String(item.victimName || item.victim || "");
+          const docNo = String(item.docNo || item.documentNumber || item.id || "");
+          const manager = String(item.manager || "");
+          const deptStr = String(itemDept || "");
+          const resortStr = String(item.resort || item.businessUnit || "");
+          const categoryStr = String(incidentCategory || "");
+
+          const match = matchKeyword(rawLoc) ||
+                        matchKeyword(title) ||
+                        matchKeyword(description) ||
+                        matchKeyword(victimName) ||
+                        matchKeyword(docNo) ||
+                        matchKeyword(manager) ||
+                        matchKeyword(deptStr) ||
+                        matchKeyword(resortStr) ||
+                        matchKeyword(categoryStr);
 
           if (!match) {
             return false;
@@ -4121,7 +4190,7 @@ function getFilteredIncidents(excludeKey = null) {
         } else if (topKeys.length > 0) {
           if (topKeys.includes(incidentCategory)) return false;
         }
-      } else if (incidentCategory !== category) {
+      } else if (!matchCategoryFilter(incidentCategory, category)) {
         return false;
       }
     }
@@ -4251,24 +4320,26 @@ function applyFilters() {
   renderAll();
 }
 
-// Render All Components
+// Render All Components (상단 차트의 filteredIncidents 결과 배열을 하단 테이블 및 KPI에 그대로 1:1 전달)
 function renderAll() {
-  try { renderKPIs(); } catch (e) { console.error("renderKPIs error:", e); }
-  try { renderCharts(); } catch (e) { console.error("renderCharts error:", e); }
-  try { renderTable(); } catch (e) { console.error("renderTable error:", e); }
+  const currentFiltered = state.filteredIncidents || [];
+  try { renderKPIs(currentFiltered); } catch (e) { console.error("renderKPIs error:", e); }
+  try { renderCharts(currentFiltered); } catch (e) { console.error("renderCharts error:", e); }
+  try { renderTable(currentFiltered); } catch (e) { console.error("renderTable error:", e); }
 }
 
 // Render KPIs: 핵심 4대 관리 지표 체계 (필터 조건에 따른 동적 연동 탑재)
-function renderKPIs() {
+function renderKPIs(data) {
   try {
     const all = (state.incidents && state.incidents.length > 0)
       ? state.incidents
       : (typeof INITIAL_INCIDENTS !== "undefined" ? INITIAL_INCIDENTS : []);
     const totalAll = all.length;
+    const currentList = (data && Array.isArray(data)) ? data : (state.filteredIncidents || all);
 
     // [요구사항 1] 상단 4대 요약 카드(KPI) 계산 기준을 'filteredIncidents'로 일원화
     const isFiltered = Boolean(
-      (state.filteredIncidents && state.filteredIncidents.length !== totalAll) ||
+      (currentList && currentList.length !== totalAll) ||
       (state.filters && (
         (state.filters.period && state.filters.period !== "all") ||
         (state.filters.resort && state.filters.resort !== "all") ||
@@ -4284,7 +4355,7 @@ function renderKPIs() {
       ))
     );
 
-    const targetList = (state.filteredIncidents && Array.isArray(state.filteredIncidents)) ? state.filteredIncidents : all;
+    const targetList = currentList;
     const currentCount = targetList.length;
 
     // 1) [카드 1] 총 사고 발생 건수 (filteredIncidents.length 기준)
@@ -4491,7 +4562,7 @@ function renderCharts() {
               const isItemOther = l.startsWith("기타") || l === otherLabel;
               const isSelected = Boolean(
                 state.filters.category && state.filters.category !== "all" && (
-                  state.filters.category === l || (isItemOther && state.categoryChartMeta.isOtherSelected)
+                  state.filters.category === l || matchCategoryFilter(l, state.filters.category) || (isItemOther && state.categoryChartMeta.isOtherSelected)
                 )
               );
               return isSelected ? 12 : 0;
@@ -4556,7 +4627,7 @@ function renderCharts() {
                       const isItemOther = label.startsWith("기타") || label === otherLabel;
                       const isSelected = Boolean(
                         curFilter && curFilter !== "all" && (
-                          curFilter === label || (isItemOther && isOtherActive)
+                          curFilter === label || matchCategoryFilter(label, curFilter) || (isItemOther && isOtherActive)
                         )
                       );
 
@@ -4782,6 +4853,28 @@ function renderCharts() {
     const hotspotBaseData = getFilteredIncidents("hotspot");
     const totalBaseCount = hotspotBaseData.length;
 
+    const activeCat = state.filters.category && state.filters.category !== "all" ? state.filters.category : null;
+    const activeDept = state.filters.dept && state.filters.dept !== "all" ? state.filters.dept : null;
+
+    let chart3Title = "📍 사고 다발 세부구역 TOP 7 (핫스팟)";
+    let chart3Subtitle = "현재 필터 기준 사고 집중 발생 세부장소 순위";
+
+    if (activeCat && activeDept) {
+      chart3Title = `📍 [${activeDept} > ${activeCat}] 세부구역 TOP 7`;
+      chart3Subtitle = `'${activeDept}'의 '${activeCat}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
+    } else if (activeCat) {
+      chart3Title = `📍 [${activeCat}] 사고 다발 세부구역 TOP 7`;
+      chart3Subtitle = `'${activeCat}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
+    } else if (activeDept) {
+      chart3Title = `📍 [${activeDept}] 사고 다발 세부구역 TOP 7`;
+      chart3Subtitle = `'${activeDept}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
+    }
+
+    const titleEl = document.getElementById("hotspot-chart-title");
+    const subEl = document.getElementById("hotspot-chart-subtitle");
+    if (titleEl) titleEl.textContent = chart3Title;
+    if (subEl) subEl.textContent = chart3Subtitle;
+
     const hotspotMap = new Map();
     hotspotBaseData.forEach(item => {
       const colC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
@@ -4795,9 +4888,10 @@ function renderCharts() {
       hotspotMap.get(key).count++;
     });
 
-    const sortedHotspots = Array.from(hotspotMap.values())
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 7);
+    // Save full list of hotspots for ranking modal
+    state.currentAllHotspots = Array.from(hotspotMap.values()).sort((a, b) => b.count - a.count);
+
+    const sortedHotspots = state.currentAllHotspots.slice(0, 7);
 
     const hotspotLabels = sortedHotspots.length > 0 ? sortedHotspots.map(h => h.label) : ["데이터 없음"];
     const hotspotData = sortedHotspots.length > 0 ? sortedHotspots.map(h => h.count) : [0];
@@ -4898,7 +4992,15 @@ function renderCharts() {
               const elementIndex = elements[0].index;
               const clickedItem = sortedHotspots[elementIndex];
               if (clickedItem) {
-                toggleHotspotDrilldown(clickedItem);
+                // 1. [요구사항 1] 구역 심층 분석 모달 팝업
+                openHotspotAnalysisModal(clickedItem);
+                // 2. 하단 메인 테이블도 해당 구역으로 1:1 일치 필터링 동시 적용 (토글 지원)
+                if (state.filters.hotspot && state.filters.hotspot.key === clickedItem.key) {
+                  state.filters.hotspot = null;
+                } else {
+                  state.filters.hotspot = clickedItem;
+                }
+                applyFilters();
               }
             } else {
               if (state.filters.hotspot) {
@@ -5098,14 +5200,17 @@ window.sortFilteredIncidents = sortFilteredIncidents;
 window.compareIncidents = compareIncidents;
 
 // Render Table with Pagination & Action Column
-function renderTable() {
+// [수정 요구사항 2] 상단 차트의 filteredIncidents 결과 배열을 하단 테이블이 그대로 1:1 전달받아 렌더링
+function renderTable(data = state.filteredIncidents) {
   const tableBody = document.getElementById("incident-table-body");
   const countBadge = document.getElementById("table-count-badge");
   const pageInfo = document.getElementById("page-info");
 
   if (!tableBody) return;
 
-  const total = state.filteredIncidents.length;
+  const currentList = Array.isArray(data) ? data : (state.filteredIncidents || []);
+  state.filteredIncidents = currentList;
+  const total = currentList.length;
   if (countBadge) countBadge.innerText = `${total.toLocaleString()}건`;
 
   const effectivePageSize = state.pageSize || pageSize || 10;
@@ -5135,7 +5240,7 @@ function renderTable() {
 
   const startIndex = (state.currentPage - 1) * effectivePageSize;
   const endIndex = Math.min(startIndex + effectivePageSize, total);
-  const pageItems = state.filteredIncidents.slice(startIndex, endIndex);
+  const pageItems = currentList.slice(startIndex, endIndex);
 
   if (pageInfo) {
     pageInfo.innerText = `${startIndex + 1} - ${endIndex} / 총 ${total.toLocaleString()}건`;
@@ -6139,10 +6244,10 @@ function executeComparison() {
   let dataA = resA.data;
   let dataB = resB.data;
 
-  // 선택된 사고 유형으로 필터링 적용
+  // 선택된 사고 유형으로 필터링 적용 (파생 유형 일관 포함 지원)
   if (selectedType && selectedType !== "all") {
-    dataA = dataA.filter(x => getIncidentCategory(x) === selectedType);
-    dataB = dataB.filter(x => getIncidentCategory(x) === selectedType);
+    dataA = dataA.filter(x => matchCategoryFilter(getIncidentCategory(x), selectedType));
+    dataB = dataB.filter(x => matchCategoryFilter(getIncidentCategory(x), selectedType));
   }
 
   const labelPeriodAEl = document.getElementById("ck-label-period-a");
@@ -6994,7 +7099,7 @@ function openYoyDrilldown(resort = "all", category = "all", preferredTab = null,
   const filterFn = (x) => {
     if (r !== "all" && r !== "" && (x.resort || "").trim() !== r) return false;
     const catVal = getIncidentCategory(x);
-    if (c !== "all" && c !== "" && c !== "-" && c !== "소계" && c !== "전체 유형" && catVal !== c) return false;
+    if (c !== "all" && c !== "" && c !== "-" && c !== "소계" && c !== "전체 유형" && !matchCategoryFilter(catVal, c)) return false;
     if (filterMonth !== null && filterMonth !== undefined && filterMonth !== "") {
       const p = parseIncidentDate(x);
       if (!p || p.getMonth() !== Number(filterMonth)) return false;
@@ -7434,7 +7539,7 @@ function renderKpiDrilldownTable() {
   if (state.kpiDrillTypeFilter && state.kpiDrillTypeFilter !== "all") {
     list = list.filter(item => {
       const cat = (typeof getIncidentCategory === "function" ? getIncidentCategory(item) : "") || item.category || item.type || "";
-      return cat === state.kpiDrillTypeFilter;
+      return matchCategoryFilter(cat, state.kpiDrillTypeFilter);
     });
   }
 
@@ -7644,3 +7749,335 @@ function updateLastSyncTimeDisplay() {
   }
 }
 window.updateLastSyncTimeDisplay = updateLastSyncTimeDisplay;
+
+// ==========================================================================
+// [요구사항 1 & 2] 세부 핫스팟 심층 분석 모달 & 전체 순위 랭킹 모달 컨트롤러
+// ==========================================================================
+
+let currentModalHotspotItem = null;
+
+function openHotspotAnalysisModal(hotspotItem) {
+  if (!hotspotItem) return;
+  currentModalHotspotItem = hotspotItem;
+
+  const modal = document.getElementById("hotspot-analysis-modal");
+  if (!modal) return;
+
+  // Retrieve base data under current filters (excluding hotspot filter itself)
+  const baseData = getFilteredIncidents("hotspot");
+  const totalBase = baseData.length || 1;
+
+  // Filter for exact C & D match
+  const incidents = baseData.filter(item => {
+    const itemColC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+    const itemColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+    if (hotspotItem.colC && itemColC !== hotspotItem.colC) return false;
+    if (hotspotItem.colD && itemColD !== hotspotItem.colD) return false;
+    return true;
+  });
+
+  const count = incidents.length;
+  const pct = ((count / totalBase) * 100).toFixed(1);
+
+  // 1. Header
+  const titleEl = document.getElementById("hotspot-modal-title");
+  const badgeEl = document.getElementById("hotspot-modal-badge");
+  const subEl = document.getElementById("hotspot-modal-subtitle");
+
+  if (titleEl) titleEl.textContent = `📍 ${hotspotItem.label}`;
+  if (badgeEl) badgeEl.textContent = `총 ${count.toLocaleString()}건 (전체 대비 ${pct}%)`;
+  if (subEl) {
+    const curCat = state.filters.category && state.filters.category !== "all" ? ` | 필터 유형: ${state.filters.category}` : "";
+    subEl.textContent = `사업장: ${hotspotItem.colC || "미지정"} | 세부위치: ${hotspotItem.colD || "미지정"}${curCat}`;
+  }
+
+  // 2. 사고 유형별 구성비 (Type breakdown)
+  const typeMap = {};
+  incidents.forEach(item => {
+    const cat = getIncidentCategory(item) || "기타";
+    typeMap[cat] = (typeMap[cat] || 0) + 1;
+  });
+  const sortedTypes = Object.entries(typeMap).sort((a, b) => b[1] - a[1]);
+  const typesContainer = document.getElementById("hotspot-modal-types-list");
+  const typeCountEl = document.getElementById("hotspot-modal-type-count");
+  if (typeCountEl) typeCountEl.textContent = `${sortedTypes.length}개 유형`;
+
+  if (typesContainer) {
+    typesContainer.innerHTML = sortedTypes.map(([type, c]) => {
+      const typePct = count > 0 ? ((c / count) * 100).toFixed(1) : "0.0";
+      const color = getCategoryColor(type);
+      return `
+        <div class="hotspot-stat-row">
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.25rem;">
+            <span style="font-weight: 600; color: #334155; display: inline-flex; align-items: center; gap: 0.35rem;">
+              <span style="width: 8px; height: 8px; border-radius: 9999px; background-color: ${color}; display: inline-block;"></span>
+              ${escapeHtml(type)}
+            </span>
+            <span style="font-weight: 700; color: #0f172a;">${c}건 <span style="font-weight: 400; color: #64748b;">(${typePct}%)</span></span>
+          </div>
+          <div style="width: 100%; background: #f1f5f9; border-radius: 9999px; height: 6px; overflow: hidden;">
+            <div style="height: 6px; border-radius: 9999px; width: ${typePct}%; background-color: ${color}; transition: width 0.3s;"></div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // 3. 피해 대상 구성비 (Victim breakdown: 고객 / 캐디 / 직원)
+  const victimCounts = { customer: 0, caddy: 0, employee: 0, other: 0 };
+  incidents.forEach(item => {
+    const v = classifyVictim(item);
+    if (v.category === "customer") victimCounts.customer++;
+    else if (v.category === "caddy") victimCounts.caddy++;
+    else if (v.category === "employee") victimCounts.employee++;
+    else victimCounts.other++;
+  });
+
+  const victimsContainer = document.getElementById("hotspot-modal-victims-list");
+  if (victimsContainer) {
+    const vGroups = [
+      { key: "customer", label: "고객", count: victimCounts.customer, color: "#2563eb" },
+      { key: "caddy", label: "캐디", count: victimCounts.caddy, color: "#10b981" },
+      { key: "employee", label: "임직원/직원", count: victimCounts.employee, color: "#f59e0b" }
+    ];
+    if (victimCounts.other > 0) {
+      vGroups.push({ key: "other", label: "기타/미상", count: victimCounts.other, color: "#64748b" });
+    }
+
+    victimsContainer.innerHTML = vGroups.map(vg => {
+      const vPct = count > 0 ? ((vg.count / count) * 100).toFixed(1) : "0.0";
+      return `
+        <div class="hotspot-stat-row">
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.25rem;">
+            <span style="font-weight: 600; color: #334155; display: inline-flex; align-items: center; gap: 0.35rem;">
+              <span style="width: 8px; height: 8px; border-radius: 9999px; background-color: ${vg.color}; display: inline-block;"></span>
+              ${vg.label}
+            </span>
+            <span style="font-weight: 700; color: #0f172a;">${vg.count}건 <span style="font-weight: 400; color: #64748b;">(${vPct}%)</span></span>
+          </div>
+          <div style="width: 100%; background: #f1f5f9; border-radius: 9999px; height: 6px; overflow: hidden;">
+            <div style="height: 6px; border-radius: 9999px; width: ${vPct}%; background-color: ${vg.color}; transition: width 0.3s;"></div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // 4. 조치 완료율 (Action completion rate)
+  const completedCount = incidents.filter(item => (item.status || "").trim() === "조치완료").length;
+  const inProgressCount = count - completedCount;
+  const completeRateVal = count > 0 ? (completedCount / count) * 100 : 0;
+  const completeRate = completeRateVal % 1 === 0 ? completeRateVal.toFixed(0) : completeRateVal.toFixed(1);
+
+  const actionRateEl = document.getElementById("hotspot-modal-action-rate");
+  const actionProgEl = document.getElementById("hotspot-modal-action-progress");
+  if (actionRateEl) {
+    actionRateEl.textContent = `${completeRate}%`;
+    actionRateEl.style.color = completeRate >= 100 ? "#059669" : (completeRate >= 70 ? "#2563eb" : "#d97706");
+  }
+  if (actionProgEl) {
+    actionProgEl.innerHTML = `
+      <div style="width: 100%; background: #f1f5f9; border-radius: 9999px; height: 8px; overflow: hidden; margin-bottom: 0.45rem;">
+        <div style="height: 8px; border-radius: 9999px; width: ${completeRate}%; background-color: #059669; transition: width 0.3s;"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.74rem; font-weight: 600;">
+        <span style="color: #047857;">✓ 조치완료 ${completedCount}건</span>
+        <span style="color: ${inProgressCount > 0 ? '#b45309' : '#94a3b8'};">⏳ 진행/대기 ${inProgressCount}건</span>
+      </div>
+    `;
+  }
+
+  // 5. 하단 상세 리스트 테이블
+  const tableCountEl = document.getElementById("hotspot-modal-table-count");
+  if (tableCountEl) tableCountEl.textContent = `총 ${count}건`;
+
+  const tbody = document.getElementById("hotspot-modal-table-body");
+  if (tbody) {
+    if (incidents.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 2rem; color: #94a3b8;">해당 세부구역에 등록된 사고가 없습니다.</td></tr>`;
+    } else {
+      tbody.innerHTML = incidents.map(item => {
+        const vInfo = classifyVictim(item);
+        const vBadgeClass = vInfo.category === 'caddy' ? 'badge-victim-caddy' : (vInfo.category === 'employee' ? 'badge-victim-employee' : 'badge-victim-customer');
+        const vNamePart = item.victimName && item.victimName !== '익명' && item.victimName !== '미상' ? `(${item.victimName})` : '';
+        const vBadgeText = `${vInfo.name}${vNamePart}`;
+
+        const isComplete = (item.status || "").trim() === "조치완료";
+        const statusBadge = isComplete
+          ? `<span class="badge" style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 0.15rem 0.5rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 700;">조치완료</span>`
+          : `<span class="badge" style="background: #fffbeb; color: #b45309; border: 1px solid #fde68a; padding: 0.15rem 0.5rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 700;">진행중</span>`;
+
+        const titleText = item.title || item.accidentName || "사고 내역";
+        const descSnippet = item.description ? `<div style="font-size: 0.74rem; color: #64748b; margin-top: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 360px;">${escapeHtml(item.description)}</div>` : "";
+
+        return `
+          <tr class="hotspot-modal-row" onclick="navigateToDetailFromSubModal(${item.id})" style="cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#ffffff'">
+            <td style="padding: 0.65rem 0.85rem; font-family: monospace; font-weight: 700; color: #2563eb;">${escapeHtml(item.docNo || `DOC-${item.id}`)}</td>
+            <td style="padding: 0.65rem 0.85rem; color: #64748b; font-size: 0.8rem; white-space: nowrap;">${escapeHtml(item.date || item.occurredAt || "-")}</td>
+            <td style="padding: 0.65rem 0.85rem; white-space: nowrap;"><span class="${vBadgeClass}">${escapeHtml(vBadgeText)}</span></td>
+            <td style="padding: 0.65rem 0.85rem;">
+              <div style="font-weight: 600; color: #0f172a;">${escapeHtml(titleText)}</div>
+              ${descSnippet}
+            </td>
+            <td style="padding: 0.65rem 0.85rem; text-align: center; white-space: nowrap;">${statusBadge}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+
+  // Open modal
+  modal.classList.add("active");
+  document.body.classList.add("modal-open");
+}
+window.openHotspotAnalysisModal = openHotspotAnalysisModal;
+
+function closeHotspotAnalysisModal() {
+  const modal = document.getElementById("hotspot-analysis-modal");
+  if (modal) modal.classList.remove("active");
+  document.body.classList.remove("modal-open");
+}
+window.closeHotspotAnalysisModal = closeHotspotAnalysisModal;
+
+function applyHotspotFilterFromModal() {
+  if (currentModalHotspotItem) {
+    state.filters.hotspot = currentModalHotspotItem;
+    applyFilters();
+    closeHotspotAnalysisModal();
+    showToast(`'${currentModalHotspotItem.label}' 구역으로 대시보드 테이블이 필터링되었습니다.`, "success");
+    const tableSection = document.querySelector(".table-section");
+    if (tableSection) {
+      tableSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+}
+window.applyHotspotFilterFromModal = applyHotspotFilterFromModal;
+
+// ==========================================================================
+// [요구사항 2] 전체 순위 보기 (더보기) 모달 컨트롤러
+// ==========================================================================
+
+let rankingModalAllData = [];
+
+function openAllHotspotsRankingModal() {
+  const modal = document.getElementById("all-hotspots-ranking-modal");
+  if (!modal) return;
+
+  const baseData = getFilteredIncidents("hotspot");
+  const totalBase = baseData.length || 1;
+
+  // Aggregate all hotspots under current filters
+  const hotspotMap = new Map();
+  baseData.forEach(item => {
+    const colC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+    const colD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+    const label = getHotspotLabel(colC, colD);
+    const key = `${colC}|||${colD}`;
+
+    if (!hotspotMap.has(key)) {
+      hotspotMap.set(key, { key, label, colC, colD, count: 0 });
+    }
+    hotspotMap.get(key).count++;
+  });
+
+  rankingModalAllData = Array.from(hotspotMap.values()).sort((a, b) => b.count - a.count);
+
+  const badgeEl = document.getElementById("all-hotspots-modal-badge");
+  if (badgeEl) badgeEl.textContent = `총 ${rankingModalAllData.length}개 구역 (${baseData.length}건 발생)`;
+
+  const searchInput = document.getElementById("ranking-search-input");
+  if (searchInput) searchInput.value = "";
+
+  renderRankingModalRows(rankingModalAllData, totalBase);
+
+  modal.classList.add("active");
+  document.body.classList.add("modal-open");
+}
+window.openAllHotspotsRankingModal = openAllHotspotsRankingModal;
+
+function closeAllHotspotsRankingModal() {
+  const modal = document.getElementById("all-hotspots-ranking-modal");
+  if (modal) modal.classList.remove("active");
+  document.body.classList.remove("modal-open");
+}
+window.closeAllHotspotsRankingModal = closeAllHotspotsRankingModal;
+
+function renderRankingModalRows(items, totalBase) {
+  const tbody = document.getElementById("all-hotspots-table-body");
+  if (!tbody) return;
+
+  if (!items || items.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #94a3b8;">조건에 일치하는 세부 구역 데이터가 없습니다.</td></tr>`;
+    return;
+  }
+
+  const maxCount = items[0] ? items[0].count : 1;
+
+  tbody.innerHTML = items.map((item, idx) => {
+    const rank = idx + 1;
+    let rankBadgeClass = "ranking-rank-other";
+    let rankText = `${rank}위`;
+    if (rank === 1) { rankBadgeClass = "ranking-rank-1"; rankText = "🥇 1위"; }
+    else if (rank === 2) { rankBadgeClass = "ranking-rank-2"; rankText = "🥈 2위"; }
+    else if (rank === 3) { rankBadgeClass = "ranking-rank-3"; rankText = "🥉 3위"; }
+
+    const pct = totalBase > 0 ? ((item.count / totalBase) * 100).toFixed(1) : "0.0";
+    const barWidth = Math.max(6, Math.min(100, Math.round((item.count / maxCount) * 100)));
+
+    return `
+      <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#ffffff'">
+        <td style="padding: 0.65rem 0.85rem; text-align: center;">
+          <span class="ranking-rank-badge ${rankBadgeClass}" style="min-width: 48px; padding: 0.15rem 0.4rem; font-size: 0.76rem;">${rankText}</span>
+        </td>
+        <td style="padding: 0.65rem 0.85rem; font-weight: 700; color: #1e293b;">${escapeHtml(item.colC || "미지정")}</td>
+        <td style="padding: 0.65rem 0.85rem; font-weight: 600; color: #2563eb;">${escapeHtml(item.colD || "미지정")}</td>
+        <td style="padding: 0.65rem 0.85rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-weight: 700; color: #0f172a; min-width: 38px;">${item.count}건</span>
+            <div style="flex: 1; background: #f1f5f9; border-radius: 9999px; height: 6px; overflow: hidden; min-width: 60px;">
+              <div style="height: 6px; border-radius: 9999px; width: ${barWidth}%; background-color: #3b82f6;"></div>
+            </div>
+          </div>
+        </td>
+        <td style="padding: 0.65rem 0.85rem; text-align: right; font-weight: 600; color: #475569;">${pct}%</td>
+        <td style="padding: 0.65rem 0.85rem; text-align: center;">
+          <button type="button" class="btn btn-primary btn-sm" style="padding: 0.2rem 0.55rem; font-size: 0.74rem;" onclick="openHotspotAnalysisModalFromRanking('${escapeHtml(item.key)}')">
+            심층 분석 📊
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function openHotspotAnalysisModalFromRanking(key) {
+  const found = rankingModalAllData.find(h => h.key === key);
+  if (found) {
+    closeAllHotspotsRankingModal();
+    setTimeout(() => {
+      openHotspotAnalysisModal(found);
+    }, 50);
+  }
+}
+window.openHotspotAnalysisModalFromRanking = openHotspotAnalysisModalFromRanking;
+
+function filterRankingModalTable(query) {
+  const q = String(query || "").trim().toLowerCase();
+  const baseData = getFilteredIncidents("hotspot");
+  const totalBase = baseData.length || 1;
+
+  if (!q) {
+    renderRankingModalRows(rankingModalAllData, totalBase);
+    return;
+  }
+
+  const filtered = rankingModalAllData.filter(item => {
+    const colC = String(item.colC || "").toLowerCase();
+    const colD = String(item.colD || "").toLowerCase();
+    const label = String(item.label || "").toLowerCase();
+    return colC.includes(q) || colD.includes(q) || label.includes(q);
+  });
+
+  renderRankingModalRows(filtered, totalBase);
+}
+window.filterRankingModalTable = filterRankingModalTable;
