@@ -3093,17 +3093,53 @@ function setupSubAnalysisModals() {
 }
 
 // Chart Drilldown Helpers
-// [요구사항 2 & 3] C+D열 세부 핫스팟 라벨 생성 및 1:1 클릭 드릴다운
+// ==========================================================================
+// [장소 정규화 함수] getStandardLocation
+// ==========================================================================
+function getStandardLocation(d) {
+  if (!d) return "";
+  const text = String(d).trim();
+
+  // 1. 골프장 홀 패턴: /(파인|오크|체리|메이플|힐|스톤|레이크|마운틴|밸리)s*(d+)s*(?:H|홀)?/i
+  //    치환: `${코스명}${숫자}H` (예: '파인5H 군도변' -> '파인5H')
+  const golfMatch = text.match(/(파인|오크|체리|메이플|힐|스톤|레이크|마운틴|밸리)\s*(\d+)\s*(?:H|홀)?/i);
+  if (golfMatch) {
+    const course = golfMatch[1];
+    const holeNum = golfMatch[2];
+    return `${course}${holeNum}H`;
+  }
+
+  // 2. 스키장 슬로프 패턴: /([A-Za-z가-힣]+)s*슬로프/i (예: 'G슬로프 상단', 'A 슬로프 하단 펜스' 등)
+  //    치환: `${알파벳/명칭}슬로프` (예: 'G슬로프')
+  const slopeMatch = text.match(/([A-Za-z가-힣]+)\s*슬로프/i);
+  if (slopeMatch) {
+    const slopeName = slopeMatch[1].trim();
+    return `${slopeName}슬로프`;
+  }
+
+  // 3. 콘도/빌리지 주차장 패턴: /([A-Za-z0-9가-힣]+콘도|[A-Za-z0-9가-힣]+빌리지)s*(?:지하|야외|타워|d+층|d+F|[A-Za-z0-9가-힣\s\n↔~-])*?주차장/i
+  //    치환: `${시설명} 주차장` (예: 'D콘도 지하2층 주차장' -> 'D콘도 주차장')
+  const parkingMatch = text.match(/([A-Za-z0-9가-힣]+콘도|[A-Za-z0-9가-힣]+빌리지)\s*(?:지하|야외|타워|\d+층|\d+F|[A-Za-z0-9가-힣\s\n↔~-])*?주차장/i);
+  if (parkingMatch) {
+    const facilityName = parkingMatch[1].trim();
+    return `${facilityName} 주차장`;
+  }
+
+  return text;
+}
+window.getStandardLocation = getStandardLocation;
+
+// [요구사항 2, 3, 4] C+D열 세부 핫스팟 라벨 생성 (정규화 대표구역 적용)
 function getHotspotLabel(c, d) {
   const colC = String(c || "").trim();
-  const colD = String(d || "").trim();
-  if (!colC && !colD) return "미기재";
-  if (!colD) return colC;
-  if (!colC) return colD;
+  const stdD = getStandardLocation(d);
+  if (!colC && !stdD) return "미기재";
+  if (!stdD) return colC;
+  if (!colC) return stdD;
   // D열 텍스트 안에 이미 C열 명칭이 포함되어 있다면 중복으로 붙이지 않고 D열만 표기
-  if (colD.includes(colC)) return colD;
-  // 둘 다 정상 기재된 경우 '[C열 구분1] D열 위치(세부)' 형태로 결합
-  return `[${colC}] ${colD}`;
+  if (stdD.includes(colC)) return stdD;
+  // 둘 다 정상 기재된 경우 '[C열 구분1] 정규화된_대표구역' 형태로 결합
+  return `[${colC}] ${stdD}`;
 }
 window.getHotspotLabel = getHotspotLabel;
 
@@ -3122,14 +3158,15 @@ function toggleHotspotDrilldown(hotspotItem) {
       state.filters.hotspot = null;
       showToast(`'${hotspotItem.label}' 세부구역 필터가 해제되었습니다.`, "info");
     } else {
-      // 새로운 핫스팟 클릭 시: 원본 C열과 D열 보관 (1:1 정확 일치용)
+      // 새로운 핫스팟 클릭 시: C열과 정규화 대표구역 보관 (일괄 상세 필터링)
       state.filters.hotspot = {
         colC: hotspotItem.colC,
         colD: hotspotItem.colD,
+        stdLocation: hotspotItem.stdLocation || hotspotItem.colD,
         label: hotspotItem.label,
         key: targetKey
       };
-      showToast(`세부구역: '${hotspotItem.label}' 1:1 일치 상세 필터링이 적용되었습니다.`, "success");
+      showToast(`세부구역: '${hotspotItem.label}' 일괄 필터링이 적용되었습니다.`, "success");
     }
   }
   state.currentPage = 1;
@@ -4215,12 +4252,15 @@ function getFilteredIncidents(excludeKey = null) {
       }
     }
 
-    // [요구사항 3] C+D열 세부 핫스팟 1:1 엄격 일치 필터링
+    // [요구사항 4] C+D열 세부 핫스팟 (정규화 대표구역 일괄 필터링)
     if (hotspot) {
       const itemColC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
       const itemColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
       if (hotspot.colC && itemColC !== hotspot.colC) return false;
-      if (hotspot.colD && itemColD !== hotspot.colD) return false;
+      const itemStdD = getStandardLocation(itemColD);
+      const targetStdD = hotspot.stdLocation || hotspot.colD;
+      const matchesD = (targetStdD && (itemStdD === targetStdD || itemColD.includes(targetStdD))) || itemColD === hotspot.colD;
+      if (!matchesD) return false;
     }
 
     const itemZone = item?.zone || inferZoneFromLocation(itemLoc, itemDept, item?.resort) || "기타";
@@ -4881,12 +4921,13 @@ function renderCharts() {
     const hotspotMap = new Map();
     hotspotBaseData.forEach(item => {
       const colC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
-      const colD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
-      const label = getHotspotLabel(colC, colD);
-      const key = `${colC}|||${colD}`;
+      const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+      const stdColD = getStandardLocation(rawColD);
+      const label = getHotspotLabel(colC, stdColD);
+      const key = `${colC}|||${stdColD}`;
 
       if (!hotspotMap.has(key)) {
-        hotspotMap.set(key, { key, label, colC, colD, count: 0 });
+        hotspotMap.set(key, { key, label, colC, colD: stdColD, stdLocation: stdColD, count: 0 });
       }
       hotspotMap.get(key).count++;
     });
@@ -5034,7 +5075,7 @@ function renderCharts() {
                   const isSelected = currentHotspotKey && item.key === currentHotspotKey;
                   return isSelected
                     ? "👉 클릭 시 필터 해제 (전체 보기)"
-                    : `👉 클릭 시 C열('${item.colC}') 및 D열('${item.colD}') 1:1 일치 상세 필터링`;
+                    : `👉 클릭 시 C열('${item.colC}') 및 대표구역('${item.colD}') 일괄 상세 필터링`;
                 }
               }
             }
@@ -7770,12 +7811,15 @@ function openHotspotAnalysisModal(hotspotItem) {
   const baseData = getFilteredIncidents("hotspot");
   const totalBase = baseData.length || 1;
 
-  // Filter for exact C & D match
+  // Filter for matching C & D (supporting normalized representative keyword)
   const incidents = baseData.filter(item => {
     const itemColC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
     const itemColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
     if (hotspotItem.colC && itemColC !== hotspotItem.colC) return false;
-    if (hotspotItem.colD && itemColD !== hotspotItem.colD) return false;
+    const itemStdD = getStandardLocation(itemColD);
+    const targetStdD = hotspotItem.stdLocation || hotspotItem.colD;
+    const matchesD = (targetStdD && (itemStdD === targetStdD || itemColD.includes(targetStdD))) || itemColD === hotspotItem.colD;
+    if (!matchesD) return false;
     return true;
   });
 
@@ -7791,7 +7835,7 @@ function openHotspotAnalysisModal(hotspotItem) {
   if (badgeEl) badgeEl.textContent = `총 ${count.toLocaleString()}건 (전체 대비 ${pct}%)`;
   if (subEl) {
     const curCat = state.filters.category && state.filters.category !== "all" ? ` | 필터 유형: ${state.filters.category}` : "";
-    subEl.textContent = `사업장: ${hotspotItem.colC || "미지정"} | 세부위치: ${hotspotItem.colD || "미지정"}${curCat}`;
+    subEl.textContent = `사업장: ${hotspotItem.colC || "미지정"} | 대표구역: ${hotspotItem.colD || "미지정"}${curCat}`;
   }
 
   // 2. 사고 유형별 구성비 (Type breakdown)
@@ -7889,6 +7933,8 @@ function openHotspotAnalysisModal(hotspotItem) {
           : `<span class="badge" style="background: #fffbeb; color: #b45309; border: 1px solid #fde68a; padding: 0.15rem 0.5rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 700;">진행중</span>`;
 
         const titleText = item.title || item.accidentName || "사고 내역";
+        const rawLoc = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+        const locBadge = rawLoc ? `<div style="font-size: 0.72rem; color: #2563eb; font-weight: 500; margin-top: 0.15rem;">📍 세부위치: ${escapeHtml(rawLoc)}</div>` : "";
         const descSnippet = item.description ? `<div style="font-size: 0.74rem; color: #64748b; margin-top: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 360px;">${escapeHtml(item.description)}</div>` : "";
 
         return `
@@ -7898,6 +7944,7 @@ function openHotspotAnalysisModal(hotspotItem) {
             <td style="padding: 0.65rem 0.85rem; white-space: nowrap;"><span class="${vBadgeClass}">${escapeHtml(vBadgeText)}</span></td>
             <td style="padding: 0.65rem 0.85rem;">
               <div style="font-weight: 600; color: #0f172a;">${escapeHtml(titleText)}</div>
+              ${locBadge}
               ${descSnippet}
             </td>
             <td style="padding: 0.65rem 0.85rem; text-align: center; white-space: nowrap;">${statusBadge}</td>
@@ -7947,16 +7994,17 @@ function openAllHotspotsRankingModal() {
   const baseData = getFilteredIncidents("hotspot");
   const totalBase = baseData.length || 1;
 
-  // Aggregate all hotspots under current filters
+  // Aggregate all hotspots under current filters (standardized representative areas)
   const hotspotMap = new Map();
   baseData.forEach(item => {
     const colC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
-    const colD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
-    const label = getHotspotLabel(colC, colD);
-    const key = `${colC}|||${colD}`;
+    const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+    const stdColD = getStandardLocation(rawColD);
+    const label = getHotspotLabel(colC, stdColD);
+    const key = `${colC}|||${stdColD}`;
 
     if (!hotspotMap.has(key)) {
-      hotspotMap.set(key, { key, label, colC, colD, count: 0 });
+      hotspotMap.set(key, { key, label, colC, colD: stdColD, stdLocation: stdColD, count: 0 });
     }
     hotspotMap.get(key).count++;
   });
