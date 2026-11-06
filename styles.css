@@ -4572,3 +4572,28 @@ body.auth-locked .main-wrapper {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
+
+
+/* All Hotspots Ranking Modal Scrolling & Sticky Header Fix */
+#all-hotspots-ranking-modal .modal-container {
+  max-height: 85vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+#all-hotspots-ranking-modal .modal-body {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  display: block !important;
+  overscroll-behavior: contain;
+}
+
+#all-hotspots-ranking-modal table thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  background-color: #f8fafc !important;
+}
