@@ -309,9 +309,41 @@
       </div>
     </div>
 
-    <!-- 4. Interactive Visualization Section (Charts) -->
-    <section class="charts-grid" aria-label="사고 통계 및 유형 분석">
-      <!-- Chart 1: 팀/부서별 사고 발생 비중 -->
+    <!-- 4. Interactive Visualization Section (Charts) - 3열 그리드 배치 -->
+    <section class="charts-grid grid grid-cols-1 lg:grid-cols-3 gap-6" aria-label="사고 통계 및 유형 분석">
+      <!-- 1열: 팀/부서별 사고 발생 비중 -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>🏢 팀/부서별 사고 발생 비중</h3>
+            <span class="chart-subtitle">사업장 및 부서별 발생 점유율</span>
+          </div>
+          <div class="chart-header-actions">
+            <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 부서의 사고 목록으로 필터링됩니다">👉 조각 클릭 드릴다운</span>
+          </div>
+        </div>
+        <div class="chart-body" style="height: 290px;">
+          <canvas id="deptChart"></canvas>
+        </div>
+      </article>
+
+      <!-- 2열: 유형별 사고 발생 비중 -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>🏷️ 유형별 사고 발생 비중</h3>
+            <span class="chart-subtitle">주요 사고 원인 및 유형 구성비</span>
+          </div>
+          <div class="chart-header-actions">
+            <span class="drilldown-hint-badge" title="차트 조각을 클릭하면 해당 사고유형으로 필터링됩니다">👉 조각 클릭 드릴다운</span>
+          </div>
+        </div>
+        <div class="chart-body" style="height: 290px;">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </article>
+
+      <!-- 3열: 사고 다발 세부구역 TOP 7 (핫스팟) -->
       <article class="chart-card">
         <div class="chart-header">
           <div>
@@ -477,7 +509,7 @@
 
       <div class="modal-body" style="padding: 1.25rem 1.4rem;">
         <!-- 상단 3대 요약 분석 그리드 -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
           <!-- 1) 사고 유형별 구성비 -->
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
@@ -499,20 +531,7 @@
               <!-- Dynamic Rows -->
             </div>
           </div>
-
-          <!-- 3) 조치 완료율 -->
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
-                <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">✅ 조치 완료율</span>
-                <span id="hotspot-modal-action-rate" style="font-size: 1.15rem; font-weight: 800; color: #059669;">100%</span>
-              </div>
-              <p style="font-size: 0.75rem; color: #64748b; margin: 0 0 0.75rem;">현장 조치 및 종결 완료 비율</p>
-            </div>
-            <div id="hotspot-modal-action-progress">
-              <!-- Dynamic Bar -->
-            </div>
-          </div>
+        </div>
         </div>
 
         <!-- 하단: 해당 구역 발생 사고 상세 리스트 테이블 -->
@@ -2213,9 +2232,9 @@
                 <div class="rk-desc" id="rk-total-desc">전체 등록 누적 건수</div>
               </div>
               <div class="report-kpi-card">
-                <div class="rk-label">사고 조치 완료율</div>
-                <div class="rk-value" id="rk-resolved-rate">0%</div>
-                <div class="rk-desc" id="rk-resolved-count">완료 0건 / 진행 0건</div>
+                <div class="rk-label">골프장 사고 점유율</div>
+                <div class="rk-value" id="rk-golf-rate">0%</div>
+                <div class="rk-desc" id="rk-golf-count">골프 코스 및 경기운영 0건</div>
               </div>
               <div class="report-kpi-card">
                 <div class="rk-label">병원 진료 / 보상 건수</div>

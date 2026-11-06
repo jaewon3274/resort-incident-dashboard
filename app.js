@@ -324,12 +324,15 @@ function populateReportData() {
     : (state.incidents || []);
 
   const total = data.length;
-  const resolved = data.filter(x => x.status === "조치완료").length;
-  const pending = total - resolved;
-  const resolvedRate = total > 0 ? ((resolved / total) * 100).toFixed(1) : 0;
   const medical = data.filter(x => x.severity && (x.severity.includes("병원") || x.severity.includes("중등"))).length;
   const totalCost = data.reduce((sum, x) => sum + (x.cost || x.companyAmount || 0), 0);
   const avgCost = total > 0 ? Math.round(totalCost / total) : 0;
+  const golfCount = data.filter(x => {
+    const d = (typeof getIncidentDept === "function" ? getIncidentDept(x) : "") || x.dept || "";
+    const loc = (typeof getIncidentLocation === "function" ? getIncidentLocation(x) : "") || x.location || "";
+    return d.includes("골프") || d.includes("팀") || loc.includes("H") || loc.includes("홀") || loc.includes("코스");
+  }).length;
+  const golfRate = total > 0 ? ((golfCount / total) * 100).toFixed(1) : "0.0";
 
   // 1. Meta
   const today = new Date();
@@ -362,11 +365,11 @@ function populateReportData() {
       : "전체 등록 누적 건수";
   }
 
-  const rateEl = document.getElementById("rk-resolved-rate");
-  if (rateEl) rateEl.textContent = `${resolvedRate}%`;
+  const golfRateEl = document.getElementById("rk-golf-rate");
+  if (golfRateEl) golfRateEl.textContent = `${golfRate}%`;
 
-  const resolvedCountEl = document.getElementById("rk-resolved-count");
-  if (resolvedCountEl) resolvedCountEl.textContent = `완료 ${resolved.toLocaleString()}건 / 진행 ${pending.toLocaleString()}건`;
+  const golfCountEl = document.getElementById("rk-golf-count");
+  if (golfCountEl) golfCountEl.textContent = `골프 코스 및 경기운영 ${golfCount.toLocaleString()}건`;
 
   const medicalEl = document.getElementById("rk-medical-count");
   if (medicalEl) medicalEl.textContent = `${medical.toLocaleString()}건`;
@@ -7863,29 +7866,7 @@ function openHotspotAnalysisModal(hotspotItem) {
     }).join("");
   }
 
-  // 4. 조치 완료율 (Action completion rate)
-  const completedCount = incidents.filter(item => (item.status || "").trim() === "조치완료").length;
-  const inProgressCount = count - completedCount;
-  const completeRateVal = count > 0 ? (completedCount / count) * 100 : 0;
-  const completeRate = completeRateVal % 1 === 0 ? completeRateVal.toFixed(0) : completeRateVal.toFixed(1);
-
-  const actionRateEl = document.getElementById("hotspot-modal-action-rate");
-  const actionProgEl = document.getElementById("hotspot-modal-action-progress");
-  if (actionRateEl) {
-    actionRateEl.textContent = `${completeRate}%`;
-    actionRateEl.style.color = completeRate >= 100 ? "#059669" : (completeRate >= 70 ? "#2563eb" : "#d97706");
-  }
-  if (actionProgEl) {
-    actionProgEl.innerHTML = `
-      <div style="width: 100%; background: #f1f5f9; border-radius: 9999px; height: 8px; overflow: hidden; margin-bottom: 0.45rem;">
-        <div style="height: 8px; border-radius: 9999px; width: ${completeRate}%; background-color: #059669; transition: width 0.3s;"></div>
-      </div>
-      <div style="display: flex; justify-content: space-between; font-size: 0.74rem; font-weight: 600;">
-        <span style="color: #047857;">✓ 조치완료 ${completedCount}건</span>
-        <span style="color: ${inProgressCount > 0 ? '#b45309' : '#94a3b8'};">⏳ 진행/대기 ${inProgressCount}건</span>
-      </div>
-    `;
-  }
+  // 4. (조치 완료율 지표는 모호성 및 왜곡 방지를 위해 사이트 전체에서 제거됨)
 
   // 5. 하단 상세 리스트 테이블
   const tableCountEl = document.getElementById("hotspot-modal-table-count");
