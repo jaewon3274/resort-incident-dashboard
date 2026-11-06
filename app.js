@@ -512,6 +512,7 @@ const state = {
   filteredIncidents: [],
   filters: {
     search: "",
+    searchQuery: "",
     resort: "all",
     dept: "all",
     category: "all",
@@ -1113,11 +1114,13 @@ function setupEventListeners() {
   // 4개 전용 세부 분석 모달 닫기 및 필터 이벤트 초기화
   setupSubAnalysisModals();
 
-  // Search input
+  // Search input with smart search support
   const searchInput = document.getElementById("search-input");
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
-      state.filters.search = e.target.value.trim().toLowerCase();
+      const val = e.target.value.trim().toLowerCase();
+      state.filters.search = val;
+      state.filters.searchQuery = val;
       state.currentPage = 1;
       applyFilters();
     });
@@ -1303,16 +1306,119 @@ function setupEventListeners() {
     });
   }
 
-  // Period tag buttons
+  // Period tag buttons & Custom Date Popover
   const periodButtons = document.querySelectorAll(".period-btn");
+  const customPopover = document.getElementById("custom-date-popover");
+  const customStartDate = document.getElementById("custom-start-date");
+  const customEndDate = document.getElementById("custom-end-date");
+  const applyCustomBtn = document.getElementById("btn-apply-custom-date");
+  const cancelCustomBtn = document.getElementById("btn-cancel-custom-date");
+  const closePopoverBtn = document.getElementById("btn-close-date-popover");
+
+  const closeCustomDatePopover = () => {
+    if (customPopover) customPopover.style.display = "none";
+  };
+
   periodButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+      const period = btn.dataset.period;
+      if (period === "custom") {
+        e.stopPropagation();
+        if (!customPopover) return;
+        const isHidden = customPopover.style.display === "none";
+        if (isHidden) {
+          customPopover.style.display = "block";
+          if (customStartDate && state.filters.startDate) customStartDate.value = state.filters.startDate;
+          if (customEndDate && state.filters.endDate) customEndDate.value = state.filters.endDate;
+        } else {
+          customPopover.style.display = "none";
+        }
+        return;
+      }
+
+      // Preset clicked: close popover and clear custom range
+      closeCustomDatePopover();
+      state.filters.startDate = "";
+      state.filters.endDate = "";
+      state.filters.from = "";
+      state.filters.to = "";
+      const customPeriodText = document.getElementById("custom-period-text");
+      if (customPeriodText) customPeriodText.textContent = "📅 직접지정";
+
       periodButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      state.filters.period = btn.dataset.period;
+      state.filters.period = period;
       state.currentPage = 1;
       applyFilters();
     });
+  });
+
+  if (closePopoverBtn) {
+    closePopoverBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeCustomDatePopover();
+    });
+  }
+
+  if (cancelCustomBtn) {
+    cancelCustomBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeCustomDatePopover();
+    });
+  }
+
+  if (applyCustomBtn) {
+    applyCustomBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const sVal = customStartDate ? customStartDate.value : "";
+      const eVal = customEndDate ? customEndDate.value : "";
+
+      if (!sVal && !eVal) {
+        if (typeof showToast === "function") showToast("시작일 또는 종료일을 입력해 주세요.", "warning");
+        else alert("시작일 또는 종료일을 입력해 주세요.");
+        return;
+      }
+      if (sVal && eVal && sVal > eVal) {
+        if (typeof showToast === "function") showToast("종료일이 시작일보다 앞설 수 없습니다.", "warning");
+        else alert("종료일이 시작일보다 앞설 수 없습니다.");
+        return;
+      }
+
+      state.filters.period = "custom";
+      state.filters.startDate = sVal;
+      state.filters.endDate = eVal;
+      state.filters.from = sVal;
+      state.filters.to = eVal;
+
+      periodButtons.forEach(b => b.classList.remove("active"));
+      const btnCustom = document.getElementById("btn-period-custom");
+      if (btnCustom) btnCustom.classList.add("active");
+
+      const customPeriodText = document.getElementById("custom-period-text");
+      if (customPeriodText) {
+        if (sVal && eVal) {
+          customPeriodText.textContent = `📅 ${sVal.slice(5)}~${eVal.slice(5)}`;
+        } else if (sVal) {
+          customPeriodText.textContent = `📅 ${sVal.slice(5)}~`;
+        } else {
+          customPeriodText.textContent = `📅 ~${eVal.slice(5)}`;
+        }
+      }
+
+      closeCustomDatePopover();
+      state.currentPage = 1;
+      applyFilters();
+      if (typeof showToast === "function") showToast("직접 지정된 기간으로 필터링되었습니다.", "success");
+    });
+  }
+
+  // Click outside popover to close
+  document.addEventListener("click", (e) => {
+    if (!customPopover || customPopover.style.display === "none") return;
+    const btnCustom = document.getElementById("btn-period-custom");
+    if (!customPopover.contains(e.target) && (!btnCustom || !btnCustom.contains(e.target))) {
+      closeCustomDatePopover();
+    }
   });
 
   // Export CSV Button
@@ -1438,6 +1544,12 @@ function setupEventListeners() {
   // 글로벌 ESC (Escape) 키 이벤트 리스너: 상세 조회 창 및 팝업 모달 닫기
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" || e.key === "Esc") {
+      // 0. 날짜 직접지정 팝오버가 열려 있는 경우
+      const datePopover = document.getElementById("custom-date-popover");
+      if (datePopover && datePopover.style.display !== "none") {
+        datePopover.style.display = "none";
+        return;
+      }
       // 1. 상세 모달이 열려 있는 경우
       if (detailModal && detailModal.classList.contains("active")) {
         closeDetail();
@@ -2937,6 +3049,50 @@ function setupSubAnalysisModals() {
 }
 
 // Chart Drilldown Helpers
+// [요구사항 2 & 3] C+D열 세부 핫스팟 라벨 생성 및 1:1 클릭 드릴다운
+function getHotspotLabel(c, d) {
+  const colC = String(c || "").trim();
+  const colD = String(d || "").trim();
+  if (!colC && !colD) return "미기재";
+  if (!colD) return colC;
+  if (!colC) return colD;
+  // D열 텍스트 안에 이미 C열 명칭이 포함되어 있다면 중복으로 붙이지 않고 D열만 표기
+  if (colD.includes(colC)) return colD;
+  // 둘 다 정상 기재된 경우 '[C열 구분1] D열 위치(세부)' 형태로 결합
+  return `[${colC}] ${colD}`;
+}
+window.getHotspotLabel = getHotspotLabel;
+
+function toggleHotspotDrilldown(hotspotItem) {
+  if (!hotspotItem) {
+    state.filters.hotspot = null;
+    showToast("세부구역 필터가 해제되었습니다.", "info");
+  } else {
+    const currentKey = state.filters.hotspot
+      ? `${state.filters.hotspot.colC}|||${state.filters.hotspot.colD}`
+      : null;
+    const targetKey = `${hotspotItem.colC}|||${hotspotItem.colD}`;
+
+    if (currentKey === targetKey) {
+      // 동일 핫스팟 재클릭 시 필터 해제
+      state.filters.hotspot = null;
+      showToast(`'${hotspotItem.label}' 세부구역 필터가 해제되었습니다.`, "info");
+    } else {
+      // 새로운 핫스팟 클릭 시: 원본 C열과 D열 보관 (1:1 정확 일치용)
+      state.filters.hotspot = {
+        colC: hotspotItem.colC,
+        colD: hotspotItem.colD,
+        label: hotspotItem.label,
+        key: targetKey
+      };
+      showToast(`세부구역: '${hotspotItem.label}' 1:1 일치 상세 필터링이 적용되었습니다.`, "success");
+    }
+  }
+  state.currentPage = 1;
+  applyFilters();
+}
+window.toggleHotspotDrilldown = toggleHotspotDrilldown;
+
 function updateDrilldownTag() {
   const tagEl = document.getElementById("drilldown-filter-tag");
   if (!tagEl) return;
@@ -2950,6 +3106,10 @@ function updateDrilldownTag() {
     tagEl.style.display = "inline-flex";
     tagEl.innerHTML = `🏢 부서: ${escapeHtml(dept)} <span style="margin-left:3px;font-size:0.7rem;">✕</span>`;
     tagEl.title = "클릭 시 팀/부서 드릴다운 필터 해제";
+  } else if (state.filters.hotspot) {
+    tagEl.style.display = "inline-flex";
+    tagEl.innerHTML = `📍 핫스팟: ${escapeHtml(state.filters.hotspot.label)} <span style="margin-left:3px;font-size:0.7rem;">✕</span>`;
+    tagEl.title = "클릭 시 세부구역 필터 해제";
   } else if (zone && zone !== "all") {
     tagEl.style.display = "inline-flex";
     tagEl.innerHTML = `📍 구역: ${escapeHtml(zone)} <span style="margin-left:3px;font-size:0.7rem;">✕</span>`;
@@ -2963,6 +3123,7 @@ function clearDrilldownFilter() {
   state.filters.category = "all";
   state.filters.dept = "all";
   state.filters.zone = "all";
+  state.filters.hotspot = null;
   const catSelect = document.getElementById("filter-category");
   if (catSelect) catSelect.value = "all";
   const deptSelect = document.getElementById("filter-dept");
@@ -3863,9 +4024,10 @@ window.deleteIncident = function(id) {
 function getFilteredIncidents(excludeKey = null) {
   const filters = { ...(state.filters || {}) };
   if (excludeKey) {
-    filters[excludeKey] = "all";
+    if (excludeKey === "hotspot") filters.hotspot = null;
+    else filters[excludeKey] = "all";
   }
-  const { search, resort, dept, category, victimType, severity, status, period, zone, reportStatus, startDate, endDate, from, to } = filters;
+  const { search, resort, dept, category, victimType, severity, status, period, zone, reportStatus, startDate, endDate, from, to, hotspot } = filters;
   const refDate = getSystemReferenceDate();
   const todayStart = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 0, 0, 0, 0);
   const todayEnd = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 23, 59, 59, 999);
@@ -3876,34 +4038,54 @@ function getFilteredIncidents(excludeKey = null) {
     const itemLoc = getIncidentLocation(item);
     const itemVictim = getIncidentVictim(item);
 
-    if (search) {
-      const searchTerm = String(search || "").trim().toLowerCase();
+    const rawSearch = search || filters.searchQuery || "";
+    if (rawSearch) {
+      const query = String(rawSearch).trim().toLowerCase();
 
-      if (searchTerm.length > 0) {
-        // [엄격 모드 1 & 2] 사고 본문(description/경위) 간섭 완전 제거, 오직 엑셀 D열('위치(세부)', item.location) 원본 데이터만 기준으로 판별
-        // 공백 제거 없는 글자 그대로 엄격 대조 (Strict Exact Match, includes)
+      if (query.length > 0) {
+        // [스마트 검색 로직 1. 검색어 유형 자동 판별]
+        // - 패턴: /\d+h/i, /[가-힣]+(?:\d+)?h/i (예: '파인4h', '오크8h', '18h', '체리5h' 등)
+        // - 키워드: '홀', '슬로프', '콘도', '주차장' 단어가 포함된 경우
+        const isHolePattern = /\d+h/i.test(query) || /[가-힣]+(?:\d+)?h/i.test(query);
+        const locationKeywords = ['홀', '슬로프', '콘도', '주차장'];
+        const hasLocationKeyword = locationKeywords.some(kw => query.includes(kw));
+        const isLocationSearch = isHolePattern || hasLocationKeyword;
+
+        // D열 원본 ('위치(세부)', item.location)
         const rawLoc = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").toLowerCase();
-        const matchLocation = rawLoc.includes(searchTerm);
 
-        // 기타 관리 필드 (문서번호, 피해자 성명, 제목, 담당자, 부서, 사업장, 사고유형 - 사고 경위 본문 M열은 일체 배제)
-        const docNo = String(item.docNo || item.documentNumber || item.id || "").toLowerCase();
-        const victimName = String(item.victimName && item.victimName !== "익명" && item.victimName !== "미상" ? item.victimName : "").toLowerCase();
-        const title = String(item.title || "").toLowerCase();
-        const manager = String(item.manager || "").toLowerCase();
-        const dept = String(itemDept || "").toLowerCase();
-        const resort = String(item.resort || item.businessUnit || "").toLowerCase();
-        const category = String(incidentCategory || "").toLowerCase();
+        if (isLocationSearch) {
+          // [A. 장소 패턴 검색어인 경우]:
+          // 본문(description) 간섭을 완전 차단하고,
+          // 오직 엑셀 D열 원본('위치(세부)', item.location)에 해당 텍스트가 정확히 포함되어 있는지만 검사
+          if (!rawLoc.includes(query)) {
+            return false;
+          }
+        } else {
+          // [B. 그 외 일반 키워드인 경우 ('로봇', '로봇모어', '예초기', 성명 등)]:
+          // item.location(장소)뿐만 아니라 item.title(제목), item.description(사고 경위 본문), item.victimName(피해자), item.docNo(문서번호)를 모두 검색 대상에 포함하여 검사
+          const title = String(item.title || item.accidentName || "").toLowerCase();
+          const description = String(item.description || item.content || item.details || item['사고경위'] || item['사고내용'] || "").toLowerCase();
+          const victimName = String(item.victimName || item.victim || "").toLowerCase();
+          const docNo = String(item.docNo || item.documentNumber || item.id || "").toLowerCase();
+          const manager = String(item.manager || "").toLowerCase();
+          const deptStr = String(itemDept || "").toLowerCase();
+          const resortStr = String(item.resort || item.businessUnit || "").toLowerCase();
+          const categoryStr = String(incidentCategory || "").toLowerCase();
 
-        const matchOther = docNo.includes(searchTerm) ||
-                           victimName.includes(searchTerm) ||
-                           title.includes(searchTerm) ||
-                           manager.includes(searchTerm) ||
-                           dept.includes(searchTerm) ||
-                           resort.includes(searchTerm) ||
-                           category.includes(searchTerm);
+          const match = rawLoc.includes(query) ||
+                        title.includes(query) ||
+                        description.includes(query) ||
+                        victimName.includes(query) ||
+                        docNo.includes(query) ||
+                        manager.includes(query) ||
+                        deptStr.includes(query) ||
+                        resortStr.includes(query) ||
+                        categoryStr.includes(query);
 
-        if (!matchLocation && !matchOther) {
-          return false;
+          if (!match) {
+            return false;
+          }
         }
       }
     }
@@ -3961,6 +4143,14 @@ function getFilteredIncidents(excludeKey = null) {
       }
     }
 
+    // [요구사항 3] C+D열 세부 핫스팟 1:1 엄격 일치 필터링
+    if (hotspot) {
+      const itemColC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+      const itemColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+      if (hotspot.colC && itemColC !== hotspot.colC) return false;
+      if (hotspot.colD && itemColD !== hotspot.colD) return false;
+    }
+
     const itemZone = item?.zone || inferZoneFromLocation(itemLoc, itemDept, item?.resort) || "기타";
     if (zone && zone !== "all" && itemZone !== zone) {
       return false;
@@ -3989,9 +4179,11 @@ function getFilteredIncidents(excludeKey = null) {
       } else if (period === "30d") {
         const d30Start = new Date(todayStart.getTime() - 29 * 24 * 60 * 60 * 1000);
         if (time < d30Start.getTime() || time > todayEnd.getTime()) return false;
-      } else if (period === "1m" || period === "month") {
-        const m1Start = new Date(refDate.getFullYear(), refDate.getMonth() - 1, refDate.getDate(), 0, 0, 0, 0);
-        if (time < m1Start.getTime() || time > todayEnd.getTime()) return false;
+      } else if (period === "thisMonth" || period === "month" || period === "1m") {
+        // [당월(이번 달)] 오늘 날짜 기준 해당 월 1일 ~ 말일까지 자동 필터링
+        const mStart = new Date(refDate.getFullYear(), refDate.getMonth(), 1, 0, 0, 0, 0);
+        const mEnd = new Date(refDate.getFullYear(), refDate.getMonth() + 1, 0, 23, 59, 59, 999);
+        if (time < mStart.getTime() || time > mEnd.getTime()) return false;
       } else if (period === "90d" || period === "3m") {
         const d90Start = new Date(todayStart.getTime() - 89 * 24 * 60 * 60 * 1000);
         if (time < d90Start.getTime() || time > todayEnd.getTime()) return false;
@@ -3999,6 +4191,23 @@ function getFilteredIncidents(excludeKey = null) {
         if (parsedDate.getFullYear() !== 2026) return false;
       } else if (/^\d{4}$/.test(period)) {
         if (parsedDate.getFullYear() !== parseInt(period, 10)) return false;
+      } else if (period === "custom") {
+        const sStr = startDate || from || filters.startDate;
+        const eStr = endDate || to || filters.endDate;
+        if (sStr) {
+          const pStart = parseIncidentDate(sStr);
+          const sTime = pStart
+            ? new Date(pStart.getFullYear(), pStart.getMonth(), pStart.getDate(), 0, 0, 0, 0).getTime()
+            : new Date(`${sStr}T00:00:00`).getTime();
+          if (!isNaN(sTime) && time < sTime) return false;
+        }
+        if (eStr) {
+          const pEnd = parseIncidentDate(eStr);
+          const eTime = pEnd
+            ? new Date(pEnd.getFullYear(), pEnd.getMonth(), pEnd.getDate(), 23, 59, 59, 999).getTime()
+            : new Date(`${eStr}T23:59:59.999`).getTime();
+          if (!isNaN(eTime) && time > eTime) return false;
+        }
       }
     }
 
@@ -4070,6 +4279,7 @@ function renderKPIs() {
         (state.filters.status && state.filters.status !== "all") ||
         (state.filters.zone && state.filters.zone !== "all") ||
         (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
+        Boolean(state.filters.hotspot) ||
         state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
       ))
     );
@@ -4568,87 +4778,188 @@ function renderCharts() {
       });
     }
 
-    // 3. Group by Zone (Top 7) (시설별 건수 - D열 최우선 참조)
-    const ZONE_COLOR_MAP = {
-    "골프 코스": "#10b981",       // Emerald Green
-    "주차장/도로": "#f59e0b",     // Amber
-    "레저/야외시설": "#06b6d4",   // Cyan
-    "콘도/객실": "#8b5cf6",       // Purple
-    "부대/영업시설": "#38bdf8",   // Sky Blue
-    "기타 부대시설": "#94a3b8"    // Slate
-  };
-  const currentIncidents = (state.filteredIncidents && Array.isArray(state.filteredIncidents))
-    ? state.filteredIncidents
-    : (state.incidents || []);
-  const zoneCounts = {};
-  currentIncidents.forEach(item => {
-    const z = item?.zone || inferZoneFromLocation(getIncidentLocation(item), getIncidentDept(item), item?.resort || item?.team) || "기타 부대시설";
-    zoneCounts[z] = (zoneCounts[z] || 0) + 1;
-  });
+    // [요구사항 2 & 3] 3. C+D열 기반 세부 핫스팟(Hotspot) TOP 7 가로형 막대 차트
+    const hotspotBaseData = getFilteredIncidents("hotspot");
+    const totalBaseCount = hotspotBaseData.length;
 
-  const sortedZones = Object.entries(zoneCounts).sort((a, b) => b[1] - a[1]).slice(0, 7);
-  const zoneLabels = sortedZones.map(z => z[0]);
-  const zoneData = sortedZones.map(z => z[1]);
-  const zoneColors = zoneLabels.map(z => ZONE_COLOR_MAP[z] || "#38bdf8");
+    const hotspotMap = new Map();
+    hotspotBaseData.forEach(item => {
+      const colC = String(item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+      const colD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+      const label = getHotspotLabel(colC, colD);
+      const key = `${colC}|||${colD}`;
 
-  const zoneCtx = document.getElementById("zoneChart")?.getContext("2d");
-  if (zoneCtx) {
-    if (state.charts.zoneChart) {
-      state.charts.zoneChart.destroy();
-    }
+      if (!hotspotMap.has(key)) {
+        hotspotMap.set(key, { key, label, colC, colD, count: 0 });
+      }
+      hotspotMap.get(key).count++;
+    });
 
-    state.charts.zoneChart = new Chart(zoneCtx, {
-      type: "bar",
-      data: {
-        labels: zoneLabels,
-        datasets: [{
-          label: "발생 건수",
-          data: zoneData,
-          backgroundColor: zoneColors,
-          hoverBackgroundColor: zoneColors,
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        onClick: (event, elements, chart) => {
-          if (elements && elements.length > 0) {
-            const elementIndex = elements[0].index;
-            const clickedZone = chart.data.labels[elementIndex];
-            if (clickedZone) {
-              toggleChartDrilldown("zone", clickedZone);
-            }
-          } else {
-            if (state.filters.zone && state.filters.zone !== "all") {
-              toggleChartDrilldown("zone", "all");
-            }
-          }
+    const sortedHotspots = Array.from(hotspotMap.values())
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 7);
+
+    const hotspotLabels = sortedHotspots.length > 0 ? sortedHotspots.map(h => h.label) : ["데이터 없음"];
+    const hotspotData = sortedHotspots.length > 0 ? sortedHotspots.map(h => h.count) : [0];
+
+    const HOTSPOT_PALETTE = [
+      "#2563eb", // 1위: Royal Blue
+      "#3b82f6", // 2위: Blue
+      "#0284c7", // 3위: Sky Blue
+      "#0d9488", // 4위: Teal
+      "#10b981", // 5위: Emerald
+      "#f59e0b", // 6위: Amber
+      "#64748b"  // 7위: Slate
+    ];
+
+    const currentHotspotKey = state.filters.hotspot
+      ? `${state.filters.hotspot.colC}|||${state.filters.hotspot.colD}`
+      : null;
+
+    const barColors = sortedHotspots.map((h, i) => {
+      if (currentHotspotKey) {
+        return h.key === currentHotspotKey ? "#1d4ed8" : "rgba(148, 163, 184, 0.45)";
+      }
+      return HOTSPOT_PALETTE[i % HOTSPOT_PALETTE.length];
+    });
+
+    const borderColors = sortedHotspots.map(h => {
+      if (currentHotspotKey && h.key === currentHotspotKey) {
+        return "#1e3a8a";
+      }
+      return "transparent";
+    });
+
+    const borderWidths = sortedHotspots.map(h => {
+      if (currentHotspotKey && h.key === currentHotspotKey) return 2;
+      return 0;
+    });
+
+    const zoneCtx = document.getElementById("zoneChart")?.getContext("2d");
+    if (zoneCtx) {
+      if (state.charts.zoneChart) {
+        state.charts.zoneChart.destroy();
+      }
+
+      // 막대 우측 건수 및 점유율(%) 직접 표기 플러그인
+      const hotspotDataLabelsPlugin = {
+        id: "hotspotDataLabels",
+        afterDatasetsDraw(chart) {
+          if (!sortedHotspots || sortedHotspots.length === 0) return;
+          const { ctx, chartArea } = chart;
+          const meta = chart.getDatasetMeta(0);
+          if (!meta || !meta.data) return;
+
+          ctx.save();
+          meta.data.forEach((bar, idx) => {
+            const item = sortedHotspots[idx];
+            if (!item) return;
+
+            const count = item.count;
+            const pct = totalBaseCount > 0 ? ((count / totalBaseCount) * 100).toFixed(1) : "0.0";
+            const text = `${count}건 (${pct}%)`;
+
+            const isSelected = currentHotspotKey && item.key === currentHotspotKey;
+            ctx.font = isSelected
+              ? "bold 11px Pretendard, sans-serif"
+              : "600 11px Pretendard, sans-serif";
+            ctx.fillStyle = isSelected ? "#1d4ed8" : "#334155";
+            ctx.textAlign = "left";
+            ctx.textBaseline = "middle";
+
+            const xPos = bar.x + 8;
+            ctx.fillText(text, xPos, bar.y);
+          });
+          ctx.restore();
+        }
+      };
+
+      state.charts.zoneChart = new Chart(zoneCtx, {
+        type: "bar",
+        plugins: [hotspotDataLabelsPlugin],
+        data: {
+          labels: hotspotLabels,
+          datasets: [{
+            label: "발생 건수",
+            data: hotspotData,
+            backgroundColor: barColors,
+            borderColor: borderColors,
+            borderWidth: borderWidths,
+            borderRadius: 5,
+            maxBarThickness: 24
+          }]
         },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => ` 발생 건수: ${ctx.raw}건 - 클릭 시 필터링`
+        options: {
+          indexAxis: "y", // 가로형 막대 차트 (BarChart layout="vertical")
+          responsive: true,
+          maintainAspectRatio: false,
+          onClick: (event, elements, chart) => {
+            if (elements && elements.length > 0) {
+              const elementIndex = elements[0].index;
+              const clickedItem = sortedHotspots[elementIndex];
+              if (clickedItem) {
+                toggleHotspotDrilldown(clickedItem);
+              }
+            } else {
+              if (state.filters.hotspot) {
+                toggleHotspotDrilldown(null);
+              }
             }
-          }
-        },
-        scales: {
-          x: {
-            grid: { display: false },
-            ticks: { color: "#94a3b8", font: { family: "Pretendard", size: 11 } }
           },
-          y: {
-            beginAtZero: true,
-            ticks: { color: "#475569",
-              font: { family: "Pretendard", size: 11 }
+          onHover: (event, elements, chart) => {
+            if (chart && chart.canvas) {
+              chart.canvas.style.cursor = (elements && elements.length > 0) ? "pointer" : "default";
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const idx = ctx.dataIndex;
+                  const item = sortedHotspots[idx];
+                  if (!item) return ` 발생 건수: ${ctx.raw}건`;
+                  const pct = totalBaseCount > 0 ? ((item.count / totalBaseCount) * 100).toFixed(1) : "0.0";
+                  return ` 사고 발생: ${item.count}건 (전체 대비 ${pct}%)`;
+                },
+                afterLabel: (ctx) => {
+                  const idx = ctx.dataIndex;
+                  const item = sortedHotspots[idx];
+                  if (!item) return "";
+                  const isSelected = currentHotspotKey && item.key === currentHotspotKey;
+                  return isSelected
+                    ? "👉 클릭 시 필터 해제 (전체 보기)"
+                    : `👉 클릭 시 C열('${item.colC}') 및 D열('${item.colD}') 1:1 일치 상세 필터링`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              grace: "24%", // 막대 우측 건수 및 점유율(%) 텍스트 여백 확보
+              grid: { color: "#f1f5f9" },
+              ticks: {
+                color: "#94a3b8",
+                font: { family: "Pretendard", size: 10 },
+                precision: 0
+              }
             },
-            grid: { color: "#e2e8f0" }
+            y: {
+              grid: { display: false },
+              ticks: {
+                color: "#1e293b",
+                font: { family: "Pretendard", size: 11, weight: "600" },
+                callback: function(value, index) {
+                  const label = this.getLabelForValue(value) || "";
+                  return label.length > 17 ? label.slice(0, 16) + "…" : label;
+                }
+              }
+            }
           }
         }
-      }
-    });
-  }
+      });
+    }
   } catch (errCharts) {
     console.error("renderCharts 실행 오류 방어:", errCharts);
   }
@@ -5352,6 +5663,9 @@ function renderActiveFilterChips() {
     const victimMap = { employee: "대상: 임직원", caddy: "대상: 캐디", customer: "대상: 고객" };
     chips.push({ key: "victim-type", label: victimMap[victimType] || `대상: ${victimType}` });
   }
+  if (state.filters.hotspot) {
+    chips.push({ key: "hotspot", label: `핫스팟: ${state.filters.hotspot.label}` });
+  }
   if (zone && zone !== "all") {
     chips.push({ key: "zone", label: `구역: ${zone}` });
   }
@@ -5368,8 +5682,21 @@ function renderActiveFilterChips() {
     chips.push({ key: "status", label: `상태: ${status}` });
   }
   if (period && period !== "all") {
-    const periodMap = { "7d": "최근 7일", "30d": "최근 30일", "90d": "최근 3개월", "year": "2026년" };
-    chips.push({ key: "period", label: `기간: ${periodMap[period] || period}` });
+    const periodMap = {
+      "7d": "최근 7일",
+      "30d": "최근 30일",
+      "90d": "최근 3개월",
+      "year": "2026년",
+      "thisMonth": "당월(이번 달)",
+      "month": "당월(이번 달)"
+    };
+    if (period === "custom") {
+      const s = state.filters.startDate || "";
+      const e = state.filters.endDate || "";
+      chips.push({ key: "period", label: `기간: ${s} ~ ${e}` });
+    } else {
+      chips.push({ key: "period", label: `기간: ${periodMap[period] || period}` });
+    }
   }
   if (search && search.trim() !== "") {
     chips.push({ key: "search", label: `검색: "${search}"` });
@@ -5407,12 +5734,24 @@ function renderActiveFilterChips() {
 
 // Global Single Filter Tag Clear Handler
 window.clearQuickFilter = function(key) {
-  if (key === "search") {
+  if (key === "search" || key === "searchQuery") {
     state.filters.search = "";
+    state.filters.searchQuery = "";
     const searchInput = document.getElementById("search-input");
     if (searchInput) searchInput.value = "";
+  } else if (key === "hotspot") {
+    state.filters.hotspot = null;
+    applyFilters();
   } else if (key === "period") {
     state.filters.period = "all";
+    state.filters.startDate = "";
+    state.filters.endDate = "";
+    state.filters.from = "";
+    state.filters.to = "";
+    const customText = document.getElementById("custom-period-text");
+    if (customText) customText.textContent = "📅 직접지정";
+    const popover = document.getElementById("custom-date-popover");
+    if (popover) popover.style.display = "none";
     document.querySelectorAll(".period-btn").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.period === "all");
     });
@@ -5440,6 +5779,7 @@ window.clearQuickFilter = function(key) {
 
 function resetAllFilters() {
   state.filters.search = "";
+  state.filters.searchQuery = "";
   state.filters.resort = "all";
   state.filters.dept = "all";
   state.filters.category = "all";
@@ -5448,6 +5788,7 @@ function resetAllFilters() {
   state.filters.status = "all";
   state.filters.period = "all";
   state.filters.zone = "all";
+  state.filters.hotspot = null;
   state.filters.reportStatus = "all";
   state.filters.startDate = "";
   state.filters.endDate = "";
@@ -5488,6 +5829,10 @@ function resetAllFilters() {
   const tableSev = document.getElementById("table-filter-severity");
   if (tableSev) tableSev.value = "all";
 
+  const customText = document.getElementById("custom-period-text");
+  if (customText) customText.textContent = "📅 직접지정";
+  const popover = document.getElementById("custom-date-popover");
+  if (popover) popover.style.display = "none";
   document.querySelectorAll(".period-btn").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.period === "all");
   });

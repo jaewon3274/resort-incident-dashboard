@@ -166,17 +166,56 @@
 
     <!-- Search & Filter Controls -->
     <section class="filter-panel" aria-label="필터 및 검색 제어판">
-      <div class="filter-row">
+      <!-- 1행: 검색창(flex-1) + 기간 선택 캡슐 그룹 (나란히 배치) -->
+      <div class="filter-row-primary">
         <!-- Live Fulltext Search -->
         <div class="search-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="search-input" placeholder="문서번호, 제목, 장소(D열), 성명, 담당자 검색..." aria-label="사고 검색">
+          <input type="text" id="search-input" placeholder="통합 검색 (홀/장소, 로봇, 예초기, 피해자 성명, 문서번호 등)..." aria-label="사고 검색">
         </div>
 
-        <!-- Filter Selectors (동적 옵션 지원) -->
+        <!-- 기간 선택 캡슐 그룹 (1행 우측 여백) -->
+        <div class="period-filter-wrapper">
+          <div class="quick-period-tags" role="group" aria-label="기간 필터">
+            <button type="button" class="period-btn active" data-period="all">전체</button>
+            <button type="button" class="period-btn" data-period="thisMonth">당월(이번 달)</button>
+            <button type="button" class="period-btn" data-period="30d">최근 30일</button>
+            <button type="button" class="period-btn" data-period="year">2026년</button>
+            <button type="button" class="period-btn btn-period-custom" id="btn-period-custom" data-period="custom" title="원하는 시작일과 종료일을 직접 지정합니다">
+              <span id="custom-period-text">📅 직접지정</span>
+            </button>
+          </div>
+
+          <!-- 미니 팝오버 달력 입력창 (직접지정 클릭 시 표출) -->
+          <div id="custom-date-popover" class="custom-date-popover" style="display: none;">
+            <div class="popover-header">
+              <span class="popover-title">📅 기간 직접 지정</span>
+              <button type="button" class="btn-popover-close" id="btn-close-date-popover" aria-label="닫기">&times;</button>
+            </div>
+            <div class="popover-body">
+              <div class="date-input-group">
+                <label for="custom-start-date">시작일</label>
+                <input type="date" id="custom-start-date" class="date-input">
+              </div>
+              <span class="date-separator">~</span>
+              <div class="date-input-group">
+                <label for="custom-end-date">종료일</label>
+                <input type="date" id="custom-end-date" class="date-input">
+              </div>
+            </div>
+            <div class="popover-footer">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-custom-date">취소</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-apply-custom-date">적용</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2행: 6개 상세 드롭다운(사업장, 부서, 대상, 유형, 피해, 처리상태) + [필터 초기화] -->
+      <div class="filter-row-secondary">
         <div class="filter-selectors">
           <select id="filter-resort" class="custom-select" aria-label="사업장 선택" title="사업장/구역 필터">
             <option value="all">전체 사업장 (모든 리조트)</option>
@@ -215,15 +254,6 @@
             <option value="보험/보상진행">보험/보상진행</option>
             <option value="접수대기">접수대기</option>
           </select>
-
-          <!-- Quick Period Tags -->
-          <div class="quick-period-tags" role="group" aria-label="기간 필터">
-            <button class="period-btn active" data-period="all">전체</button>
-            <button class="period-btn" data-period="7d">최근 7일</button>
-            <button class="period-btn" data-period="30d">최근 30일</button>
-            <button class="period-btn" data-period="90d">최근 3개월</button>
-            <button class="period-btn" data-period="year">2026년</button>
-          </div>
 
           <!-- 신설: 필터 초기화 버튼 -->
           <button id="btn-reset-filters" class="btn btn-filter-reset" title="모든 검색어 및 필터 조건을 한 번에 초기화합니다">
@@ -309,16 +339,16 @@
         </div>
       </article>
 
-      <!-- Chart 3: 주요 구역/시설별 사고 건수 -->
+      <!-- Chart 3: 사고 다발 세부구역 TOP 7 (핫스팟) -->
       <article class="chart-card">
         <div class="chart-header">
           <div>
-            <h3>📍 주요 구역/시설별 사고 건수</h3>
-            <span class="chart-subtitle">골프장, 스파, 객실, 로비 등 장소별 분포</span>
+            <h3>📍 사고 다발 세부구역 TOP 7 (핫스팟)</h3>
+            <span class="chart-subtitle">현재 필터 기준 사고 집중 발생 세부장소 순위</span>
           </div>
-          <span class="drilldown-hint-badge" title="차트 막대를 클릭하면 해당 구역으로 메인 테이블이 즉시 필터링됩니다">👆 막대 클릭 드릴다운</span>
+          <span class="drilldown-hint-badge" title="차트 막대를 클릭하면 해당 세부구역으로 메인 테이블이 즉시 필터링됩니다">👉 막대 클릭 상세 조회</span>
         </div>
-        <div class="chart-body">
+        <div class="chart-body" style="height: 290px;">
           <canvas id="zoneChart"></canvas>
         </div>
       </article>
