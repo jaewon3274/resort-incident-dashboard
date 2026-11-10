@@ -4222,6 +4222,11 @@ function getFilteredIncidents(excludeKey = null) {
   const filters = { ...(state.filters || {}) };
   if (excludeKey) {
     if (excludeKey === "hotspot") filters.hotspot = null;
+    else if (excludeKey === "rankingModal") {
+      filters.hotspot = null;
+      filters.dept = "all";
+      filters.category = "all";
+    }
     else filters[excludeKey] = "all";
   }
   const { search, resort, dept, category, victimType, status, period, zone, reportStatus, startDate, endDate, from, to, hotspot } = filters;
@@ -8284,6 +8289,8 @@ window.applyHotspotFilterFromModal = applyHotspotFilterFromModal;
 // ==========================================================================
 
 let rankingModalAllData = [];
+let rankingModalRawIncidents = [];
+let rankingModalCurrentList = [];
 
 // [요구사항 2] 정규식 기반 D열 세부 위치 장소 분류 함수
 function classifyLocationType(locStr) {
@@ -8301,57 +8308,62 @@ function openAllHotspotsRankingModal() {
   const modal = document.getElementById("all-hotspots-ranking-modal");
   if (!modal) return;
 
-  const baseData = getFilteredIncidents("hotspot");
-  const isTeamSelected = state.hotspotSubTabTeam && state.hotspotSubTabTeam !== "all";
-  const targetData = isTeamSelected
-    ? baseData.filter(item => getNormalizedBusinessUnit(item) === state.hotspotSubTabTeam)
-    : baseData;
+  const baseData = (typeof getFilteredIncidents === "function")
+    ? getFilteredIncidents("rankingModal")
+    : (state.incidents || []);
+  rankingModalRawIncidents = baseData.slice();
 
-  // Aggregate all hotspots under current filters (standardized representative areas)
-  const hotspotMap = new Map();
-  targetData.forEach(item => {
-    const colC = getNormalizedBusinessUnit(item);
-    const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
-    const stdColD = getStandardLocation(rawColD);
-    const label = getHotspotLabel(colC, stdColD);
-    const key = `${colC}|||${stdColD}`;
-
-    if (!hotspotMap.has(key)) {
-      hotspotMap.set(key, { key, label, colC, colD: stdColD, stdLocation: stdColD, count: 0 });
-    }
-    hotspotMap.get(key).count++;
-  });
-
-  rankingModalAllData = Array.from(hotspotMap.values()).sort((a, b) => b.count - a.count);
-
-  // [요구사항 2] 구분/사업장 셀렉트박스 옵션 동적 채우기
+  // [1] 구분/사업장 셀렉트박스 옵션 동적 채우기
   const bizSelect = document.getElementById("ranking-filter-biz");
   if (bizSelect) {
     const uniqueBizMap = new Map();
-    rankingModalAllData.forEach(item => {
-      const b = item.colC || "기타";
-      uniqueBizMap.set(b, (uniqueBizMap.get(b) || 0) + item.count);
+    rankingModalRawIncidents.forEach(item => {
+      const b = getNormalizedBusinessUnit(item) || "기타";
+      uniqueBizMap.set(b, (uniqueBizMap.get(b) || 0) + 1);
     });
     const sortedBiz = Array.from(uniqueBizMap.entries()).sort((a, b) => b[1] - a[1]);
 
     bizSelect.innerHTML = `<option value="all">전체 사업장/팀 (${sortedBiz.length}개)</option>` +
       sortedBiz.map(([b, c]) => `<option value="${escapeHtml(b)}">${escapeHtml(b)} (${c}건)</option>`).join("");
 
+    const isTeamSelected = state.hotspotSubTabTeam && state.hotspotSubTabTeam !== "all";
     if (isTeamSelected && uniqueBizMap.has(state.hotspotSubTabTeam)) {
       bizSelect.value = state.hotspotSubTabTeam;
+    } else if (state.filters.dept && state.filters.dept !== "all" && uniqueBizMap.has(state.filters.dept)) {
+      bizSelect.value = state.filters.dept;
     } else {
       bizSelect.value = "all";
     }
   }
 
-  // 장소 유형 및 검색어 초기화
+  // [2] 사고유형 셀렉트박스 옵션 동적 채우기 (신규)
+  const categorySelect = document.getElementById("ranking-filter-category");
+  if (categorySelect) {
+    const uniqueCatMap = new Map();
+    rankingModalRawIncidents.forEach(item => {
+      const cat = getIncidentCategory(item) || "기타";
+      uniqueCatMap.set(cat, (uniqueCatMap.get(cat) || 0) + 1);
+    });
+    const sortedCats = Array.from(uniqueCatMap.entries()).sort((a, b) => b[1] - a[1]);
+
+    categorySelect.innerHTML = `<option value="all">전체 사고유형 (${sortedCats.length}개)</option>` +
+      sortedCats.map(([cat, cnt]) => `<option value="${escapeHtml(cat)}">${escapeHtml(cat)} (${cnt}건)</option>`).join("");
+
+    if (state.filters.category && state.filters.category !== "all" && uniqueCatMap.has(state.filters.category)) {
+      categorySelect.value = state.filters.category;
+    } else {
+      categorySelect.value = "all";
+    }
+  }
+
+  // [3] 장소 유형 및 검색어 초기화
   const locTypeSelect = document.getElementById("ranking-filter-loc-type");
   if (locTypeSelect) locTypeSelect.value = "all";
 
   const searchInput = document.getElementById("ranking-search-input");
   if (searchInput) searchInput.value = "";
 
-  // 복합 필터 적용 및 테이블/뱃지 갱신
+  // [4] 복합 필터 적용 및 실시간 동적 순위 재집계 렌더링
   applyRankingModalFilters();
 
   modal.classList.add("active");
@@ -8366,61 +8378,125 @@ function closeAllHotspotsRankingModal() {
 }
 window.closeAllHotspotsRankingModal = closeAllHotspotsRankingModal;
 
-// [요구사항 2] 복합 필터링 로직: [사업장] AND [장소 유형] AND [검색어]
+// [요구사항 2] 복합 필터링 및 동적 Re-ranking 집계 로직: [사업장] AND [사고유형] AND [장소분류] AND [검색어]
 function applyRankingModalFilters() {
   const bizSelect = document.getElementById("ranking-filter-biz");
+  const categorySelect = document.getElementById("ranking-filter-category");
   const locTypeSelect = document.getElementById("ranking-filter-loc-type");
   const searchInput = document.getElementById("ranking-search-input");
   const badgeEl = document.getElementById("all-hotspots-modal-badge");
 
   const selectedBiz = bizSelect ? bizSelect.value : "all";
+  const selectedCategory = categorySelect ? categorySelect.value : "all";
   const selectedLocType = locTypeSelect ? locTypeSelect.value : "all";
   const q = searchInput ? String(searchInput.value || "").trim().toLowerCase() : "";
 
-  const filtered = rankingModalAllData.filter(item => {
+  // 0. raw incidents 방어적 확보
+  if (!rankingModalRawIncidents || rankingModalRawIncidents.length === 0) {
+    const baseData = (typeof getFilteredIncidents === "function")
+      ? getFilteredIncidents("rankingModal")
+      : (state.incidents || []);
+    rankingModalRawIncidents = baseData.slice();
+  }
+
+  // 1. raw incidents 다중 AND 필터링: [사업장] AND [사고유형] AND [장소분류] AND [검색어]
+  const matchingIncidents = rankingModalRawIncidents.filter(item => {
     // 1) 구분/사업장 필터
-    if (selectedBiz && selectedBiz !== "all" && item.colC !== selectedBiz) {
-      return false;
+    if (selectedBiz && selectedBiz !== "all") {
+      const colC = getNormalizedBusinessUnit(item);
+      if (colC !== selectedBiz) return false;
     }
-    // 2) 장소 유형 필터
+
+    // 2) 사고유형 필터
+    if (selectedCategory && selectedCategory !== "all") {
+      const itemCat = getIncidentCategory(item);
+      if (typeof matchCategoryFilter === "function") {
+        if (!matchCategoryFilter(itemCat, selectedCategory)) return false;
+      } else {
+        if (itemCat !== selectedCategory) return false;
+      }
+    }
+
+    // 3) 장소 유형 필터
     if (selectedLocType && selectedLocType !== "all") {
-      const itemType = classifyLocationType(item.stdLocation || item.colD || item.label);
-      if (itemType !== selectedLocType) {
-        return false;
-      }
+      const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+      const stdColD = getStandardLocation(rawColD);
+      const colC = getNormalizedBusinessUnit(item);
+      const label = getHotspotLabel(colC, stdColD);
+      const itemType = classifyLocationType(stdColD || rawColD || label);
+      if (itemType !== selectedLocType) return false;
     }
-    // 3) 텍스트 검색어 (구역, 사업장, 라벨 매칭)
+
+    // 4) 텍스트 검색어 (장소명, 사업장, 라벨, 및 사고유형 텍스트까지 검색 대상 포함)
     if (q) {
-      const colC = String(item.colC || "").toLowerCase();
-      const colD = String(item.colD || "").toLowerCase();
-      const label = String(item.label || "").toLowerCase();
-      if (!colC.includes(q) && !colD.includes(q) && !label.includes(q)) {
-        return false;
-      }
+      const colC = String(getNormalizedBusinessUnit(item) || "").toLowerCase();
+      const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").toLowerCase();
+      const stdColD = String(getStandardLocation(rawColD) || "").toLowerCase();
+      const label = String(getHotspotLabel(colC, stdColD) || "").toLowerCase();
+      const cat = String(getIncidentCategory(item) || "").toLowerCase();
+      const rawType = String(item.type || item.category || item.incidentType || item['사고유형1'] || "").toLowerCase();
+
+      const matched = colC.includes(q) || rawColD.includes(q) || stdColD.includes(q) || label.includes(q) || cat.includes(q) || rawType.includes(q);
+      if (!matched) return false;
     }
+
     return true;
   });
 
-  const filteredIncidentsCount = filtered.reduce((sum, item) => sum + item.count, 0);
+  // 2. 일치하는 사고 데이터를 세부 구역별로 그룹핑 (동적 Re-ranking)
+  const hotspotMap = new Map();
+  matchingIncidents.forEach(item => {
+    const colC = getNormalizedBusinessUnit(item);
+    const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
+    const stdColD = getStandardLocation(rawColD);
+    const label = getHotspotLabel(colC, stdColD);
+    const key = `${colC}|||${stdColD}`;
 
-  // 상단 헤더의 '총 {N}개 구역 / {M}건 발생' 즉각 반응 갱신
+    if (!hotspotMap.has(key)) {
+      hotspotMap.set(key, {
+        key,
+        label,
+        colC,
+        colD: stdColD,
+        stdLocation: stdColD,
+        count: 0
+      });
+    }
+    hotspotMap.get(key).count++;
+  });
+
+  // 3. 1위부터 발생 건수 내림차순 정렬 (동건수 시 한글 가나다순)
+  const rankedItems = Array.from(hotspotMap.values()).sort((a, b) => {
+    if (b.count !== a.count) return b.count - a.count;
+    return a.label.localeCompare(b.label, 'ko');
+  });
+
+  rankingModalCurrentList = rankedItems;
+  rankingModalAllData = rankedItems;
+
+  const totalIncidentsCount = matchingIncidents.length;
+
+  // 4. 상단 헤더의 '총 {N}개 구역 / {M}건 발생' 즉각 반응 갱신
   if (badgeEl) {
-    badgeEl.textContent = `총 ${filtered.length.toLocaleString()}개 구역 / ${filteredIncidentsCount.toLocaleString()}건 발생`;
+    badgeEl.textContent = `총 ${rankedItems.length.toLocaleString()}개 구역 / ${totalIncidentsCount.toLocaleString()}건 발생`;
   }
 
-  const totalBase = filteredIncidentsCount || 1;
-  renderRankingModalRows(filtered, totalBase);
+  // 5. 점유율 및 막대 그래프 기준값: 선택된 조건의 총 발생 건수
+  const totalBase = totalIncidentsCount || 1;
+  renderRankingModalRows(rankedItems, totalBase);
 }
 window.applyRankingModalFilters = applyRankingModalFilters;
 window.filterRankingModalTable = applyRankingModalFilters;
 
-// [요구사항 2] 필터 초기화 미니 버튼 핸들러
+// [요구사항 2] 필터 초기화 미니 버튼 핸들러 (3개 콤보박스 및 검색어 일괄 초기화)
 function resetRankingModalFilters() {
   const bizSelect = document.getElementById("ranking-filter-biz");
+  const categorySelect = document.getElementById("ranking-filter-category");
   const locTypeSelect = document.getElementById("ranking-filter-loc-type");
   const searchInput = document.getElementById("ranking-search-input");
 
   if (bizSelect) bizSelect.value = "all";
+  if (categorySelect) categorySelect.value = "all";
   if (locTypeSelect) locTypeSelect.value = "all";
   if (searchInput) searchInput.value = "";
 
@@ -8473,7 +8549,19 @@ function renderRankingModalRows(items, totalBase) {
 }
 
 function openHotspotAnalysisModalFromRanking(key) {
-  const found = rankingModalAllData.find(h => h.key === key);
+  let found = (rankingModalCurrentList && rankingModalCurrentList.find(h => h.key === key)) ||
+              (rankingModalAllData && rankingModalAllData.find(h => h.key === key));
+  if (!found && key) {
+    const [colC, colD] = String(key).split("|||");
+    found = {
+      key,
+      colC: colC || "",
+      colD: colD || "",
+      stdLocation: colD || "",
+      label: getHotspotLabel(colC, colD),
+      count: 0
+    };
+  }
   if (found) {
     closeAllHotspotsRankingModal();
     setTimeout(() => {

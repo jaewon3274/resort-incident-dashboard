@@ -570,14 +570,19 @@
 
       <!-- [B. 다중 필터 & 검색 영역 (Search & Filters)] -->
       <div class="shrink-0 px-6 pt-4 pb-3 bg-slate-50/50" style="flex-shrink: 0; padding: 0.85rem 1.5rem 0.65rem 1.5rem; background-color: rgba(248, 250, 252, 0.7); border-bottom: 1px solid #e2e8f0;">
-        <!-- 다중 콤보박스 필터 바 (사업장 + 장소 유형 + 초기화) -->
+        <!-- 다중 콤보박스 필터 바 (사업장 + 사고유형 + 장소 유형 + 초기화) -->
         <div class="ranking-modal-filter-bar flex items-center gap-2 mb-2.5" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.55rem; flex-wrap: wrap;">
-          <div style="flex: 1 1 180px; min-width: 140px;">
+          <div style="flex: 1 1 140px; min-width: 120px;">
             <select id="ranking-filter-biz" class="custom-select w-full" style="width: 100%; height: 35px; padding: 0.35rem 1.8rem 0.35rem 0.75rem; font-size: 0.82rem; border-radius: 0.375rem; border: 1px solid #cbd5e1; background-color: #ffffff; color: #1e293b;" onchange="applyRankingModalFilters()" title="구분/사업장 필터">
               <option value="all">전체 사업장/팀</option>
             </select>
           </div>
-          <div style="flex: 1 1 180px; min-width: 140px;">
+          <div style="flex: 1 1 140px; min-width: 120px;">
+            <select id="ranking-filter-category" class="custom-select w-full" style="width: 100%; height: 35px; padding: 0.35rem 1.8rem 0.35rem 0.75rem; font-size: 0.82rem; border-radius: 0.375rem; border: 1px solid #cbd5e1; background-color: #ffffff; color: #1e293b;" onchange="applyRankingModalFilters()" title="사고유형 필터">
+              <option value="all">전체 사고유형</option>
+            </select>
+          </div>
+          <div style="flex: 1 1 140px; min-width: 120px;">
             <select id="ranking-filter-loc-type" class="custom-select w-full" style="width: 100%; height: 35px; padding: 0.35rem 1.8rem 0.35rem 0.75rem; font-size: 0.82rem; border-radius: 0.375rem; border: 1px solid #cbd5e1; background-color: #ffffff; color: #1e293b;" onchange="applyRankingModalFilters()" title="장소 유형 필터">
               <option value="all">전체 장소 분류</option>
               <option value="코스(홀)">⛳ 코스(홀)</option>
@@ -598,7 +603,7 @@
           <input type="text" id="ranking-search-input" placeholder="세부 장소 명칭 또는 키워드 빠른 검색 (예: 4H, 주차장, 펜스)..." class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.55rem 0.9rem; font-size: 0.84rem; outline: none; box-sizing: border-box;" oninput="applyRankingModalFilters()">
         </div>
         <div class="flex items-center justify-between mt-2 px-1" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.35rem; padding: 0 0.2rem;">
-          <span style="font-size: 0.74rem; color: #64748b;">안내: [사업장] + [장소분류] + [검색어] 다중 조건 동시 필터링 지원</span>
+          <span style="font-size: 0.74rem; color: #64748b;">안내: [사업장] + [사고유형] + [장소분류] + [검색어] 다중 조건 동시 필터링 지원</span>
           <span id="all-hotspots-modal-subtitle" style="font-size: 0.74rem; color: #94a3b8;">현재 필터 기준 전체 세부 장소 순위</span>
         </div>
       </div>
