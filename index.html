@@ -568,14 +568,38 @@
         <button type="button" class="modal-close-btn text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition" onclick="closeAllHotspotsRankingModal()" aria-label="닫기" style="background: transparent; border: none; font-size: 1.35rem; line-height: 1; cursor: pointer; color: #64748b; padding: 0.375rem; border-radius: 0.375rem; transition: all 0.15s ease;">&times;</button>
       </div>
 
-      <!-- [B. 검색 영역 (Search)] -->
-      <div class="shrink-0 px-6 pt-4 pb-2 bg-slate-50/50" style="flex-shrink: 0; padding: 1rem 1.5rem 0.5rem 1.5rem; background-color: rgba(248, 250, 252, 0.6); border-bottom: 1px solid #f1f5f9;">
+      <!-- [B. 다중 필터 & 검색 영역 (Search & Filters)] -->
+      <div class="shrink-0 px-6 pt-4 pb-3 bg-slate-50/50" style="flex-shrink: 0; padding: 0.85rem 1.5rem 0.65rem 1.5rem; background-color: rgba(248, 250, 252, 0.7); border-bottom: 1px solid #e2e8f0;">
+        <!-- 다중 콤보박스 필터 바 (사업장 + 장소 유형 + 초기화) -->
+        <div class="ranking-modal-filter-bar flex items-center gap-2 mb-2.5" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.55rem; flex-wrap: wrap;">
+          <div style="flex: 1 1 180px; min-width: 140px;">
+            <select id="ranking-filter-biz" class="custom-select w-full" style="width: 100%; height: 35px; padding: 0.35rem 1.8rem 0.35rem 0.75rem; font-size: 0.82rem; border-radius: 0.375rem; border: 1px solid #cbd5e1; background-color: #ffffff; color: #1e293b;" onchange="applyRankingModalFilters()" title="구분/사업장 필터">
+              <option value="all">전체 사업장/팀</option>
+            </select>
+          </div>
+          <div style="flex: 1 1 180px; min-width: 140px;">
+            <select id="ranking-filter-loc-type" class="custom-select w-full" style="width: 100%; height: 35px; padding: 0.35rem 1.8rem 0.35rem 0.75rem; font-size: 0.82rem; border-radius: 0.375rem; border: 1px solid #cbd5e1; background-color: #ffffff; color: #1e293b;" onchange="applyRankingModalFilters()" title="장소 유형 필터">
+              <option value="all">전체 장소 분류</option>
+              <option value="코스(홀)">⛳ 코스(홀)</option>
+              <option value="이동로/교행구간(~, 도로)">🛣️ 이동로/교행구간(~, 도로)</option>
+              <option value="주차장">🅿️ 주차장</option>
+              <option value="슬로프">⛷️ 슬로프</option>
+              <option value="객실/빌리지">🏨 객실/빌리지</option>
+              <option value="기타 시설">🏢 기타 시설</option>
+            </select>
+          </div>
+          <button type="button" id="btn-ranking-filter-reset" class="btn btn-sm btn-ranking-reset" onclick="resetRankingModalFilters()" style="height: 35px; padding: 0 0.85rem; font-size: 0.78rem; font-weight: 600; color: #475569; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.375rem; cursor: pointer; white-space: nowrap; transition: all 0.15s ease;" onmouseover="this.style.background='#f1f5f9'; this.style.borderColor='#94a3b8';" onmouseout="this.style.background='#ffffff'; this.style.borderColor='#cbd5e1';" title="검색어 및 필터 조건 초기화">
+            초기화 ↺
+          </button>
+        </div>
+
+        <!-- 키워드 검색창 -->
         <div class="relative w-full" style="position: relative; width: 100%;">
-          <input type="text" id="ranking-search-input" placeholder="구역 또는 사업장 명칭 빠른 검색 (예: 파인, 밸리, 슬로프)..." class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.6rem 0.9rem; font-size: 0.86rem; outline: none; box-sizing: border-box;" oninput="filterRankingModalTable(this.value)">
+          <input type="text" id="ranking-search-input" placeholder="세부 장소 명칭 또는 키워드 빠른 검색 (예: 4H, 주차장, 펜스)..." class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.55rem 0.9rem; font-size: 0.84rem; outline: none; box-sizing: border-box;" oninput="applyRankingModalFilters()">
         </div>
         <div class="flex items-center justify-between mt-2 px-1" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.35rem; padding: 0 0.2rem;">
-          <span style="font-size: 0.75rem; color: #64748b;">안내: 행 또는 [심층 분석] 클릭 시 상세 분석 팝업</span>
-          <span id="all-hotspots-modal-subtitle" style="font-size: 0.75rem; color: #94a3b8;">현재 필터 기준 전체 세부 장소 순위</span>
+          <span style="font-size: 0.74rem; color: #64748b;">안내: [사업장] + [장소분류] + [검색어] 다중 조건 동시 필터링 지원</span>
+          <span id="all-hotspots-modal-subtitle" style="font-size: 0.74rem; color: #94a3b8;">현재 필터 기준 전체 세부 장소 순위</span>
         </div>
       </div>
 

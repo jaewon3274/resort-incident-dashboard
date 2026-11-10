@@ -649,6 +649,7 @@ const state = {
     to: ""
   },
   hotspotSubTabTeam: "all",
+  isHotspotSubtabsExpanded: false,
   _lastHotspotFilterFingerprint: null,
   charts: {
     categoryChart: null,
@@ -5050,6 +5051,7 @@ function renderHotspotChart(providedBaseData = null) {
     if (state._lastHotspotFilterFingerprint !== mainFilterFingerprint) {
       state._lastHotspotFilterFingerprint = mainFilterFingerprint;
       state.hotspotSubTabTeam = "all";
+      state.isHotspotSubtabsExpanded = false;
     }
 
     // 2. 현재 필터링된 데이터에 포함된 '사업장/팀(C열)' 목록 및 건수 집계
@@ -5091,7 +5093,22 @@ function renderHotspotChart(providedBaseData = null) {
           }))
         ];
 
-        subtabsEl.innerHTML = tabs.map(tab => {
+        // [요구사항 1] 팀 칩 아코디언 (더보기/접기) 로직:
+        // 기본 상태에서는 [전체] 포함 상위 7개 팀 칩만 노출, 7개 초과 시 더보기 버튼 추가
+        const MAX_COLLAPSED_CHIPS = 7;
+        const needsAccordion = tabs.length > MAX_COLLAPSED_CHIPS;
+
+        // 선택된 탭이 7위 이후에 있을 경우 자동으로 펼쳐서 선택 상태를 표시
+        const activeIndex = tabs.findIndex(t => t.isActive);
+        if (needsAccordion && activeIndex >= MAX_COLLAPSED_CHIPS) {
+          state.isHotspotSubtabsExpanded = true;
+        }
+
+        const visibleTabs = (needsAccordion && !state.isHotspotSubtabsExpanded)
+          ? tabs.slice(0, MAX_COLLAPSED_CHIPS)
+          : tabs;
+
+        const chipsHtml = visibleTabs.map(tab => {
           const activeClass = tab.isActive ? "active" : "";
           const activeStyle = tab.isActive
             ? "background-color: #2563eb; color: #ffffff; border: 1px solid #1d4ed8; font-weight: 700; box-shadow: 0 1px 2px 0 rgba(37, 99, 235, 0.25);"
@@ -5110,6 +5127,32 @@ function renderHotspotChart(providedBaseData = null) {
             </button>
           `;
         }).join("");
+
+        let accordionBtnHtml = "";
+        if (needsAccordion) {
+          const remainingCount = tabs.length - MAX_COLLAPSED_CHIPS;
+          if (state.isHotspotSubtabsExpanded) {
+            accordionBtnHtml = `
+              <button type="button" 
+                      class="hotspot-subtab-more-btn expanded" 
+                      onclick="toggleHotspotSubtabsAccordion()" 
+                      title="팀 목록 접기">
+                접기 ▲
+              </button>
+            `;
+          } else {
+            accordionBtnHtml = `
+              <button type="button" 
+                      class="hotspot-subtab-more-btn" 
+                      onclick="toggleHotspotSubtabsAccordion()" 
+                      title="나머지 ${remainingCount}개 팀 더보기">
+                + 더보기 (${remainingCount}개) ▼
+              </button>
+            `;
+          }
+        }
+
+        subtabsEl.innerHTML = chipsHtml + accordionBtnHtml;
       }
     }
 
@@ -5359,6 +5402,14 @@ function setHotspotSubTabTeam(teamName) {
   renderHotspotChart();
 }
 window.setHotspotSubTabTeam = setHotspotSubTabTeam;
+
+// [신규] 핫스팟 팀 칩 아코디언 펼침/접기 토글 함수
+function toggleHotspotSubtabsAccordion() {
+  state.isHotspotSubtabsExpanded = !state.isHotspotSubtabsExpanded;
+  renderHotspotChart();
+}
+window.toggleHotspotSubtabsAccordion = toggleHotspotSubtabsAccordion;
+
 
 // Update Pagination Controls
 window.updatePagination = function(current, total) {
@@ -6182,6 +6233,7 @@ function resetAllFilters() {
   state.filters.from = "";
   state.filters.to = "";
   state.hotspotSubTabTeam = "all";
+  state.isHotspotSubtabsExpanded = false;
   state._lastHotspotFilterFingerprint = null;
   if (state.categoryChartMeta) state.categoryChartMeta.isOtherSelected = false;
   if (state.deptChartMeta) state.deptChartMeta.isOtherSelected = false;
@@ -8233,6 +8285,18 @@ window.applyHotspotFilterFromModal = applyHotspotFilterFromModal;
 
 let rankingModalAllData = [];
 
+// [요구사항 2] 정규식 기반 D열 세부 위치 장소 분류 함수
+function classifyLocationType(locStr) {
+  const s = String(locStr || "").trim();
+  if (/(?:주차장|주차)/i.test(s)) return "주차장";
+  if (/슬로프/i.test(s)) return "슬로프";
+  if (/(?:교행|교차|도로|진입로|군도변|통로|이동로|[~↔]|->)/i.test(s)) return "이동로/교행구간(~, 도로)";
+  if (/(?:객실|콘도|빌리지|호실|타워)/i.test(s)) return "객실/빌리지";
+  if (/(?:\d+\s*[Hh홀]|티박스|티하우스|티잉|그린|페어웨이|벙커|코스|연습장)/i.test(s)) return "코스(홀)";
+  return "기타 시설";
+}
+window.classifyLocationType = classifyLocationType;
+
 function openAllHotspotsRankingModal() {
   const modal = document.getElementById("all-hotspots-ranking-modal");
   if (!modal) return;
@@ -8242,7 +8306,6 @@ function openAllHotspotsRankingModal() {
   const targetData = isTeamSelected
     ? baseData.filter(item => getNormalizedBusinessUnit(item) === state.hotspotSubTabTeam)
     : baseData;
-  const totalBase = targetData.length || 1;
 
   // Aggregate all hotspots under current filters (standardized representative areas)
   const hotspotMap = new Map();
@@ -8261,16 +8324,35 @@ function openAllHotspotsRankingModal() {
 
   rankingModalAllData = Array.from(hotspotMap.values()).sort((a, b) => b.count - a.count);
 
-  const badgeEl = document.getElementById("all-hotspots-modal-badge");
-  if (badgeEl) {
-    const teamSuffix = isTeamSelected ? ` [${state.hotspotSubTabTeam}]` : "";
-    badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${targetData.length.toLocaleString()}건 발생${teamSuffix}`;
+  // [요구사항 2] 구분/사업장 셀렉트박스 옵션 동적 채우기
+  const bizSelect = document.getElementById("ranking-filter-biz");
+  if (bizSelect) {
+    const uniqueBizMap = new Map();
+    rankingModalAllData.forEach(item => {
+      const b = item.colC || "기타";
+      uniqueBizMap.set(b, (uniqueBizMap.get(b) || 0) + item.count);
+    });
+    const sortedBiz = Array.from(uniqueBizMap.entries()).sort((a, b) => b[1] - a[1]);
+
+    bizSelect.innerHTML = `<option value="all">전체 사업장/팀 (${sortedBiz.length}개)</option>` +
+      sortedBiz.map(([b, c]) => `<option value="${escapeHtml(b)}">${escapeHtml(b)} (${c}건)</option>`).join("");
+
+    if (isTeamSelected && uniqueBizMap.has(state.hotspotSubTabTeam)) {
+      bizSelect.value = state.hotspotSubTabTeam;
+    } else {
+      bizSelect.value = "all";
+    }
   }
+
+  // 장소 유형 및 검색어 초기화
+  const locTypeSelect = document.getElementById("ranking-filter-loc-type");
+  if (locTypeSelect) locTypeSelect.value = "all";
 
   const searchInput = document.getElementById("ranking-search-input");
   if (searchInput) searchInput.value = "";
 
-  renderRankingModalRows(rankingModalAllData, totalBase);
+  // 복합 필터 적용 및 테이블/뱃지 갱신
+  applyRankingModalFilters();
 
   modal.classList.add("active");
   document.body.classList.add("modal-open");
@@ -8283,6 +8365,68 @@ function closeAllHotspotsRankingModal() {
   document.body.classList.remove("modal-open");
 }
 window.closeAllHotspotsRankingModal = closeAllHotspotsRankingModal;
+
+// [요구사항 2] 복합 필터링 로직: [사업장] AND [장소 유형] AND [검색어]
+function applyRankingModalFilters() {
+  const bizSelect = document.getElementById("ranking-filter-biz");
+  const locTypeSelect = document.getElementById("ranking-filter-loc-type");
+  const searchInput = document.getElementById("ranking-search-input");
+  const badgeEl = document.getElementById("all-hotspots-modal-badge");
+
+  const selectedBiz = bizSelect ? bizSelect.value : "all";
+  const selectedLocType = locTypeSelect ? locTypeSelect.value : "all";
+  const q = searchInput ? String(searchInput.value || "").trim().toLowerCase() : "";
+
+  const filtered = rankingModalAllData.filter(item => {
+    // 1) 구분/사업장 필터
+    if (selectedBiz && selectedBiz !== "all" && item.colC !== selectedBiz) {
+      return false;
+    }
+    // 2) 장소 유형 필터
+    if (selectedLocType && selectedLocType !== "all") {
+      const itemType = classifyLocationType(item.stdLocation || item.colD || item.label);
+      if (itemType !== selectedLocType) {
+        return false;
+      }
+    }
+    // 3) 텍스트 검색어 (구역, 사업장, 라벨 매칭)
+    if (q) {
+      const colC = String(item.colC || "").toLowerCase();
+      const colD = String(item.colD || "").toLowerCase();
+      const label = String(item.label || "").toLowerCase();
+      if (!colC.includes(q) && !colD.includes(q) && !label.includes(q)) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  const filteredIncidentsCount = filtered.reduce((sum, item) => sum + item.count, 0);
+
+  // 상단 헤더의 '총 {N}개 구역 / {M}건 발생' 즉각 반응 갱신
+  if (badgeEl) {
+    badgeEl.textContent = `총 ${filtered.length.toLocaleString()}개 구역 / ${filteredIncidentsCount.toLocaleString()}건 발생`;
+  }
+
+  const totalBase = filteredIncidentsCount || 1;
+  renderRankingModalRows(filtered, totalBase);
+}
+window.applyRankingModalFilters = applyRankingModalFilters;
+window.filterRankingModalTable = applyRankingModalFilters;
+
+// [요구사항 2] 필터 초기화 미니 버튼 핸들러
+function resetRankingModalFilters() {
+  const bizSelect = document.getElementById("ranking-filter-biz");
+  const locTypeSelect = document.getElementById("ranking-filter-loc-type");
+  const searchInput = document.getElementById("ranking-search-input");
+
+  if (bizSelect) bizSelect.value = "all";
+  if (locTypeSelect) locTypeSelect.value = "all";
+  if (searchInput) searchInput.value = "";
+
+  applyRankingModalFilters();
+}
+window.resetRankingModalFilters = resetRankingModalFilters;
 
 function renderRankingModalRows(items, totalBase) {
   const tbody = document.getElementById("all-hotspots-table-body");
@@ -8339,37 +8483,6 @@ function openHotspotAnalysisModalFromRanking(key) {
 }
 window.openHotspotAnalysisModalFromRanking = openHotspotAnalysisModalFromRanking;
 
-function filterRankingModalTable(query) {
-  const q = String(query || "").trim().toLowerCase();
-  const baseData = getFilteredIncidents("hotspot");
-  const isTeamSelected = state.hotspotSubTabTeam && state.hotspotSubTabTeam !== "all";
-  const targetData = isTeamSelected
-    ? baseData.filter(item => getNormalizedBusinessUnit(item) === state.hotspotSubTabTeam)
-    : baseData;
-  const totalBase = targetData.length || 1;
-  const badgeEl = document.getElementById("all-hotspots-modal-badge");
-
-  if (!q) {
-    if (badgeEl) {
-      const teamSuffix = isTeamSelected ? ` [${state.hotspotSubTabTeam}]` : "";
-      badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${targetData.length.toLocaleString()}건 발생${teamSuffix}`;
-    }
-    renderRankingModalRows(rankingModalAllData, totalBase);
-    return;
-  }
-
-  const filtered = rankingModalAllData.filter(item => {
-    const colC = String(item.colC || "").toLowerCase();
-    const colD = String(item.colD || "").toLowerCase();
-    const label = String(item.label || "").toLowerCase();
-    return colC.includes(q) || colD.includes(q) || label.includes(q);
-  });
-
-  if (badgeEl) badgeEl.textContent = `검색 ${filtered.length.toLocaleString()}개 구역 / 총 ${rankingModalAllData.length.toLocaleString()}개`;
-  renderRankingModalRows(filtered, totalBase);
-}
-window.filterRankingModalTable = filterRankingModalTable;
-
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     getStandardLocation,
@@ -8386,6 +8499,10 @@ if (typeof module !== "undefined" && module.exports) {
     getReportStatusBadge,
     renderHotspotChart,
     setHotspotSubTabTeam,
+    toggleHotspotSubtabsAccordion,
+    classifyLocationType,
+    applyRankingModalFilters,
+    resetRankingModalFilters,
     openAllHotspotsRankingModal,
     state
   };
