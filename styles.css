@@ -574,7 +574,7 @@ body.modal-open {
   cursor: pointer;
 }
 
-/* 2행: 6개 상세 드롭다운 + 필터 초기화 버튼 */
+/* 2행: 5개 상세 드롭다운(사업장, 팀/부서, 사고유형, 피해자 대상, 처리상태) + 필터 초기화 버튼 */
 .filter-row-secondary {
   width: 100%;
 }
@@ -4596,4 +4596,63 @@ body.auth-locked .main-wrapper {
   top: 0 !important;
   z-index: 10 !important;
   background-color: #f8fafc !important;
+}
+
+/* ==========================================================================
+   HOTSPOT TEAM SUB-TABS (핫스팟 카드 팀/사업장별 미니 탭 Chip)
+   ========================================================================== */
+.hotspot-subtabs-container {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.55rem;
+  padding: 0.1rem 0.15rem;
+  user-select: none;
+}
+
+.hotspot-subtab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  color: #475569;
+  transition: all 0.15s ease-in-out;
+  white-space: nowrap;
+  line-height: 1.25;
+}
+
+.hotspot-subtab-btn:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  border-color: #94a3b8;
+}
+
+.hotspot-subtab-btn.active {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #1d4ed8 !important;
+  font-weight: 700;
+  box-shadow: 0 1px 2px 0 rgba(37, 99, 235, 0.25);
+}
+
+.hotspot-subtab-btn.active .subtab-badge {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+.hotspot-subtab-btn .subtab-badge {
+  display: inline-block;
+  padding: 0.05rem 0.35rem;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  background-color: #e2e8f0;
+  color: #475569;
+  font-weight: 700;
 }

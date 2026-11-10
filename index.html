@@ -214,19 +214,25 @@
         </div>
       </div>
 
-      <!-- 2행: 6개 상세 드롭다운(사업장, 부서, 대상, 유형, 피해, 처리상태) + [필터 초기화] -->
+      <!-- 2행: 5개 상세 드롭다운(사업장, 팀/부서, 사고유형, 피해자 대상, 처리상태) + [필터 초기화] -->
       <div class="filter-row-secondary">
         <div class="filter-selectors">
+          <!-- 1. 사업장 -->
           <select id="filter-resort" class="custom-select" aria-label="사업장 선택" title="사업장/구역 필터">
             <option value="all">전체 사업장 (모든 리조트)</option>
           </select>
 
-          <!-- 신설: 팀/부서 콤보박스 -->
+          <!-- 2. 팀/부서 -->
           <select id="filter-dept" class="custom-select" aria-label="팀/부서 선택" title="팀/부서 필터">
             <option value="all">전체 팀/부서</option>
           </select>
 
-          <!-- 신설: 피해자 세부 분류 콤보박스 -->
+          <!-- 3. 사고유형 -->
+          <select id="filter-category" class="custom-select" aria-label="사고 유형 선택" title="사고 유형 필터">
+            <option value="all">전체 사고 유형</option>
+          </select>
+
+          <!-- 4. 피해자 대상 -->
           <select id="filter-victim-type" class="custom-select" aria-label="피해자 세부 분류 선택" title="피해자 세부 분류 필터">
             <option value="all">전체 피해자 대상</option>
             <option value="employee">임직원 (직원·근로자)</option>
@@ -234,19 +240,7 @@
             <option value="customer">고객</option>
           </select>
 
-          <select id="filter-category" class="custom-select" aria-label="사고 유형 선택" title="사고 유형 필터">
-            <option value="all">전체 사고 유형</option>
-          </select>
-
-          <!-- 신설: 피해 구분 콤보박스 -->
-          <select id="filter-severity" class="custom-select" aria-label="피해 구분 선택" title="피해 구분 필터">
-            <option value="all">전체 피해 구분</option>
-            <option value="경미">경미 (현장처치)</option>
-            <option value="중등">중등 (병원진료)</option>
-            <option value="중대">중대 (입원/후송)</option>
-            <option value="단순 대물">단순 대물/기타</option>
-          </select>
-
+          <!-- 5. 처리 상태 -->
           <select id="filter-status" class="custom-select" aria-label="처리 상태 선택" title="처리 상태 필터">
             <option value="all">전체 처리 상태</option>
             <option value="조치완료">조치완료</option>
@@ -255,7 +249,7 @@
             <option value="접수대기">접수대기</option>
           </select>
 
-          <!-- 신설: 필터 초기화 버튼 -->
+          <!-- 필터 초기화 버튼 -->
           <button id="btn-reset-filters" class="btn btn-filter-reset" title="모든 검색어 및 필터 조건을 한 번에 초기화합니다">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
@@ -345,7 +339,7 @@
 
       <!-- 3열: 사고 다발 세부구역 TOP 7 (핫스팟) -->
       <article class="chart-card">
-        <div class="chart-header flex items-center justify-between gap-2" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.85rem;">
+        <div class="chart-header flex items-center justify-between gap-2" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.65rem;">
           <div class="min-w-0 flex-1" style="min-width: 0; flex: 1;">
             <h3 id="hotspot-chart-title" class="whitespace-nowrap text-sm sm:text-base font-bold" style="white-space: nowrap; font-size: 0.95rem; font-weight: 700; margin: 0; overflow: hidden; text-overflow: ellipsis;">📍 사고 다발 세부구역 TOP 7 (핫스팟)</h3>
             <span class="chart-subtitle text-xs text-slate-500 whitespace-nowrap block" id="hotspot-chart-subtitle" style="white-space: nowrap; font-size: 0.74rem; color: #64748b; margin-top: 0.15rem; display: block;">현재 필터 기준 사고 집중 발생 세부장소 순위</span>
@@ -357,7 +351,9 @@
             </button>
           </div>
         </div>
-        <div class="chart-body" style="height: 290px;">
+        <!-- 핫스팟 사업장/팀별 서브 탭 (동적 렌더링) -->
+        <div id="hotspot-team-subtabs" class="hotspot-subtabs-container" style="display: none;"></div>
+        <div class="chart-body" style="height: 280px; min-height: 250px;">
           <canvas id="zoneChart"></canvas>
         </div>
       </article>
@@ -374,15 +370,9 @@
           <p>각 행을 클릭하면 상세 경위, 조치 타임라인, 보험/보상 내역을 확인하거나 수정할 수 있습니다.</p>
         </div>
 
-        <!-- 테이블 전용 간이 빠른 필터 바 -->
+        <!-- 테이블 전용 간이 빠른 필터 바 (3개 항목 + 필터 해제) -->
         <div class="table-quick-filter-bar" aria-label="테이블 간이 빠른 필터">
-          <div class="quick-filter-item">
-            <label for="table-filter-category" class="quick-filter-label">🏷️ 사고유형</label>
-            <select id="table-filter-category" class="custom-select table-quick-select" aria-label="사고유형 빠른 필터">
-              <option value="all">전체 사고유형</option>
-            </select>
-          </div>
-
+          <!-- 1) 구역/장소 -->
           <div class="quick-filter-item">
             <label for="table-filter-zone" class="quick-filter-label">📍 구역/장소</label>
             <select id="table-filter-zone" class="custom-select table-quick-select" aria-label="구역/장소 빠른 필터">
@@ -390,6 +380,7 @@
             </select>
           </div>
 
+          <!-- 2) 피해자 대상 -->
           <div class="quick-filter-item">
             <label for="table-filter-victim-type" class="quick-filter-label">👥 피해자 대상</label>
             <select id="table-filter-victim-type" class="custom-select table-quick-select" aria-label="피해자 대상 빠른 필터">
@@ -400,17 +391,7 @@
             </select>
           </div>
 
-          <div class="quick-filter-item">
-            <label for="table-filter-severity" class="quick-filter-label">🩹 피해구분</label>
-            <select id="table-filter-severity" class="custom-select table-quick-select" aria-label="피해구분 빠른 필터">
-              <option value="all">전체 피해구분</option>
-              <option value="경미">경미 (현장처치)</option>
-              <option value="중등">중등 (병원진료)</option>
-              <option value="중대">중대 (입원/후송)</option>
-              <option value="단순 대물">단순 대물/기타</option>
-            </select>
-          </div>
-
+          <!-- 3) 산재조사표 -->
           <div class="quick-filter-item">
             <label for="filter-report-status" class="quick-filter-label">📋 산재조사표</label>
             <select id="filter-report-status" class="custom-select table-quick-select" aria-label="산재조사표 선택" title="산재조사표 필터">
@@ -421,6 +402,7 @@
             </select>
           </div>
 
+          <!-- 4) 필터 해제 버튼 -->
           <button id="btn-quick-filter-reset" class="btn btn-quick-reset" title="테이블 빠른 필터 조건 초기화">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>

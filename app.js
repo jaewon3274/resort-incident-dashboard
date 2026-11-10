@@ -619,7 +619,6 @@ const state = {
     dept: "all",
     category: "all",
     victimType: "all",
-    severity: "all",
     status: "all",
     period: "all",
     zone: "all",
@@ -649,6 +648,8 @@ const state = {
     from: "",
     to: ""
   },
+  hotspotSubTabTeam: "all",
+  _lastHotspotFilterFingerprint: null,
   charts: {
     categoryChart: null,
     deptChart: null,
@@ -1242,8 +1243,6 @@ function setupEventListeners() {
   if (categoryFilter) {
     categoryFilter.addEventListener("change", (e) => {
       state.filters.category = e.target.value;
-      const tableCat = document.getElementById("table-filter-category");
-      if (tableCat && tableCat.value !== e.target.value) tableCat.value = e.target.value;
       state.currentPage = 1;
       applyFilters();
     });
@@ -1258,7 +1257,7 @@ function setupEventListeners() {
     });
   }
 
-  // 신설: 팀/부서 필터 이벤트
+  // 팀/부서 필터 이벤트
   const deptFilter = document.getElementById("filter-dept");
   if (deptFilter) {
     deptFilter.addEventListener("change", (e) => {
@@ -1268,7 +1267,7 @@ function setupEventListeners() {
     });
   }
 
-  // 신설: 피해자 세부 분류 필터 이벤트 (상단 메인)
+  // 피해자 세부 분류 필터 이벤트 (상단 메인 & 테이블 빠른 필터 양방향 동기화)
   const victimTypeFilter = document.getElementById("filter-victim-type");
   if (victimTypeFilter) {
     victimTypeFilter.addEventListener("change", (e) => {
@@ -1280,41 +1279,7 @@ function setupEventListeners() {
     });
   }
 
-  // 신설: 피해 구분 필터 이벤트 (상단 메인)
-  const severityFilter = document.getElementById("filter-severity");
-  if (severityFilter) {
-    severityFilter.addEventListener("change", (e) => {
-      state.filters.severity = e.target.value;
-      const tableSev = document.getElementById("table-filter-severity");
-      if (tableSev && tableSev.value !== e.target.value) tableSev.value = e.target.value;
-      state.currentPage = 1;
-      applyFilters();
-    });
-  }
-
-  // [신규] 산재조사표 필터 이벤트 바인딩
-  const reportStatusFilter = document.getElementById("filter-report-status");
-  if (reportStatusFilter) {
-    reportStatusFilter.addEventListener("change", (e) => {
-      state.filters.reportStatus = e.target.value;
-      state.currentPage = 1;
-      applyFilters();
-    });
-  }
-
-  // [신규] 테이블 상단 간이 빠른 필터 이벤트 & 상단 메인 필터 양방향 동기화
-  const tableCatFilter = document.getElementById("table-filter-category");
-  if (tableCatFilter) {
-    tableCatFilter.addEventListener("change", (e) => {
-      state.filters.category = e.target.value;
-      const mainCat = document.getElementById("filter-category");
-      if (mainCat && mainCat.value !== e.target.value) mainCat.value = e.target.value;
-      state.currentPage = 1;
-      applyFilters();
-    });
-  }
-
-  // 신설: 테이블 간이 피해자 필터 이벤트
+  // 테이블 간이 피해자 필터 이벤트
   const tableVictimFilter = document.getElementById("table-filter-victim-type");
   if (tableVictimFilter) {
     tableVictimFilter.addEventListener("change", (e) => {
@@ -1326,6 +1291,7 @@ function setupEventListeners() {
     });
   }
 
+  // 테이블 구역/장소 빠른 필터 이벤트
   const tableZoneFilter = document.getElementById("table-filter-zone");
   if (tableZoneFilter) {
     tableZoneFilter.addEventListener("change", (e) => {
@@ -1335,47 +1301,36 @@ function setupEventListeners() {
     });
   }
 
-  const tableSevFilter = document.getElementById("table-filter-severity");
-  if (tableSevFilter) {
-    tableSevFilter.addEventListener("change", (e) => {
-      state.filters.severity = e.target.value;
-      const mainSev = document.getElementById("filter-severity");
-      if (mainSev && mainSev.value !== e.target.value) mainSev.value = e.target.value;
+  // 산재조사표 빠른 필터 이벤트 바인딩
+  const reportStatusFilter = document.getElementById("filter-report-status");
+  if (reportStatusFilter) {
+    reportStatusFilter.addEventListener("change", (e) => {
+      state.filters.reportStatus = e.target.value;
       state.currentPage = 1;
       applyFilters();
     });
   }
 
+  // 하단 테이블 전용 간이 빠른 필터 해제 버튼 (구역/장소, 피해자 대상, 산재조사표 초기화)
   const quickResetBtn = document.getElementById("btn-quick-filter-reset");
   if (quickResetBtn) {
     quickResetBtn.addEventListener("click", () => {
-      state.filters.category = "all";
-      state.filters.victimType = "all";
       state.filters.zone = "all";
-      state.filters.severity = "all";
+      state.filters.victimType = "all";
       state.filters.reportStatus = "all";
+
+      const tableZone = document.getElementById("table-filter-zone");
+      if (tableZone) tableZone.value = "all";
+      const tableVictim = document.getElementById("table-filter-victim-type");
+      if (tableVictim) tableVictim.value = "all";
+      const mainVictim = document.getElementById("filter-victim-type");
+      if (mainVictim) mainVictim.value = "all";
       const tableReport = document.getElementById("filter-report-status");
       if (tableReport) tableReport.value = "all";
 
-      const tableCat = document.getElementById("table-filter-category");
-      if (tableCat) tableCat.value = "all";
-      const tableVictim = document.getElementById("table-filter-victim-type");
-      if (tableVictim) tableVictim.value = "all";
-      const tableZone = document.getElementById("table-filter-zone");
-      if (tableZone) tableZone.value = "all";
-      const tableSev = document.getElementById("table-filter-severity");
-      if (tableSev) tableSev.value = "all";
-
-      const mainCat = document.getElementById("filter-category");
-      if (mainCat) mainCat.value = "all";
-      const mainVictim = document.getElementById("filter-victim-type");
-      if (mainVictim) mainVictim.value = "all";
-      const mainSev = document.getElementById("filter-severity");
-      if (mainSev) mainSev.value = "all";
-
       state.currentPage = 1;
       applyFilters();
-      showToast("테이블 간이 필터가 초기화되었습니다.", "info");
+      showToast("테이블 빠른 필터 조건이 해제되었습니다.", "info");
     });
   }
 
@@ -1831,8 +1786,7 @@ function renderCostAnalysisData() {
       (state.filters.dept && state.filters.dept !== "all") ||
       (state.filters.category && state.filters.category !== "all") ||
       (state.filters.victimType && state.filters.victimType !== "all") ||
-      (state.filters.severity && state.filters.severity !== "all") ||
-      (state.filters.status && state.filters.status !== "all") ||
+            (state.filters.status && state.filters.status !== "all") ||
       (state.filters.zone && state.filters.zone !== "all") ||
       (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
       state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
@@ -3951,7 +3905,6 @@ function populateFilterDropdowns() {
   const resortSelect = document.getElementById("filter-resort");
   const deptSelect = document.getElementById("filter-dept");
   const categorySelect = document.getElementById("filter-category");
-  const severitySelect = document.getElementById("filter-severity");
 
   if (resortSelect) {
     const currentResort = state.filters.resort;
@@ -4036,13 +3989,7 @@ function populateFilterDropdowns() {
     }
   }
 
-  const tableCatSelect = document.getElementById("table-filter-category");
-  if (tableCatSelect) {
-    const currentCategory = state.filters.category;
-    tableCatSelect.innerHTML = `<option value="all">전체 사고유형 (${uniqueCategories.length}종)</option>` +
-      uniqueCategories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
-    tableCatSelect.value = uniqueCategories.includes(currentCategory) ? currentCategory : "all";
-  }
+  // table-filter-category removed per requirements
 
   // 다년도 비교 분석용 사고 유형 및 사업장 필터 동기화
   if (typeof populateYoyIncidentTypeFilter === "function") {
@@ -4062,14 +4009,7 @@ function populateFilterDropdowns() {
     tableZoneSelect.value = uniqueZones.includes(currentZone) ? currentZone : "all";
   }
 
-  // Severity dropdowns (메인 상단 + 테이블 간이 빠른 필터)
-  if (severitySelect) {
-    severitySelect.value = state.filters.severity || "all";
-  }
-  const tableSevSelect = document.getElementById("table-filter-severity");
-  if (tableSevSelect) {
-    tableSevSelect.value = state.filters.severity || "all";
-  }
+  // severity filters removed per requirements
 
   // 신설: 피해자 대상 구분 dropdowns (메인 상단 + 테이블 간이 빠른 필터)
   const victimSelect = document.getElementById("filter-victim-type");
@@ -4283,7 +4223,7 @@ function getFilteredIncidents(excludeKey = null) {
     if (excludeKey === "hotspot") filters.hotspot = null;
     else filters[excludeKey] = "all";
   }
-  const { search, resort, dept, category, victimType, severity, status, period, zone, reportStatus, startDate, endDate, from, to, hotspot } = filters;
+  const { search, resort, dept, category, victimType, status, period, zone, reportStatus, startDate, endDate, from, to, hotspot } = filters;
   const refDate = getSystemReferenceDate();
   const todayStart = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 0, 0, 0, 0);
   const todayEnd = new Date(refDate.getFullYear(), refDate.getMonth(), refDate.getDate(), 23, 59, 59, 999);
@@ -4457,11 +4397,7 @@ function getFilteredIncidents(excludeKey = null) {
       return false;
     }
 
-    if (severity && severity !== "all") {
-      if (!item?.severity || (!item.severity.includes(severity) && item.severity !== severity)) {
-        return false;
-      }
-    }
+    // severity filter removed per requirements
 
     if (status && status !== "all" && item?.status !== status) {
       return false;
@@ -4578,8 +4514,7 @@ function renderKPIs(data) {
         (state.filters.dept && state.filters.dept !== "all") ||
         (state.filters.category && state.filters.category !== "all") ||
         (state.filters.victimType && state.filters.victimType !== "all") ||
-        (state.filters.severity && state.filters.severity !== "all") ||
-        (state.filters.status && state.filters.status !== "all") ||
+                (state.filters.status && state.filters.status !== "all") ||
         (state.filters.zone && state.filters.zone !== "all") ||
         (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
         Boolean(state.filters.hotspot) ||
@@ -5082,25 +5017,140 @@ function renderCharts() {
       });
     }
 
-    // [요구사항 2 & 3] 3. C+D열 기반 세부 핫스팟(Hotspot) TOP 7 가로형 막대 차트
+    // [요구사항 2 & 3] 3. C+D열 기반 세부 핫스팟(Hotspot) TOP 7 가로형 막대 차트 (팀/사업장별 서브 탭 연동)
     const hotspotBaseData = getFilteredIncidents("hotspot");
+    renderHotspotChart(hotspotBaseData);
+  } catch (errCharts) {
+    console.error("renderCharts 실행 오류 방어:", errCharts);
+  }
+}
+
+// [신규] 핫스팟 세부구역 서브 탭(Sub-tabs) 및 가로형 막대 차트 렌더링
+function renderHotspotChart(providedBaseData = null) {
+  try {
+    const hotspotBaseData = providedBaseData || getFilteredIncidents("hotspot");
     const totalBaseCount = hotspotBaseData.length;
 
+    // 1. 상태 초기화 처리 (React-like useEffect):
+    //    상단 메인 필터(사고유형, 기간, 사업소, 피해자 등)가 변경되면 카드 내 서브 탭은 자동으로 [전체]로 리셋
+    const mainFilterFingerprint = JSON.stringify({
+      category: state.filters.category,
+      period: state.filters.period,
+      dept: state.filters.dept,
+      resort: state.filters.resort,
+      search: state.filters.search,
+      searchQuery: state.filters.searchQuery,
+      victimType: state.filters.victimType,
+      status: state.filters.status,
+      reportStatus: state.filters.reportStatus,
+      startDate: state.filters.startDate,
+      endDate: state.filters.endDate
+    });
+
+    if (state._lastHotspotFilterFingerprint !== mainFilterFingerprint) {
+      state._lastHotspotFilterFingerprint = mainFilterFingerprint;
+      state.hotspotSubTabTeam = "all";
+    }
+
+    // 2. 현재 필터링된 데이터에 포함된 '사업장/팀(C열)' 목록 및 건수 집계
+    const teamCountMap = new Map();
+    hotspotBaseData.forEach(item => {
+      const team = getNormalizedBusinessUnit(item) || "기타";
+      teamCountMap.set(team, (teamCountMap.get(team) || 0) + 1);
+    });
+
+    // 건수 내림차순 정렬
+    const sortedTeams = Array.from(teamCountMap.entries()).sort((a, b) => b[1] - a[1]);
+
+    // 3. 서브 탭(Sub-tabs Chip) 동적 렌더링
+    const subtabsEl = document.getElementById("hotspot-team-subtabs");
+    if (subtabsEl) {
+      // [요구사항 3] 단일 팀만 존재하는 경우(또는 0개)에는 탭 버튼을 숨겨 깔끔한 레이아웃 유지
+      if (sortedTeams.length <= 1) {
+        subtabsEl.style.display = "none";
+        subtabsEl.innerHTML = "";
+        state.hotspotSubTabTeam = "all";
+      } else {
+        subtabsEl.style.display = "flex";
+
+        // 선택된 팀이 현재 데이터셋에 존재하지 않으면 "all"로 복귀
+        if (state.hotspotSubTabTeam !== "all" && !teamCountMap.has(state.hotspotSubTabTeam)) {
+          state.hotspotSubTabTeam = "all";
+        }
+
+        const currentTab = state.hotspotSubTabTeam || "all";
+
+        // 탭 구성: [전체 (건수)] 및 각 [팀명 (건수)]
+        const tabs = [
+          { id: "all", name: "전체", count: totalBaseCount, isActive: currentTab === "all" },
+          ...sortedTeams.map(([team, count]) => ({
+            id: team,
+            name: team,
+            count: count,
+            isActive: currentTab === team
+          }))
+        ];
+
+        subtabsEl.innerHTML = tabs.map(tab => {
+          const activeClass = tab.isActive ? "active" : "";
+          const activeStyle = tab.isActive
+            ? "background-color: #2563eb; color: #ffffff; border: 1px solid #1d4ed8; font-weight: 700; box-shadow: 0 1px 2px 0 rgba(37, 99, 235, 0.25);"
+            : "background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; font-weight: 600;";
+          const badgeStyle = tab.isActive
+            ? "background-color: rgba(255, 255, 255, 0.25); color: #ffffff;"
+            : "background-color: #e2e8f0; color: #475569;";
+          return `
+            <button type="button" 
+                    class="hotspot-subtab-btn ${activeClass}" 
+                    style="${activeStyle}" 
+                    onclick="setHotspotSubTabTeam('${escapeHtml(tab.id)}')" 
+                    title="${escapeHtml(tab.name)} (${tab.count}건)">
+              ${escapeHtml(tab.name)} 
+              <span class="subtab-badge" style="${badgeStyle}">(${tab.count})</span>
+            </button>
+          `;
+        }).join("");
+      }
+    }
+
+    // 4. 서브 탭 필터링 데이터 계산
+    const isTeamSelected = state.hotspotSubTabTeam && state.hotspotSubTabTeam !== "all";
+    const currentHotspotData = isTeamSelected
+      ? hotspotBaseData.filter(item => getNormalizedBusinessUnit(item) === state.hotspotSubTabTeam)
+      : hotspotBaseData;
+
+    const currentTargetCount = currentHotspotData.length;
+
+    // 5. 차트 제목 및 서브타이틀 동적 생성
     const activeCat = state.filters.category && state.filters.category !== "all" ? state.filters.category : null;
     const activeDept = state.filters.dept && state.filters.dept !== "all" ? state.filters.dept : null;
 
     let chart3Title = "📍 사고 다발 세부구역 TOP 7 (핫스팟)";
     let chart3Subtitle = "현재 필터 기준 사고 집중 발생 세부장소 순위";
 
-    if (activeCat && activeDept) {
-      chart3Title = `📍 [${activeDept} > ${activeCat}] 세부구역 TOP 7`;
-      chart3Subtitle = `'${activeDept}'의 '${activeCat}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
-    } else if (activeCat) {
-      chart3Title = `📍 [${activeCat}] 사고 다발 세부구역 TOP 7`;
-      chart3Subtitle = `'${activeCat}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
-    } else if (activeDept) {
-      chart3Title = `📍 [${activeDept}] 사고 다발 세부구역 TOP 7`;
-      chart3Subtitle = `'${activeDept}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
+    if (isTeamSelected) {
+      const selectedTeam = state.hotspotSubTabTeam;
+      if (activeCat) {
+        chart3Title = `📍 [${selectedTeam} > ${activeCat}] 세부구역 TOP 7`;
+        chart3Subtitle = `${selectedTeam} '${activeCat}' 세부장소 순위 (총 ${currentTargetCount}건)`;
+      } else if (activeDept && activeDept !== selectedTeam) {
+        chart3Title = `📍 [${selectedTeam}] 세부구역 TOP 7`;
+        chart3Subtitle = `${selectedTeam} (${activeDept}) 세부장소 순위 (총 ${currentTargetCount}건)`;
+      } else {
+        chart3Title = `📍 [${selectedTeam}] 사고 다발 세부구역 TOP 7`;
+        chart3Subtitle = `${selectedTeam} 사고 집중 발생 세부장소 순위 (총 ${currentTargetCount}건)`;
+      }
+    } else {
+      if (activeCat && activeDept) {
+        chart3Title = `📍 [${activeDept} > ${activeCat}] 세부구역 TOP 7`;
+        chart3Subtitle = `'${activeDept}'의 '${activeCat}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
+      } else if (activeCat) {
+        chart3Title = `📍 [${activeCat}] 사고 다발 세부구역 TOP 7`;
+        chart3Subtitle = `'${activeCat}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
+      } else if (activeDept) {
+        chart3Title = `📍 [${activeDept}] 사고 다발 세부구역 TOP 7`;
+        chart3Subtitle = `'${activeDept}' 사고 집중 발생 세부장소 순위 (총 ${totalBaseCount}건)`;
+      }
     }
 
     const titleEl = document.getElementById("hotspot-chart-title");
@@ -5108,8 +5158,9 @@ function renderCharts() {
     if (titleEl) titleEl.textContent = chart3Title;
     if (subEl) subEl.textContent = chart3Subtitle;
 
+    // 6. 구역별 집계 (대표 표준 구역 기준)
     const hotspotMap = new Map();
-    hotspotBaseData.forEach(item => {
+    currentHotspotData.forEach(item => {
       const colC = getNormalizedBusinessUnit(item);
       const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
       const stdColD = getStandardLocation(rawColD);
@@ -5122,9 +5173,7 @@ function renderCharts() {
       hotspotMap.get(key).count++;
     });
 
-    // Save full list of hotspots for ranking modal
     state.currentAllHotspots = Array.from(hotspotMap.values()).sort((a, b) => b.count - a.count);
-
     const sortedHotspots = state.currentAllHotspots.slice(0, 7);
 
     const hotspotLabels = sortedHotspots.length > 0 ? sortedHotspots.map(h => h.label) : ["데이터 없음"];
@@ -5184,7 +5233,7 @@ function renderCharts() {
             if (!item) return;
 
             const count = item.count;
-            const pct = totalBaseCount > 0 ? ((count / totalBaseCount) * 100).toFixed(1) : "0.0";
+            const pct = currentTargetCount > 0 ? ((count / currentTargetCount) * 100).toFixed(1) : "0.0";
             const text = `${count}건 (${pct}%)`;
 
             const isSelected = currentHotspotKey && item.key === currentHotspotKey;
@@ -5218,7 +5267,7 @@ function renderCharts() {
           }]
         },
         options: {
-          indexAxis: "y", // 가로형 막대 차트 (BarChart layout="vertical")
+          indexAxis: "y",
           responsive: true,
           maintainAspectRatio: false,
           onClick: (event, elements, chart) => {
@@ -5226,9 +5275,7 @@ function renderCharts() {
               const elementIndex = elements[0].index;
               const clickedItem = sortedHotspots[elementIndex];
               if (clickedItem) {
-                // 1. [요구사항 1] 구역 심층 분석 모달 팝업
                 openHotspotAnalysisModal(clickedItem);
-                // 2. 하단 메인 테이블도 해당 구역으로 1:1 일치 필터링 동시 적용 (토글 지원)
                 if (state.filters.hotspot && state.filters.hotspot.key === clickedItem.key) {
                   state.filters.hotspot = null;
                 } else {
@@ -5255,8 +5302,8 @@ function renderCharts() {
                   const idx = ctx.dataIndex;
                   const item = sortedHotspots[idx];
                   if (!item) return ` 발생 건수: ${ctx.raw}건`;
-                  const pct = totalBaseCount > 0 ? ((item.count / totalBaseCount) * 100).toFixed(1) : "0.0";
-                  return ` 사고 발생: ${item.count}건 (전체 대비 ${pct}%)`;
+                  const pct = currentTargetCount > 0 ? ((item.count / currentTargetCount) * 100).toFixed(1) : "0.0";
+                  return ` 사고 발생: ${item.count}건 (기준 대비 ${pct}%)`;
                 },
                 afterLabel: (ctx) => {
                   const idx = ctx.dataIndex;
@@ -5273,7 +5320,7 @@ function renderCharts() {
           scales: {
             x: {
               beginAtZero: true,
-              grace: "24%", // 막대 우측 건수 및 점유율(%) 텍스트 여백 확보
+              grace: "24%",
               grid: { color: "#f1f5f9" },
               ticks: {
                 color: "#94a3b8",
@@ -5296,10 +5343,22 @@ function renderCharts() {
         }
       });
     }
-  } catch (errCharts) {
-    console.error("renderCharts 실행 오류 방어:", errCharts);
+  } catch (errHotspot) {
+    console.error("renderHotspotChart error:", errHotspot);
   }
 }
+window.renderHotspotChart = renderHotspotChart;
+
+// [신규] 핫스팟 팀 서브 탭 클릭 시 상태 전환 및 차트 갱신
+function setHotspotSubTabTeam(teamName) {
+  if (state.hotspotSubTabTeam === teamName && teamName !== "all") {
+    state.hotspotSubTabTeam = "all";
+  } else {
+    state.hotspotSubTabTeam = teamName || "all";
+  }
+  renderHotspotChart();
+}
+window.setHotspotSubTabTeam = setHotspotSubTabTeam;
 
 // Update Pagination Controls
 window.updatePagination = function(current, total) {
@@ -6007,9 +6066,6 @@ function renderActiveFilterChips() {
   if (zone && zone !== "all") {
     chips.push({ key: "zone", label: `구역: ${zone}` });
   }
-  if (severity && severity !== "all") {
-    chips.push({ key: "severity", label: `피해: ${severity}` });
-  }
   if (dept && dept !== "all") {
     chips.push({ key: "dept", label: `부서: ${dept}` });
   }
@@ -6053,18 +6109,12 @@ function renderActiveFilterChips() {
     chipsList.innerHTML = "";
   }
 
-  // Update .is-active class on quick filter dropdowns
-  const tableCat = document.getElementById("table-filter-category");
-  if (tableCat) tableCat.classList.toggle("is-active", Boolean(category && category !== "all"));
-
-  const tableVictim = document.getElementById("table-filter-victim-type");
-  if (tableVictim) tableVictim.classList.toggle("is-active", Boolean(victimType && victimType !== "all"));
-
+  // Update .is-active class on table quick filter dropdowns (구역/장소, 피해자 대상, 산재조사표)
   const tableZone = document.getElementById("table-filter-zone");
   if (tableZone) tableZone.classList.toggle("is-active", Boolean(zone && zone !== "all"));
 
-  const tableSev = document.getElementById("table-filter-severity");
-  if (tableSev) tableSev.classList.toggle("is-active", Boolean(severity && severity !== "all"));
+  const tableVictim = document.getElementById("table-filter-victim-type");
+  if (tableVictim) tableVictim.classList.toggle("is-active", Boolean(victimType && victimType !== "all"));
 
   const tableReport = document.getElementById("filter-report-status");
   if (tableReport) tableReport.classList.toggle("is-active", Boolean(reportStatus && reportStatus !== "all"));
@@ -6122,7 +6172,6 @@ function resetAllFilters() {
   state.filters.dept = "all";
   state.filters.category = "all";
   state.filters.victimType = "all";
-  state.filters.severity = "all";
   state.filters.status = "all";
   state.filters.period = "all";
   state.filters.zone = "all";
@@ -6132,6 +6181,8 @@ function resetAllFilters() {
   state.filters.endDate = "";
   state.filters.from = "";
   state.filters.to = "";
+  state.hotspotSubTabTeam = "all";
+  state._lastHotspotFilterFingerprint = null;
   if (state.categoryChartMeta) state.categoryChartMeta.isOtherSelected = false;
   if (state.deptChartMeta) state.deptChartMeta.isOtherSelected = false;
   state.currentPage = 1;
@@ -6151,21 +6202,15 @@ function resetAllFilters() {
   const victimFilter = document.getElementById("filter-victim-type");
   if (victimFilter) victimFilter.value = "all";
 
-  const severityFilter = document.getElementById("filter-severity");
-  if (severityFilter) severityFilter.value = "all";
 
   const statusFilter = document.getElementById("filter-status");
   if (statusFilter) statusFilter.value = "all";
 
   // Table quick filters reset
-  const tableCat = document.getElementById("table-filter-category");
-  if (tableCat) tableCat.value = "all";
   const tableVictim = document.getElementById("table-filter-victim-type");
   if (tableVictim) tableVictim.value = "all";
   const tableZone = document.getElementById("table-filter-zone");
   if (tableZone) tableZone.value = "all";
-  const tableSev = document.getElementById("table-filter-severity");
-  if (tableSev) tableSev.value = "all";
 
   const customText = document.getElementById("custom-period-text");
   if (customText) customText.textContent = "📅 직접지정";
@@ -7558,8 +7603,7 @@ function updateKpiDrilldownData() {
       (state.filters.dept && state.filters.dept !== "all") ||
       (state.filters.category && state.filters.category !== "all") ||
       (state.filters.victimType && state.filters.victimType !== "all") ||
-      (state.filters.severity && state.filters.severity !== "all") ||
-      (state.filters.status && state.filters.status !== "all") ||
+            (state.filters.status && state.filters.status !== "all") ||
       (state.filters.zone && state.filters.zone !== "all") ||
       (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
       state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
@@ -7603,8 +7647,7 @@ function openKpiDrilldown(type) {
       (state.filters.dept && state.filters.dept !== "all") ||
       (state.filters.category && state.filters.category !== "all") ||
       (state.filters.victimType && state.filters.victimType !== "all") ||
-      (state.filters.severity && state.filters.severity !== "all") ||
-      (state.filters.status && state.filters.status !== "all") ||
+            (state.filters.status && state.filters.status !== "all") ||
       (state.filters.zone && state.filters.zone !== "all") ||
       (state.filters.reportStatus && state.filters.reportStatus !== "all") ||
       state.filters.startDate || state.filters.endDate || state.filters.from || state.filters.to || state.filters.search || state.filters.searchQuery
@@ -8195,11 +8238,15 @@ function openAllHotspotsRankingModal() {
   if (!modal) return;
 
   const baseData = getFilteredIncidents("hotspot");
-  const totalBase = baseData.length || 1;
+  const isTeamSelected = state.hotspotSubTabTeam && state.hotspotSubTabTeam !== "all";
+  const targetData = isTeamSelected
+    ? baseData.filter(item => getNormalizedBusinessUnit(item) === state.hotspotSubTabTeam)
+    : baseData;
+  const totalBase = targetData.length || 1;
 
   // Aggregate all hotspots under current filters (standardized representative areas)
   const hotspotMap = new Map();
-  baseData.forEach(item => {
+  targetData.forEach(item => {
     const colC = getNormalizedBusinessUnit(item);
     const rawColD = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
     const stdColD = getStandardLocation(rawColD);
@@ -8215,7 +8262,10 @@ function openAllHotspotsRankingModal() {
   rankingModalAllData = Array.from(hotspotMap.values()).sort((a, b) => b.count - a.count);
 
   const badgeEl = document.getElementById("all-hotspots-modal-badge");
-  if (badgeEl) badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${baseData.length.toLocaleString()}건 발생`;
+  if (badgeEl) {
+    const teamSuffix = isTeamSelected ? ` [${state.hotspotSubTabTeam}]` : "";
+    badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${targetData.length.toLocaleString()}건 발생${teamSuffix}`;
+  }
 
   const searchInput = document.getElementById("ranking-search-input");
   if (searchInput) searchInput.value = "";
@@ -8292,11 +8342,18 @@ window.openHotspotAnalysisModalFromRanking = openHotspotAnalysisModalFromRanking
 function filterRankingModalTable(query) {
   const q = String(query || "").trim().toLowerCase();
   const baseData = getFilteredIncidents("hotspot");
-  const totalBase = baseData.length || 1;
+  const isTeamSelected = state.hotspotSubTabTeam && state.hotspotSubTabTeam !== "all";
+  const targetData = isTeamSelected
+    ? baseData.filter(item => getNormalizedBusinessUnit(item) === state.hotspotSubTabTeam)
+    : baseData;
+  const totalBase = targetData.length || 1;
   const badgeEl = document.getElementById("all-hotspots-modal-badge");
 
   if (!q) {
-    if (badgeEl) badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${baseData.length.toLocaleString()}건 발생`;
+    if (badgeEl) {
+      const teamSuffix = isTeamSelected ? ` [${state.hotspotSubTabTeam}]` : "";
+      badgeEl.textContent = `총 ${rankingModalAllData.length.toLocaleString()}개 구역 / ${targetData.length.toLocaleString()}건 발생${teamSuffix}`;
+    }
     renderRankingModalRows(rankingModalAllData, totalBase);
     return;
   }
@@ -8326,6 +8383,10 @@ if (typeof module !== "undefined" && module.exports) {
     normalizeIncident,
     parseIncidentRow,
     normalizeReportStatus,
-    getReportStatusBadge
+    getReportStatusBadge,
+    renderHotspotChart,
+    setHotspotSubTabTeam,
+    openAllHotspotsRankingModal,
+    state
   };
 }
