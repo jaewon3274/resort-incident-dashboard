@@ -38,6 +38,22 @@ console.log(`[Sheet] Using: '${sheetName}'`);
 const rawRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: '' });
 console.log(`[Rows] Total rows read: ${rawRows.length}`);
 
+function normalizeReportStatus(raw) {
+  if (raw === undefined || raw === null) return "해당 없음";
+  const clean = String(raw).replace(/[\r\n]+/g, " ").trim();
+  const compact = clean.replace(/\s+/g, "");
+  if (!compact || compact === "-" || compact === "--" || compact === "해당없음" || compact === "해당_없음" || compact === "없음" || compact === "비대상" || compact === "미대상") {
+    return "해당 없음";
+  }
+  if (compact.includes("완료")) {
+    return "제출완료";
+  }
+  if (compact.includes("예정") || compact.includes("대기") || compact.includes("대상")) {
+    return "제출예정";
+  }
+  return "해당 없음";
+}
+
 // 엑셀 row 데이터를 파싱하는 함수 내부
 const parseIncidentRow = (row, index) => {
   // 1. 사고유형 필드 매핑: '사고유형1' 우선 탐색 및 줄바꿈/공백 제거 정제
@@ -45,12 +61,20 @@ const parseIncidentRow = (row, index) => {
   const cleanType = String(rawType).replace(/[\r\n]+/g, '').trim() || '기타';
 
   // 2. 사업장/부서 구분 매핑 (C열 구분1, B열 부문/부서)
-  const team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
-  const department = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, ' ').trim() : '';     // B열 (부문/부서)
+  let team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
+  let department = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, ' ').trim() : '';     // B열 (부문/부서)
+
+  // C열이 '힐스/월송리사업소'인 경우 정식 사업장(C열)으로 분리 인식 및 B열 '골프' 매핑
+  if (/힐스\s*\/\s*월송리\s*사업소/i.test(team)) {
+    team = '힐스/월송리사업소';
+    if (!department || department === '미분류' || /힐스\s*\/\s*월송리\s*사업소/i.test(department)) {
+      department = '골프';
+    }
+  }
 
   // 화면 렌더링 로직 (사업장과 부서가 같으면 괄호 생략, 다르면 괄호 표기)
   const displayLocation = (department && department !== team)
-    ? `${team} (${department})`  // 예: 밸리팀 (골프), 힐스빌리지 (리조트)
+    ? `${team} (${department})`  // 예: 밸리팀 (골프), 힐스빌리지 (리조트), 힐스/월송리사업소 (골프)
     : team;                      // 같은 값이면 '밸리팀' 하나만 깔끔하게 표기
   
   // 3. 세부 장소 및 제목 생성
@@ -94,9 +118,16 @@ const parseIncidentRow = (row, index) => {
   const rawCost = row['보험금'] !== undefined && row['보험금'] !== '' ? row['보험금'] : row[' 보험금 '];
   const insuranceCost = typeof rawCost === 'number' ? rawCost : (Number(String(rawCost || '').replace(/,/g, '').trim()) || 0);
 
-  // Q열 헤더명('산업재해조사표' 및 '산재조사표') 모두 대응
-  const reportStatus = row['산업재해조사표'] || row['산재조사표'] || row['산재 보고'] || '';
-  const isSubmitted = String(reportStatus).trim().includes('제출완료');
+  // Q열 헤더명('산업재해조사표', '산재조사표', '산재여부' 등) 유연 매핑 및 정규화
+  const rawReportStatus = row['산업재해조사표'] !== undefined && row['산업재해조사표'] !== null ? row['산업재해조사표'] :
+                          (row['산재조사표'] !== undefined && row['산재조사표'] !== null ? row['산재조사표'] :
+                          (row['산재여부'] !== undefined && row['산재여부'] !== null ? row['산재여부'] :
+                          (row['산업재해 조사표'] !== undefined && row['산업재해 조사표'] !== null ? row['산업재해 조사표'] :
+                          (row['산재 조사표'] !== undefined && row['산재 조사표'] !== null ? row['산재 조사표'] :
+                          (row['산재보고'] !== undefined && row['산재보고'] !== null ? row['산재보고'] :
+                          (row['산재 보고'] !== undefined && row['산재 보고'] !== null ? row['산재 보고'] : ''))))));
+  const cleanReportStatus = String(rawReportStatus || '').replace(/[\r\n]+/g, ' ').trim();
+  const normalizedReportStatus = normalizeReportStatus(cleanReportStatus);
 
   return {
     id: row['문서번호'] || `INC-${Date.now()}-${index}`,
@@ -116,7 +147,9 @@ const parseIncidentRow = (row, index) => {
     victimName: victimName,
     victimDetail: cleanVictim,
     insuranceCost: insuranceCost,
-    industrialAccident: isSubmitted ? '제출완료' : '해당 없음',
+    industrialAccident: normalizedReportStatus,
+    reportStatus: normalizedReportStatus,
+    industrialAccidentReport: normalizedReportStatus,
     status: '조치완료'
   };
 };

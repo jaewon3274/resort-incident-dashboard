@@ -163,6 +163,10 @@ window.matchCategoryFilter = matchCategoryFilter;
 
 function getIncidentDept(item) {
   if (!item) return "기타";
+  const rawColC = String(item['구분1'] || item.team || item.businessUnit || item.resort || "").trim();
+  if (/힐스\s*\/\s*월송리\s*사업소/i.test(rawColC)) {
+    return "힐스/월송리사업소";
+  }
   const val = item.dept || item.department || item.businessUnit || item['구분1'] || item['부문/부서'] || "기타";
   return String(val).replace(/[\r\n]+/g, "").trim() || "기타";
 }
@@ -197,10 +201,27 @@ function getIncidentCost(item) {
 window.getIncidentCost = getIncidentCost;
 
 // ==========================================================================
-// [신설] 산업재해조사표 제출 상태 배지 생성 헬퍼
+// [신설] 산업재해조사표 상태 정규화 및 배지 생성 헬퍼
 // ==========================================================================
+function normalizeReportStatus(raw) {
+  if (raw === undefined || raw === null) return "해당 없음";
+  const clean = String(raw).replace(/[\r\n]+/g, " ").trim();
+  const compact = clean.replace(/\s+/g, "");
+  if (!compact || compact === "-" || compact === "--" || compact === "해당없음" || compact === "해당_없음" || compact === "없음" || compact === "비대상" || compact === "미대상") {
+    return "해당 없음";
+  }
+  if (compact.includes("완료")) {
+    return "제출완료";
+  }
+  if (compact.includes("예정") || compact.includes("대기") || compact.includes("대상")) {
+    return "제출예정";
+  }
+  return "해당 없음";
+}
+window.normalizeReportStatus = normalizeReportStatus;
+
 function getReportStatusBadge(status) {
-  const norm = String(status || '').replace(/\s+/g, '');
+  const norm = normalizeReportStatus(status);
   if (norm === '제출완료') {
     return `<span class="badge badge-report-complete text-emerald-700 bg-emerald-50 border border-emerald-200" style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; color: #047857; background-color: #ecfdf5; border: 1px solid #a7f3d0;">제출완료</span>`;
   } else if (norm === '제출예정') {
@@ -261,13 +282,24 @@ function normalizeIncident(item) {
   item.type = catVal;
   item.incidentType = catVal;
   item['사고유형1'] = originalRawType;
-  const teamVal = String(item.team || item['구분1'] || buVal || "미분류").replace(/[\r\n]+/g, " ").trim();
-  const rawDeptVal = String(item.department || item['부문/부서'] || (item.dept && item.dept !== teamVal ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
+  const rawColC = String(item.team || item['구분1'] || buVal || "미분류").replace(/[\r\n]+/g, " ").trim();
+  const isHillsWolsongOffice = /힐스\s*\/\s*월송리\s*사업소/i.test(rawColC);
+
+  let teamVal = rawColC;
+  let rawDeptVal = String(item.department || item['부문/부서'] || (item.dept && item.dept !== teamVal ? item.dept : "") || "").replace(/[\r\n]+/g, " ").trim();
+
+  if (isHillsWolsongOffice) {
+    teamVal = "힐스/월송리사업소";
+    rawDeptVal = "골프";
+    item['구분1'] = "힐스/월송리사업소";
+    item['부문/부서'] = "골프";
+  }
+
   const displayLocationVal = (rawDeptVal && rawDeptVal !== teamVal) ? `${teamVal} (${rawDeptVal})` : teamVal;
   item.team = teamVal;
   item.department = rawDeptVal;
-  item.displayLocation = item.displayLocation || displayLocationVal;
-  item.dept = rawDeptVal || deptVal;
+  item.displayLocation = isHillsWolsongOffice ? "힐스/월송리사업소 (골프)" : (item.displayLocation || displayLocationVal);
+  item.dept = isHillsWolsongOffice ? "힐스/월송리사업소" : (rawDeptVal || deptVal);
   item.businessUnit = teamVal;
   item.resort = teamVal;
   item.victim = victimType;
@@ -286,15 +318,16 @@ function normalizeIncident(item) {
   item.zone = inferZoneFromLocation(locVal, rawDeptVal || deptVal, teamVal);
 
   // 산업재해조사표 제출 상태 기본값 및 보정
-  if (!item.reportStatus && !item.industrialAccidentReport) {
-    item.reportStatus = "해당 없음";
-    item.industrialAccidentReport = "해당 없음";
-  } else {
-    let r = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
-    if (r === "해당없음") r = "해당 없음";
-    item.reportStatus = r;
-    item.industrialAccidentReport = r;
-  }
+  const rawRep = item.reportStatus !== undefined && item.reportStatus !== null ? item.reportStatus :
+                 (item.industrialAccidentReport !== undefined && item.industrialAccidentReport !== null ? item.industrialAccidentReport :
+                 (item.industrialAccident !== undefined && item.industrialAccident !== null ? item.industrialAccident :
+                 (item['산업재해조사표'] !== undefined && item['산업재해조사표'] !== null ? item['산업재해조사표'] :
+                 (item['산재조사표'] !== undefined && item['산재조사표'] !== null ? item['산재조사표'] :
+                 (item['산재여부'] !== undefined && item['산재여부'] !== null ? item['산재여부'] : "")))));
+  const normalizedRep = normalizeReportStatus(rawRep);
+  item.reportStatus = normalizedRep;
+  item.industrialAccidentReport = normalizedRep;
+  item.industrialAccident = normalizedRep;
 
   return item;
 }
@@ -2761,6 +2794,13 @@ function inferDeptFromIncident(item) {
   if (!item) return "기타";
   const origDept = getIncidentDept(item);
   const resort = String(item.resort || item.businessUnit || "").trim();
+  const rawColC = String(item['구분1'] || item.team || resort || "").trim();
+
+  // 0. 힐스/월송리사업소 정식 사업장 판별
+  if (/힐스\s*\/\s*월송리\s*사업소/i.test(rawColC) || /힐스\s*\/\s*월송리\s*사업소/i.test(origDept)) {
+    return "힐스/월송리사업소";
+  }
+
   const loc = getIncidentLocation(item);
   const zone = String(item.zone || "").trim();
   const title = String(item.title || "").trim();
@@ -2781,7 +2821,7 @@ function inferDeptFromIncident(item) {
 
   const isSaunaLeisure = (
     /사우나|스파|아쿠아|수영장|자쿠지|노천탕|락커|락카|냉탕|온탕|열탕|샤워실/i.test(fullText) ||
-    /스키장|스키|눈썰매|슬로프|리프트|렌탈/i.test(fullText) ||
+    (/눈썰매|슬로프|리프트|렌탈/i.test(fullText) || (/스키장|\b스키\b|스키대여|스키부츠/i.test(fullText) && !/스키드로더/i.test(fullText))) ||
     /레저팀|스키장/.test(resort) ||
     /레저팀/.test(origDept)
   );
@@ -3132,12 +3172,14 @@ function setupSubAnalysisModals() {
 // ==========================================================================
 function getNormalizedBusinessUnit(item, fallbackC) {
   if (!item) return fallbackC || "";
-  const colC = String(fallbackC || item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+  const rawColC = String(fallbackC || item['구분1'] || item.team || item.resort || item.businessUnit || "").trim();
+  const cleanColC = rawColC.replace(/[\r\n\s]+/g, "");
   const dept = String(item.dept || item.department || item.division || "").trim();
   const victimDetail = String(item.victimDetail || item['구분2'] || "").trim();
   const rawLoc = String(item['위치(세부)'] || item.locationDetail || item.location || item.place || "").trim();
 
-  const isDaejeong = colC === "대정골프" || colC === "대정" ||
+  const isDaejeong = rawColC === "대정골프" || rawColC === "대정" ||
+                     cleanColC === "대정골프" || cleanColC === "대정" ||
                      dept === "대정골프" || dept === "대정" ||
                      victimDetail.includes("대정");
 
@@ -3150,17 +3192,49 @@ function getNormalizedBusinessUnit(item, fallbackC) {
     if (/성문안/i.test(rawLoc)) {
       return "성문안팀";
     }
-    // 3) 힐스팀 관할 코스: 힐스, 오크힐스, 힐
-    if (/(오크힐스|힐스|\b힐\d*h\b|힐\s*코스)/i.test(rawLoc) || /힐스/i.test(rawLoc)) {
+    // 3) 힐스팀 관할 코스: 힐스, 오크힐스, 힐, 브릿지 (단, '힐스/월송리' 제외)
+    if (!/힐스\s*\/\s*월송리/i.test(rawLoc) && (/(오크힐스|브릿지|힐\s*\d*(?:h|홀)|힐\s*코스)/i.test(rawLoc) || /힐스/i.test(rawLoc))) {
       return "힐스팀";
     }
-    // 4) 월송리팀 관할 코스: 월송리, 월송
-    if (/(월송리|월송)/i.test(rawLoc)) {
+    // 4) 월송리팀 관할 코스: 월송리, 월송, 루나, 솔라 (단, '힐스/월송리' 제외)
+    if (!/힐스\s*\/\s*월송리/i.test(rawLoc) && /(월송리|월송|루나|솔라)/i.test(rawLoc)) {
       return "월송리팀";
     }
+    return rawColC;
   }
 
-  return colC;
+  // 2. 힐스/월송리사업소 코스 핫스팟 집계 매핑
+  const isHillsWolsongOffice = cleanColC === "힐스/월송리사업소" ||
+                               /힐스\s*\/\s*월송리\s*사업소/i.test(rawColC) ||
+                               /힐스\s*\/\s*월송리\s*사업소/i.test(dept) ||
+                               /힐스\s*\/\s*월송리\s*사업소/i.test(item.team || '') ||
+                               /힐스\s*\/\s*월송리\s*사업소/i.test(item['구분1'] || '');
+
+  if (isHillsWolsongOffice) {
+    // 세부 위치가 '힐스/월송리' 자체이거나 코스 홀이 아니면 사업소 자체로 집계
+    if (!/힐스\s*\/\s*월송리/i.test(rawLoc)) {
+      // 1) 힐스팀 코스: 브릿지, 힐, 오크힐스 (예: '브릿지4H' -> '힐스팀', '힐 5H' -> '힐스팀')
+      if (/(오크힐스|브릿지|힐\s*\d*(?:h|홀)|힐\s*코스|힐스\s*\d*(?:h|홀)|힐스\s*코스)/i.test(rawLoc) || (/힐스/i.test(rawLoc) && !/빌리지|콘도|사업소|식당|주차장/i.test(rawLoc))) {
+        return "힐스팀";
+      }
+      // 2) 밸리팀 코스: 파인, 체리, 오크, 메이플 (예: '오크6H' -> '밸리팀')
+      if (/(파인|체리|메이플)/i.test(rawLoc) || (/오크/i.test(rawLoc) && !/오크힐스|힐스/i.test(rawLoc))) {
+        return "밸리팀";
+      }
+      // 3) 성문안팀 코스: 성문안 (예: '성문안 3H' -> '성문안팀')
+      if (/성문안/i.test(rawLoc)) {
+        return "성문안팀";
+      }
+      // 4) 월송리팀 코스: 월송리, 월송, 루나, 솔라 (예: '월송 2H' -> '월송리팀')
+      if (/(월송리|월송|루나|솔라)/i.test(rawLoc)) {
+        return "월송리팀";
+      }
+    }
+    // 특정 골프 코스 홀이 아닌 일반 시설/위치인 경우 정규화된 사업장 반환
+    return "힐스/월송리사업소";
+  }
+
+  return rawColC;
 }
 window.getNormalizedBusinessUnit = getNormalizedBusinessUnit;
 
@@ -3172,9 +3246,9 @@ function getStandardLocation(d) {
   if (!d) return "";
   const text = String(d).trim();
 
-  // 1. 골프장 홀 패턴: /(파인|오크|체리|메이플|힐|스톤|레이크|마운틴|밸리)s*(d+)s*(?:H|홀)?/i
-  //    치환: `${코스명}${숫자}H` (예: '파인5H 군도변' -> '파인5H')
-  const golfMatch = text.match(/(파인|오크|체리|메이플|힐|스톤|레이크|마운틴|밸리)\s*(\d+)\s*(?:H|홀)?/i);
+  // 1. 골프장 홀 패턴: /(파인|오크|체리|메이플|힐|브릿지|루나|솔라|스톤|레이크|마운틴|밸리)\s*(\d+)\s*(?:H|홀)?/i
+  //    치환: `${코스명}${숫자}H` (예: '파인5H 군도변' -> '파인5H', '브릿지4H' -> '브릿지4H')
+  const golfMatch = text.match(/(파인|오크|체리|메이플|힐|브릿지|루나|솔라|스톤|레이크|마운틴|밸리)\s*(\d+)\s*(?:H|홀)?/i);
   if (golfMatch) {
     const course = golfMatch[1];
     const holeNum = golfMatch[2];
@@ -3478,12 +3552,20 @@ const parseIncidentRow = (row, index) => {
   const normalizedCategory = normalizeAccidentType(cleanType);
 
   // 2. 사업장/부서 구분 매핑 (C열 구분1, B열 부문/부서)
-  const team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
-  const department = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, ' ').trim() : '';     // B열 (부문/부서)
+  let team = row['구분1'] ? String(row['구분1']).replace(/[\r\n]+/g, ' ').trim() : '미분류';            // C열 (사업장)
+  let department = row['부문/부서'] ? String(row['부문/부서']).replace(/[\r\n]+/g, ' ').trim() : '';     // B열 (부문/부서)
+
+  // C열이 '힐스/월송리사업소'인 경우 정식 사업장(C열)으로 분리 인식 및 B열 '골프' 매핑
+  if (/힐스\s*\/\s*월송리\s*사업소/i.test(team)) {
+    team = '힐스/월송리사업소';
+    if (!department || department === '미분류' || /힐스\s*\/\s*월송리\s*사업소/i.test(department)) {
+      department = '골프';
+    }
+  }
 
   // 화면 렌더링 로직 (사업장과 부서가 같으면 괄호 생략, 다르면 괄호 표기)
   const displayLocation = (department && department !== team)
-    ? `${team} (${department})`  // 예: 밸리팀 (골프), 힐스빌리지 (리조트)
+    ? `${team} (${department})`  // 예: 밸리팀 (골프), 힐스빌리지 (리조트), 힐스/월송리사업소 (골프)
     : team;                      // 같은 값이면 '밸리팀' 하나만 깔끔하게 표기
   
   // 3. 세부 장소 및 제목 생성
@@ -3528,9 +3610,16 @@ const parseIncidentRow = (row, index) => {
   const rawCost = row['보험금'] !== undefined && row['보험금'] !== '' ? row['보험금'] : row[' 보험금 '];
   const insuranceCost = typeof rawCost === 'number' ? rawCost : (Number(String(rawCost || '').replace(/,/g, '').trim()) || 0);
 
-  // Q열 헤더명('산업재해조사표' 및 '산재조사표') 모두 대응
-  const reportStatus = row['산업재해조사표'] || row['산재조사표'] || row['산재 보고'] || '';
-  const isSubmitted = String(reportStatus).trim().includes('제출완료');
+  // Q열 헤더명('산업재해조사표', '산재조사표', '산재여부' 등) 유연 매핑 및 정규화
+  const rawReportStatus = row['산업재해조사표'] !== undefined && row['산업재해조사표'] !== null ? row['산업재해조사표'] :
+                          (row['산재조사표'] !== undefined && row['산재조사표'] !== null ? row['산재조사표'] :
+                          (row['산재여부'] !== undefined && row['산재여부'] !== null ? row['산재여부'] :
+                          (row['산업재해 조사표'] !== undefined && row['산업재해 조사표'] !== null ? row['산업재해 조사표'] :
+                          (row['산재 조사표'] !== undefined && row['산재 조사표'] !== null ? row['산재 조사표'] :
+                          (row['산재보고'] !== undefined && row['산재보고'] !== null ? row['산재보고'] :
+                          (row['산재 보고'] !== undefined && row['산재 보고'] !== null ? row['산재 보고'] : ''))))));
+  const cleanReportStatus = String(rawReportStatus || '').replace(/[\r\n]+/g, ' ').trim();
+  const normalizedReportStatus = normalizeReportStatus(cleanReportStatus);
 
   return {
     id: row['문서번호'] || `INC-${Date.now()}-${index}`,
@@ -3550,7 +3639,9 @@ const parseIncidentRow = (row, index) => {
     victimName: victimName,
     victimDetail: cleanVictim,
     insuranceCost: insuranceCost,
-    industrialAccident: isSubmitted ? '제출완료' : '해당 없음',
+    industrialAccident: normalizedReportStatus,
+    reportStatus: normalizedReportStatus,
+    industrialAccidentReport: normalizedReportStatus,
     status: '조치완료'
   };
 };
@@ -3588,7 +3679,7 @@ function parseExcelRows(rawRows) {
       occurredAt: occurDate,
       category: parsed.type,
       incidentType: parsed.type,
-      dept: parsed.department || parsed.team,
+      dept: parsed.team === '힐스/월송리사업소' ? '힐스/월송리사업소' : (parsed.department || parsed.team),
       resort: parsed.team,
       team: parsed.team,
       department: parsed.department,
@@ -3602,8 +3693,9 @@ function parseExcelRows(rawRows) {
       companyAmount: parsed.insuranceCost,
       totalAmount: parsed.insuranceCost,
       personalAmount: 0,
-      reportStatus: parsed.industrialAccident,
-      industrialAccidentReport: parsed.industrialAccident,
+      reportStatus: parsed.reportStatus || parsed.industrialAccident,
+      industrialAccidentReport: parsed.industrialAccidentReport || parsed.industrialAccident,
+      industrialAccident: parsed.industrialAccident,
       preventiveMeasure: parsed.countermeasure || "시설 안전 점검 및 프로세스 준수 강화",
       actionTaken: "초동 조치 완료 및 현장 확인",
       victimName: parsed.victimName || "익명",
@@ -3886,6 +3978,7 @@ function populateFilterDropdowns() {
       { id: "힐스팀", label: "힐스팀 (오크힐스CC)" },
       { id: "성문안팀", label: "성문안팀 (성문안CC)" },
       { id: "월송리팀", label: "월송리팀 (월송리CC)" },
+      { id: "힐스/월송리사업소", label: "힐스/월송리사업소 (골프)" },
       { id: "골프운영(공통)", label: "골프운영(공통)" }
     ];
     const resortDeptDefs = [
@@ -4326,9 +4419,9 @@ function getFilteredIncidents(excludeKey = null) {
 
     // 산재조사표 필터링 (해당 없음 / 제출예정 / 제출완료)
     if (reportStatus && reportStatus !== "all") {
-      let r = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
-      if (r === "해당없음") r = "해당 없음";
-      if (r !== reportStatus) {
+      const r = normalizeReportStatus(item.reportStatus || item.industrialAccidentReport || item.industrialAccident);
+      const target = normalizeReportStatus(reportStatus);
+      if (r !== target) {
         return false;
       }
     }
@@ -4856,6 +4949,7 @@ function renderCharts() {
       "#059669", // 성문안팀 (Forest Emerald)
       "#4f46e5", // 힐스팀 (Deep Indigo)
       "#0891b2", // 월송리팀 (Cyan)
+      "#0ea5e9", // 힐스/월송리사업소 (Vivid Sky Blue)
       "#db2777", // 객실팀 (Rose Pink)
       "#ea580c", // 식음팀 (Vivid Orange)
       "#0d9488", // 골프운영(공통) (Teal)
@@ -5571,9 +5665,7 @@ function openIncidentDetail(id, originContext) {
   document.getElementById("dtl-preventive").innerText = item.preventiveMeasure || "예방 대책 기록 없음";
 
   // 신설: 특이사항 및 산업재해조사표 행정 상태 연동
-  // 신설: 특이사항 및 산업재해조사표 행정 상태 연동
-  let reportStatus = String(item.reportStatus || item.industrialAccidentReport || "해당 없음").trim();
-  if (reportStatus === "해당없음") reportStatus = "해당 없음";
+  let reportStatus = normalizeReportStatus(item.reportStatus || item.industrialAccidentReport || item.industrialAccident || "해당 없음");
 
   const reportBadgeEl = document.getElementById("dtl-report-status-badge");
   if (reportBadgeEl) {
@@ -5589,10 +5681,11 @@ function openIncidentDetail(id, originContext) {
   if (dtlReportStatusSelect) {
     dtlReportStatusSelect.value = reportStatus;
     dtlReportStatusSelect.onchange = (e) => {
-      const newReportStatus = e.target.value;
-      IncidentStorage.update(item.id, { reportStatus: newReportStatus, industrialAccidentReport: newReportStatus });
+      const newReportStatus = normalizeReportStatus(e.target.value);
+      IncidentStorage.update(item.id, { reportStatus: newReportStatus, industrialAccidentReport: newReportStatus, industrialAccident: newReportStatus });
       item.reportStatus = newReportStatus;
       item.industrialAccidentReport = newReportStatus;
+      item.industrialAccident = newReportStatus;
       if (reportBadgeEl) {
         reportBadgeEl.textContent = `산재조사표: ${newReportStatus}`;
         reportBadgeEl.className = "badge " + (
@@ -7670,10 +7763,9 @@ function renderKpiDrilldownTable() {
   }
   if (state.kpiDrillReportFilter && state.kpiDrillReportFilter !== "all") {
     list = list.filter(item => {
-      const rep = item.industrialAccident || item.reportStatus || item.industrialAccidentReport || "해당 없음";
-      if (state.kpiDrillReportFilter === "제출완료") return rep === "제출완료";
-      if (state.kpiDrillReportFilter === "해당 없음") return rep !== "제출완료";
-      return true;
+      const rep = normalizeReportStatus(item.industrialAccident || item.reportStatus || item.industrialAccidentReport || "해당 없음");
+      const target = normalizeReportStatus(state.kpiDrillReportFilter);
+      return rep === target;
     });
   }
   if (state.kpiDrillTypeFilter && state.kpiDrillTypeFilter !== "all") {
@@ -8228,6 +8320,12 @@ if (typeof module !== "undefined" && module.exports) {
     getNormalizedBusinessUnit,
     normalizeAccidentType,
     getIncidentCategory,
-    matchCategoryFilter
+    matchCategoryFilter,
+    getIncidentDept,
+    inferDeptFromIncident,
+    normalizeIncident,
+    parseIncidentRow,
+    normalizeReportStatus,
+    getReportStatusBadge
   };
 }
