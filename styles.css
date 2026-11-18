@@ -269,10 +269,11 @@ body.modal-open {
 
 /* Table Manage Action Button */
 .btn-table-del {
-  display: inline-flex;
-  align-items: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   gap: 0.3rem;
-  padding: 0.32rem 0.65rem;
+  padding: 0.25rem 0.625rem;
   font-size: 0.76rem;
   font-weight: 600;
   color: #f87171;
@@ -280,6 +281,8 @@ body.modal-open {
   border: 1px solid rgba(239, 68, 68, 0.25);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
   transition: all var(--transition-fast);
 }
 .btn-table-del:hover {
@@ -1254,13 +1257,24 @@ body.modal-open {
   color: #b91c1c;
   border: 1px solid #fecaca;
 }
+.badge-severity-severe {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.badge-severity-property {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
 
 /* Table Delete Button */
 .btn-table-del {
-  display: inline-flex;
-  align-items: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   gap: 0.3rem;
-  padding: 0.32rem 0.65rem;
+  padding: 0.25rem 0.625rem;
   font-size: 0.76rem;
   font-weight: 600;
   color: #dc2626;
@@ -1268,6 +1282,8 @@ body.modal-open {
   border: 1px solid #fca5a5;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
   transition: all var(--transition-fast);
 }
 .btn-table-del:hover {
@@ -4691,4 +4707,41 @@ body.auth-locked .main-wrapper {
   background-color: #f1f5f9;
   color: #334155;
   border-color: #94a3b8;
+}
+
+/* ==========================================================================
+   [관리] 열 및 [삭제] 버튼 가로 고정 강제 스타일 (최우선 순위 적용)
+   ========================================================================== */
+#incident-table th:last-child,
+#incident-table td:last-child,
+.incident-table th:last-child,
+.incident-table td:last-child,
+table th:last-child,
+table td:last-child,
+th.table-manage-th,
+td.table-manage-td,
+.table-manage-th,
+.table-manage-td {
+  width: 80px !important;
+  min-width: 80px !important;
+  max-width: 80px !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+.table-manage-td button,
+.btn-table-del,
+button.btn-table-del {
+  width: auto !important;
+  min-width: 54px !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  writing-mode: horizontal-tb !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 10px !important;
+  box-sizing: border-box !important;
+  line-height: 1.25 !important;
 }

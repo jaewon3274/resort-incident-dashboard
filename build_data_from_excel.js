@@ -212,11 +212,52 @@ function inferZoneFromLocation(location, dept, team) {
   return "기타 부대시설";
 }
 
-function inferSeverity(desc, cat) {
-  const t = `${desc} ${cat}`.toLowerCase();
-  if (/중대|사망|의식불명/.test(t)) return "중대 (입원/중상)";
-  if (/병원|골절|입원|119|봉합|수술/.test(t)) return "중등 (병원진료)";
-  return "경미 (현장조치)";
+function normalizeSeverity(rawSeverity) {
+  if (!rawSeverity) return "현장처치";
+  const s = String(rawSeverity).trim();
+  // '단순 대물' 또는 '대물' 포함 -> '단순 대물'
+  if (s.includes("단순 대물") || s.includes("대물")) {
+    return "단순 대물";
+  }
+  // '중대 (외부이송)', '중등 (병원진료)', '외부이송', '병원진료' 포함 -> '외부이송'
+  if (s.includes("외부이송") || s.includes("병원진료") || s.includes("중대") || s.includes("중등") || s.includes("병원") || s.includes("이송") || s.includes("입원")) {
+    return "외부이송";
+  }
+  // '경미 (현장처치)' 또는 '현장처치' 포함 -> '현장처치'
+  if (s.includes("현장처치") || s.includes("경미") || s.includes("현장")) {
+    return "현장처치";
+  }
+  return "현장처치";
+}
+
+function inferSeverity(desc, cat, countermeasure, victimType) {
+  const d = String(desc || '');
+  const c = String(cat || '');
+  const cm = String(countermeasure || '');
+  const v = String(victimType || '');
+  const fullText = `${d} ${c} ${cm}`.toLowerCase();
+
+  // 1. 대물/차량/시설 단독 사고(인명 피해 없음) 판단
+  const isPurePropertyType = /대물|클럽\s*파손|시설물|단순\s*대물/.test(c) ||
+    (c.includes('타구사고') && (c.includes('차량') || c.includes('카트')));
+  const isVehicleType = c.includes('차량사고') || c.includes('카트');
+  const hasHumanInjury = /골절|봉합|입원|119|구급차|응급실|병원|진료|부상|상해|통증|찰과|타박|환자|출혈|외상/.test(fullText);
+
+  // 2. 외부이송 키워드: 119, 구급차, 응급실, 이송, 후송, 병원, 진료, 골절, 봉합, 입원
+  const hasExternalTransferKeywords = /119|구급차|응급실|후송|병원|진료|골절|봉합|입원/.test(fullText) ||
+    (/(병원|환자|구급|응급).{0,5}이송/.test(fullText) || (fullText.includes('이송') && !fullText.includes('근무자 이송') && !fullText.includes('차량 이송')));
+
+  if (hasExternalTransferKeywords && (hasHumanInjury || !isPurePropertyType)) {
+    return '외부이송';
+  }
+
+  // 대물/차량/시설 단독 사고(인명 피해 없음) -> '단순 대물'
+  if (isPurePropertyType || (isVehicleType && !hasHumanInjury) || (!hasHumanInjury && /파손|도색|수리|스크래치|유리창|범퍼/.test(fullText) && !/고객|직원|캐디/.test(v))) {
+    return '단순 대물';
+  }
+
+  // 그 외 인명 사고(의무실 처치, 단순 타박/찰과상 등) -> '현장처치'
+  return '현장처치';
 }
 
 const incidents = [];
@@ -233,7 +274,7 @@ rawRows.forEach((r) => {
 
   const parsed = parseIncidentRow(row, validIdx);
   const zoneStr = inferZoneFromLocation(parsed.location, parsed.department, parsed.team);
-  const severityStr = inferSeverity(parsed.description, parsed.type);
+  const severityStr = inferSeverity(parsed.description, parsed.type, parsed.countermeasure, parsed.victimDetail);
   const reportDateStr = parsed.date.length >= 10 ? parsed.date.slice(0, 10).replace(/\./g, '-') : `${parsed.year}-01-01`;
 
   const item = {
@@ -298,13 +339,14 @@ const INITIAL_INCIDENTS = ${JSON.stringify(incidents, null, 2)};
 const initialIncidents = INITIAL_INCIDENTS;
 
 (function() {
-  const DEFAULT_VERSION = "20261104_vCHART_ZONE_FIX";
+  const DEFAULT_VERSION = "20261118_vSEVERITY3";
   const VERSION_KEY = "resort_data_version";
   const STORAGE_KEY = "resort_incidents_data";
   const LEGACY_STORAGE_KEY = "resort_incident_records_v2";
   const MASTER_STORAGE_KEY = "resort_incidents_master";
   const SYNC_TIME_KEY = "resort_incidents_last_sync";
 
+  const normalizeSeverity = ${normalizeSeverity.toString()};
   const parseIncidentRow = ${parseIncidentRow.toString()};
 
   function getTargetVersion() {
@@ -327,8 +369,9 @@ const initialIncidents = INITIAL_INCIDENTS;
           try {
             const masterList = JSON.parse(masterRaw);
             if (Array.isArray(masterList) && masterList.length > 0) {
+              masterList.forEach(r => { r.severity = normalizeSeverity(r.severity); });
               localStorage.setItem(VERSION_KEY, targetVer);
-              localStorage.setItem(STORAGE_KEY, masterRaw);
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(masterList));
               return masterList;
             }
           } catch (e) {
@@ -361,6 +404,7 @@ const initialIncidents = INITIAL_INCIDENTS;
         if (data) {
           const records = JSON.parse(data);
           if (Array.isArray(records) && records.length > 0) {
+            records.forEach(r => { r.severity = normalizeSeverity(r.severity); });
             return records;
           }
         }

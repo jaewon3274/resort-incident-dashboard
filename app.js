@@ -223,11 +223,11 @@ window.normalizeReportStatus = normalizeReportStatus;
 function getReportStatusBadge(status) {
   const norm = normalizeReportStatus(status);
   if (norm === '제출완료') {
-    return `<span class="badge badge-report-complete text-emerald-700 bg-emerald-50 border border-emerald-200" style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; color: #047857; background-color: #ecfdf5; border: 1px solid #a7f3d0;">제출완료</span>`;
+    return `<span class="badge badge-report-complete whitespace-nowrap text-emerald-700 bg-emerald-50 border border-emerald-200" style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; word-break: keep-all; color: #047857; background-color: #ecfdf5; border: 1px solid #a7f3d0;">제출완료</span>`;
   } else if (norm === '제출예정') {
-    return `<span class="badge badge-report-planned text-amber-700 bg-amber-50 border border-amber-200" style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; color: #b45309; background-color: #fffbeb; border: 1px solid #fde68a;">제출예정</span>`;
+    return `<span class="badge badge-report-planned whitespace-nowrap text-amber-700 bg-amber-50 border border-amber-200" style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; word-break: keep-all; color: #b45309; background-color: #fffbeb; border: 1px solid #fde68a;">제출예정</span>`;
   } else {
-    return `<span class="badge badge-report-none text-slate-600 bg-slate-100" style="font-size: 0.74rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; color: #475569; background-color: #f1f5f9; border: 1px solid #cbd5e1;">해당 없음</span>`;
+    return `<span class="badge badge-report-none whitespace-nowrap text-slate-600 bg-slate-100" style="font-size: 0.74rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 9999px; white-space: nowrap; word-break: keep-all; color: #475569; background-color: #f1f5f9; border: 1px solid #cbd5e1;">해당 없음</span>`;
   }
 }
 window.getReportStatusBadge = getReportStatusBadge;
@@ -2990,11 +2990,10 @@ function renderMedicalAnalysis() {
   let propCount = 0;
 
   allIncidents.forEach(item => {
-    const s = (item.severity || "").toLowerCase();
-    if (s.includes("경미") || s.includes("현장")) minorCount++;
-    else if (s.includes("중등") || s.includes("병원")) modCount++;
-    else if (s.includes("중대") || s.includes("이송") || s.includes("응급") || s.includes("119")) severeCount++;
-    else propCount++;
+    const s = normalizeSeverity(item.severity);
+    if (s === "외부이송") severeCount++;
+    else if (s === "단순 대물") propCount++;
+    else minorCount++;
   });
 
   const minorEl = document.getElementById("med-sev-minor");
@@ -3003,7 +3002,7 @@ function renderMedicalAnalysis() {
   const propEl = document.getElementById("med-sev-prop");
 
   if (minorEl) minorEl.innerText = `${minorCount}건`;
-  if (modEl) modEl.innerText = `${modCount}건`;
+  if (modEl) modEl.innerText = `0건`;
   if (severeEl) severeEl.innerText = `${severeCount}건`;
   if (propEl) propEl.innerText = `${propCount}건`;
 
@@ -3035,10 +3034,11 @@ function renderMedicalAnalysis() {
   }
 
   tbody.innerHTML = medicalItems.map(item => {
+    const normSev = normalizeSeverity(item.severity);
     let sevClass = "badge-severity-minor";
-    if (item.severity?.includes("중대")) sevClass = "badge-severity-severe";
-    else if (item.severity?.includes("중등")) sevClass = "badge-severity-moderate";
-    else if (item.severity?.includes("대물")) sevClass = "badge-severity-property";
+    if (normSev === "외부이송") sevClass = "badge-severity-major";
+    else if (normSev === "단순 대물") sevClass = "badge-severity-property";
+    else sevClass = "badge-severity-minor";
 
     return `
       <tr onclick="navigateToDetailFromSubModal('${escapeHtml(item.id)}')">
@@ -3053,7 +3053,7 @@ function renderMedicalAnalysis() {
           <span style="font-size:0.78rem; color:#475569; margin-left:0.25rem;">(${escapeHtml(item.victimName || '익명')})</span>
         </td>
         <td>
-          <span class="badge ${sevClass}">${escapeHtml(item.severity)}</span>
+          <span class="badge ${sevClass}">${escapeHtml(normSev)}</span>
         </td>
         <td>
           <div style="font-size:0.82rem; color:#334155;" class="title-cell" title="${escapeHtml(item.actionTaken)}">
@@ -3625,7 +3625,7 @@ function parseExcelRows(rawRows) {
     const occurDate = parsed.date || new Date().toISOString().slice(0, 10);
     const reportDateStr = occurDate.length >= 10 ? occurDate.slice(0, 10).replace(/\./g, '-') : `${parsed.year}-01-01`;
     const zone = inferZoneFromLocation(parsed.location, parsed.department, parsed.team);
-    const severity = inferSeverity(parsed.description, parsed.type);
+    const severity = inferSeverity(parsed.description, parsed.type, parsed.countermeasure, parsed.victimDetail);
 
     const item = {
       ...parsed,
@@ -3744,19 +3744,60 @@ if (typeof window !== "undefined") {
   window.inferZoneFromLocation = inferZoneFromLocation;
 }
 
-// Severity Inference
-function inferSeverity(desc, category) {
-  const text = `${desc} ${category}`.toLowerCase();
-  if (text.includes("119") || text.includes("응급실") || text.includes("구급차") || text.includes("골절") || text.includes("수술") || text.includes("봉합")) {
-    return "중대 (외부이송)";
-  }
-  if (text.includes("병원") || text.includes("의원") || text.includes("정형외과") || text.includes("깁스") || text.includes("염좌") || text.includes("엑스레이") || text.includes("x-ray")) {
-    return "중등 (병원진료)";
-  }
-  if (text.includes("파손") || text.includes("훼손") || text.includes("크랙") || text.includes("스크래치") || text.includes("스파크") || text.includes("휠")) {
+// Severity Normalization (3 Options: 현장처치, 외부이송, 단순 대물)
+function normalizeSeverity(rawSeverity) {
+  if (!rawSeverity) return "현장처치";
+  const s = String(rawSeverity).trim();
+  // 1. '단순 대물' 또는 '대물' 포함 -> '단순 대물'
+  if (s.includes("단순 대물") || s.includes("대물")) {
     return "단순 대물";
   }
-  return "경미 (현장처치)";
+  // 2. '중대 (외부이송)', '중등 (병원진료)', '외부이송', '병원진료' 포함 -> '외부이송'
+  if (s.includes("외부이송") || s.includes("병원진료") || s.includes("중대") || s.includes("중등") || s.includes("병원") || s.includes("이송") || s.includes("입원")) {
+    return "외부이송";
+  }
+  // 3. '경미 (현장처치)' 또는 '현장처치' 포함 -> '현장처치'
+  if (s.includes("현장처치") || s.includes("경미") || s.includes("현장")) {
+    return "현장처치";
+  }
+  return "현장처치";
+}
+if (typeof window !== "undefined") {
+  window.normalizeSeverity = normalizeSeverity;
+}
+
+// Severity Inference (Unified 3 categories: 단순 대물, 외부이송, 현장처치)
+function inferSeverity(desc, category, actionTaken, victimType) {
+  const d = String(desc || "");
+  const c = String(category || "");
+  const a = String(actionTaken || "");
+  const v = String(victimType || "");
+  const fullText = `${d} ${c} ${a}`.toLowerCase();
+
+  // 1. 대물/차량/시설 단독 사고(인명 피해 없음) 판단
+  const isPurePropertyType = /대물|클럽\s*파손|시설물|단순\s*대물/.test(c) ||
+    (c.includes("타구사고") && (c.includes("차량") || c.includes("카트")));
+  const isVehicleType = c.includes("차량사고") || c.includes("카트");
+  const hasHumanInjury = /골절|봉합|입원|119|구급차|응급실|병원|진료|부상|상해|통증|찰과|타박|환자|출혈|외상/.test(fullText);
+
+  // 2. 외부이송 키워드: 119, 구급차, 응급실, 이송, 후송, 병원, 진료, 골절, 봉합, 입원
+  const hasExternalTransferKeywords = /119|구급차|응급실|후송|병원|진료|골절|봉합|입원/.test(fullText) ||
+    (/(병원|환자|구급|응급).{0,5}이송/.test(fullText) || (fullText.includes("이송") && !fullText.includes("근무자 이송") && !fullText.includes("차량 이송")));
+
+  if (hasExternalTransferKeywords && (hasHumanInjury || !isPurePropertyType)) {
+    return "외부이송";
+  }
+
+  // 대물/차량/시설 단독 사고(인명 피해 없음) -> '단순 대물'
+  if (isPurePropertyType || (isVehicleType && !hasHumanInjury) || (!hasHumanInjury && /파손|도색|수리|스크래치|유리창|범퍼/.test(fullText) && !/고객|직원|캐디/.test(v))) {
+    return "단순 대물";
+  }
+
+  // 그 외 인명 사고(의무실 처치, 단순 타박/찰과상 등) -> '현장처치'
+  return "현장처치";
+}
+if (typeof window !== "undefined") {
+  window.inferSeverity = inferSeverity;
 }
 
 // Safe Numeric Parser
@@ -4063,7 +4104,7 @@ function populateEditForm(id) {
   document.getElementById("edit-zone").value = item.zone || "객실";
   document.getElementById("edit-location-detail").value = item.locationDetail || "";
   document.getElementById("edit-category").value = getIncidentCategory(item);
-  document.getElementById("edit-severity").value = item.severity;
+  document.getElementById("edit-severity").value = normalizeSeverity(item.severity);
   document.getElementById("edit-victim-type").value = item.victimType || "고객";
   document.getElementById("edit-victim-name").value = item.victimName || "";
   document.getElementById("edit-title").value = item.title;
@@ -4110,7 +4151,7 @@ function handleSaveEdit() {
   const zone = document.getElementById("edit-zone").value;
   const locationDetail = document.getElementById("edit-location-detail").value.trim();
   const category = document.getElementById("edit-category").value.trim();
-  const severity = document.getElementById("edit-severity").value;
+  const severity = normalizeSeverity(document.getElementById("edit-severity").value);
   const victimType = document.getElementById("edit-victim-type").value.trim();
   const victimName = document.getElementById("edit-victim-name").value.trim();
   const title = document.getElementById("edit-title").value.trim();
@@ -5603,9 +5644,11 @@ function renderTable(data = state.filteredIncidents) {
     if (item.status === "보험/보상진행") statusClass = "badge-status-insurance";
     if (item.status === "접수대기") statusClass = "badge-status-pending";
 
+    const normSev = normalizeSeverity(item.severity);
     let severityClass = "badge-severity-minor";
-    if (item.severity && (item.severity.includes("병원") || item.severity.includes("중등"))) severityClass = "badge-severity-moderate";
-    if (item.severity && (item.severity.includes("중상") || item.severity.includes("중대"))) severityClass = "badge-severity-major";
+    if (normSev === "외부이송") severityClass = "badge-severity-major";
+    else if (normSev === "단순 대물") severityClass = "badge-severity-property";
+    else severityClass = "badge-severity-minor";
 
     const vInfo = classifyVictim(item);
     const teamName = String(item.team || item['구분1'] || item.resort || "미분류").replace(/[\r\n]+/g, " ").trim();
@@ -5642,14 +5685,14 @@ function renderTable(data = state.filteredIncidents) {
         <td style="text-align: center; white-space: nowrap;">
           ${getReportStatusBadge(item.reportStatus || item.industrialAccidentReport || "해당 없음")}
         </td>
-        <td style="text-align: center;">
-          <span class="badge ${statusClass}">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;"></span>
+        <td class="whitespace-nowrap text-center" style="text-align: center; white-space: nowrap;">
+          <span class="badge ${statusClass} whitespace-nowrap" style="white-space: nowrap; word-break: keep-all; display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;"></span>
             ${escapeHtml(item.status)}
           </span>
         </td>
-        <td style="text-align: center;">
-          <button type="button" class="btn-table-del" title="사고 삭제" onclick="event.stopPropagation(); deleteIncident('${item.id}')">
+        <td class="table-manage-td whitespace-nowrap text-center" style="width: 80px; min-width: 80px; max-width: 80px; text-align: center; white-space: nowrap;">
+          <button type="button" class="btn-table-del whitespace-nowrap inline-flex items-center justify-center" title="사고 삭제" style="width: auto !important; min-width: 54px !important; white-space: nowrap !important; word-break: keep-all !important; writing-mode: horizontal-tb !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; padding: 4px 10px !important;" onclick="event.stopPropagation(); deleteIncident('${item.id}')">
             삭제
           </button>
         </td>
@@ -5659,6 +5702,7 @@ function renderTable(data = state.filteredIncidents) {
 
   window.updatePagination(state.currentPage, totalPages);
 }
+window.renderTable = renderTable;
 
 // Build Pagination with Page Windowing
 function buildPaginationButtons(current, total) {
@@ -5736,7 +5780,7 @@ function openIncidentDetail(id, originContext) {
   document.getElementById("dtl-location").innerText = `${item.zone} - ${item.locationDetail}`;
   document.getElementById("dtl-category").innerText = item.rawType || item['사고유형1'] || item.type || getIncidentCategory(item);
   document.getElementById("dtl-victim").innerText = `${item.victimType || '고객'} - ${item.victimName || '미상'}`;
-  document.getElementById("dtl-severity").innerText = item.severity;
+  document.getElementById("dtl-severity").innerText = normalizeSeverity(item.severity);
   document.getElementById("dtl-manager").innerText = item.manager || "-";
 
   const companyPaid = parseNumericCost(item.companyAmount !== undefined ? item.companyAmount : item.cost);
@@ -5894,7 +5938,7 @@ function handleRegisterSubmit(e) {
   const zone = document.getElementById("reg-zone").value;
   const locationDetail = document.getElementById("reg-location-detail").value.trim();
   const category = document.getElementById("reg-category").value.trim() || "기타";
-  const severity = document.getElementById("reg-severity").value;
+  const severity = normalizeSeverity(document.getElementById("reg-severity").value);
   const victimType = document.getElementById("reg-victim-type").value.trim() || "고객";
   const victimName = document.getElementById("reg-victim-name").value.trim() || "익명";
   const title = document.getElementById("reg-title").value.trim();
@@ -8585,6 +8629,9 @@ if (typeof module !== "undefined" && module.exports) {
     parseIncidentRow,
     normalizeReportStatus,
     getReportStatusBadge,
+    normalizeSeverity,
+    inferSeverity,
+    renderTable,
     renderHotspotChart,
     setHotspotSubTabTeam,
     toggleHotspotSubtabsAccordion,

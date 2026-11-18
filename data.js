@@ -48,7 +48,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-02",
     "timeline": [
@@ -108,7 +108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-06",
     "timeline": [
@@ -168,7 +168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-15",
     "timeline": [
@@ -228,7 +228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-13",
     "timeline": [
@@ -288,7 +288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-13",
     "timeline": [
@@ -348,7 +348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-16",
     "timeline": [
@@ -408,7 +408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-15",
     "timeline": [
@@ -468,7 +468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2022-12-17",
     "timeline": [
@@ -528,7 +528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-17",
     "timeline": [
@@ -588,7 +588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2022-12-20",
     "timeline": [
@@ -648,7 +648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-18",
     "timeline": [
@@ -708,7 +708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-02",
     "timeline": [
@@ -768,7 +768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-04",
     "timeline": [
@@ -828,7 +828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-30",
     "timeline": [
@@ -888,7 +888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-23",
     "timeline": [
@@ -948,7 +948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-10",
     "timeline": [
@@ -1008,7 +1008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-09",
     "timeline": [
@@ -1068,7 +1068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-28",
     "timeline": [
@@ -1128,7 +1128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-11",
     "timeline": [
@@ -1188,7 +1188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "아이파크콘도",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-26",
     "timeline": [
@@ -1248,7 +1248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-19",
     "timeline": [
@@ -1308,7 +1308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-11",
     "timeline": [
@@ -1368,7 +1368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-15",
     "timeline": [
@@ -1428,7 +1428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-23",
     "timeline": [
@@ -1488,7 +1488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-25",
     "timeline": [
@@ -1548,7 +1548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-05",
     "timeline": [
@@ -1608,7 +1608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-06",
     "timeline": [
@@ -1668,7 +1668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-24",
     "timeline": [
@@ -1728,7 +1728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-18",
     "timeline": [
@@ -1788,7 +1788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-13",
     "timeline": [
@@ -1848,7 +1848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-18",
     "timeline": [
@@ -1908,7 +1908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-23",
     "timeline": [
@@ -1968,7 +1968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-24",
     "timeline": [
@@ -2028,7 +2028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-03-31",
     "timeline": [
@@ -2088,7 +2088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-03",
     "timeline": [
@@ -2148,7 +2148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-01",
     "timeline": [
@@ -2208,7 +2208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-04",
     "timeline": [
@@ -2268,7 +2268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "지관사업소",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-07",
     "timeline": [
@@ -2328,7 +2328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-09",
     "timeline": [
@@ -2388,7 +2388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-14",
     "timeline": [
@@ -2448,7 +2448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-14",
     "timeline": [
@@ -2508,7 +2508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-15",
     "timeline": [
@@ -2568,7 +2568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-20",
     "timeline": [
@@ -2628,7 +2628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-23",
     "timeline": [
@@ -2688,7 +2688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-22",
     "timeline": [
@@ -2748,7 +2748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-24",
     "timeline": [
@@ -2808,7 +2808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-24",
     "timeline": [
@@ -2868,7 +2868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-26",
     "timeline": [
@@ -2928,7 +2928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-21",
     "timeline": [
@@ -2988,7 +2988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-28",
     "timeline": [
@@ -3048,7 +3048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-30",
     "timeline": [
@@ -3108,7 +3108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-30",
     "timeline": [
@@ -3168,7 +3168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-30",
     "timeline": [
@@ -3228,7 +3228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-12",
     "timeline": [
@@ -3288,7 +3288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-14",
     "timeline": [
@@ -3348,7 +3348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-15",
     "timeline": [
@@ -3408,7 +3408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-19",
     "timeline": [
@@ -3468,7 +3468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-20",
     "timeline": [
@@ -3528,7 +3528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-20",
     "timeline": [
@@ -3588,7 +3588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-23",
     "timeline": [
@@ -3648,7 +3648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-22",
     "timeline": [
@@ -3708,7 +3708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-25",
     "timeline": [
@@ -3768,7 +3768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-31",
     "timeline": [
@@ -3828,7 +3828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-31",
     "timeline": [
@@ -3888,7 +3888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-04",
     "timeline": [
@@ -3948,7 +3948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-05",
     "timeline": [
@@ -4008,7 +4008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-10",
     "timeline": [
@@ -4068,7 +4068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-10",
     "timeline": [
@@ -4128,7 +4128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-10",
     "timeline": [
@@ -4188,7 +4188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-11",
     "timeline": [
@@ -4248,7 +4248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-15",
     "timeline": [
@@ -4308,7 +4308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-04",
     "timeline": [
@@ -4368,7 +4368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-13",
     "timeline": [
@@ -4428,7 +4428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-20",
     "timeline": [
@@ -4488,7 +4488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-16",
     "timeline": [
@@ -4548,7 +4548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-06-24",
     "timeline": [
@@ -4608,7 +4608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-01",
     "timeline": [
@@ -4668,7 +4668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-05",
     "timeline": [
@@ -4728,7 +4728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-06",
     "timeline": [
@@ -4788,7 +4788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-08",
     "timeline": [
@@ -4848,7 +4848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-04",
     "timeline": [
@@ -4908,7 +4908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-15",
     "timeline": [
@@ -4968,7 +4968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-16",
     "timeline": [
@@ -5028,7 +5028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-20",
     "timeline": [
@@ -5088,7 +5088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-21",
     "timeline": [
@@ -5148,7 +5148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-21",
     "timeline": [
@@ -5208,7 +5208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-23",
     "timeline": [
@@ -5268,7 +5268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-23",
     "timeline": [
@@ -5328,7 +5328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-22",
     "timeline": [
@@ -5388,7 +5388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-29",
     "timeline": [
@@ -5448,7 +5448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-04",
     "timeline": [
@@ -5508,7 +5508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-04",
     "timeline": [
@@ -5568,7 +5568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-05",
     "timeline": [
@@ -5628,7 +5628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-07",
     "timeline": [
@@ -5688,7 +5688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-07",
     "timeline": [
@@ -5748,7 +5748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-10",
     "timeline": [
@@ -5808,7 +5808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-11",
     "timeline": [
@@ -5868,7 +5868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-13",
     "timeline": [
@@ -5928,7 +5928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-13",
     "timeline": [
@@ -5988,7 +5988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-14",
     "timeline": [
@@ -6048,7 +6048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-15",
     "timeline": [
@@ -6108,7 +6108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-15",
     "timeline": [
@@ -6168,7 +6168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-20",
     "timeline": [
@@ -6228,7 +6228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-21",
     "timeline": [
@@ -6288,7 +6288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-20",
     "timeline": [
@@ -6348,7 +6348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-20",
     "timeline": [
@@ -6408,7 +6408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-09",
     "timeline": [
@@ -6468,7 +6468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-20",
     "timeline": [
@@ -6528,7 +6528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-27",
     "timeline": [
@@ -6588,7 +6588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-27",
     "timeline": [
@@ -6648,7 +6648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-25",
     "timeline": [
@@ -6708,7 +6708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-07-28",
     "timeline": [
@@ -6768,7 +6768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-01",
     "timeline": [
@@ -6828,7 +6828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-02",
     "timeline": [
@@ -6888,7 +6888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-03",
     "timeline": [
@@ -6948,7 +6948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-03",
     "timeline": [
@@ -7008,7 +7008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-02",
     "timeline": [
@@ -7068,7 +7068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-08-04",
     "timeline": [
@@ -7128,7 +7128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-07",
     "timeline": [
@@ -7188,7 +7188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-09",
     "timeline": [
@@ -7248,7 +7248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-08",
     "timeline": [
@@ -7308,7 +7308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-10",
     "timeline": [
@@ -7368,7 +7368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-12",
     "timeline": [
@@ -7428,7 +7428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-12",
     "timeline": [
@@ -7488,7 +7488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-02",
     "timeline": [
@@ -7548,7 +7548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-22",
     "timeline": [
@@ -7608,7 +7608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-22",
     "timeline": [
@@ -7668,7 +7668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-24",
     "timeline": [
@@ -7728,7 +7728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-25",
     "timeline": [
@@ -7788,7 +7788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-28",
     "timeline": [
@@ -7848,7 +7848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-08",
     "timeline": [
@@ -7908,7 +7908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-04",
     "timeline": [
@@ -7968,7 +7968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-10",
     "timeline": [
@@ -8028,7 +8028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-05",
     "timeline": [
@@ -8088,7 +8088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-13",
     "timeline": [
@@ -8148,7 +8148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-14",
     "timeline": [
@@ -8208,7 +8208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-08",
     "timeline": [
@@ -8268,7 +8268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-16",
     "timeline": [
@@ -8328,7 +8328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-18",
     "timeline": [
@@ -8388,7 +8388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-19",
     "timeline": [
@@ -8448,7 +8448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-21",
     "timeline": [
@@ -8508,7 +8508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-23",
     "timeline": [
@@ -8568,7 +8568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-31",
     "timeline": [
@@ -8628,7 +8628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-02",
     "timeline": [
@@ -8688,7 +8688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-03",
     "timeline": [
@@ -8748,7 +8748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "202311-07\r",
     "timeline": [
@@ -8808,7 +8808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-07",
     "timeline": [
@@ -8868,7 +8868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-02",
     "timeline": [
@@ -8928,7 +8928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-11",
     "timeline": [
@@ -8988,7 +8988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-18",
     "timeline": [
@@ -9048,7 +9048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-18",
     "timeline": [
@@ -9108,7 +9108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-18",
     "timeline": [
@@ -9168,7 +9168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-28",
     "timeline": [
@@ -9228,7 +9228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-28",
     "timeline": [
@@ -9288,7 +9288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-11-28",
     "timeline": [
@@ -9348,7 +9348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-10-22",
     "timeline": [
@@ -9408,7 +9408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-12-11",
     "timeline": [
@@ -9468,7 +9468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "기타",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-12-18",
     "timeline": [
@@ -9528,7 +9528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-12-27",
     "timeline": [
@@ -9588,7 +9588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-12-23",
     "timeline": [
@@ -9648,7 +9648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-19",
     "timeline": [
@@ -9708,7 +9708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-01-16",
     "timeline": [
@@ -9768,7 +9768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-02-05",
     "timeline": [
@@ -9828,7 +9828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-24",
     "timeline": [
@@ -9888,7 +9888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-03",
     "timeline": [
@@ -9948,7 +9948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-30",
     "timeline": [
@@ -10008,7 +10008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-04-30",
     "timeline": [
@@ -10068,7 +10068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-08",
     "timeline": [
@@ -10128,7 +10128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-10",
     "timeline": [
@@ -10188,7 +10188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-05-13",
     "timeline": [
@@ -10248,7 +10248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-09-28",
     "timeline": [
@@ -10308,7 +10308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-12-30",
     "timeline": [
@@ -10368,7 +10368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-12-31",
     "timeline": [
@@ -10428,7 +10428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-07",
     "timeline": [
@@ -10488,7 +10488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-07",
     "timeline": [
@@ -10548,7 +10548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "아이파크콘도",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-14",
     "timeline": [
@@ -10608,7 +10608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-20",
     "timeline": [
@@ -10668,7 +10668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-22",
     "timeline": [
@@ -10728,7 +10728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-24",
     "timeline": [
@@ -10788,7 +10788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-31",
     "timeline": [
@@ -10848,7 +10848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-02-02",
     "timeline": [
@@ -10908,7 +10908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "객실",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-02-09",
     "timeline": [
@@ -10968,7 +10968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-02-12",
     "timeline": [
@@ -11028,7 +11028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-02-11",
     "timeline": [
@@ -11088,7 +11088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-13",
     "timeline": [
@@ -11148,7 +11148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-02-27",
     "timeline": [
@@ -11208,7 +11208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-13",
     "timeline": [
@@ -11268,7 +11268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "아이파크콘도",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-02-22",
     "timeline": [
@@ -11328,7 +11328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-10",
     "timeline": [
@@ -11388,7 +11388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-13",
     "timeline": [
@@ -11448,7 +11448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2023-12-10",
     "timeline": [
@@ -11508,7 +11508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-14",
     "timeline": [
@@ -11568,7 +11568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-30",
     "timeline": [
@@ -11628,7 +11628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-24",
     "timeline": [
@@ -11688,7 +11688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-26",
     "timeline": [
@@ -11748,7 +11748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-01",
     "timeline": [
@@ -11808,7 +11808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-02",
     "timeline": [
@@ -11868,7 +11868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-04",
     "timeline": [
@@ -11928,7 +11928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-04",
     "timeline": [
@@ -11988,7 +11988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-05",
     "timeline": [
@@ -12048,7 +12048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-21",
     "timeline": [
@@ -12108,7 +12108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-31",
     "timeline": [
@@ -12168,7 +12168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-01",
     "timeline": [
@@ -12228,7 +12228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-07",
     "timeline": [
@@ -12288,7 +12288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-06",
     "timeline": [
@@ -12348,7 +12348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-10",
     "timeline": [
@@ -12408,7 +12408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-11",
     "timeline": [
@@ -12468,7 +12468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-13",
     "timeline": [
@@ -12528,7 +12528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-13",
     "timeline": [
@@ -12588,7 +12588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-14",
     "timeline": [
@@ -12648,7 +12648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-15",
     "timeline": [
@@ -12708,7 +12708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-11",
     "timeline": [
@@ -12768,7 +12768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-11",
     "timeline": [
@@ -12828,7 +12828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-23",
     "timeline": [
@@ -12888,7 +12888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-26",
     "timeline": [
@@ -12948,7 +12948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-23",
     "timeline": [
@@ -13008,7 +13008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-03",
     "timeline": [
@@ -13068,7 +13068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-05",
     "timeline": [
@@ -13128,7 +13128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-09",
     "timeline": [
@@ -13188,7 +13188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-14",
     "timeline": [
@@ -13248,7 +13248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-15",
     "timeline": [
@@ -13308,7 +13308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-16",
     "timeline": [
@@ -13368,7 +13368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-15",
     "timeline": [
@@ -13428,7 +13428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-24",
     "timeline": [
@@ -13488,7 +13488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-22",
     "timeline": [
@@ -13548,7 +13548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-25",
     "timeline": [
@@ -13608,7 +13608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-25",
     "timeline": [
@@ -13668,7 +13668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-27",
     "timeline": [
@@ -13728,7 +13728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-27",
     "timeline": [
@@ -13788,7 +13788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-27",
     "timeline": [
@@ -13848,7 +13848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-27",
     "timeline": [
@@ -13908,7 +13908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-31",
     "timeline": [
@@ -13968,7 +13968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-28",
     "timeline": [
@@ -14028,7 +14028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-01",
     "timeline": [
@@ -14088,7 +14088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-13",
     "timeline": [
@@ -14148,7 +14148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-09",
     "timeline": [
@@ -14208,7 +14208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-11",
     "timeline": [
@@ -14268,7 +14268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-15",
     "timeline": [
@@ -14328,7 +14328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-16",
     "timeline": [
@@ -14388,7 +14388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-16",
     "timeline": [
@@ -14448,7 +14448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-17",
     "timeline": [
@@ -14508,7 +14508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "기숙사",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-23",
     "timeline": [
@@ -14568,7 +14568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-25",
     "timeline": [
@@ -14628,7 +14628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-23",
     "timeline": [
@@ -14688,7 +14688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-26",
     "timeline": [
@@ -14748,7 +14748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-01",
     "timeline": [
@@ -14808,7 +14808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-21",
     "timeline": [
@@ -14868,7 +14868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-01",
     "timeline": [
@@ -14928,7 +14928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-05",
     "timeline": [
@@ -14988,7 +14988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-04",
     "timeline": [
@@ -15048,7 +15048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-08",
     "timeline": [
@@ -15108,7 +15108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-10",
     "timeline": [
@@ -15168,7 +15168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-13",
     "timeline": [
@@ -15228,7 +15228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-13",
     "timeline": [
@@ -15288,7 +15288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-14",
     "timeline": [
@@ -15348,7 +15348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-16",
     "timeline": [
@@ -15408,7 +15408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-25",
     "timeline": [
@@ -15468,7 +15468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-29",
     "timeline": [
@@ -15528,7 +15528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-09-29",
     "timeline": [
@@ -15588,7 +15588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-02",
     "timeline": [
@@ -15648,7 +15648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-01",
     "timeline": [
@@ -15708,7 +15708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-02",
     "timeline": [
@@ -15768,7 +15768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-03",
     "timeline": [
@@ -15828,7 +15828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-02",
     "timeline": [
@@ -15888,7 +15888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-06",
     "timeline": [
@@ -15948,7 +15948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-05",
     "timeline": [
@@ -16008,7 +16008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-11",
     "timeline": [
@@ -16068,7 +16068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-12",
     "timeline": [
@@ -16128,7 +16128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-09",
     "timeline": [
@@ -16188,7 +16188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-19",
     "timeline": [
@@ -16248,7 +16248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-24",
     "timeline": [
@@ -16308,7 +16308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-26",
     "timeline": [
@@ -16368,7 +16368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-26",
     "timeline": [
@@ -16428,7 +16428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-27",
     "timeline": [
@@ -16488,7 +16488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-29",
     "timeline": [
@@ -16548,7 +16548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-27",
     "timeline": [
@@ -16608,7 +16608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-29",
     "timeline": [
@@ -16668,7 +16668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-01",
     "timeline": [
@@ -16728,7 +16728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-02",
     "timeline": [
@@ -16788,7 +16788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-02",
     "timeline": [
@@ -16848,7 +16848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-11",
     "timeline": [
@@ -16908,7 +16908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-13",
     "timeline": [
@@ -16968,7 +16968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-13",
     "timeline": [
@@ -17028,7 +17028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-18",
     "timeline": [
@@ -17088,7 +17088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-21",
     "timeline": [
@@ -17148,7 +17148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-11-07",
     "timeline": [
@@ -17208,7 +17208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "당사 과실 일부",
     "reportDate": "2024-12-10",
     "timeline": [
@@ -17268,7 +17268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-12-24",
     "timeline": [
@@ -17328,7 +17328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-12-03",
     "timeline": [
@@ -17388,7 +17388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "부대/영업시설",
-    "severity": "중대 (입원/중상)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-02-24",
     "timeline": [
@@ -17448,7 +17448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-08-09",
     "timeline": [
@@ -17508,7 +17508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-26",
     "timeline": [
@@ -17568,7 +17568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-26",
     "timeline": [
@@ -17628,7 +17628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-03-27",
     "timeline": [
@@ -17688,7 +17688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-06",
     "timeline": [
@@ -17748,7 +17748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-12",
     "timeline": [
@@ -17808,7 +17808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-16",
     "timeline": [
@@ -17868,7 +17868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-19",
     "timeline": [
@@ -17928,7 +17928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-23",
     "timeline": [
@@ -17988,7 +17988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-01-01",
     "timeline": [
@@ -18048,7 +18048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-04-26",
     "timeline": [
@@ -18108,7 +18108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-03",
     "timeline": [
@@ -18168,7 +18168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-13",
     "timeline": [
@@ -18228,7 +18228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-18",
     "timeline": [
@@ -18288,7 +18288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-23",
     "timeline": [
@@ -18348,7 +18348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-05-28",
     "timeline": [
@@ -18408,7 +18408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-06-09",
     "timeline": [
@@ -18468,7 +18468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-03",
     "timeline": [
@@ -18528,7 +18528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-02",
     "timeline": [
@@ -18588,7 +18588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-10-24",
     "timeline": [
@@ -18648,7 +18648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-08",
     "timeline": [
@@ -18708,7 +18708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-07",
     "timeline": [
@@ -18768,7 +18768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-17",
     "timeline": [
@@ -18828,7 +18828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-22",
     "timeline": [
@@ -18888,7 +18888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-12-27",
     "timeline": [
@@ -18948,7 +18948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-16",
     "timeline": [
@@ -19008,7 +19008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-03",
     "timeline": [
@@ -19068,7 +19068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-29",
     "timeline": [
@@ -19128,7 +19128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-03",
     "timeline": [
@@ -19188,7 +19188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-25",
     "timeline": [
@@ -19248,7 +19248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-26",
     "timeline": [
@@ -19308,7 +19308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-07",
     "timeline": [
@@ -19368,7 +19368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-12",
     "timeline": [
@@ -19428,7 +19428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-22",
     "timeline": [
@@ -19488,7 +19488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-22",
     "timeline": [
@@ -19548,7 +19548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-07",
     "timeline": [
@@ -19608,7 +19608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-02-27",
     "timeline": [
@@ -19668,7 +19668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-01",
     "timeline": [
@@ -19728,7 +19728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-15",
     "timeline": [
@@ -19788,7 +19788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-22",
     "timeline": [
@@ -19848,7 +19848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-22",
     "timeline": [
@@ -19908,7 +19908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-14",
     "timeline": [
@@ -19968,7 +19968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-21",
     "timeline": [
@@ -20028,7 +20028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-28",
     "timeline": [
@@ -20088,7 +20088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-02",
     "timeline": [
@@ -20148,7 +20148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-07",
     "timeline": [
@@ -20208,7 +20208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-06",
     "timeline": [
@@ -20268,7 +20268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-11",
     "timeline": [
@@ -20328,7 +20328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-03-31",
     "timeline": [
@@ -20388,7 +20388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-15",
     "timeline": [
@@ -20448,7 +20448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-10",
     "timeline": [
@@ -20508,7 +20508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-21",
     "timeline": [
@@ -20568,7 +20568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-21",
     "timeline": [
@@ -20628,7 +20628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-21",
     "timeline": [
@@ -20688,7 +20688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-27",
     "timeline": [
@@ -20748,7 +20748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-30",
     "timeline": [
@@ -20808,7 +20808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-30",
     "timeline": [
@@ -20868,7 +20868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-05",
     "timeline": [
@@ -20928,7 +20928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-05",
     "timeline": [
@@ -20988,7 +20988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-05",
     "timeline": [
@@ -21048,7 +21048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-21",
     "timeline": [
@@ -21108,7 +21108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-11",
     "timeline": [
@@ -21168,7 +21168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-25",
     "timeline": [
@@ -21228,7 +21228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-07",
     "timeline": [
@@ -21288,7 +21288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-14",
     "timeline": [
@@ -21348,7 +21348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-16",
     "timeline": [
@@ -21408,7 +21408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-16",
     "timeline": [
@@ -21468,7 +21468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-04-26",
     "timeline": [
@@ -21528,7 +21528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-16",
     "timeline": [
@@ -21588,7 +21588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-18",
     "timeline": [
@@ -21648,7 +21648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "단지내",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-22",
     "timeline": [
@@ -21708,7 +21708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-24",
     "timeline": [
@@ -21768,7 +21768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-26",
     "timeline": [
@@ -21828,7 +21828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-31",
     "timeline": [
@@ -21888,7 +21888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-05-31",
     "timeline": [
@@ -21948,7 +21948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-04",
     "timeline": [
@@ -22008,7 +22008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-06",
     "timeline": [
@@ -22068,7 +22068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-04",
     "timeline": [
@@ -22128,7 +22128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-06",
     "timeline": [
@@ -22188,7 +22188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-09",
     "timeline": [
@@ -22248,7 +22248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-13",
     "timeline": [
@@ -22308,7 +22308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-01",
     "timeline": [
@@ -22368,7 +22368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-21",
     "timeline": [
@@ -22428,7 +22428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-25",
     "timeline": [
@@ -22488,7 +22488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-25",
     "timeline": [
@@ -22548,7 +22548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-01",
     "timeline": [
@@ -22608,7 +22608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-28",
     "timeline": [
@@ -22668,7 +22668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-06-29",
     "timeline": [
@@ -22728,7 +22728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-01",
     "timeline": [
@@ -22788,7 +22788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-04",
     "timeline": [
@@ -22848,7 +22848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-04",
     "timeline": [
@@ -22908,7 +22908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-05",
     "timeline": [
@@ -22968,7 +22968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-05",
     "timeline": [
@@ -23028,7 +23028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-01-01",
     "timeline": [
@@ -23088,7 +23088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-12",
     "timeline": [
@@ -23148,7 +23148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-12",
     "timeline": [
@@ -23208,7 +23208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-08",
     "timeline": [
@@ -23268,7 +23268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-12",
     "timeline": [
@@ -23328,7 +23328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-18",
     "timeline": [
@@ -23388,7 +23388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-19",
     "timeline": [
@@ -23448,7 +23448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-23",
     "timeline": [
@@ -23508,7 +23508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2024-07-24",
     "timeline": [
@@ -23568,7 +23568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-19",
     "timeline": [
@@ -23628,7 +23628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-25",
     "timeline": [
@@ -23688,7 +23688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-26",
     "timeline": [
@@ -23748,7 +23748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-24",
     "timeline": [
@@ -23808,7 +23808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-26",
     "timeline": [
@@ -23868,7 +23868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-07-29",
     "timeline": [
@@ -23928,7 +23928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-01",
     "timeline": [
@@ -23988,7 +23988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-07",
     "timeline": [
@@ -24048,7 +24048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-09",
     "timeline": [
@@ -24108,7 +24108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-09",
     "timeline": [
@@ -24168,7 +24168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-09",
     "timeline": [
@@ -24228,7 +24228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "지관사업소",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-13",
     "timeline": [
@@ -24288,7 +24288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-14",
     "timeline": [
@@ -24348,7 +24348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-18",
     "timeline": [
@@ -24408,7 +24408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-21",
     "timeline": [
@@ -24468,7 +24468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-21",
     "timeline": [
@@ -24528,7 +24528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-23",
     "timeline": [
@@ -24588,7 +24588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-24",
     "timeline": [
@@ -24648,7 +24648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "군도변",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-26",
     "timeline": [
@@ -24708,7 +24708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "군도변",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-15",
     "timeline": [
@@ -24768,7 +24768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-18",
     "timeline": [
@@ -24828,7 +24828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-27",
     "timeline": [
@@ -24888,7 +24888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-28",
     "timeline": [
@@ -24948,7 +24948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-30",
     "timeline": [
@@ -25008,7 +25008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-08-31",
     "timeline": [
@@ -25068,7 +25068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-03",
     "timeline": [
@@ -25128,7 +25128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-06",
     "timeline": [
@@ -25188,7 +25188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스/월송리사업소",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-17",
     "timeline": [
@@ -25248,7 +25248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-12",
     "timeline": [
@@ -25308,7 +25308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-22",
     "timeline": [
@@ -25368,7 +25368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-22",
     "timeline": [
@@ -25428,7 +25428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-21",
     "timeline": [
@@ -25488,7 +25488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-09-26",
     "timeline": [
@@ -25548,7 +25548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-03",
     "timeline": [
@@ -25608,7 +25608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-16",
     "timeline": [
@@ -25668,7 +25668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-17",
     "timeline": [
@@ -25728,7 +25728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "잠실진주",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-16",
     "timeline": [
@@ -25788,7 +25788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-20",
     "timeline": [
@@ -25848,7 +25848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-22",
     "timeline": [
@@ -25908,7 +25908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-28",
     "timeline": [
@@ -25968,7 +25968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-29",
     "timeline": [
@@ -26028,7 +26028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-26",
     "timeline": [
@@ -26088,7 +26088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-29",
     "timeline": [
@@ -26148,7 +26148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-01",
     "timeline": [
@@ -26208,7 +26208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-30",
     "timeline": [
@@ -26268,7 +26268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-10-30",
     "timeline": [
@@ -26328,7 +26328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-04",
     "timeline": [
@@ -26388,7 +26388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-03",
     "timeline": [
@@ -26448,7 +26448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-02",
     "timeline": [
@@ -26508,7 +26508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-11",
     "timeline": [
@@ -26568,7 +26568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-15",
     "timeline": [
@@ -26628,7 +26628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-16",
     "timeline": [
@@ -26688,7 +26688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-17",
     "timeline": [
@@ -26748,7 +26748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-09",
     "timeline": [
@@ -26808,7 +26808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-24",
     "timeline": [
@@ -26868,7 +26868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-24",
     "timeline": [
@@ -26928,7 +26928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-19",
     "timeline": [
@@ -26988,7 +26988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-18",
     "timeline": [
@@ -27048,7 +27048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-18",
     "timeline": [
@@ -27108,7 +27108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-29",
     "timeline": [
@@ -27168,7 +27168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "중등 (병원진료)",
+    "severity": "외부이송",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-11-14",
     "timeline": [
@@ -27228,7 +27228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-12-03",
     "timeline": [
@@ -27288,7 +27288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-12-21",
     "timeline": [
@@ -27348,7 +27348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-12-18",
     "timeline": [
@@ -27408,7 +27408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-12-23",
     "timeline": [
@@ -27468,7 +27468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2025-12-25",
     "timeline": [
@@ -27528,7 +27528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-05",
     "timeline": [
@@ -27588,7 +27588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-10",
     "timeline": [
@@ -27648,7 +27648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-10",
     "timeline": [
@@ -27708,7 +27708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-11",
     "timeline": [
@@ -27768,7 +27768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-15",
     "timeline": [
@@ -27828,7 +27828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-20",
     "timeline": [
@@ -27888,7 +27888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-19",
     "timeline": [
@@ -27948,7 +27948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "당사 과실 일부",
     "reportDate": "2025-12-16",
     "timeline": [
@@ -28008,7 +28008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-01",
     "timeline": [
@@ -28068,7 +28068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-02",
     "timeline": [
@@ -28128,7 +28128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-01-28",
     "timeline": [
@@ -28188,7 +28188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-07",
     "timeline": [
@@ -28248,7 +28248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-10",
     "timeline": [
@@ -28308,7 +28308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-15",
     "timeline": [
@@ -28368,7 +28368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "스키장",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-15",
     "timeline": [
@@ -28428,7 +28428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-22",
     "timeline": [
@@ -28488,7 +28488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-20",
     "timeline": [
@@ -28548,7 +28548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-03-05",
     "timeline": [
@@ -28608,7 +28608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-02-28",
     "timeline": [
@@ -28668,7 +28668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-03-17",
     "timeline": [
@@ -28728,7 +28728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-03-16",
     "timeline": [
@@ -28788,7 +28788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-03-22",
     "timeline": [
@@ -28848,7 +28848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-03-22",
     "timeline": [
@@ -28908,7 +28908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-01",
     "timeline": [
@@ -28968,7 +28968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-02",
     "timeline": [
@@ -29028,7 +29028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-04",
     "timeline": [
@@ -29088,7 +29088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-13",
     "timeline": [
@@ -29148,7 +29148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-16",
     "timeline": [
@@ -29208,7 +29208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-20",
     "timeline": [
@@ -29268,7 +29268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-03-21",
     "timeline": [
@@ -29328,7 +29328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-25",
     "timeline": [
@@ -29388,7 +29388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-04-27",
     "timeline": [
@@ -29448,7 +29448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-06",
     "timeline": [
@@ -29508,7 +29508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-05",
     "timeline": [
@@ -29568,7 +29568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-10",
     "timeline": [
@@ -29628,7 +29628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-09",
     "timeline": [
@@ -29688,7 +29688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-16",
     "timeline": [
@@ -29748,7 +29748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-17",
     "timeline": [
@@ -29808,7 +29808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-17",
     "timeline": [
@@ -29868,7 +29868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-17",
     "timeline": [
@@ -29928,7 +29928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-16",
     "timeline": [
@@ -29988,7 +29988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-13",
     "timeline": [
@@ -30048,7 +30048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-10",
     "timeline": [
@@ -30108,7 +30108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-05-25",
     "timeline": [
@@ -30168,7 +30168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-06-03",
     "timeline": [
@@ -30228,7 +30228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-06-03",
     "timeline": [
@@ -30288,7 +30288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-06-09",
     "timeline": [
@@ -30348,7 +30348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-06-10",
     "timeline": [
@@ -30408,7 +30408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-06-13",
     "timeline": [
@@ -30468,7 +30468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "월송리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-06-15",
     "timeline": [
@@ -30528,7 +30528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-06-17",
     "timeline": [
@@ -30588,7 +30588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-04",
     "timeline": [
@@ -30648,7 +30648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "레저팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-05",
     "timeline": [
@@ -30708,7 +30708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-05",
     "timeline": [
@@ -30768,7 +30768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬 시설팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-07",
     "timeline": [
@@ -30828,7 +30828,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-11",
     "timeline": [
@@ -30888,7 +30888,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-10",
     "timeline": [
@@ -30948,7 +30948,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-11",
     "timeline": [
@@ -31008,7 +31008,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "레저팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-18",
     "timeline": [
@@ -31068,7 +31068,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "레저팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-19",
     "timeline": [
@@ -31128,7 +31128,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "레저팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-19",
     "timeline": [
@@ -31188,7 +31188,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-19",
     "timeline": [
@@ -31248,7 +31248,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-17",
     "timeline": [
@@ -31308,7 +31308,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-26",
     "timeline": [
@@ -31368,7 +31368,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "레저팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-07-31",
     "timeline": [
@@ -31428,7 +31428,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-05",
     "timeline": [
@@ -31488,7 +31488,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-09",
     "timeline": [
@@ -31548,7 +31548,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "레저팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-13",
     "timeline": [
@@ -31608,7 +31608,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-14",
     "timeline": [
@@ -31668,7 +31668,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-15",
     "timeline": [
@@ -31728,7 +31728,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-18",
     "timeline": [
@@ -31788,7 +31788,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-15",
     "timeline": [
@@ -31848,7 +31848,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "CS팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-20",
     "timeline": [
@@ -31908,7 +31908,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "CS팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-20",
     "timeline": [
@@ -31968,7 +31968,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-20",
     "timeline": [
@@ -32028,7 +32028,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-22",
     "timeline": [
@@ -32088,7 +32088,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "당사 과실 일부",
     "reportDate": "2026-08-17",
     "timeline": [
@@ -32148,7 +32148,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-12",
     "timeline": [
@@ -32208,7 +32208,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "김해도시계획시설",
     "zone": "기타 부대시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-25",
     "timeline": [
@@ -32268,7 +32268,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-26",
     "timeline": [
@@ -32328,7 +32328,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "레저팀",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-04",
     "timeline": [
@@ -32388,7 +32388,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-05",
     "timeline": [
@@ -32448,7 +32448,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "당사 과실 일부",
     "reportDate": "2026-09-11",
     "timeline": [
@@ -32508,7 +32508,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-08-29",
     "timeline": [
@@ -32568,7 +32568,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "당사 과실 일부",
     "reportDate": "2026-09-13",
     "timeline": [
@@ -32628,7 +32628,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-11",
     "timeline": [
@@ -32688,7 +32688,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-15",
     "timeline": [
@@ -32748,7 +32748,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "군도변",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-17",
     "timeline": [
@@ -32808,7 +32808,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-02",
     "timeline": [
@@ -32868,7 +32868,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-20",
     "timeline": [
@@ -32928,7 +32928,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "힐스빌리지",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-21",
     "timeline": [
@@ -32988,7 +32988,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-21",
     "timeline": [
@@ -33048,7 +33048,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "주차장/도로",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-19",
     "timeline": [
@@ -33108,7 +33108,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "파크로쉬",
     "zone": "레저/야외시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-21",
     "timeline": [
@@ -33168,7 +33168,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리CC",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-19",
     "timeline": [
@@ -33228,7 +33228,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리CC",
     "zone": "부대/영업시설",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-22",
     "timeline": [
@@ -33288,7 +33288,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-09-24",
     "timeline": [
@@ -33348,7 +33348,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "당사 과실 일부",
     "reportDate": "2026-10-09",
     "timeline": [
@@ -33408,7 +33408,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-10-10",
     "timeline": [
@@ -33468,7 +33468,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-10-17",
     "timeline": [
@@ -33528,7 +33528,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-10-17",
     "timeline": [
@@ -33588,7 +33588,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-10-18",
     "timeline": [
@@ -33648,7 +33648,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-10-17",
     "timeline": [
@@ -33708,7 +33708,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "성문안팀",
     "zone": "골프 코스",
-    "severity": "경미 (현장조치)",
+    "severity": "단순 대물",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-10-31",
     "timeline": [
@@ -33768,7 +33768,7 @@ const INITIAL_INCIDENTS = [
     "actionTaken": "초동 조치 완료 및 현장 확인",
     "manager": "밸리빌리지",
     "zone": "콘도/객실",
-    "severity": "경미 (현장조치)",
+    "severity": "현장처치",
     "faultRatio": "과실 미산정",
     "reportDate": "2026-10-31",
     "timeline": [
@@ -33791,13 +33791,30 @@ const INITIAL_INCIDENTS = [
 const initialIncidents = INITIAL_INCIDENTS;
 
 (function() {
-  const DEFAULT_VERSION = "20261104_vCHART_ZONE_FIX";
+  const DEFAULT_VERSION = "20261118_vSEVERITY3";
   const VERSION_KEY = "resort_data_version";
   const STORAGE_KEY = "resort_incidents_data";
   const LEGACY_STORAGE_KEY = "resort_incident_records_v2";
   const MASTER_STORAGE_KEY = "resort_incidents_master";
   const SYNC_TIME_KEY = "resort_incidents_last_sync";
 
+  const normalizeSeverity = function normalizeSeverity(rawSeverity) {
+  if (!rawSeverity) return "현장처치";
+  const s = String(rawSeverity).trim();
+  // '단순 대물' 또는 '대물' 포함 -> '단순 대물'
+  if (s.includes("단순 대물") || s.includes("대물")) {
+    return "단순 대물";
+  }
+  // '중대 (외부이송)', '중등 (병원진료)', '외부이송', '병원진료' 포함 -> '외부이송'
+  if (s.includes("외부이송") || s.includes("병원진료") || s.includes("중대") || s.includes("중등") || s.includes("병원") || s.includes("이송") || s.includes("입원")) {
+    return "외부이송";
+  }
+  // '경미 (현장처치)' 또는 '현장처치' 포함 -> '현장처치'
+  if (s.includes("현장처치") || s.includes("경미") || s.includes("현장")) {
+    return "현장처치";
+  }
+  return "현장처치";
+};
   const parseIncidentRow = (row, index) => {
   // 1. 사고유형 필드 매핑: '사고유형1' 우선 탐색 및 줄바꿈/공백 제거 정제
   const rawType = row['사고유형1'] || row['사고유형'] || row['사고 유형'] || row['유형'] || '기타';
@@ -33917,8 +33934,9 @@ const initialIncidents = INITIAL_INCIDENTS;
           try {
             const masterList = JSON.parse(masterRaw);
             if (Array.isArray(masterList) && masterList.length > 0) {
+              masterList.forEach(r => { r.severity = normalizeSeverity(r.severity); });
               localStorage.setItem(VERSION_KEY, targetVer);
-              localStorage.setItem(STORAGE_KEY, masterRaw);
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(masterList));
               return masterList;
             }
           } catch (e) {
@@ -33951,6 +33969,7 @@ const initialIncidents = INITIAL_INCIDENTS;
         if (data) {
           const records = JSON.parse(data);
           if (Array.isArray(records) && records.length > 0) {
+            records.forEach(r => { r.severity = normalizeSeverity(r.severity); });
             return records;
           }
         }

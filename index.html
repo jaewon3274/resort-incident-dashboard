@@ -13,7 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20261118_sev3">
 </head>
 <body>
 
@@ -422,6 +422,19 @@
 
       <div class="table-responsive">
         <table class="incident-table" id="incident-table">
+          <colgroup>
+            <col style="width: 50px;">
+            <col style="width: 155px;">
+            <col style="width: 135px;">
+            <col style="width: 140px;">
+            <col style="width: 105px;">
+            <col style="width: 160px;">
+            <col style="width: 105px;">
+            <col style="width: auto;">
+            <col style="width: 110px;">
+            <col style="width: 105px;">
+            <col style="width: 80px; min-width: 80px; max-width: 80px;">
+          </colgroup>
           <thead>
             <tr>
               <th scope="col" style="text-align: center; width: 50px;">No.</th>
@@ -437,12 +450,12 @@
               <th scope="col" style="width: 105px;">사고유형</th>
               <th scope="col">사고제목</th>
               <th scope="col" style="width: 110px; text-align: center; white-space: nowrap;">산재조사표</th>
-              <th scope="col" style="width: 105px; text-align: center;">처리상태</th>
-              <th scope="col" style="text-align: center; width: 75px;">관리</th>
+              <th scope="col" class="whitespace-nowrap text-center" style="width: 105px; text-align: center; white-space: nowrap;">처리상태</th>
+              <th scope="col" class="table-manage-th whitespace-nowrap text-center" style="width: 80px; min-width: 80px; max-width: 80px; text-align: center; white-space: nowrap;">관리</th>
             </tr>
           </thead>
           <tbody id="incident-table-body">
-            <!-- Dynamic Injection via app.js -->
+            <!-- Dynamic Injection via app.js?v=20261116_fix -->
           </tbody>
         </table>
       </div>
@@ -1040,7 +1053,7 @@
               <span id="trend-top-resorts-subtitle" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;">항목 클릭 시 세부 내역 표출</span>
             </div>
             <div id="trend-top-resorts" class="space-y-2">
-              <!-- Dynamically populated via app.js -->
+              <!-- Dynamically populated via app.js?v=20261116_fix -->
             </div>
           </div>
 
@@ -1053,14 +1066,14 @@
               <span id="trend-top-categories-subtitle" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;">항목 클릭 시 세부 내역 표출</span>
             </div>
             <div id="trend-top-categories" class="space-y-2">
-              <!-- Dynamically populated via app.js -->
+              <!-- Dynamically populated via app.js?v=20261116_fix -->
             </div>
           </div>
         </div>
 
         <!-- 하단 동적 상세 정보 패널 (클릭 시 전개) -->
         <div id="trend-detail-panel" style="display: none; margin-top: 1rem;">
-          <!-- Dynamically populated via app.js -->
+          <!-- Dynamically populated via app.js?v=20261116_fix -->
         </div>
       </div>
       <div class="modal-footer">
@@ -1175,20 +1188,20 @@
             <div class="modal-stat-card-title">🩺 부상 심각도 단계별 건수</div>
             <div class="severity-stat-grid">
               <div class="sev-stat-box minor">
-                <span class="sev-name">경미 (현장처치)</span>
+                <span class="sev-name">현장처치</span>
                 <span class="sev-val" id="med-sev-minor">0건</span>
               </div>
-              <div class="sev-stat-box moderate">
-                <span class="sev-name">중등 (병원진료)</span>
-                <span class="sev-val" id="med-sev-mod">0건</span>
-              </div>
               <div class="sev-stat-box severe">
-                <span class="sev-name">중대 (외부이송/응급)</span>
+                <span class="sev-name">외부이송 (병원/119)</span>
                 <span class="sev-val" id="med-sev-severe">0건</span>
               </div>
               <div class="sev-stat-box property">
-                <span class="sev-name">단순 대물/기타</span>
+                <span class="sev-name">단순 대물</span>
                 <span class="sev-val" id="med-sev-prop">0건</span>
+              </div>
+              <div class="sev-stat-box moderate" style="display: none;">
+                <span class="sev-name">기타</span>
+                <span class="sev-val" id="med-sev-mod">0건</span>
               </div>
             </div>
           </div>
@@ -1294,7 +1307,7 @@
               </tr>
             </thead>
             <tbody id="cost-table-body" class="divide-y divide-slate-100 text-sm">
-              <!-- Dynamically populated via app.js -->
+              <!-- Dynamically populated via app.js?v=20261116_fix -->
             </tbody>
           </table>
         </div>
@@ -1374,11 +1387,11 @@
                 <th scope="col">사고제목</th>
                 <th scope="col" style="width: 105px; text-align: center; white-space: nowrap;">산재조사표</th>
                 <th scope="col" style="width: 95px; text-align: center; white-space: nowrap;">처리상태</th>
-                <th scope="col" style="text-align: center; width: 70px; white-space: nowrap;">관리</th>
+                <th scope="col" class="table-manage-th whitespace-nowrap text-center" style="width: 80px; min-width: 80px; max-width: 80px; text-align: center; white-space: nowrap;">관리</th>
               </tr>
             </thead>
             <tbody id="yoy-drilldown-tbody">
-              <!-- Dynamically populated via app.js -->
+              <!-- Dynamically populated via app.js?v=20261116_fix -->
             </tbody>
           </table>
         </div>
@@ -1478,11 +1491,11 @@
                 <th scope="col">사고제목</th>
                 <th scope="col" style="width: 95px; text-align: center;">산재조사표</th>
                 <th scope="col" style="width: 95px; text-align: center;">처리상태</th>
-                <th scope="col" style="text-align: center; width: 70px;">관리</th>
+                <th scope="col" class="table-manage-th whitespace-nowrap text-center" style="width: 80px; min-width: 80px; max-width: 80px; text-align: center; white-space: nowrap;">관리</th>
               </tr>
             </thead>
             <tbody id="kpi-drilldown-tbody">
-              <!-- Dynamically populated via app.js -->
+              <!-- Dynamically populated via app.js?v=20261116_fix -->
             </tbody>
           </table>
         </div>
@@ -1642,14 +1655,14 @@
               <span id="dtl-attachment-count" style="font-size: 0.8rem; color: #64748b; font-weight: 600;">0건</span>
             </div>
             <div id="dtl-attachment-list" class="attachment-list-view">
-              <!-- Dynamically populated via app.js -->
+              <!-- Dynamically populated via app.js?v=20261116_fix -->
             </div>
           </div>
 
           <div class="detail-section">
             <h4>⏱️ 대응 타임라인</h4>
             <div class="timeline-list" id="dtl-timeline">
-              <!-- Injected by app.js -->
+              <!-- Injected by app.js?v=20261116_fix -->
             </div>
           </div>
         </div>
@@ -1728,9 +1741,8 @@
               <div class="form-group">
                 <label for="edit-severity">피해 심각도 <span class="required">*</span></label>
                 <select id="edit-severity" class="form-select" required>
-                  <option value="경미 (현장처치)">경미 (현장처치)</option>
-                  <option value="중등 (병원진료)">중등 (병원진료)</option>
-                  <option value="중대 (외부이송)">중대 (외부이송)</option>
+                  <option value="현장처치">현장처치</option>
+                  <option value="외부이송">외부이송</option>
                   <option value="단순 대물">단순 대물</option>
                 </select>
               </div>
@@ -1993,9 +2005,8 @@
             <div class="form-group">
               <label for="reg-severity">피해 심각도 <span class="required">*</span></label>
               <select id="reg-severity" class="form-select" required>
-                <option value="경미 (현장처치)">경미 (현장처치)</option>
-                <option value="중등 (병원진료)">중등 (병원진료)</option>
-                <option value="중대 (외부이송)">중대 (외부이송)</option>
+                <option value="현장처치">현장처치</option>
+                <option value="외부이송">외부이송</option>
                 <option value="단순 대물">단순 대물</option>
               </select>
             </div>
@@ -2368,7 +2379,7 @@
       </div>
 
       <div class="modal-body file-preview-body" id="filePreviewBody" style="padding: 1rem; min-height: 420px; max-height: 75vh; overflow: auto; display: flex; align-items: center; justify-content: center; background: #f8fafc;">
-        <!-- Dynamic Preview Content via app.js -->
+        <!-- Dynamic Preview Content via app.js?v=20261116_fix -->
       </div>
 
       <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.25rem;">
@@ -2389,7 +2400,7 @@
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <!-- Custom Scripts -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="data.js?v=20261118_sev3"></script>
+  <script src="app.js?v=20261118_sev3"></script>
 </body>
 </html>
